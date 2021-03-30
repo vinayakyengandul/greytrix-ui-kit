@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greytrix_ui_kit/src/models/rails.dart';
+import '../models/rails.dart';
 import 'gt_icon.dart';
 import 'gt_text.dart';
 

@@ -11,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.17.0
+  flutter_typeahead: ^2.0.0
+  charts_flutter: ^0.10.0  
 
 dev_dependencies:
   flutter_test:
@@ -21,6 +24,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - lib/assets/images/
 
   # To add assets to your package, add an assets section, like this:
   # assets:

@@ -34,6 +34,7 @@ class GtTileField {
     this.fieldTextColor,
     this.fieldTextBackgroundColor,
     this.navigationNode,
+    this.textStyle,
 
     /// ADDED FOR LOOKUP FORM FIELD
     this.lookupAddNodeKey,
@@ -60,6 +61,7 @@ class GtTileField {
   final TextformatType webTextFormatType;
   final TextformatType mobileTextFormatType;
   final TextformatType keyTextFormatType;
+  final TextStyle textStyle;
   final TextOverflow textOverFlow;
   final int flex;
   final int mobileFlex;
