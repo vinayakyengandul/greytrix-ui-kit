@@ -5,7 +5,7 @@ class GtUserMenuBar extends StatelessWidget {
       {this.userImage,
       this.greetingText,
       this.greetingTextStyle,
-      this.userName,
+      @required this.userName,
       this.userNameTextStyle,
       this.iconWidgets});
 
@@ -13,7 +13,7 @@ class GtUserMenuBar extends StatelessWidget {
   final String greetingText;
   final TextStyle greetingTextStyle;
   final String userName;
-  final String userNameTextStyle;
+  final TextStyle userNameTextStyle;
   final List<Widget> iconWidgets;
 
   @override
@@ -22,7 +22,10 @@ class GtUserMenuBar extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundImage: userImage == null
-              ? AssetImage("assets/images/profile.png")
+              ? AssetImage(
+                  "assets/images/profile.png",
+                  package: 'greytrix_ui_kit',
+                )
               : userImage,
           radius: 25.0,
           backgroundColor: Colors.transparent,
@@ -35,10 +38,12 @@ class GtUserMenuBar extends StatelessWidget {
             children: [
               TextSpan(
                 text: greetingText != null ? "$greetingText,\n" : "Hello,\n",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Color.fromRGBO(152, 156, 173, 1),
-                ),
+                style: greetingTextStyle == null
+                    ? TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromRGBO(152, 156, 173, 1),
+                      )
+                    : greetingTextStyle,
               ),
               TextSpan(
                 text: "$userName",
