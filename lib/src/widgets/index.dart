@@ -12,3 +12,4 @@ export 'no_list_found.dart';
 export 'gt_charts_barchart.dart';
 export 'gt_autocomplete_form_field.dart';
 export 'coming_soon.dart';
+export 'gt_bottom_bar.dart';
