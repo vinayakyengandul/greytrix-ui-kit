@@ -14,3 +14,4 @@ export 'gt_autocomplete_form_field.dart';
 export 'coming_soon.dart';
 export 'gt_bottom_bar.dart';
 export 'gt_user_menu_bar.dart';
+export 'page_not_found.dart';
