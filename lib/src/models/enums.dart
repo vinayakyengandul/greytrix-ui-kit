@@ -86,6 +86,7 @@ enum ControllerType {
   LIST,
   FORM,
 }
+
 /// ADDED FOR HANDLING NULL VALUES BASED ON DATA TYPE
 enum GtDataType { DOUBLE, STRING, INT }
 
@@ -94,3 +95,5 @@ enum GtListInputType { GRAPHQL, HTTP, STATIC }
 
 /// ADDED FOR LISTVIEW DATE FORMATE TYPE
 enum GtTileDateFormat { DDMMYYYY, DDMMYYYY_HHMM }
+
+enum ButtonType { PRIMARY, PLAIN }
