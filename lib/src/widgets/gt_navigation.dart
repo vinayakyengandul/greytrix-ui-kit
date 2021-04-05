@@ -17,7 +17,7 @@ class GtAppSideBar extends StatelessWidget {
     this.selectedRowColor = Colors.blueGrey,
     this.selectedRowDarkColor = Colors.grey,
     this.iconColor = Colors.black,
-    this.leadingIcon = Icons.home,
+    this.leadingWidget,
     this.backGroundColor = Colors.white,
     this.width = 60.0,
   }) : assert(listApps != null),
