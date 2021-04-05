@@ -40,7 +40,7 @@ class GtAppSideBar extends StatelessWidget {
   final Widget leadingWidget;
   final Color backGroundColor;
   final double width;
-  final Widget railTextWidget;
+  final Function(dynamic obj) railTextWidget;
 
 
   @override
