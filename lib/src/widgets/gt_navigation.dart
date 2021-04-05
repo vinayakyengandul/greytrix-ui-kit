@@ -20,6 +20,7 @@ class GtAppSideBar extends StatelessWidget {
     this.leadingWidget,
     this.backGroundColor = Colors.white,
     this.width = 60.0,
+    this.railTextWidget,
   }) : assert(listApps != null),
       assert(isItemSelected != null),
       assert(toolTipMessageField != null),
@@ -39,6 +40,7 @@ class GtAppSideBar extends StatelessWidget {
   final Widget leadingWidget;
   final Color backGroundColor;
   final double width;
+  final Widget railTextWidget;
 
 
   @override
@@ -69,11 +71,16 @@ class GtAppSideBar extends StatelessWidget {
                           child: InkWell(
                             hoverColor: navigationBackGroundColor,
                             onTap: () => {if(onTapHandler != null) onTapHandler(listApps[index])},
-                            child : CircleAvatar(
-                              backgroundColor: isItemSelected(listApps[index])
-                                  ? selectedRowColor
-                                  : navigationBackGroundColor,
-                                child: getAvatarWidgetContent(listApps[index])
+                            child : Column(
+                              children: [
+                                  CircleAvatar(
+                                  backgroundColor: isItemSelected(listApps[index])
+                                      ? selectedRowColor
+                                      : navigationBackGroundColor,
+                                    child: getAvatarWidgetContent(listApps[index])
+                                 ),
+                                if(railTextWidget != null) railTextWidget,
+                               ]
                             ),
                           )
                         ),
