@@ -79,7 +79,7 @@ class GtAppSideBar extends StatelessWidget {
                                       : navigationBackGroundColor,
                                     child: getAvatarWidgetContent(listApps[index])
                                  ),
-                                if(railTextWidget != null) railTextWidget,
+                                if(railTextWidget != null) railTextWidget(listApps[index]),
                                ]
                             ),
                           )
