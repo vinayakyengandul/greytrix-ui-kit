@@ -36,7 +36,7 @@ class GtAppSideBar extends StatelessWidget {
   final Function(dynamic obj) isItemSelected;
   final Function(dynamic obj) getAvatarWidgetContent;
   final Function(dynamic obj) toolTipMessageField;
-  final IconData leadingIcon;
+  final Widget leadingWidget;
   final Color backGroundColor;
   final double width;
 
@@ -50,13 +50,10 @@ class GtAppSideBar extends StatelessWidget {
       padding: EdgeInsets.only(right: 10,left: 10),
       child: Column(
         children: [
-          Padding(
+         leadingWidget != null ?Padding(
             padding: EdgeInsets.only(top: 15,bottom: 15),
-            child: CircleAvatar(
-                backgroundColor: iconColor,
-                child: GtIcon(icondata: leadingIcon,color: navigationBackGroundColor,),
-            ),
-          ),
+            child: leadingWidget,
+          ): Container(),
           Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
