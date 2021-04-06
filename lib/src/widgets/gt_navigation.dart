@@ -17,9 +17,10 @@ class GtAppSideBar extends StatelessWidget {
     this.selectedRowColor = Colors.blueGrey,
     this.selectedRowDarkColor = Colors.grey,
     this.iconColor = Colors.black,
-    this.leadingIcon = Icons.home,
+    this.leadingWidget,
     this.backGroundColor = Colors.white,
     this.width = 60.0,
+    this.railTextWidget,
   }) : assert(listApps != null),
       assert(isItemSelected != null),
       assert(toolTipMessageField != null),
@@ -36,9 +37,10 @@ class GtAppSideBar extends StatelessWidget {
   final Function(dynamic obj) isItemSelected;
   final Function(dynamic obj) getAvatarWidgetContent;
   final Function(dynamic obj) toolTipMessageField;
-  final IconData leadingIcon;
+  final Widget leadingWidget;
   final Color backGroundColor;
   final double width;
+  final Function(dynamic obj) railTextWidget;
 
 
   @override
@@ -50,13 +52,10 @@ class GtAppSideBar extends StatelessWidget {
       padding: EdgeInsets.only(right: 10,left: 10),
       child: Column(
         children: [
-          Padding(
+         leadingWidget != null ?Padding(
             padding: EdgeInsets.only(top: 15,bottom: 15),
-            child: CircleAvatar(
-                backgroundColor: selectedRowColor,
-                child: GtIcon(icondata: leadingIcon,color: navigationBackGroundColor,),
-            ),
-          ),
+            child: leadingWidget,
+          ): Container(),
           Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
@@ -72,11 +71,16 @@ class GtAppSideBar extends StatelessWidget {
                           child: InkWell(
                             hoverColor: navigationBackGroundColor,
                             onTap: () => {if(onTapHandler != null) onTapHandler(listApps[index])},
-                            child : CircleAvatar(
-                              backgroundColor: isItemSelected(listApps[index])
-                                  ? selectedRowColor
-                                  : navigationBackGroundColor,
-                                child: getAvatarWidgetContent(listApps[index])
+                            child : Column(
+                              children: [
+                                  CircleAvatar(
+                                  backgroundColor: isItemSelected(listApps[index])
+                                      ? selectedRowColor
+                                      : navigationBackGroundColor,
+                                    child: getAvatarWidgetContent(listApps[index])
+                                 ),
+                                if(railTextWidget != null) railTextWidget(listApps[index]),
+                               ]
                             ),
                           )
                         ),
