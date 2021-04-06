@@ -55,6 +55,8 @@ enum GtFieldType {
   DATE,
 }
 
+enum GtCartFieldType { STRING, TITLE, IMAGE, AMOUNT }
+
 enum GtValueType { STRING, LIST }
 
 enum ViewType { both, list, card }

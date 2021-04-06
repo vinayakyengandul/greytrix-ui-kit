@@ -15,3 +15,7 @@ export 'coming_soon.dart';
 export 'gt_bottom_bar.dart';
 export 'gt_user_menu_bar.dart';
 export 'page_not_found.dart';
+export 'gt_cart_item.dart';
+export 'gt_cart.dart';
+export 'gt_image_card.dart';
+export 'gt_cart_quantity.dart';
