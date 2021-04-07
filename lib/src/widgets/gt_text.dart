@@ -17,7 +17,7 @@ class GtText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      text != null ? text : "",
       style: textStyle == null ? TextStyle(fontFamily: fontFamily) : textStyle,
       overflow: textOverflow,
     );

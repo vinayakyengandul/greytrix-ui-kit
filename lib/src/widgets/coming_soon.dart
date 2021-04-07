@@ -14,7 +14,7 @@ class GtComingSoon extends StatelessWidget {
               child: Image(
             image: AssetImage(
               'assets/images/day67-dog-removebg.png',
-              package: 'core',
+              package: 'greytrix_ui_kit',
             ),
           )),
           Padding(

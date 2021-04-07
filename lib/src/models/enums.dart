@@ -53,7 +53,10 @@ enum GtFieldType {
   IMAGE,
   STATUS,
   DATE,
+  QUANTITY,
 }
+
+enum GtCartFieldType { STRING, TITLE, IMAGE, AMOUNT }
 
 enum GtValueType { STRING, LIST }
 
@@ -86,6 +89,7 @@ enum ControllerType {
   LIST,
   FORM,
 }
+
 /// ADDED FOR HANDLING NULL VALUES BASED ON DATA TYPE
 enum GtDataType { DOUBLE, STRING, INT }
 
@@ -94,3 +98,5 @@ enum GtListInputType { GRAPHQL, HTTP, STATIC }
 
 /// ADDED FOR LISTVIEW DATE FORMATE TYPE
 enum GtTileDateFormat { DDMMYYYY, DDMMYYYY_HHMM }
+
+enum ButtonType { PRIMARY, PLAIN }

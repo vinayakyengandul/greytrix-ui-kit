@@ -120,7 +120,7 @@ class GtListPageGeneric extends StatelessWidget {
                             child: Image(
                               image: AssetImage(
                                 'assets/images/no_image_available.png',
-                                package: 'core',
+                                package: 'greytrix_ui_kit',
                               ),
                             ),
                           )
@@ -134,7 +134,7 @@ class GtListPageGeneric extends StatelessWidget {
                                 return Image(
                                   image: AssetImage(
                                     'assets/images/no_image_available.png',
-                                    package: 'core',
+                                    package: 'greytrix_ui_kit',
                                   ),
                                 );
                               },
