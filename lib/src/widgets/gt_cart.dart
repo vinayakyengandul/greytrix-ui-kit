@@ -15,17 +15,20 @@ class GtCartDetails extends StatelessWidget {
   final int quantityInitialValue;
   final String footertitle;
   final String footerAmount;
+  final Function checkallitem;
 
-  GtCartDetails(
-      {this.cartTitle,
-      @required this.items,
-      @required this.itemJsonMap,
-      this.onDeletehandler,
-      this.incrementHandler,
-      this.decrementHandler,
-      this.quantityInitialValue,
-      this.footerAmount,
-      this.footertitle});
+  GtCartDetails({
+    this.cartTitle,
+    @required this.items,
+    @required this.itemJsonMap,
+    this.onDeletehandler,
+    this.incrementHandler,
+    this.decrementHandler,
+    this.quantityInitialValue,
+    this.footerAmount,
+    this.footertitle,
+    this.checkallitem,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,33 +55,33 @@ class GtCartDetails extends StatelessWidget {
           ),
           Expanded(
               child: Container(
-            child: GtListPageGeneric(
-              toMapjson: itemJsonMap,
-              backNavigation: false,
-              listItems: items,
-              title: GtText(text: 'Cart'),
-              viewtype: ViewType.list,
-              isListView: true,
-              trailingIcon: GtIcon(
-                icondata: Icons.close,
-              ),
-            ),
+            child:
+                // GtListPageGeneric(
+                //   rowsCount: 2,
+                //   toMapjson: itemJsonMap,
+                //   backNavigation: false,
+                //   listItems: items,
+                //   title: GtText(text: 'Cart'),
+                //   viewtype: ViewType.list,
+                //   isListView: true,
+                //   trailingIcon: GtIcon(
+                //     icondata: Icons.close,
+                //   ),
+                // ),
 
-            // ListView.builder(
-            //     scrollDirection: Axis.vertical,
-            //     shrinkWrap: true,
-            //     itemCount: items.length,
-            //     itemBuilder: (context, index) {
-            //       return
-
-            //       GtCartItem(
-            //         item: items[index],
-            //         itemJsonMap: itemJsonMap,
-            //         decrementHandler: decrementHandler,
-            //         incrementHandler: incrementHandler,
-            //         initialValue: quantityInitialValue,
-            //       );
-            //     }),
+                ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return GtCartItem(
+                        item: items[index],
+                        itemJsonMap: itemJsonMap,
+                        decrementHandler: decrementHandler,
+                        incrementHandler: incrementHandler,
+                        initialValue: quantityInitialValue,
+                      );
+                    }),
           )),
           Padding(
             padding: EdgeInsets.all(5.00),

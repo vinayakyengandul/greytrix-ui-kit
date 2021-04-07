@@ -53,6 +53,7 @@ enum GtFieldType {
   IMAGE,
   STATUS,
   DATE,
+  QUANTITY,
 }
 
 enum GtCartFieldType { STRING, TITLE, IMAGE, AMOUNT }
