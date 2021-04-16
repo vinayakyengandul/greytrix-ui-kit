@@ -5,8 +5,8 @@ class GTGoogleMap extends StatelessWidget {
   GTGoogleMap({
     this.mapType = MapType.normal,
     @required this.initialLocation,
-    this.circle,
-    this.marker,
+    this.circles = const <Circle>{},
+    this.markers = const <Marker>{},
     this.onMapCreated,
     this.compassEnabled = true,
     this.mapToolbarEnabled = true,
@@ -46,8 +46,8 @@ class GTGoogleMap extends StatelessWidget {
     return GoogleMap(
       mapType: mapType,
       initialCameraPosition: initialLocation,
-      markers: Set.of((marker != null) ? [marker] : []),
-      circles: Set.of((circle != null) ? [circle] : []),
+      markers: markers,
+      circles: circles,
       onMapCreated: onMapCreated,
       compassEnabled: compassEnabled,
       mapToolbarEnabled: mapToolbarEnabled,
