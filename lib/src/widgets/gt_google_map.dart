@@ -25,8 +25,8 @@ class GTGoogleMap extends StatelessWidget {
 
   final MapType mapType;
   final CameraPosition initialLocation;
-  final Set<Marker> marker;
-  final Set<Circle> circle;
+  final Set<Marker> markers;
+  final Set<Circle> circles;
   final MapCreatedCallback onMapCreated;
   final bool compassEnabled;
   final bool mapToolbarEnabled;
