@@ -69,7 +69,7 @@ class GtListPageGeneric extends StatelessWidget {
 
   ///TOGGLES BETWEEN THE LIST AND GRID VIEW
   final Function toggleListGridView;
-  final Function(bool isSelected, dynamic item, {GtTileField getTileField}) onSelectionHandler;
+  final Function(bool isSelected, dynamic item) onSelectionHandler;
   final Function(dynamic item, String path) onDetailsNavigateHandler;
   final CrossAxisAlignment gtTileRowCrossAxisAlignment;
   final MainAxisAlignment gtTileRowMainAxisAlignment;
