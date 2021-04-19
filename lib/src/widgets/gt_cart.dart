@@ -10,8 +10,8 @@ class GtCartDetails extends StatelessWidget {
   final List<dynamic> items;
   final Map<String, dynamic> itemJsonMap;
   final Function onDeletehandler;
-  final Function incrementHandler;
-  final Function decrementHandler;
+  final Function(int index) incrementHandler;
+  final Function(int index) decrementHandler;
   final int quantityInitialValue;
   final String footertitle;
   final String footerAmount;
@@ -53,36 +53,25 @@ class GtCartDetails extends StatelessWidget {
                   fontSize: 25),
             ),
           ),
-          Expanded(
-              child: Container(
-            child:
-                // GtListPageGeneric(
-                //   rowsCount: 2,
-                //   toMapjson: itemJsonMap,
-                //   backNavigation: false,
-                //   listItems: items,
-                //   title: GtText(text: 'Cart'),
-                //   viewtype: ViewType.list,
-                //   isListView: true,
-                //   trailingIcon: GtIcon(
-                //     icondata: Icons.close,
-                //   ),
-                // ),
-
-                ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      return GtCartItem(
-                        item: items[index],
-                        itemJsonMap: itemJsonMap,
-                        decrementHandler: decrementHandler,
-                        incrementHandler: incrementHandler,
-                        initialValue: quantityInitialValue,
-                      );
-                    }),
-          )),
+          items != null && items.length > 0
+              ? Expanded(
+                  child: Container(
+                  child: GtListPageGeneric(
+                      rowsCount: 1,
+                      toMapjson: itemJsonMap,
+                      backNavigation: false,
+                      listItems: items,
+                      title: GtText(text: 'Cart'),
+                      viewtype: ViewType.list,
+                      isListView: true,
+                      quantityInitialValue: quantityInitialValue,
+                      incrementHandler: incrementHandler,
+                      decrementHandler: decrementHandler,
+                      trailingIcon: Icon(Icons.close),
+                      onDeleteHandler: onDeletehandler,
+                      size: size),
+                ))
+              : Expanded(child: GtNoListFound()),
           Padding(
             padding: EdgeInsets.all(5.00),
             child: Card(

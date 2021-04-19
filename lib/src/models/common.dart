@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import './gt_tile_field.dart';
-import '../widgets/gt_text.dart';
-import '..//widgets/gt_chip.dart';
 import '../models/enums.dart';
+import '../widgets/index.dart';
 
 class Common {
   ///FUNCTION TO RETRIEVE THE VALUE FROM THE MAP BASED ON PATH
@@ -86,6 +85,9 @@ class Common {
     Function navigationHandler, {
     GtValueType gtValueType = GtValueType.STRING,
     bool isMobileScreen = false,
+    int quantityInitialValue,
+    Function incrementHandler,
+    Function decrementHandler,
   }) {
     bool isMobilePortrait = isMobileScreen;
 
@@ -198,6 +200,25 @@ class Common {
         );
         break;
 
+      case GtFieldType.QUANTITY:
+        return Expanded(
+          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GtCartQuantity(
+                  initialValue: value,
+                  decrementHandler: decrementHandler,
+                  incrementHandler: incrementHandler,
+                )
+              ],
+            ),
+          ),
+        );
+        break;
+
       case GtFieldType.PHONE:
         return Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
@@ -254,6 +275,7 @@ class Common {
                 (e) => {
                   _chipsList.add(
                     GTChip(
+                      shapeBorder: gtTileField.chipFieldShape,
                       backgroundColor: gtTileField.fieldTextBackgroundColor,
                       label: '${e[gtTileField.listFieldValuePath]}',
                       // textFormatType: gtTileField.keyTextFormatType,
@@ -281,6 +303,7 @@ class Common {
             ///PREPARING THE STRING TYPE WIDGET
             _widgetList.add(
               GTChip(
+                shapeBorder: gtTileField.chipFieldShape,
                 backgroundColor: gtTileField.fieldTextBackgroundColor,
                 label: '$value',
                 // textFormatType: gtTileField.keyTextFormatType,
@@ -331,10 +354,11 @@ class Common {
                   ),
                 value != ""
                     ? PhysicalModel(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                         color: gtTileField.statusField[value],
                         elevation: 5.0,
                         child: Padding(
-                          padding: EdgeInsets.all(2.0),
+                           padding: EdgeInsets.only(left: 8,right: 8,bottom: 4,top: 4),
                           child: GtText(
                             text: '$value',
                             textStyle: TextStyle(

@@ -19,3 +19,7 @@ export 'gt_cart_item.dart';
 export 'gt_cart.dart';
 export 'gt_image_card.dart';
 export 'gt_cart_quantity.dart';
+export 'gt_app_bar.dart';
+export 'gt_google_map.dart';
+export 'gt_tab.dart';
+export 'gt_tab_button.dart';
