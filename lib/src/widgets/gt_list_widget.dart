@@ -46,6 +46,7 @@ class GtListPageGeneric extends StatelessWidget {
     this.decrementHandler,
     this.size,
     this.entity,
+    this.isleadingIconPosition = true,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -95,6 +96,7 @@ class GtListPageGeneric extends StatelessWidget {
   final Function(int index,) decrementHandler;
   final Function(String key, dynamic object) onDeleteHandler;
   final String entity;
+  final bool isleadingIconPosition;
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
     return selectAllcheckbox != null
@@ -293,21 +295,21 @@ class GtListPageGeneric extends StatelessWidget {
                       ),
                     ),
                     // screen.isPhone
-                    SizeConfig.isMobilePortrait
-                        ? Padding(
-                            padding: const EdgeInsets.all(0.5),
-                            child: IconButton(
-                              onPressed: () {
-                                if (showStats != null) showStats();
-                              },
-                              icon: Icon(Icons.arrow_drop_down),
-                            ),
-                          )
-                        : SizedBox(
-                            height: 1.0,
-                          ),
+                    // SizeConfig.isMobilePortrait
+                    //     ? Padding(
+                    //         padding: const EdgeInsets.all(0.5),
+                    //         child: IconButton(
+                    //           onPressed: () {
+                    //             if (showStats != null) showStats();
+                    //           },
+                    //           icon: Icon(Icons.arrow_drop_down),
+                    //         ),
+                    //       )
+                    //     : SizedBox(
+                    //         height: 1.0,
+                    //       ),
                     // screen.isPhone
-                    SizeConfig.isMobilePortrait
+                    size.width > 450
                         ? PopupMenuButton(
                             color: Colors.white,
                             offset: Offset(0, 100),
@@ -393,12 +395,10 @@ class GtListPageGeneric extends StatelessWidget {
                             flex: 4,
                             child: Container(
                               child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  elevation: 6.0,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                  margin: EdgeInsets.all(20),
+                                  color: Colors.white,
                                   child:
-                                      //Obx(() =>
                                       Column(
                                     children: [
                                       Flexible(
@@ -427,6 +427,18 @@ class GtListPageGeneric extends StatelessWidget {
                                                             pathNavigation,
                                                         isSpaceInRecords:
                                                             isSpaceInRecords,
+                                                        quantityInitialValue:
+                                                            quantityInitialValue,
+                                                        decrementHandler:
+                                                            decrementHandler,
+                                                        incrementHandler:
+                                                            incrementHandler,
+                                                        trailingIcon:
+                                                            trailingIcon,
+                                                        getTrailingWidget:
+                                                            getTrailingWidget,
+                                                        isleadingIconPosition: 
+                                                            isleadingIconPosition,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:
@@ -471,7 +483,6 @@ class GtListPageGeneric extends StatelessWidget {
                                       ),
                                     ],
                                   )
-                                  //),
                                   ),
                             )),
                       ],

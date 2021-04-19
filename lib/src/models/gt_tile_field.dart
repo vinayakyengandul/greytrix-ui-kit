@@ -54,6 +54,8 @@ class GtTileField {
     this.statusField,
     this.fontFamily,
     this.tileDateFormat,
+    this.defaultStatusColor = Colors.blue,
+    this.chipFieldShape,
   });
   final dynamic value;
   final GtFieldType type;
@@ -105,4 +107,6 @@ class GtTileField {
   final Map<String, dynamic> statusField;
   final String fontFamily;
   final GtTileDateFormat tileDateFormat;
+  final Color defaultStatusColor;
+  final RoundedRectangleBorder chipFieldShape;
 }

@@ -275,6 +275,7 @@ class Common {
                 (e) => {
                   _chipsList.add(
                     GTChip(
+                      shapeBorder: gtTileField.chipFieldShape,
                       backgroundColor: gtTileField.fieldTextBackgroundColor,
                       label: '${e[gtTileField.listFieldValuePath]}',
                       // textFormatType: gtTileField.keyTextFormatType,
@@ -302,6 +303,7 @@ class Common {
             ///PREPARING THE STRING TYPE WIDGET
             _widgetList.add(
               GTChip(
+                shapeBorder: gtTileField.chipFieldShape,
                 backgroundColor: gtTileField.fieldTextBackgroundColor,
                 label: '$value',
                 // textFormatType: gtTileField.keyTextFormatType,
@@ -352,10 +354,11 @@ class Common {
                   ),
                 value != ""
                     ? PhysicalModel(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                         color: gtTileField.statusField[value],
                         elevation: 5.0,
                         child: Padding(
-                          padding: EdgeInsets.all(2.0),
+                           padding: EdgeInsets.only(left: 8,right: 8,bottom: 4,top: 4),
                           child: GtText(
                             text: '$value',
                             textStyle: TextStyle(

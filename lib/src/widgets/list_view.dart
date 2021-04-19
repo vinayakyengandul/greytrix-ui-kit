@@ -22,7 +22,8 @@ class GtListView extends StatelessWidget {
     this.getTrailingWidget,
     this.quantityInitialValue,
     this.incrementHandler,
-    this.decrementHandler
+    this.decrementHandler,
+    this.isleadingIconPosition = true,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -45,7 +46,7 @@ class GtListView extends StatelessWidget {
   final Function(int index) incrementHandler;
   final Function(int index) decrementHandler;
   final Widget trailingIcon;
-
+  final bool isleadingIconPosition;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,7 +156,7 @@ class GtListView extends StatelessWidget {
         ///ALSO IF MOBILE VIEW IS PRESENT THEN ADDING THE LEADING ICON IN THE FIRST ROW
         rowsData.forEach(
           (k, v) => {
-            if (isMobilePortrait == true &&
+            if ((isMobilePortrait == true ||  !isleadingIconPosition  )&&
                 rowIndex == 0 &&
                 leadingWidget != null)
               {
@@ -200,7 +201,18 @@ class GtListView extends StatelessWidget {
                           ),
                         ],
                         if (leadingWidget != null && !isImage) ...[
-                          Expanded(
+                         !isleadingIconPosition ?
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                leadingWidget,
+                                SizedBox(
+                                  width: 10,
+                                )
+                              ],
+                            )
+                          :  Expanded(
                             flex: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -240,7 +252,7 @@ class GtListView extends StatelessWidget {
 
         return GtListTile(
           columnWidget: Column(children: rowsWidgets),
-          leadingWidget: isMobilePortrait ? null : leadingWidget,
+          leadingWidget: (isMobilePortrait || !isleadingIconPosition) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
               ? listItems[index]['IsSelected']
               : false,
