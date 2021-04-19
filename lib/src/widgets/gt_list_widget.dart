@@ -40,6 +40,12 @@ class GtListPageGeneric extends StatelessWidget {
     this.toggleListGridView,
     this.isListView,
     this.backgroundcolor,
+    this.onDeleteHandler,
+    this.quantityInitialValue,
+    this.incrementHandler,
+    this.decrementHandler,
+    this.size,
+    this.entity,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -58,6 +64,7 @@ class GtListPageGeneric extends StatelessWidget {
   final Widget leadingIcon;
   final Widget trailingIcon;
   final Function(bool value, dynamic record) onHoverHandler;
+  
 
   ///TOGGLES BETWEEN THE LIST AND GRID VIEW
   final Function toggleListGridView;
@@ -80,16 +87,23 @@ class GtListPageGeneric extends StatelessWidget {
   final bool isFilterProcessing;
   final String pathNavigation;
   final Color backgroundcolor;
+  final Size size;
 
+// FOR CART FUNCTIONALITY
+  final int quantityInitialValue;
+  final Function(int index,) incrementHandler;
+  final Function(int index,) decrementHandler;
+  final Function(String key, dynamic object) onDeleteHandler;
+  final String entity;
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
     return selectAllcheckbox != null
         ? isImage
             ? Container(
-                width: SizeConfig.isMobilePortrait ? 65.0 : 30.0,
+                width: size.width > 450 ? 30.0 : 65.0,
                 // screen.isPhone ? 65.0 : 30.0,
                 padding: EdgeInsets.only(
-                    right: SizeConfig.isMobilePortrait ? 0.2 : 30),
+                    right: size.width > 450 ? 0.2 : 30),
                 //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
                 child: Row(
                   children: [
@@ -151,11 +165,62 @@ class GtListPageGeneric extends StatelessWidget {
                     onSelectionHandler(value, listItems[index])
                 },
               )
-        : leadingIcon != null
-            ? CircleAvatar(child: leadingIcon, backgroundColor: Colors.white
-                //Get.context.theme.colorScheme.onPrimary,
-                )
-            : leadingIcon;
+        : isImage && listItems[index][valuePath].toString() == ""
+            ? Container(
+                width: 50.0,
+                height: 50.0,
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/no_image_available.png',
+                    package: 'greytrix_ui_kit',
+                  ),
+                ),
+              )
+            : Container(
+                width: 50.0,
+                height: 50.0,
+                child: Image(
+                  image: NetworkImage(listItems[index][valuePath]),
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace stackTrace) {
+                    return Image(
+                      image: AssetImage(
+                        'assets/images/no_image_available.png',
+                        package: 'greytrix_ui_kit',
+                      ),
+                    );
+                  },
+                ));
+  }
+
+  // GETS TRAILING WIDGET
+  Widget getTrailingWidget(int index) {
+    print('getTrailingWidget');
+    return Container(
+      //width: SizeConfig.isMobilePortrait!-null ? 65.0 : 30.0,
+      width: size.width > 450 ? 30.0 : 65.0,
+      // screen.isPhone ? 65.0 : 30.0,
+      padding: size.width > 450
+          ? EdgeInsets.only(right: 30)
+          : EdgeInsets.only(right: 0.2),
+      //EdgeInsets.only(right: 30),
+      // right: SizeConfig.isMobilePortrait ? 0.2 : 30),
+      //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
+      child: Row(
+        children: [
+          Container(
+              child: Padding(
+            padding: size.width > 450
+                ? EdgeInsets.only(right: 30)
+                : EdgeInsets.only(right: 0.2),
+            child: InkWell(
+              child: trailingIcon,
+              onTap: () => {onDeleteHandler(entity ?? '', listItems[index])},
+            ),
+          ))
+        ],
+      ),
+    );
   }
 
   @override
@@ -195,7 +260,7 @@ class GtListPageGeneric extends StatelessWidget {
                       ),
                     if (selectAllcheckbox != null)
                       Padding(
-                          padding: SizeConfig.isMobilePortrait
+                          padding: size.width > 450
                               //screen.isPhone
                               ? EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0)
                               : EdgeInsets.fromLTRB(30.0, 0.0, 5.0, 0.0),

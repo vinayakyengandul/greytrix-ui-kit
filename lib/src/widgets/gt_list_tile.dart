@@ -16,6 +16,7 @@ class GtListTile extends StatelessWidget {
   final bool isImage;
   final bool isSpaceInRecords;
   final bool statusType;
+  final Function(String key, dynamic object) onDeleteHandler;
   GtListTile({
     @required this.onTap,
     @required this.columnWidget,
@@ -32,6 +33,7 @@ class GtListTile extends StatelessWidget {
     this.isImage = false,
     this.isSpaceInRecords = false,
     this.statusType = false,
+    this.onDeleteHandler,
   }) : assert(columnWidget != null);
   @override
   Widget build(BuildContext context) {
@@ -103,7 +105,11 @@ class GtListTile extends StatelessWidget {
 
                         /////TRAILING WIDGET
                         if (trailingWidget != null) ...[
-                          SizedBox(width: 60, child: trailingWidget)
+                          //SizedBox(width: 60, child: trailingWidget)
+                          Expanded(
+                            flex: 1,
+                            child: trailingWidget,
+                          )
                         ],
                       ],
                     ),

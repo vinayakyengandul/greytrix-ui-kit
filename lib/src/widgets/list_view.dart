@@ -18,6 +18,11 @@ class GtListView extends StatelessWidget {
     this.pathNavigation,
     this.getLeadingWidget,
     this.isSpaceInRecords = false,
+    this.trailingIcon,
+    this.getTrailingWidget,
+    this.quantityInitialValue,
+    this.incrementHandler,
+    this.decrementHandler
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -34,9 +39,16 @@ class GtListView extends StatelessWidget {
   final Function(bool isSelected, dynamic item) onHoverHandler;
   final String pathNavigation;
   final bool isSpaceInRecords;
+  final Function(int index) getTrailingWidget;
+// FOR CART FUNCTIONALITY
+  final int quantityInitialValue;
+  final Function(int index) incrementHandler;
+  final Function(int index) decrementHandler;
+  final Widget trailingIcon;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView.builder(
       itemCount: listItems.length,
       itemBuilder: (context, index) {
@@ -48,7 +60,7 @@ class GtListView extends StatelessWidget {
         ///HOLDS THE ROWS DATA WIDGETS LIST AS PROVIDED IN THE GT_FIELD
         dynamic rowsData = {};
         for (var i = 0; i < rowsCount; i++) {
-          rowsData[i + 1] = List<Widget>();
+          rowsData[i + 1] = List<Widget>.empty(growable: true);
         }
         bool isImage = false;
         String valuePath = "";
@@ -62,6 +74,8 @@ class GtListView extends StatelessWidget {
 
         /// PREPARES THE LEADING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
         Widget leadingWidget = getLeadingWidget(index, isImage, valuePath);
+        /// PREPARES THE TRAILING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
+        Widget trailingWidget = getTrailingWidget(index);
 
         //HERE PREPARING THE SINGLE GT_FIELD_WIDGET FOR THE SINGLE ITEM FIELD WHICH NEEDS TO BE DISPLAYED
 
@@ -73,7 +87,7 @@ class GtListView extends StatelessWidget {
             dynamic nodeValue =
                 Common.getValue(listItems[index], value.valuePath);
             if (rowsData[row] == null && value.isActiveInactiveField == false) {
-              rowsData[row] = List<Widget>();
+              rowsData[row] = List<Widget>.empty(growable: true);
             } else if (value.valueType != GtValueType.LIST &&
                 value.isActiveInactiveField == true &&
                 nodeValue != null) {
@@ -101,7 +115,10 @@ class GtListView extends StatelessWidget {
                             }
                         },
                     gtValueType: value.valueType,
-                    isMobileScreen: isMobilePortrait),
+                    isMobileScreen: isMobilePortrait,
+                    quantityInitialValue: quantityInitialValue,
+                    incrementHandler: () => incrementHandler(index),
+                    decrementHandler: () => decrementHandler(index)),
               );
             }
           }
@@ -109,7 +126,7 @@ class GtListView extends StatelessWidget {
 
         int currentCount = 0;
         int rowMaxCount = 0;
-        if (!SizeConfig.isMobilePortrait) {
+        if (size.width < 450) {
           rowsData.forEach((k, v) => {
                 if (v.length > rowMaxCount)
                   {
@@ -130,7 +147,7 @@ class GtListView extends StatelessWidget {
                   }
               });
         }
-        List<Widget> rowsWidgets = List<Widget>();
+        List<Widget> rowsWidgets = List<Widget>.empty(growable: true);
         int rowIndex = 0;
         EdgeInsets _rowPadding = EdgeInsets.only(top: 10.0, bottom: 0.0);
 
@@ -245,6 +262,7 @@ class GtListView extends StatelessWidget {
           isImage: isImage,
           isSpaceInRecords: isSpaceInRecords,
           statusType: statusType,
+          trailingWidget: trailingWidget
         );
       },
     );

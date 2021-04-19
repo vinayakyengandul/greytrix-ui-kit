@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import './gt_tile_field.dart';
-import '../widgets/gt_text.dart';
-import '..//widgets/gt_chip.dart';
 import '../models/enums.dart';
+import '../widgets/index.dart';
 
 class Common {
   ///FUNCTION TO RETRIEVE THE VALUE FROM THE MAP BASED ON PATH
@@ -86,6 +85,9 @@ class Common {
     Function navigationHandler, {
     GtValueType gtValueType = GtValueType.STRING,
     bool isMobileScreen = false,
+    int quantityInitialValue,
+    Function incrementHandler,
+    Function decrementHandler,
   }) {
     bool isMobilePortrait = isMobileScreen;
 
@@ -192,6 +194,25 @@ class Common {
                     padding: EdgeInsets.only(right: 6.0),
                     child: getGtText(gtTileField, key, value),
                   )),
+              ],
+            ),
+          ),
+        );
+        break;
+
+      case GtFieldType.QUANTITY:
+        return Expanded(
+          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GtCartQuantity(
+                  initialValue: value,
+                  decrementHandler: decrementHandler,
+                  incrementHandler: incrementHandler,
+                )
               ],
             ),
           ),
