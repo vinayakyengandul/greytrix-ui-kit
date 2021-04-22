@@ -24,6 +24,8 @@ class GtListView extends StatelessWidget {
     this.incrementHandler,
     this.decrementHandler,
     this.isleadingIconPosition = true,
+    this.listViewTableType = GTListViewTableType.Normal,
+    this.selectedRowColor = Colors.grey,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -47,12 +49,25 @@ class GtListView extends StatelessWidget {
   final Function(int index) decrementHandler;
   final Widget trailingIcon;
   final bool isleadingIconPosition;
+
+  //PARAMTERS FOR LISTVIEW TYPE
+  final GTListViewTableType listViewTableType;
+  final Color selectedRowColor;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListView.builder(
+      padding: EdgeInsets.all(
+          listViewTableType == GTListViewTableType.Normal ? 0.0 : 20),
       itemCount: listItems.length,
       itemBuilder: (context, index) {
+        Color color = listViewTableType == GTListViewTableType.Normal
+            ? Colors.white
+            : index.isOdd
+                ? Colors.grey[200]
+                : Colors.white;
+
         ///HOLDS THE MOBILE_PORTRAIT VIEW IDENTIFICATION
         bool isMobilePortrait = SizeConfig.isMobilePortrait;
         String bannerText;
@@ -75,8 +90,10 @@ class GtListView extends StatelessWidget {
 
         /// PREPARES THE LEADING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
         Widget leadingWidget = getLeadingWidget(index, isImage, valuePath);
+
         /// PREPARES THE TRAILING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
-        Widget trailingWidget = getTrailingWidget(index);
+        Widget trailingWidget =
+            trailingIcon != null ? getTrailingWidget(index) : null;
 
         //HERE PREPARING THE SINGLE GT_FIELD_WIDGET FOR THE SINGLE ITEM FIELD WHICH NEEDS TO BE DISPLAYED
 
@@ -101,7 +118,15 @@ class GtListView extends StatelessWidget {
             }
 
             ///IF ROW INFORMATION IS NOT PROVIDED THEN THAT FIELD WILL NOT BE DISPLAYED IN THE LIST_TILE
-            if (row != null && nodeValue != null) {
+            //if (row != null && nodeValue != null) {
+            if (row != null) {
+              if (nodeValue == null) {
+                rowsData[row].add(Expanded(
+                  flex: isMobilePortrait ? value.mobileFlex : value.flex,
+                  child: Container(),
+                ));
+              }
+            } else {
               rowsData[row].add(
                 Common.getListWidget(
                     value,
@@ -127,7 +152,7 @@ class GtListView extends StatelessWidget {
 
         int currentCount = 0;
         int rowMaxCount = 0;
-        if (size.width < 450) {
+        if (!isMobilePortrait) {
           rowsData.forEach((k, v) => {
                 if (v.length > rowMaxCount)
                   {
@@ -150,13 +175,13 @@ class GtListView extends StatelessWidget {
         }
         List<Widget> rowsWidgets = List<Widget>.empty(growable: true);
         int rowIndex = 0;
-        EdgeInsets _rowPadding = EdgeInsets.only(top: 10.0, bottom: 0.0);
+        EdgeInsets _rowPadding = EdgeInsets.only(top: 0.0, bottom: 0.0);
 
         ///HERE PREPARING THE EACH ROWS DATA WITH RESPECTIVE CHILDREN WIDGETS DATA
         ///ALSO IF MOBILE VIEW IS PRESENT THEN ADDING THE LEADING ICON IN THE FIRST ROW
         rowsData.forEach(
           (k, v) => {
-            if ((isMobilePortrait == true ||  !isleadingIconPosition  )&&
+            if ((isMobilePortrait == true) &&
                 rowIndex == 0 &&
                 leadingWidget != null)
               {
@@ -201,18 +226,7 @@ class GtListView extends StatelessWidget {
                           ),
                         ],
                         if (leadingWidget != null && !isImage) ...[
-                         !isleadingIconPosition ?
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                leadingWidget,
-                                SizedBox(
-                                  width: 10,
-                                )
-                              ],
-                            )
-                          :  Expanded(
+                          Expanded(
                             flex: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -252,7 +266,7 @@ class GtListView extends StatelessWidget {
 
         return GtListTile(
           columnWidget: Column(children: rowsWidgets),
-          leadingWidget: (isMobilePortrait || !isleadingIconPosition) ? null : leadingWidget,
+          leadingWidget: (isMobilePortrait) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
               ? listItems[index]['IsSelected']
               : false,
@@ -274,7 +288,11 @@ class GtListView extends StatelessWidget {
           isImage: isImage,
           isSpaceInRecords: isSpaceInRecords,
           statusType: statusType,
-          trailingWidget: trailingWidget
+          trailingWidget: trailingWidget,
+          isleadingIconPosition: isleadingIconPosition,
+          rowColor: color,
+          listViewTableType: listViewTableType,
+          selectedRowColor: selectedRowColor,
         );
       },
     );

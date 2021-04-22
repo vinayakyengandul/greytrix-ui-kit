@@ -7,6 +7,7 @@ class GtComingSoon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: Column(
         children: <Widget>[
@@ -23,7 +24,7 @@ class GtComingSoon extends StatelessWidget {
                 child: FittedBox(
                   child: GtText(
                     text: "Coming Soon",
-                    //texttype: TextformatType.imageCaption
+                    textStyle: TextStyle(fontSize: 5 * (size.height / 100)),
                   ),
                 ),
               )),

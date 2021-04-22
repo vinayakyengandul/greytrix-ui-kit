@@ -47,6 +47,13 @@ class GtListPageGeneric extends StatelessWidget {
     this.size,
     this.entity,
     this.isleadingIconPosition = true,
+    this.listViewTableType = GTListViewTableType.Normal,
+    this.primaryColor = Colors.blue,
+    this.checkboxactiveColor = Colors.blue,
+    this.checkboxcheckColor = Colors.white,
+    this.checkboxfocusColor = Colors.blue,
+    this.selectedRowColor = Colors.grey,
+    this.jsonHeader,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -65,7 +72,6 @@ class GtListPageGeneric extends StatelessWidget {
   final Widget leadingIcon;
   final Widget trailingIcon;
   final Function(bool value, dynamic record) onHoverHandler;
-  
 
   ///TOGGLES BETWEEN THE LIST AND GRID VIEW
   final Function toggleListGridView;
@@ -92,11 +98,25 @@ class GtListPageGeneric extends StatelessWidget {
 
 // FOR CART FUNCTIONALITY
   final int quantityInitialValue;
-  final Function(int index,) incrementHandler;
-  final Function(int index,) decrementHandler;
+  final Function(
+    int index,
+  ) incrementHandler;
+  final Function(
+    int index,
+  ) decrementHandler;
   final Function(String key, dynamic object) onDeleteHandler;
   final String entity;
   final bool isleadingIconPosition;
+
+  //FIELDS FOR LISTVIEWTYPE
+  final GTListViewTableType listViewTableType;
+  final Color primaryColor;
+  final Color checkboxactiveColor;
+  final Color checkboxcheckColor;
+  final Color checkboxfocusColor;
+  final Color selectedRowColor;
+  final List<dynamic> jsonHeader;
+
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
     return selectAllcheckbox != null
@@ -104,8 +124,7 @@ class GtListPageGeneric extends StatelessWidget {
             ? Container(
                 width: size.width > 450 ? 30.0 : 65.0,
                 // screen.isPhone ? 65.0 : 30.0,
-                padding: EdgeInsets.only(
-                    right: size.width > 450 ? 0.2 : 30),
+                padding: EdgeInsets.only(right: size.width > 450 ? 0.2 : 30),
                 //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
                 child: Row(
                   children: [
@@ -120,53 +139,74 @@ class GtListPageGeneric extends StatelessWidget {
                                   !listItems[index]['IsSelected'],
                                   listItems[index])
                           },
-                          checkColor: Colors.grey,
-                          //Get.context.theme.accentIconTheme.color,
-                          activeColor: Colors.blueGrey,
-                          //Get.context.theme.secondaryHeaderColor,
-                          focusColor: Colors.lightBlue,
-                          //Get.context.theme.secondaryHeaderColor,
+                          checkColor: checkboxcheckColor,
+                          activeColor: checkboxactiveColor,
+                          focusColor: checkboxfocusColor,
                         ),
                       ),
                     ),
-                    listItems[index][valuePath].toString() == ""
-                        ? Container(
-                            width: 30.0,
-                            height: 30.0,
-                            child: Image(
-                              image: AssetImage(
-                                'assets/images/no_image_available.png',
-                                package: 'greytrix_ui_kit',
+                    if (isleadingIconPosition)
+                      listItems[index][valuePath].toString() == "" ||
+                              listItems[index][valuePath] == null
+                          ? Container(
+                              width: 30.0,
+                              height: 30.0,
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/images/no_image_available.png',
+                                  package: 'greytrix_ui_kit',
+                                ),
                               ),
-                            ),
-                          )
-                        : Container(
-                            width: 30.0,
-                            height: 30.0,
-                            child: Image(
-                              image: NetworkImage(listItems[index][valuePath]),
-                              errorBuilder: (BuildContext context,
-                                  Object exception, StackTrace stackTrace) {
-                                return Image(
-                                  image: AssetImage(
-                                    'assets/images/no_image_available.png',
-                                    package: 'greytrix_ui_kit',
-                                  ),
-                                );
-                              },
-                            )),
+                            )
+                          : Container(
+                              width: 30.0,
+                              height: 30.0,
+                              child: Image(
+                                image:
+                                    NetworkImage(listItems[index][valuePath]),
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace stackTrace) {
+                                  return Image(
+                                    image: AssetImage(
+                                      'assets/images/no_image_available.png',
+                                      package: 'greytrix_ui_kit',
+                                    ),
+                                  );
+                                },
+                              )),
                   ],
                 ),
               )
-            : GtIconCheckbox(
-                backgroundColor: backgroundcolor,
-                icon: Icons.perm_identity,
-                selected: listItems[index]['IsSelected'],
-                onchanged: (value) => {
-                  if (onSelectionHandler != null)
-                    onSelectionHandler(value, listItems[index])
-                },
-              )
+            : isleadingIconPosition
+                ? GtIconCheckbox(
+                    backgroundColor: backgroundcolor,
+                    icon: Icons.perm_identity,
+                    iconcolor: checkboxcheckColor,
+                    selected: listItems[index]['IsSelected'],
+                    onchanged: (value) => {
+                      if (onSelectionHandler != null)
+                        onSelectionHandler(value, listItems[index])
+                    },
+                    checkboxactiveColor: checkboxactiveColor,
+                    checkboxcheckColor: checkboxcheckColor,
+                    checkboxfocusColor: checkboxfocusColor,
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(left: 4.0, right: 25.0),
+                    child: Center(
+                        child: GtCustomCheckbox(
+                      isChecked: listItems[index]['IsSelected'],
+                      onchanged: (value) => {
+                        if (onSelectionHandler != null)
+                          onSelectionHandler(
+                              !listItems[index]['IsSelected'], listItems[index])
+                      },
+                      selectedColor: primaryColor,
+                      selectedIconColor: Colors.white,
+                      size: 17,
+                      iconSize: 11,
+                    )),
+                  )
         : isImage && listItems[index][valuePath].toString() == ""
             ? Container(
                 width: 50.0,
@@ -178,21 +218,26 @@ class GtListPageGeneric extends StatelessWidget {
                   ),
                 ),
               )
-            : Container(
-                width: 50.0,
-                height: 50.0,
-                child: Image(
-                  image: NetworkImage(listItems[index][valuePath]),
-                  errorBuilder: (BuildContext context, Object exception,
-                      StackTrace stackTrace) {
-                    return Image(
-                      image: AssetImage(
-                        'assets/images/no_image_available.png',
-                        package: 'greytrix_ui_kit',
-                      ),
-                    );
-                  },
-                ));
+            : leadingIcon != null
+                ? CircleAvatar(
+                    child: leadingIcon,
+                    //backgroundColor: Get.context.theme.colorScheme.onPrimary,
+                  )
+                : Container(
+                    width: 50.0,
+                    height: 50.0,
+                    child: Image(
+                      image: NetworkImage(listItems[index][valuePath]),
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace stackTrace) {
+                        return Image(
+                          image: AssetImage(
+                            'assets/images/no_image_available.png',
+                            package: 'greytrix_ui_kit',
+                          ),
+                        );
+                      },
+                    ));
   }
 
   // GETS TRAILING WIDGET
@@ -236,151 +281,155 @@ class GtListPageGeneric extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    border:
-                        Border(bottom: BorderSide(width: 2, color: Colors.white)
-                            // Get.context.theme.colorScheme.onPrimary),
-                            )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (backNavigation)
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              //Get.context.theme.iconTheme.color,
-                            ),
-                            onPressed: () {
-                              // Get.back();
-                              Navigator.pop(context);
-                            }),
-                      ),
-                    if (selectAllcheckbox != null)
-                      Padding(
-                          padding: size.width > 450
-                              //screen.isPhone
-                              ? EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0)
-                              : EdgeInsets.fromLTRB(30.0, 0.0, 5.0, 0.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top:
-                                    BorderSide(width: 1.0, color: Colors.black),
-                                left:
-                                    BorderSide(width: 1.0, color: Colors.black),
-                                right:
-                                    BorderSide(width: 1.0, color: Colors.black),
-                                bottom:
-                                    BorderSide(width: 1.0, color: Colors.black),
-                              ),
-                            ),
-                            child: Checkbox(
-                              value: selectallRecords,
-                              activeColor: Colors.amberAccent,
-                              onChanged: (value) => {selectAllcheckbox(value)},
-                            ),
-                            height: 20,
-                            width: 20,
-                          )),
-                    Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: this.title,
-                      ),
-                    ),
-                    // screen.isPhone
-                    // SizeConfig.isMobilePortrait
-                    //     ? Padding(
-                    //         padding: const EdgeInsets.all(0.5),
-                    //         child: IconButton(
-                    //           onPressed: () {
-                    //             if (showStats != null) showStats();
-                    //           },
-                    //           icon: Icon(Icons.arrow_drop_down),
-                    //         ),
-                    //       )
-                    //     : SizedBox(
-                    //         height: 1.0,
-                    //       ),
-                    // screen.isPhone
-                    size.width > 450
-                        ? PopupMenuButton(
-                            color: Colors.white,
-                            offset: Offset(0, 100),
-                            tooltip: "More Actions",
-                            icon: Icon(Icons.more_vert),
-                            itemBuilder: (BuildContext context) =>
-                                <PopupMenuEntry>[
-                              if (enablefilter)
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    leading: Icon(Icons.filter_list),
-                                    title: GtText(
-                                      text: 'Filter',
-                                      // texttype: TextformatType.bodyText1,
-                                      textStyle: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.5,
-                                        fontStyle: FontStyle.normal,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
+              listViewTableType == GTListViewTableType.Normal
+                  ? Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(width: 2, color: Colors.white)
+                              // Get.context.theme.colorScheme.onPrimary),
+                              )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          if (backNavigation)
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    //Get.context.theme.iconTheme.color,
                                   ),
-                                ),
-                              if (viewtype == ViewType.both)
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    leading: isListView == true
-                                        ? Icon(
-                                            Icons.dashboard,
-                                          )
-                                        : Icon(
-                                            Icons.list,
+                                  onPressed: () {
+                                    // Get.back();
+                                    Navigator.pop(context);
+                                  }),
+                            ),
+                          if (selectAllcheckbox != null)
+                            Padding(
+                                padding: size.width > 450
+                                    //screen.isPhone
+                                    ? EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0)
+                                    : EdgeInsets.fromLTRB(30.0, 0.0, 5.0, 0.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      left: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      right: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      bottom: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                    ),
+                                  ),
+                                  child: Checkbox(
+                                    value: selectallRecords,
+                                    activeColor: primaryColor,
+                                    onChanged: (value) =>
+                                        {selectAllcheckbox(value)},
+                                  ),
+                                  height: 20,
+                                  width: 20,
+                                )),
+                          Expanded(
+                            flex: 6,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: this.title,
+                            ),
+                          ),
+                          // screen.isPhone
+                          // SizeConfig.isMobilePortrait
+                          //     ? Padding(
+                          //         padding: const EdgeInsets.all(0.5),
+                          //         child: IconButton(
+                          //           onPressed: () {
+                          //             if (showStats != null) showStats();
+                          //           },
+                          //           icon: Icon(Icons.arrow_drop_down),
+                          //         ),
+                          //       )
+                          //     : SizedBox(
+                          //         height: 1.0,
+                          //       ),
+                          // screen.isPhone
+                          size.width < 450
+                              ? PopupMenuButton(
+                                  color: Colors.white,
+                                  offset: Offset(0, 100),
+                                  tooltip: "More Actions",
+                                  icon: Icon(Icons.more_vert),
+                                  itemBuilder: (BuildContext context) =>
+                                      <PopupMenuEntry>[
+                                    if (enablefilter)
+                                      PopupMenuItem(
+                                        child: ListTile(
+                                          leading: Icon(Icons.filter_list),
+                                          title: GtText(
+                                            text: 'Filter',
+                                            // texttype: TextformatType.bodyText1,
+                                            textStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.5,
+                                              fontStyle: FontStyle.normal,
+                                            ),
                                           ),
-                                    title: GtText(
-                                      text:
-                                          isListView == true ? 'Card' : 'List',
-                                      // texttype: TextformatType.bodyText1,
-                                      textStyle: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.5,
-                                        fontStyle: FontStyle.normal,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      toggleListGridView();
-                                    },
-                                  ),
-                                ),
-                            ],
-                          )
-                        : Row(children: [
-                            if (viewtype == ViewType.both)
-                              IconButton(
-                                  icon: isListView
-                                      ? Icon(
-                                          Icons.dashboard,
-                                        )
-                                      : Icon(
-                                          Icons.list,
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
                                         ),
-                                  onPressed: () => {
-                                        toggleListGridView(),
-                                      }),
-                          ]),
-                  ],
-                ),
-              ),
+                                      ),
+                                    if (viewtype == ViewType.both)
+                                      PopupMenuItem(
+                                        child: ListTile(
+                                          leading: isListView == true
+                                              ? Icon(
+                                                  Icons.dashboard,
+                                                )
+                                              : Icon(
+                                                  Icons.list,
+                                                ),
+                                          title: GtText(
+                                            text: isListView == true
+                                                ? 'Card'
+                                                : 'List',
+                                            // texttype: TextformatType.bodyText1,
+                                            textStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.5,
+                                              fontStyle: FontStyle.normal,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            toggleListGridView();
+                                          },
+                                        ),
+                                      ),
+                                  ],
+                                )
+                              : Row(children: [
+                                  if (viewtype == ViewType.both)
+                                    IconButton(
+                                        icon: isListView
+                                            ? Icon(
+                                                Icons.dashboard,
+                                              )
+                                            : Icon(
+                                                Icons.list,
+                                              ),
+                                        onPressed: () => {
+                                              toggleListGridView(),
+                                            }),
+                                ]),
+                        ],
+                      ),
+                    )
+                  : Container(),
 
               ///MAIN CONTENT
               Expanded(
@@ -395,12 +444,72 @@ class GtListPageGeneric extends StatelessWidget {
                             flex: 4,
                             child: Container(
                               child: Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  margin: EdgeInsets.all(20),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  margin: EdgeInsets.all(22),
                                   color: Colors.white,
-                                  child:
-                                      Column(
+                                  child: Column(
                                     children: [
+                                      listViewTableType ==
+                                              GTListViewTableType.STRIPED
+                                          ? Container(
+                                              margin: EdgeInsets.only(
+                                                left: 25,
+                                                right: 25,
+                                                top: 25,
+                                              ),
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                      bottom: BorderSide(
+                                                          width: 1,
+                                                          color: Colors
+                                                              .grey[200]))),
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  if (backNavigation)
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10.0),
+                                                      child: IconButton(
+                                                          icon: Icon(
+                                                            Icons.arrow_back,
+                                                            color: Colors.white,
+                                                            //Get.context.theme.iconTheme.color,
+                                                          ),
+                                                          onPressed: () {
+                                                            // Get.back();
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                                    ),
+                                                  if (selectAllcheckbox != null)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      child: Checkbox(
+                                                        value: selectallRecords,
+                                                        activeColor:
+                                                            primaryColor,
+                                                        onChanged: (value) => {
+                                                          selectAllcheckbox(
+                                                              value)
+                                                        },
+                                                      ),
+                                                    ),
+                                                  if (jsonHeader != null)
+                                                    ...Common
+                                                        .getListViewHeaderWidget(
+                                                            headerFields:
+                                                                jsonHeader,
+                                                            priColor:
+                                                                primaryColor),
+                                                ],
+                                              ))
+                                          : Container(),
                                       Flexible(
                                         child: listItems.length == 0
                                             ? GtNoListFound()
@@ -437,8 +546,12 @@ class GtListPageGeneric extends StatelessWidget {
                                                             trailingIcon,
                                                         getTrailingWidget:
                                                             getTrailingWidget,
-                                                        isleadingIconPosition: 
+                                                        isleadingIconPosition:
                                                             isleadingIconPosition,
+                                                        listViewTableType:
+                                                            listViewTableType,
+                                                        selectedRowColor:
+                                                            selectedRowColor,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:
@@ -482,8 +595,7 @@ class GtListPageGeneric extends StatelessWidget {
                                               ),
                                       ),
                                     ],
-                                  )
-                                  ),
+                                  )),
                             )),
                       ],
                     )),

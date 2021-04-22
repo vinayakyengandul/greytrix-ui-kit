@@ -21,7 +21,6 @@ class GtNoListFound extends StatelessWidget {
                   child: FittedBox(
                       child: GtText(
                 text: "No Records Found",
-                //texttype: TextformatType.imageCaption
                 textStyle: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.w500,
