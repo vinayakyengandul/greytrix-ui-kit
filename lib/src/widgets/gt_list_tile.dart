@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/index.dart';
 
 class GtListTile extends StatelessWidget {
   final Column columnWidget;
@@ -17,6 +18,10 @@ class GtListTile extends StatelessWidget {
   final bool isSpaceInRecords;
   final bool statusType;
   final Function(String key, dynamic object) onDeleteHandler;
+  final bool isleadingIconPosition;
+  final Color rowColor;
+  final GTListViewTableType listViewTableType;
+  final Color selectedRowColor;
   GtListTile({
     @required this.onTap,
     @required this.columnWidget,
@@ -34,6 +39,10 @@ class GtListTile extends StatelessWidget {
     this.isSpaceInRecords = false,
     this.statusType = false,
     this.onDeleteHandler,
+    this.isleadingIconPosition = true,
+    this.rowColor = Colors.white,
+    this.listViewTableType = GTListViewTableType.Normal,
+    this.selectedRowColor = Colors.grey,
   }) : assert(columnWidget != null);
   @override
   Widget build(BuildContext context) {
@@ -42,25 +51,57 @@ class GtListTile extends StatelessWidget {
       onHover: (value) {
         if (onHoverHandler != null) onHoverHandler(value);
       },
-      child: Transform.translate(
-        offset: onHover ? Offset(1, 1) : Offset(0, 0),
-        child: Transform.scale(
-          scale: onHover ? 1.01 : 1.0,
-          child: Card(
-            shape: statusType
-                ? Border(
-                    right: BorderSide(
-                    width: 5,
-                    color: bannerText == "Active"
-                        ? Colors.green[300]
-                        : Colors.red[300],
-                  ))
-                : null,
-            elevation: onHover ? 15.0 : 3.0,
-            margin: isSpaceInRecords
-                ? EdgeInsets.only(right: 8.0, left: 8.0, top: 1.0)
-                : cardMarginEdgeInsets,
-            color: isSelected ? Colors.grey : null,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              listViewTableType == GTListViewTableType.Normal ? 10.0 : 0.0),
+          side: BorderSide(
+              color: onHover
+                  ? listViewTableType == GTListViewTableType.Normal
+                      ? Colors.blueAccent
+                      : rowColor
+                  : isSelected
+                      ? listViewTableType == GTListViewTableType.Normal
+                          ? selectedRowColor
+                          : rowColor
+                      : rowColor),
+        ),
+        //elevation: onHover ? 15.0 : 3.0,
+        margin: isSpaceInRecords
+            ? EdgeInsets.only(
+                right:
+                    listViewTableType == GTListViewTableType.Normal ? 8.0 : 0.0,
+                left:
+                    listViewTableType == GTListViewTableType.Normal ? 8.0 : 0.0,
+                top:
+                    listViewTableType == GTListViewTableType.Normal ? 1.0 : 0.0,
+                bottom: 0.0)
+            : cardMarginEdgeInsets,
+        color: onHover
+            ? listViewTableType == GTListViewTableType.Normal
+                ? Colors.blueGrey[100]
+                : rowColor
+            : rowColor,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+              listViewTableType == GTListViewTableType.Normal ? 10 : 0.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? listViewTableType == GTListViewTableType.Normal
+                      ? selectedRowColor
+                      : null
+                  : null,
+              border: statusType
+                  ? Border(
+                      right: BorderSide(
+                      width: 5,
+                      color: bannerText == "Active"
+                          ? Colors.green[300]
+                          : Colors.red[300],
+                    ))
+                  : null,
+            ),
             child: Padding(
               padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
               child: bannerText != null

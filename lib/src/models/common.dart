@@ -11,7 +11,6 @@ class Common {
 
     ///HERE IT SPLITS THE PATH TO CHECK PATH DEPTH
     List<String> _path = path.split('/');
-
     if (_path.length > 1) {
       if (path.indexOf('/', 0) != -1) {
         ///GETTING THE SUB PATH WHICH IS NOT ITERATED YET
@@ -20,7 +19,11 @@ class Common {
 
         ///IF OBJECT IS THE LIST THEN EXPECTS THE _PATH CONTENT TO BE INDEX
         if (obj is List) {
-          _obj = getValue(obj[int.parse(_path[0])], _subPath);
+          ///HERE IF LIST OBJECT LENGTH IS GREATER THAN 0 THEN ONLY PROCEEDING FURTHER TO GET VALUE
+          if (obj.length > 0)
+            _obj = getValue(obj[int.parse(_path[0])], _subPath);
+          else
+            _obj = null;
         } else if (obj != null && obj[_path[0]] != null) {
           _obj = getValue(obj[_path[0]], _subPath);
         }
@@ -28,16 +31,19 @@ class Common {
     } else {
       ///IF OBJECT IS THE LIST THEN EXPECTS THE _PATH CONTENT TO BE INDEX
       if (obj is List) {
-        ///GETTING THE SUB PATH WHICH IS NOT ITERATED YET
-        String _subPath1 =
-            path.substring((path.indexOf('/', 0)) + 1, path.length);
-        _obj = getValue(obj[int.parse(_path[0])], _subPath1);
+        ///HERE IF LIST OBJECT LENGTH IS GREATER THAN 0 THEN ONLY PROCEEDING FURTHER TO GET VALUE
+        if (obj.length > 0) {
+          ///GETTING THE SUB PATH WHICH IS NOT ITERATED YET
+          String _subPath1 =
+              path.substring((path.indexOf('/', 0)) + 1, path.length);
+          _obj = getValue(obj[int.parse(_path[0])], _subPath1);
+        } else
+          _obj = null;
       } else {
         ///AS REACHED THE END OF THE PATH THEN READING VALUE DIRECTLY FROM MAP
         _obj = obj[path] != null ? obj[path] : null;
       }
     }
-
     return _obj;
   }
 
@@ -354,11 +360,12 @@ class Common {
                   ),
                 value != ""
                     ? PhysicalModel(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
                         color: gtTileField.statusField[value],
                         elevation: 5.0,
                         child: Padding(
-                           padding: EdgeInsets.only(left: 8,right: 8,bottom: 4,top: 4),
+                          padding: EdgeInsets.only(
+                              left: 8, right: 8, bottom: 4, top: 4),
                           child: GtText(
                             text: '$value',
                             textStyle: TextStyle(
@@ -395,6 +402,29 @@ class Common {
           ),
         );
         break;
+
+      case GtFieldType.AVATAR:
+        return Expanded(
+          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GtAvatar(
+                  radius: 16,
+                  //backgroundColor: gtTileField,
+                  backGroundImage: AssetImage(
+                    '$value',
+                    package: 'core',
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+        break;
+
       default:
         return Container();
     }
@@ -451,5 +481,64 @@ class Common {
       }
     }
     return data;
+  }
+
+// GET LISTVIEW STRIPED HEADER FIELD
+  static List<Widget> getListViewHeaderWidget(
+      {dynamic headerFields, Color priColor = Colors.blue}) {
+    List<Widget> widgets;
+    widgets = [];
+    headerFields.forEach((e) =>
+        {widgets.add(getHeaderWidget(headerFields: e, priColor: priColor))});
+    return widgets;
+  }
+
+  static Widget getHeaderWidget(
+      {dynamic headerFields, Color priColor = Colors.blue}) {
+    Widget widget;
+    switch (headerFields.type) {
+      case GtListViewHeaderFieldType.STRING:
+        widget = Expanded(
+          flex: headerFields.flex,
+          child: GtText(
+            text: headerFields.textValue,
+            textStyle: TextStyle(color: headerFields.textColor),
+          ),
+        );
+        break;
+      case GtListViewHeaderFieldType.BUTTON:
+        widget = Expanded(
+            flex: headerFields.flex,
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xffe8769f)),
+                        overlayColor:
+                            MaterialStateProperty.all<Color>(priColor),
+                      ),
+                      onPressed: () {},
+                      child: GtText(text: 'ADD NEW')),
+                ),
+              ],
+            ));
+        break;
+      case GtListViewHeaderFieldType.ICON:
+        widget = Expanded(
+          flex: headerFields.flex,
+          child: GtIcon(
+            icondata: headerFields.iconData,
+            color: headerFields.iconColor,
+          ),
+        );
+        break;
+      default:
+        widget;
+        break;
+    }
+    return widget;
   }
 }

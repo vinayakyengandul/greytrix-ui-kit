@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class GtImageCard extends StatelessWidget {
   GtImageCard({
     this.boxFit = BoxFit.fill,
-    this.imgHeight,
     this.imageURL,
     this.backgroundcolor,
     this.height,
@@ -12,7 +11,6 @@ class GtImageCard extends StatelessWidget {
 
   final Color backgroundcolor;
   final String imageURL;
-  final double imgHeight;
 
   final BoxFit boxFit;
   final double width;
@@ -38,7 +36,7 @@ class GtImageCard extends StatelessWidget {
                   image: imageURL != null
                       ? NetworkImage(imageURL)
                       : AssetImage(
-                          "assets/images/product.png",
+                          "assets/images/no_image_available.png",
                           package: 'greytrix_ui_kit',
                         ),
                 )),

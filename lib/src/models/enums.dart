@@ -54,6 +54,7 @@ enum GtFieldType {
   STATUS,
   DATE,
   QUANTITY,
+  AVATAR
 }
 
 enum GtCartFieldType { STRING, TITLE, IMAGE, AMOUNT }
@@ -100,3 +101,16 @@ enum GtListInputType { GRAPHQL, HTTP, STATIC }
 enum GtTileDateFormat { DDMMYYYY, DDMMYYYY_HHMM }
 
 enum ButtonType { PRIMARY, PLAIN }
+
+// ADDED FOR THE POSITION OF WIDGET
+enum GtPosition { PREFIX, POSTFIX }
+
+// ADDED FOR LISTVIEW TABLE TYPES
+enum GTListViewTableType { Normal, STRIPED }
+
+/// LISTVIEW HEADER FILED FIELD TYPE
+enum GtListViewHeaderFieldType {
+  STRING,
+  BUTTON,
+  ICON,
+}
