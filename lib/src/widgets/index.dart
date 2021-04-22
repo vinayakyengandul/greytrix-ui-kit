@@ -29,3 +29,4 @@ export 'gt_calendar.dart';
 export 'gt_progressbar.dart';
 export 'gt_avatar.dart';
 export 'gt_custom_checkbox.dart';
+export 'gt_currency.dart';
