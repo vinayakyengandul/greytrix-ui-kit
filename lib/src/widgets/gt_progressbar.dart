@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
 
 class GtProgressBar extends StatelessWidget {
-  GtProgressBar();
+  GtProgressBar({
+    this.backgroundColor,
+    this.value,
+    this.valueColor,
+    this.circularProgress = false,
+    this.minHeight,
+    this.strokeWidth,
+  });
 
-  // final IconData icondata;
-  // final double size;
-  // final Color color;
+  final double value;
+  final Color valueColor;
+  final Color backgroundColor;
+  final bool circularProgress;
+  final double strokeWidth;
+  final double minHeight;
+
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      backgroundColor: Colors.blue,
-      value: 40,
-    );
+    return circularProgress
+        ? CircularProgressIndicator(
+            backgroundColor: Colors.blue,
+            value: value ?? 10,
+            valueColor: AlwaysStoppedAnimation(Colors.green),
+            strokeWidth: strokeWidth ?? 10,
+          )
+        : LinearProgressIndicator(
+            backgroundColor: Colors.blue,
+            value: value,
+            minHeight: minHeight,
+            valueColor: AlwaysStoppedAnimation(Colors.grey),
+          );
   }
 }
