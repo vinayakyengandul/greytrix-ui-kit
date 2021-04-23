@@ -11,7 +11,7 @@ class GtNoListFound extends StatelessWidget {
             child: Image(
               image: AssetImage(
                 'assets/images/No_list_found.png',
-                package: 'core',
+                package: 'greytrix_ui_kit',
               ),
             ),
           ),
