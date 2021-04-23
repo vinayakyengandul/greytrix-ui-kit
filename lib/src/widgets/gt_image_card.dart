@@ -11,7 +11,6 @@ class GtImageCard extends StatelessWidget {
 
   final Color backgroundcolor;
   final String imageURL;
-
   final BoxFit boxFit;
   final double width;
   final double height;
@@ -19,28 +18,41 @@ class GtImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(2.0),
-        width: (MediaQuery.of(context).size.width) / 3,
-        child: Column(children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 8, left: 0, top: 8, bottom: 2),
-            width: width != null ? width : 70,
-            height: height != null ? height : 80,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: backgroundcolor != null
-                    ? backgroundcolor
-                    : Colors.blue.shade200,
-                image: DecorationImage(
-                  fit: boxFit,
-                  image: imageURL != null
-                      ? NetworkImage(imageURL)
-                      : AssetImage(
-                          "assets/images/no_image_available.png",
-                          package: 'greytrix_ui_kit',
-                        ),
-                )),
-          )
-        ]));
+      height: height ?? 70.0,
+      width: width ?? 80.0,
+      color: backgroundcolor != null ? backgroundcolor : Colors.grey.shade200,
+      child: Image.network(
+        '$imageURL',
+        fit: boxFit ?? BoxFit.fill,
+
+        ///SHOWS THE LOADER TILL IMAGE IS LOADED COMPLETELY
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: SizedBox(
+              height: 200.0,
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes
+                      : null,
+                ),
+              ),
+            ),
+          );
+        },
+
+        ///HANDLES ERROR OCCURRED DURING FETCHING OR LOADING THE IMAGE AND SHOWS NO_PREVIEW_TEXT
+        errorBuilder:
+            (BuildContext context, Object exception, StackTrace stackTrace) {
+          return Image.asset(
+            "assets/images/no_image_available.png",
+            package: 'greytrix_ui_kit',
+          );
+        },
+      ),
+    );
   }
 }

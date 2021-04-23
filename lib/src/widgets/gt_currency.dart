@@ -35,7 +35,9 @@ class GtCurrency extends StatelessWidget {
                   ),
                 Row(children: [
                   GtText(
-                    text: '$currency${number[0]}',
+                    text: currency != null
+                        ? '$currency${number[0]}'
+                        : '${number[0]}',
                     textStyle: amountTextStyle ??
                         TextStyle(
                           fontSize: 15,
@@ -65,7 +67,9 @@ class GtCurrency extends StatelessWidget {
                   ),
                 Row(children: [
                   GtText(
-                    text: '$currency${number[0]}',
+                    text: currency != null
+                        ? '$currency${number[0]}'
+                        : '${number[0]}',
                     textStyle: amountTextStyle ??
                         TextStyle(
                           fontSize: 15,

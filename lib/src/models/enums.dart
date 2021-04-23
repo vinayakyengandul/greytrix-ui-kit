@@ -105,6 +105,8 @@ enum ButtonType { PRIMARY, PLAIN }
 // ADDED FOR THE POSITION OF WIDGET
 enum GtPosition { PREFIX, POSTFIX }
 
+enum GtButtonType { BUTTON, RADIO, IMAGE }
+
 // ADDED FOR LISTVIEW TABLE TYPES
 enum GTListViewTableType { Normal, STRIPED }
 

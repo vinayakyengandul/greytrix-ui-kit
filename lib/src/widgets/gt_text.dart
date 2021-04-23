@@ -27,7 +27,7 @@ class GtText extends StatelessWidget {
   Widget build(BuildContext context) {
     return (iconData != null)
         ? Container(
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(2.0),
             child: Row(
               children: [
                 if (position == GtPosition.PREFIX && iconData != null)
@@ -37,7 +37,7 @@ class GtText extends StatelessWidget {
                       color: iconColor,
                       size: iconSize,
                     ),
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(2.0),
                   ),
                 Text(
                   text != null ? text : "",
@@ -54,7 +54,7 @@ class GtText extends StatelessWidget {
                       color: iconColor,
                       size: iconSize,
                     ),
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(2.0),
                   )
               ],
             ),
