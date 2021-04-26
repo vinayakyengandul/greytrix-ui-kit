@@ -18,6 +18,8 @@ class GtNavigationRails extends StatelessWidget {
     this.onHover,
     this.selectedTitle = "",
     this.selectedTitleColor = Colors.blue,
+    this.selectedTitleChange,
+    this.selectedTitleOnTap,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -32,6 +34,8 @@ class GtNavigationRails extends StatelessWidget {
   final int onHover;
   final String selectedTitle;
   final Color selectedTitleColor;
+  final Widget selectedTitleChange;
+  final Function selectedTitleOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +46,22 @@ class GtNavigationRails extends StatelessWidget {
       child: Column(
         children: [
           if (selectedTitle != "" && selectedTitle != null)
-            GtText(
-              text: selectedTitle,
-              textStyle: TextStyle(
-                  color: selectedRowDarkColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+            Container(
+                padding: EdgeInsets.only(top: 11, bottom: 15),
+                child: ListTile(
+                  onTap: () {
+                    if (selectedTitleOnTap != null) selectedTitleOnTap();
+                  },
+                  title: GtText(
+                    text: selectedTitle,
+                    textStyle: TextStyle(
+                        color: selectedRowDarkColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  trailing:
+                      selectedTitleChange != null ? selectedTitleChange : null,
+                )),
           Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
