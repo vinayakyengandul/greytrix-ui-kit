@@ -195,11 +195,10 @@ class Common {
 
                 ///IF MOBILE VIEW THEN NOT SHOWING THE EMAIL TEXT IN MOBILE
                 if (!isMobileScreen)
-                  Expanded(
-                      child: Padding(
+                  Padding(
                     padding: EdgeInsets.only(right: 6.0),
                     child: getGtText(gtTileField, key, value),
-                  )),
+                  ),
               ],
             ),
           ),
@@ -242,11 +241,10 @@ class Common {
 
                 ///IF MOBILE VIEW THEN NOT SHOWING THE PHONE TEXT IN MOBILE
                 if (!isMobileScreen)
-                  Expanded(
-                      child: Padding(
+                  Padding(
                     padding: EdgeInsets.only(right: 5.0),
                     child: getGtText(gtTileField, key, value),
-                  )),
+                  ),
               ],
             ),
           ),
@@ -405,10 +403,12 @@ class Common {
 
       case GtFieldType.AVATAR:
         return Expanded(
-          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          flex: isMobilePortrait ? gtTileField.mobileFlex : gtTileField.flex,
           child: Container(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: isMobilePortrait
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GtAvatar(
@@ -419,6 +419,31 @@ class Common {
                     package: 'core',
                   ),
                 )
+              ],
+            ),
+          ),
+        );
+        break;
+
+      case GtFieldType.CURRENCY:
+        return Expanded(
+          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          child: Container(
+            child: Row(
+              children: [
+                if (gtTileField.displayKey == true)
+                  GtText(
+                    text: '$key : ',
+                    textStyle: gtTileField.textStyle,
+                  ),
+                value != ""
+                    ? Expanded(
+                        child: GtCurrency(
+                        amountTextStyle: gtTileField.textStyle,
+                        amount: value.toString(),
+                        currency: '\$',
+                      ))
+                    : Container(),
               ],
             ),
           ),
@@ -483,13 +508,18 @@ class Common {
     return data;
   }
 
-// GET LISTVIEW STRIPED HEADER FIELD
+  // GET LISTVIEW STRIPED HEADER FIELD
   static List<Widget> getListViewHeaderWidget(
-      {dynamic headerFields, Color priColor = Colors.blue}) {
+      {dynamic headerFields,
+      Color priColor = Colors.blue,
+      bool isMobileScreen = false}) {
     List<Widget> widgets;
     widgets = [];
-    headerFields.forEach((e) =>
-        {widgets.add(getHeaderWidget(headerFields: e, priColor: priColor))});
+    headerFields.forEach((e) => {
+          if ((e.type == GtListViewHeaderFieldType.BUTTON && isMobileScreen) ||
+              !isMobileScreen)
+            widgets.add(getHeaderWidget(headerFields: e, priColor: priColor))
+        });
     return widgets;
   }
 
@@ -504,6 +534,7 @@ class Common {
             text: headerFields.textValue,
             textStyle: TextStyle(color: headerFields.textColor),
           ),
+          //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
         );
         break;
       case GtListViewHeaderFieldType.BUTTON:

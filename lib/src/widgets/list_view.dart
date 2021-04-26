@@ -69,7 +69,7 @@ class GtListView extends StatelessWidget {
                 : Colors.white;
 
         ///HOLDS THE MOBILE_PORTRAIT VIEW IDENTIFICATION
-        bool isMobilePortrait = SizeConfig.isMobilePortrait;
+        bool isMobilePortrait = size.width < 450 ? true : false;
         String bannerText;
         String chipcheck = "";
 
@@ -125,27 +125,27 @@ class GtListView extends StatelessWidget {
                   flex: isMobilePortrait ? value.mobileFlex : value.flex,
                   child: Container(),
                 ));
+              } else {
+                rowsData[row].add(
+                  Common.getListWidget(
+                      value,
+                      key,
+                      nodeValue,
+                      () => {
+                            if (onDetailsNavigateHandler != null)
+                              {
+                                onDetailsNavigateHandler(
+                                    listItems[index], pathNavigation,
+                                    getTileField: value)
+                              }
+                          },
+                      gtValueType: value.valueType,
+                      isMobileScreen: isMobilePortrait,
+                      quantityInitialValue: quantityInitialValue,
+                      incrementHandler: () => incrementHandler(index),
+                      decrementHandler: () => decrementHandler(index)),
+                );
               }
-            } else {
-              rowsData[row].add(
-                Common.getListWidget(
-                    value,
-                    key,
-                    nodeValue,
-                    () => {
-                          if (onDetailsNavigateHandler != null)
-                            {
-                              onDetailsNavigateHandler(
-                                  listItems[index], pathNavigation,
-                                  getTileField: value)
-                            }
-                        },
-                    gtValueType: value.valueType,
-                    isMobileScreen: isMobilePortrait,
-                    quantityInitialValue: quantityInitialValue,
-                    incrementHandler: () => incrementHandler(index),
-                    decrementHandler: () => decrementHandler(index)),
-              );
             }
           }
         });
@@ -194,11 +194,18 @@ class GtListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (leadingWidget != null && isImage) ...[
-                          Expanded(
-                            flex: 2,
-                            child: leadingWidget,
-                          ),
+                        if (leadingWidget != null &&
+                            (isImage ||
+                                listViewTableType ==
+                                    GTListViewTableType.STRIPED)) ...[
+                          listViewTableType == GTListViewTableType.STRIPED
+                              ? Container(
+                                  child: leadingWidget,
+                                )
+                              : Expanded(
+                                  flex: 2,
+                                  child: leadingWidget,
+                                ),
                           SizedBox(
                             width: 10,
                           )
@@ -225,7 +232,10 @@ class GtListView extends StatelessWidget {
                             ),
                           ),
                         ],
-                        if (leadingWidget != null && !isImage) ...[
+                        if (leadingWidget != null &&
+                            !isImage &&
+                            listViewTableType !=
+                                GTListViewTableType.STRIPED) ...[
                           Expanded(
                             flex: 1,
                             child: Row(
