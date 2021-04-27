@@ -31,3 +31,4 @@ export 'gt_avatar.dart';
 export 'gt_custom_checkbox.dart';
 export 'gt_currency.dart';
 export 'gt_button.dart';
+export 'gt_dynamic_view.dart';

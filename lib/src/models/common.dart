@@ -83,6 +83,31 @@ class Common {
     );
   }
 
+  static Widget getdynamicGtText(
+    GtTileField value,
+    String key,
+    dynamic data, {
+    TextStyle textStyle,
+  }) {
+    return Column(
+      children: [
+        GtText(
+          text: '$key :',
+          textOverflow: value.textOverFlow,
+          textStyle: textStyle,
+          fontFamily: value.fontFamily,
+        ),
+        GtText(
+          text: ' $data',
+
+          textOverflow: value.textOverFlow,
+          // textStyle: textStyle,
+          fontFamily: value.fontFamily,
+        ),
+      ],
+    );
+  }
+
   // USED WITH GTLISTPAGE FOR LISTVIEW AND CARDVIEW(GRIDVIEW)
   static Widget getListWidget(
     GtTileField gtTileField,
@@ -533,6 +558,7 @@ class Common {
           child: GtText(
             text: headerFields.textValue,
             textStyle: TextStyle(color: headerFields.textColor),
+            textAlign: TextAlign.center,
           ),
           //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
         );

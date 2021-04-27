@@ -20,6 +20,8 @@ class GtNavigationRails extends StatelessWidget {
     this.selectedTitleColor = Colors.blue,
     this.selectedTitleChange,
     this.selectedTitleOnTap,
+    this.drawerWidth = 200,
+    this.railIconSize = 16,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -36,11 +38,13 @@ class GtNavigationRails extends StatelessWidget {
   final Color selectedTitleColor;
   final Widget selectedTitleChange;
   final Function selectedTitleOnTap;
+  final double drawerWidth;
+  final double railIconSize;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isShowLable ? 160 : 0,
+      width: isShowLable ? drawerWidth : 0,
       height: double.infinity,
       color: navigationBackGroundColor,
       child: Column(
@@ -69,16 +73,19 @@ class GtNavigationRails extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 100),
-                    color: selectedindex == index
-                        ? selectedRowColor
-                        : navigationBackGroundColor,
+                    // color: selectedindex == index
+                    //     ? selectedRowColor
+                    //     : navigationBackGroundColor,
+                    color: navigationBackGroundColor,
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border(
                         right: BorderSide(
                           color: onHover == index
                               ? selectedRowDarkColor
-                              : navigationBackGroundColor,
+                              : selectedindex == index
+                                  ? selectedRowDarkColor
+                                  : navigationBackGroundColor,
                           width: 2.5,
                         ),
                       )),
@@ -108,6 +115,7 @@ class GtNavigationRails extends StatelessWidget {
                                       color: selectedindex == index
                                           ? selectedRowDarkColor
                                           : iconColor,
+                                      size: railIconSize,
                                     ),
                               Expanded(
                                   child: Padding(
