@@ -5,15 +5,17 @@ import '../models/common.dart';
 import 'gt_list_tile.dart';
 
 class GtDynamicView extends StatelessWidget {
-  GtDynamicView({
-    Key key,
-    this.listItems,
-    this.title,
-    this.gtTileRowCrossAxisAlignment,
-    this.gtTileRowMainAxisAlignment,
-    this.toMapjson,
-    this.rowsCount = 1,
-  })  : assert(listItems != null),
+  GtDynamicView(
+      {Key key,
+      this.listItems,
+      this.title,
+      this.gtTileRowCrossAxisAlignment,
+      this.gtTileRowMainAxisAlignment,
+      this.toMapjson,
+      this.rowsCount = 1,
+      this.headertextStyle,
+      this.datatextStyle})
+      : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
 
@@ -24,6 +26,8 @@ class GtDynamicView extends StatelessWidget {
   final CrossAxisAlignment gtTileRowCrossAxisAlignment;
   final MainAxisAlignment gtTileRowMainAxisAlignment;
   final String title;
+  final TextStyle headertextStyle;
+  final TextStyle datatextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +51,20 @@ class GtDynamicView extends StatelessWidget {
           rowsData[row].add(Expanded(
             flex: value.flex,
             child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Common.getdynamicGtText(
-                    value, key, Common.getValue(listItems, value.valuePath),
-                    textStyle: TextStyle(
-                      color: Color(0xff5a5278).withOpacity(0.5),
-                      fontSize: 15,
-                    ))),
+              padding: EdgeInsets.all(10.0),
+              child: Common.getdynamicGtText(
+                  value, key, Common.getValue(listItems, value.valuePath),
+                  labeltextStyle: headertextStyle ??
+                      TextStyle(
+                        color: Color(0xff5a5278).withOpacity(1.0),
+                        fontFamily: 'Montserrat-Light',
+                        fontSize: 13,
+                      ),
+                  datatextStyle: datatextStyle ??
+                      TextStyle(
+                          fontFamily: 'Montserrat-Light',
+                          fontWeight: FontWeight.w600)),
+            ),
           ));
         }
       });
@@ -119,7 +130,10 @@ class GtDynamicView extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: GtText(
                 text: title,
-                textStyle: TextStyle(color: Color(0xff5a5278).withOpacity(0.8)),
+                textStyle: TextStyle(
+                    color: Color(0xff5a5278).withOpacity(0.9),
+                    fontFamily: 'Montserrat-Light',
+                    fontSize: 16),
               ),
             ),
             ...rowsWidgets
@@ -130,8 +144,8 @@ class GtDynamicView extends StatelessWidget {
 
     return Container(
         color: Color(0xfff1f1f1),
-        width: double.infinity,
-        height: double.infinity,
+        //width: double.infinity,
+        // height: double.infinity,
         padding: EdgeInsets.all(15.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -56,7 +56,7 @@ class GtCartDetails extends StatelessWidget {
           items != null && items.length > 0
               ? Expanded(
                   child: Container(
-                  child: GtListPageGeneric(
+                  child: GtListPage(
                       rowsCount: 1,
                       toMapjson: itemJsonMap,
                       backNavigation: false,

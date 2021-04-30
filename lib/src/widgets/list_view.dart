@@ -26,6 +26,7 @@ class GtListView extends StatelessWidget {
     this.isleadingIconPosition = true,
     this.listViewTableType = GTListViewTableType.Normal,
     this.selectedRowColor = Colors.grey,
+    this.rowColors = Colors.white,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -53,6 +54,7 @@ class GtListView extends StatelessWidget {
   //PARAMTERS FOR LISTVIEW TYPE
   final GTListViewTableType listViewTableType;
   final Color selectedRowColor;
+  final Color rowColors;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,8 @@ class GtListView extends StatelessWidget {
         Color color = listViewTableType == GTListViewTableType.Normal
             ? Colors.white
             : index.isOdd
-                ? Colors.grey[200]
-                : Colors.white;
+                ? rowColors
+                : rowColors.withOpacity(0.5);
 
         ///HOLDS THE MOBILE_PORTRAIT VIEW IDENTIFICATION
         bool isMobilePortrait = size.width < 450 ? true : false;

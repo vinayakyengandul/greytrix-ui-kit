@@ -87,23 +87,27 @@ class Common {
     GtTileField value,
     String key,
     dynamic data, {
-    TextStyle textStyle,
+    TextStyle labeltextStyle,
+    TextStyle datatextStyle,
   }) {
     return Column(
       children: [
-        GtText(
-          text: '$key :',
-          textOverflow: value.textOverFlow,
-          textStyle: textStyle,
-          fontFamily: value.fontFamily,
-        ),
-        GtText(
-          text: ' $data',
-
-          textOverflow: value.textOverFlow,
-          // textStyle: textStyle,
-          fontFamily: value.fontFamily,
-        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: GtText(
+              text: '$key :',
+              textOverflow: value.textOverFlow,
+              textStyle: labeltextStyle,
+              fontFamily: value.fontFamily,
+            )),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: GtText(
+              text: '$data',
+              textOverflow: value.textOverFlow,
+              textStyle: datatextStyle,
+              fontFamily: value.fontFamily,
+            )),
       ],
     );
   }
