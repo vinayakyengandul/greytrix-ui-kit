@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../greytrix_ui_kit.dart';
 
-class GtPageNotFound extends StatelessWidget {
+class GtSomethingWentWrong extends StatelessWidget {
+  GtSomethingWentWrong({
+    this.message,
+  });
+
+  final String message;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -11,7 +16,7 @@ class GtPageNotFound extends StatelessWidget {
           Flexible(
             child: Image(
               image: AssetImage(
-                'assets/images/page_not_found.png',
+                'assets/images/Something_went_wrong.png',
                 package: 'greytrix_ui_kit',
               ),
             ),
@@ -21,7 +26,9 @@ class GtPageNotFound extends StatelessWidget {
               child: Center(
                   child: FittedBox(
                       child: GtText(
-                text: "Page not Found",
+                text: message == null
+                    ? "Something Went Wrong !! Please Try Again."
+                    : message,
                 textStyle: TextStyle(
                   fontSize: 5 * (size.height / 100),
                   fontWeight: FontWeight.w500,

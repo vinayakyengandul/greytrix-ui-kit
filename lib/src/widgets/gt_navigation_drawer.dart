@@ -18,6 +18,10 @@ class GtNavigationRails extends StatelessWidget {
     this.onHover,
     this.selectedTitle = "",
     this.selectedTitleColor = Colors.blue,
+    this.selectedTitleChange,
+    this.selectedTitleOnTap,
+    this.drawerWidth = 200,
+    this.railIconSize = 16,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -32,23 +36,36 @@ class GtNavigationRails extends StatelessWidget {
   final int onHover;
   final String selectedTitle;
   final Color selectedTitleColor;
+  final Widget selectedTitleChange;
+  final Function selectedTitleOnTap;
+  final double drawerWidth;
+  final double railIconSize;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isShowLable ? 160 : 0,
+      width: isShowLable ? drawerWidth : 0,
       height: double.infinity,
       color: navigationBackGroundColor,
       child: Column(
         children: [
           if (selectedTitle != "" && selectedTitle != null)
-            GtText(
-              text: selectedTitle,
-              textStyle: TextStyle(
-                  color: selectedRowDarkColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+            Container(
+                padding: EdgeInsets.only(top: 11, bottom: 15),
+                child: ListTile(
+                  onTap: () {
+                    if (selectedTitleOnTap != null) selectedTitleOnTap();
+                  },
+                  title: GtText(
+                    text: selectedTitle,
+                    textStyle: TextStyle(
+                        color: selectedRowDarkColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  trailing:
+                      selectedTitleChange != null ? selectedTitleChange : null,
+                )),
           Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
@@ -56,16 +73,19 @@ class GtNavigationRails extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 100),
-                    color: selectedindex == index
-                        ? selectedRowColor
-                        : navigationBackGroundColor,
+                    // color: selectedindex == index
+                    //     ? selectedRowColor
+                    //     : navigationBackGroundColor,
+                    color: navigationBackGroundColor,
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border(
                         right: BorderSide(
                           color: onHover == index
                               ? selectedRowDarkColor
-                              : navigationBackGroundColor,
+                              : selectedindex == index
+                                  ? selectedRowDarkColor
+                                  : navigationBackGroundColor,
                           width: 2.5,
                         ),
                       )),
@@ -95,6 +115,7 @@ class GtNavigationRails extends StatelessWidget {
                                       color: selectedindex == index
                                           ? selectedRowDarkColor
                                           : iconColor,
+                                      size: railIconSize,
                                     ),
                               Expanded(
                                   child: Padding(

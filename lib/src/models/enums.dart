@@ -117,3 +117,7 @@ enum GtListViewHeaderFieldType {
   BUTTON,
   ICON,
 }
+
+///POSITION FOR IMAGE
+
+enum GtImagePosition { LEFT, RIGHT, TOP, BOTTOM }

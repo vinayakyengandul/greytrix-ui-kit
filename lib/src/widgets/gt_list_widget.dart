@@ -6,8 +6,8 @@ import 'dart:math' as math;
 import 'gt_iconcheckbox.dart';
 import 'no_list_found.dart';
 
-class GtListPageGeneric extends StatelessWidget {
-  GtListPageGeneric({
+class GtListPage extends StatelessWidget {
+  GtListPage({
     Key key,
     this.title,
     this.listItems,
@@ -55,6 +55,7 @@ class GtListPageGeneric extends StatelessWidget {
     this.selectedRowColor = Colors.grey,
     this.jsonHeader,
     this.filterBottomSheet,
+    this.cardColor = Colors.white,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -96,6 +97,7 @@ class GtListPageGeneric extends StatelessWidget {
   final String pathNavigation;
   final Color backgroundcolor;
   final Size size;
+  final Color cardColor;
 
 // FOR CART FUNCTIONALITY
   final int quantityInitialValue;
@@ -270,31 +272,34 @@ class GtListPageGeneric extends StatelessWidget {
   // GETS TRAILING WIDGET
   Widget getTrailingWidget(int index) {
     print('getTrailingWidget');
-    return Container(
-      //width: SizeConfig.isMobilePortrait!-null ? 65.0 : 30.0,
-      width: size.width > 450 ? 30.0 : 65.0,
-      // screen.isPhone ? 65.0 : 30.0,
-      padding: size.width > 450
-          ? EdgeInsets.only(right: 30)
-          : EdgeInsets.only(right: 0.2),
-      //EdgeInsets.only(right: 30),
-      // right: SizeConfig.isMobilePortrait ? 0.2 : 30),
-      //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
-      child: Row(
-        children: [
-          Container(
-              child: Padding(
+    return trailingIcon != null
+        ? Container(
+            //width: SizeConfig.isMobilePortrait!-null ? 65.0 : 30.0,
+            width: size.width > 450 ? 30.0 : 65.0,
+            // screen.isPhone ? 65.0 : 30.0,
             padding: size.width > 450
                 ? EdgeInsets.only(right: 30)
                 : EdgeInsets.only(right: 0.2),
-            child: InkWell(
-              child: trailingIcon,
-              onTap: () => {onDeleteHandler(entity ?? '', listItems[index])},
+            //EdgeInsets.only(right: 30),
+            // right: SizeConfig.isMobilePortrait ? 0.2 : 30),
+            //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
+            child: Row(
+              children: [
+                Container(
+                    child: Padding(
+                  padding: size.width > 450
+                      ? EdgeInsets.only(right: 30)
+                      : EdgeInsets.only(right: 0.2),
+                  child: InkWell(
+                    child: trailingIcon,
+                    onTap: () =>
+                        {onDeleteHandler(entity ?? '', listItems[index])},
+                  ),
+                ))
+              ],
             ),
-          ))
-        ],
-      ),
-    );
+          )
+        : Container();
   }
 
   @override
@@ -475,7 +480,7 @@ class GtListPageGeneric extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   margin: EdgeInsets.all(22),
-                                  color: Colors.white,
+                                  color: cardColor,
                                   child: Column(
                                     children: [
                                       listViewTableType ==
@@ -689,6 +694,7 @@ class GtListPageGeneric extends StatelessWidget {
                                                             listViewTableType,
                                                         selectedRowColor:
                                                             selectedRowColor,
+                                                        rowColors: cardColor,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:

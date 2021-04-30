@@ -9,6 +9,7 @@ class Rails {
   final List<String> roles;
   final String imageUrl;
   bool IsHovered;
+  final String moduleName;
 
   Rails(
     this.icon,
@@ -18,5 +19,6 @@ class Rails {
     this.roles = const [],
     this.imageUrl = "",
     this.IsHovered = false,
+    this.moduleName = 'Home',
   });
 }

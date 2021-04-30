@@ -25,6 +25,7 @@ class GtTagTextField extends StatelessWidget {
     this.suggestionsBoxController,
     this.displayInFieldLabel = false,
     this.labelfontsize,
+    this.textColor = Colors.black,
   });
 
   final String fieldLabel;
@@ -46,6 +47,7 @@ class GtTagTextField extends StatelessWidget {
   final FocusNode focusNode;
   final SuggestionsBoxController suggestionsBoxController;
   final bool displayInFieldLabel;
+  final Color textColor;
 
   /// ADDED TO GENERIC UI  WIDGETS
   final double labelfontsize;
@@ -62,11 +64,11 @@ class GtTagTextField extends StatelessWidget {
             text: fieldLabel,
             // texttype: TextformatType.bodyText2,
             textStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.25,
-              fontStyle: FontStyle.normal,
-            ),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.25,
+                fontStyle: FontStyle.normal,
+                color: textColor),
           ),
 
         ///SUGGESTION FIELD
@@ -97,11 +99,11 @@ class GtTagTextField extends StatelessWidget {
                                     '${data[lookupFields.entries.first.value]}',
                                 // texttype: TextformatType.bodyText2,
                                 textStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 0.25,
-                                  fontStyle: FontStyle.normal,
-                                ),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.25,
+                                    fontStyle: FontStyle.normal,
+                                    color: textColor),
                               ),
                               selected: false,
                               onDeleted: () => onDeleted(data),
@@ -145,22 +147,22 @@ class GtTagTextField extends StatelessWidget {
                                           text: '${e.key} :',
                                           //   texttype: TextformatType.bodyText2,
                                           textStyle: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: 0.25,
-                                            fontStyle: FontStyle.normal,
-                                          ),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.25,
+                                              fontStyle: FontStyle.normal,
+                                              color: textColor),
                                         ),
                                       ],
                                       GtText(
                                         text: suggestion[e.value],
                                         //   texttype: TextformatType.bodyText2,
                                         textStyle: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: 0.25,
-                                          fontStyle: FontStyle.normal,
-                                        ),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.25,
+                                            fontStyle: FontStyle.normal,
+                                            color: textColor),
                                       ),
                                     ],
                                   ))
@@ -174,13 +176,12 @@ class GtTagTextField extends StatelessWidget {
                         title: GtText(
                           text: '$suggestion',
                           //  texttype: TextformatType.bodyText2,
-
                           textStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.25,
-                            fontStyle: FontStyle.normal,
-                          ),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 0.25,
+                              fontStyle: FontStyle.normal,
+                              color: textColor),
                         ),
                         trailing: GTChip(
                           avatar: GtIcon(icondata: Icons.add_circle),
@@ -188,11 +189,11 @@ class GtTagTextField extends StatelessWidget {
                           backgroundColor: Colors.green,
                           //textFormatType: TextformatType.bodyText2,
                           textStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.25,
-                            fontStyle: FontStyle.normal,
-                          ),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 0.25,
+                              fontStyle: FontStyle.normal,
+                              color: textColor),
                         ),
                       );
           },
@@ -221,11 +222,11 @@ class GtTagTextField extends StatelessWidget {
                     text: 'Add',
                     // texttype: TextformatType.bodyText2,
                     textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.25,
-                      fontStyle: FontStyle.normal,
-                    ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.25,
+                        fontStyle: FontStyle.normal,
+                        color: textColor),
                   ),
                 ],
               ),

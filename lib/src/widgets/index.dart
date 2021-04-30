@@ -31,3 +31,7 @@ export 'gt_avatar.dart';
 export 'gt_custom_checkbox.dart';
 export 'gt_currency.dart';
 export 'gt_button.dart';
+export 'gt_dynamic_view.dart';
+export 'gt_text_form_field.dart';
+export 'something_went_wrong.dart';
+export 'no_internet_connection.dart';
