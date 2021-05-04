@@ -11,6 +11,7 @@ class GtAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.bottom,
     this.elevation: 0.0,
     this.backgroundColor = Colors.grey,
+    this.flexibleSpace,
   })  : assert(automaticallyImplyLeading != null),
         assert(primary != null),
         preferredSize = Size.fromHeight(kToolbarHeight),
@@ -24,6 +25,8 @@ class GtAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool automaticallyImplyLeading;
   final Color backgroundColor;
   final double elevation;
+  final Widget flexibleSpace;
+
   @override
   final Size preferredSize;
 
@@ -38,6 +41,7 @@ class GtAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         if (actions != null) ...actions,
       ],
+      flexibleSpace: flexibleSpace ?? Container(),
     );
   }
 }
