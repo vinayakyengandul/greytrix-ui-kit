@@ -5,17 +5,20 @@ import '../models/common.dart';
 import 'gt_list_tile.dart';
 
 class GtDynamicView extends StatelessWidget {
-  GtDynamicView(
-      {Key key,
-      this.listItems,
-      this.title,
-      this.gtTileRowCrossAxisAlignment,
-      this.gtTileRowMainAxisAlignment,
-      this.toMapjson,
-      this.rowsCount = 1,
-      this.headertextStyle,
-      this.datatextStyle})
-      : assert(listItems != null),
+  GtDynamicView({
+    Key key,
+    this.listItems,
+    this.title,
+    this.titleTextStyle,
+    this.gtTileRowCrossAxisAlignment,
+    this.gtTileRowMainAxisAlignment,
+    this.toMapjson,
+    this.rowsCount = 1,
+    this.headertextStyle,
+    this.datatextStyle,
+    this.backgroundColor,
+    this.cardColor,
+  })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
 
@@ -28,6 +31,10 @@ class GtDynamicView extends StatelessWidget {
   final String title;
   final TextStyle headertextStyle;
   final TextStyle datatextStyle;
+  final TextStyle titleTextStyle;
+
+  final Color backgroundColor;
+  final Color cardColor;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +127,7 @@ class GtDynamicView extends StatelessWidget {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.white,
+          color: backgroundColor ?? Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -130,10 +137,11 @@ class GtDynamicView extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: GtText(
                 text: title,
-                textStyle: TextStyle(
-                    color: Color(0xff5a5278).withOpacity(0.9),
-                    fontFamily: 'Montserrat-Light',
-                    fontSize: 16),
+                textStyle: titleTextStyle ??
+                    TextStyle(
+                        color: Color(0xff5a5278).withOpacity(0.9),
+                        fontFamily: 'Montserrat-Light',
+                        fontSize: 16),
               ),
             ),
             ...rowsWidgets
@@ -143,9 +151,7 @@ class GtDynamicView extends StatelessWidget {
     }
 
     return Container(
-        color: Color(0xfff1f1f1),
-        //width: double.infinity,
-        // height: double.infinity,
+        color: cardColor ?? Color(0xfff1f1f1),
         padding: EdgeInsets.all(15.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
