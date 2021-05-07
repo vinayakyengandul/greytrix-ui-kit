@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 import '../models/rails.dart';
 import 'gt_icon.dart';
 import 'gt_text.dart';
@@ -22,6 +24,9 @@ class GtNavigationRails extends StatelessWidget {
     this.selectedTitleOnTap,
     this.drawerWidth = 200,
     this.railIconSize = 16,
+    this.svgheight = 23,
+    this.svgwidth = 23,
+    this.imageSize = 20,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -40,9 +45,48 @@ class GtNavigationRails extends StatelessWidget {
   final Function selectedTitleOnTap;
   final double drawerWidth;
   final double railIconSize;
+  final double svgheight;
+  final double svgwidth;
+  final double imageSize;
 
   @override
   Widget build(BuildContext context) {
+    // TO SHOW ICONS/IMAGES BASED ON THE TYPE
+    Widget getrailsIcons(GtIconType iconType, int index) {
+      switch (iconType) {
+        case GtIconType.ICON:
+          return GtIcon(
+            icondata: nrdlist[index].icon,
+            color: selectedindex == index ? selectedRowDarkColor : iconColor,
+            size: railIconSize,
+          );
+          break;
+
+        case GtIconType.IMAGE:
+          return Padding(
+              padding: EdgeInsets.only(left: 2.0),
+              child: ImageIcon(
+                AssetImage(nrdlist[index].imageUrl),
+                size: imageSize,
+                color:
+                    selectedindex == index ? selectedRowDarkColor : iconColor,
+              ));
+          break;
+
+        case GtIconType.SVG:
+          return Container(
+              padding: EdgeInsets.all(2.0),
+              height: svgheight,
+              width: svgwidth,
+              child: SvgPicture.asset(
+                nrdlist[index].iconPath,
+              ));
+          break;
+        default:
+          break;
+      }
+    }
+
     return Container(
       width: isShowLable ? drawerWidth : 0,
       height: double.infinity,
@@ -100,23 +144,9 @@ class GtNavigationRails extends StatelessWidget {
                               left: 7, right: 7, top: 12, bottom: 12),
                           child: Row(
                             children: <Widget>[
-                              nrdlist[index].imageUrl != ""
-                                  ? Padding(
-                                      padding: EdgeInsets.only(left: 2.0),
-                                      child: ImageIcon(
-                                        AssetImage(nrdlist[index].imageUrl),
-                                        size: 20,
-                                        color: selectedindex == index
-                                            ? selectedRowDarkColor
-                                            : iconColor,
-                                      ))
-                                  : GtIcon(
-                                      icondata: nrdlist[index].icon,
-                                      color: selectedindex == index
-                                          ? selectedRowDarkColor
-                                          : iconColor,
-                                      size: railIconSize,
-                                    ),
+                              //nrdlist[index].imageUrl != ""
+                              getrailsIcons(nrdlist[index].iconType, index),
+
                               Expanded(
                                   child: Padding(
                                 padding: EdgeInsets.only(left: 15.0),
