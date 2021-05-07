@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class GtImageCard extends StatelessWidget {
-  GtImageCard({
-    this.boxFit = BoxFit.fill,
-    this.imageURL,
-    this.backgroundcolor,
-    this.height,
-    this.width,
-    this.isNetworkImage = true,
-  });
+  GtImageCard(
+      {this.boxFit = BoxFit.fill,
+      this.imageURL,
+      this.backgroundcolor,
+      this.height,
+      this.width,
+      this.isNetworkImage = true,
+      this.isSvgImage = false});
 
   final Color backgroundcolor;
   final String imageURL;
@@ -16,6 +17,7 @@ class GtImageCard extends StatelessWidget {
   final double width;
   final double height;
   final bool isNetworkImage;
+  final bool isSvgImage;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +58,12 @@ class GtImageCard extends StatelessWidget {
                   );
                 },
               )
-            : Image.asset(
-                "$imageURL",
-              ));
+            : isSvgImage
+                ? SvgPicture.asset(
+                    "$imageURL",
+                  )
+                : Image.asset(
+                    "$imageURL",
+                  ));
   }
 }

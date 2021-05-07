@@ -121,3 +121,6 @@ enum GtListViewHeaderFieldType {
 ///POSITION FOR IMAGE
 
 enum GtImagePosition { LEFT, RIGHT, TOP, BOTTOM }
+
+// FOR ICONS/IMAGE TYPE IN RAILS
+enum GtIconType { IMAGE, SVG, ICON }

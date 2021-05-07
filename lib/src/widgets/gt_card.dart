@@ -75,14 +75,14 @@ class GtCard extends StatelessWidget {
               imageURL: imageURL,
               backgroundcolor: imageBackgroundColor,
               isNetworkImage: isNetworkImage),
-          Padding(
-              padding: EdgeInsets.all(textPadding),
-              child: Center(
-                child: GtText(
-                  text: label,
-                  textStyle: textStyle,
-                ),
-              )),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(textPadding),
+            child: GtText(
+              text: label,
+              textStyle: textStyle,
+            ),
+          ))
         ]);
         break;
 
@@ -96,27 +96,27 @@ class GtCard extends StatelessWidget {
             backgroundcolor: imageBackgroundColor,
             isNetworkImage: isNetworkImage,
           ),
-          Padding(
-              padding: EdgeInsets.all(textPadding),
-              child: Center(
-                child: GtText(
-                  text: label,
-                  textStyle: textStyle,
-                ),
-              )),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(textPadding),
+            child: GtText(
+              text: label,
+              textStyle: textStyle,
+            ),
+          )),
         ]);
         break;
 
       case GtImagePosition.RIGHT:
         return Row(children: [
-          Padding(
-              padding: EdgeInsets.all(textPadding),
-              child: Center(
-                child: GtText(
-                  text: label,
-                  textStyle: textStyle,
-                ),
-              )),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(textPadding),
+            child: GtText(
+              text: label,
+              textStyle: textStyle,
+            ),
+          )),
           GtImageCard(
               height: imageheight,
               width: imageWidth,
@@ -129,14 +129,14 @@ class GtCard extends StatelessWidget {
 
       case GtImagePosition.BOTTOM:
         return Column(children: [
-          Padding(
-              padding: EdgeInsets.all(textPadding),
-              child: Center(
-                child: GtText(
-                  text: label,
-                  textStyle: textStyle,
-                ),
-              )),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(textPadding),
+            child: GtText(
+              text: label,
+              textStyle: textStyle,
+            ),
+          )),
           GtImageCard(
             height: imageheight,
             width: imageWidth,
