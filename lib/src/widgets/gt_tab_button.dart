@@ -10,7 +10,8 @@ class GtTabButton extends StatelessWidget {
       this.onPressed,
       this.selectedColor,
       this.unselectedColor,
-      this.textStyle});
+      this.selectedTextStyle,
+      this.unselectedTextStyle});
 
   final String text;
   final int selectedPage;
@@ -18,7 +19,8 @@ class GtTabButton extends StatelessWidget {
   final Function onPressed;
   final Color selectedColor;
   final Color unselectedColor;
-  final TextStyle textStyle;
+  final TextStyle unselectedTextStyle;
+  final TextStyle selectedTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,9 @@ class GtTabButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 20.0),
         child: GtText(
           text: text,
-          textStyle: textStyle,
+          textStyle: selectedPage == pageNumber
+              ? selectedTextStyle
+              : unselectedTextStyle,
         ),
       ),
     );

@@ -10,7 +10,8 @@ class GtTab extends StatelessWidget {
     this.unselectedColor,
     this.selectedTab,
     this.onPressed,
-    this.textStyle,
+    this.selectedTextStyle,
+    this.unselectedTextStyle,
   }) : assert(tabPages.length == tablist.length);
 
   final PageController pageController;
@@ -20,7 +21,8 @@ class GtTab extends StatelessWidget {
   final List<String> tablist;
   final List<Widget> tabPages;
   final int selectedTab;
-  final TextStyle textStyle;
+  final TextStyle selectedTextStyle;
+  final TextStyle unselectedTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,8 @@ class GtTab extends StatelessWidget {
                       onPressed: () => onPressed(e.key, false),
                       selectedColor: selectedColor,
                       unselectedColor: unselectedColor,
-                      textStyle: textStyle,
+                      selectedTextStyle: selectedTextStyle,
+                      unselectedTextStyle: unselectedTextStyle,
                     ),
                   ),
             ],
