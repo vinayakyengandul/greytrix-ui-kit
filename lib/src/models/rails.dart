@@ -9,7 +9,7 @@ class Rails {
   final String path;
   final List<String> roles;
   final String imageUrl;
-  bool isHovered;
+  bool IsHovered;
   final String moduleName;
   final String iconPath;
   final String selectedIconPath;
@@ -18,7 +18,7 @@ class Rails {
   Rails(this.icon, this.selectedIcon, this.label, this.path,
       {this.roles = const [],
       this.imageUrl = "",
-      this.isHovered = false,
+      this.IsHovered = false,
       this.moduleName = 'Home',
       this.iconPath,
       this.selectedIconPath,
