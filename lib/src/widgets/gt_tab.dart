@@ -31,23 +31,25 @@ class GtTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ...tablist.asMap().entries.map(
-                    (e) => new GtTabButton(
-                      text: e.value,
-                      pageNumber: e.key,
-                      selectedPage: selectedTab,
-                      onPressed: () => onPressed(e.key, false),
-                      selectedColor: selectedColor,
-                      unselectedColor: unselectedColor,
-                      selectedTextStyle: selectedTextStyle,
-                      unselectedTextStyle: unselectedTextStyle,
-                    ),
-                  ),
-            ],
-          ),
+          child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ...tablist.asMap().entries.map(
+                        (e) => new GtTabButton(
+                          text: e.value,
+                          pageNumber: e.key,
+                          selectedPage: selectedTab,
+                          onPressed: () => onPressed(e.key, false),
+                          selectedColor: selectedColor,
+                          unselectedColor: unselectedColor,
+                          selectedTextStyle: selectedTextStyle,
+                          unselectedTextStyle: unselectedTextStyle,
+                        ),
+                      ),
+                ],
+              )),
         ),
         Expanded(
             child: PageView(

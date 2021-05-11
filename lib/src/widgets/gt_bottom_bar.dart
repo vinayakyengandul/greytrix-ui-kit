@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class GtBottomBar extends StatelessWidget {
-  GtBottomBar(
-      {@required this.bottombarItems,
-      this.selectedIconThemedata,
-      this.unselectedIconThemedata,
-      this.backgroundColor,
-      this.showSelectedLabels = false,
-      this.showUnselectedLabels = false,
-      this.bartype = BottomNavigationBarType.fixed,
-      this.onTaphandler,
-      this.elevation});
+  GtBottomBar({
+    @required this.bottombarItems,
+    this.selectedIconThemedata,
+    this.unselectedIconThemedata,
+    this.backgroundColor,
+    this.showSelectedLabels = false,
+    this.showUnselectedLabels = false,
+    this.bartype = BottomNavigationBarType.fixed,
+    this.onTaphandler,
+    this.elevation,
+    this.selectedItemColor,
+    this.unselectedItemColor,
+  });
 
   final List<BottomNavigationBarItem> bottombarItems;
   final IconThemeData selectedIconThemedata;
@@ -21,6 +24,8 @@ class GtBottomBar extends StatelessWidget {
   final BottomNavigationBarType bartype;
   final Function(int) onTaphandler;
   final double elevation;
+  final Color unselectedItemColor;
+  final Color selectedItemColor;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,8 @@ class GtBottomBar extends StatelessWidget {
             )
           : selectedIconThemedata,
       items: bottombarItems,
+      unselectedItemColor: unselectedItemColor ?? Colors.white,
+      selectedItemColor: selectedItemColor ?? Colors.blueAccent,
     );
   }
 }

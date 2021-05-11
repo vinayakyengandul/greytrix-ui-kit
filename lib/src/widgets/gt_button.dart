@@ -80,7 +80,7 @@ class GtButton extends StatelessWidget {
                   shape: const BeveledRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                 ),
-            onPressed: () => onPressed,
+            onPressed: () => onPressed(),
           )
         : (buttonType == GtButtonType.RADIO)
             ? Row(
