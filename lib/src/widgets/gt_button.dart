@@ -1,30 +1,38 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+import 'dart:io' show Platform;
+import '../models/enums.dart';
+import 'gt_image_card.dart';
+import 'gt_text.dart';
 
 class GtButton extends StatelessWidget {
-  GtButton(
-      {this.buttonStyle,
-      this.iconColor,
-      this.iconPosition,
-      this.iconSize,
-      this.icondata,
-      this.onPressed,
-      this.text,
-      this.textStyle,
-      this.buttonType = GtButtonType.BUTTON,
-      this.value,
-      this.groupValue,
-      this.onChanged,
-      this.toggleable = false,
-      this.activeColor,
-      this.autofocus = false,
-      this.imagebackgroundcolor,
-      this.imageboxFit,
-      this.imageheight,
-      this.imageURL,
-      this.imageonClick,
-      this.imagewidth})
-      : assert(buttonType == GtButtonType.RADIO &&
+  GtButton({
+    this.buttonStyle,
+    this.iconColor,
+    this.iconPosition,
+    this.iconSize,
+    this.icondata,
+    this.onPressed,
+    this.text,
+    this.textStyle,
+    this.buttonType = GtButtonType.BUTTON,
+    this.value,
+    this.groupValue,
+    this.onChanged,
+    this.toggleable = false,
+    this.activeColor,
+    this.autofocus = false,
+    this.imagebackgroundcolor,
+    this.imageboxFit,
+    this.imageheight,
+    this.imageURL,
+    this.imageonClick,
+    this.imagewidth,
+    this.borderRadius,
+    this.color,
+    this.disabledColor,
+    this.padding,
+  }) : assert(buttonType == GtButtonType.RADIO &&
                 value != null &&
                 groupValue &&
                 onChanged != null ||
@@ -39,6 +47,12 @@ class GtButton extends StatelessWidget {
   final Function onPressed;
   final GtPosition iconPosition;
   final GtButtonType buttonType;
+
+  // FOR CUPERTINO BUTTON
+  final Color color;
+  final Color disabledColor;
+  final EdgeInsets padding;
+  final BorderRadius borderRadius;
 
   //PARAMETERS FOR RADIO BUTTON
   final Function(dynamic) onChanged;
@@ -59,29 +73,51 @@ class GtButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (buttonType == GtButtonType.BUTTON)
-        ? ElevatedButton(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GtText(
-                  text: text,
-                  textStyle: textStyle,
-                  position: iconPosition,
-                  iconSize: iconSize,
-                  iconColor: iconColor,
-                  iconData: icondata,
+        ? Platform.isIOS
+            ? CupertinoButton(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GtText(
+                      text: text,
+                      textStyle: textStyle,
+                      position: iconPosition,
+                      iconSize: iconSize,
+                      iconColor: iconColor,
+                      iconData: icondata,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            style: buttonStyle ??
-                ElevatedButton.styleFrom(
-                  primary: Colors.teal,
-                  onPrimary: Colors.white,
-                  shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                onPressed: onPressed(),
+                color: color ?? Colors.blue,
+                disabledColor: disabledColor ?? Colors.grey,
+                padding: padding ?? EdgeInsets.all(16.0),
+                borderRadius:
+                    borderRadius ?? BorderRadius.all(Radius.circular(8.0)),
+              )
+            : ElevatedButton(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GtText(
+                      text: text,
+                      textStyle: textStyle,
+                      position: iconPosition,
+                      iconSize: iconSize,
+                      iconColor: iconColor,
+                      iconData: icondata,
+                    ),
+                  ],
                 ),
-            onPressed: () => onPressed(),
-          )
+                style: buttonStyle ??
+                    ElevatedButton.styleFrom(
+                      primary: Colors.teal,
+                      onPrimary: Colors.white,
+                      shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                    ),
+                onPressed: () => onPressed(),
+              )
         : (buttonType == GtButtonType.RADIO)
             ? Row(
                 children: [

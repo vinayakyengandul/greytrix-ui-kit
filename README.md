@@ -25,6 +25,8 @@
  - [GtCalendar Widget](#gtcalendar-widget)
  - [GtCurrency Widget](#gtcurrency-widget)
  - [GtButton Widget](#gtbutton-widget)
+ - [GtAppSideBar Widget](#gtappsidebar-widget)
+ - [GtDynamicView Widget](#gtdynamicview-widget)
 
  
  
@@ -112,7 +114,7 @@ The gticon widget is used represent the Icon on the Screen with responsive sizin
    - Example
      - Step 1 : Import core in files that it will be used:
      ```dart
-        import 'package:core/core.dart';
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
      ```
      - Step 2 : GtIcon widget can be used as shown in the below example where color and size are the optional Paramters if not specified the widget will handles it with its own creative way.
      ```dart
@@ -154,7 +156,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
     
    - Step 1 : Import core in files that it will be used:
    ```dart
-      import 'package:core/core.dart';
+      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
    ```
    - Step 2 : GtIconCheckbox widget can be used as shown in the below example.
                 
@@ -232,7 +234,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GtTextFormField widget with spacific fieldLabel name.
@@ -300,7 +302,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GTChip widget and specify the textformattype for the text which is to be displayed.
@@ -345,7 +347,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GtHeader widget input is List of Widgets and Bool.
@@ -397,7 +399,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GtTitlebar widget and specify the color for the text which is to be displayed.
@@ -526,7 +528,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GtNavigationRails widget.
@@ -677,7 +679,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 1 : Import core in files that it will be used:
 
       ```dart
-         import 'package:core/core.dart';
+          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
       ```
 
       - Step 2 : Used GtAppBar widget.
@@ -1773,6 +1775,494 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
          
        
         ![imbtn](https://user-images.githubusercontent.com/47977097/115863019-7dd02a80-a452-11eb-92b1-4706b7b40855.png)
+
+
+
+# GtAppSideBar Widget
+  
+ The GtAppSideBar widget are two primary options for navigation tabs and drawers when there is insufficient space to support tabs, drawers.
+   - Benefits of GtAppSideBar Widget
+      - SideBar is design used in app secondary menu design.
+
+      - We can use vertical space of mobile screens optimally because most of the users in most cases use portraint   mode of app orientation against landscape mode.
+
+      - SideBar can cover a number of navigation opetions campared to tiny main navigation bar situated either on the top or bottm of the app Even users cna scroll it further to access hidden buttons or content.
+
+      - SideBar can provide clear and clutter free desing.
+     
+      
+   - Constructors: 
+          - [GtAppSideBar](components.md#gtbutton-widget)(
+            {  @required this.listApp,
+               @required this.isItemSelected,
+               @required this.toolTipMessageField,
+               @required this.getAvatarWidgeContent,
+               this.selectedindex,
+               this.onTapHandler,
+               this.trailingWidget,
+               this.navigationBackGround = Colors.white,
+               this.selectedRowColor = Colors.blueGrey,
+               this.selectedRowDarkColor = Colors.grey,
+               this.iconColor = Colors.black,
+               this.leadingWidget,
+               this.backGroundColor = Colors.white,
+               this.width = 60.0,
+               this.railTextWidget
+            });
+  
+   - Input Parameters of GtAppSideBar Widget 
+      - listApps - List<dynamic> - This is fine for short list but not for a long list.
+      - trailingWidget - List<Widget> - List are made up of multiple rows of items, which include text, buttons, toggles, icons, thumbnails, and many more.
+      - selectedindex - int - The index into destinations for the current selected
+      - onTapHandler - Function - Function to call ListApp onTapHandler.
+      - navigationBackGroundColor - Color - To set navigationBackGroundColor.
+      - selectedRowColor - Color - Provide Row color selected row. 
+      - selectedRowDarkColor - Color - Set Row color dark selected row.
+      - iconColor - Color - To set the icon color.
+      - isItemSelected - Function(dynamic obj) - To call function which item selected.
+      - getAvatarWidgetContent - Function(dynamic obj) - To call getAvatarWidgetContent function. 
+      - toolTipMessageContent - Function(dynamic obj) - To call toolTipMessageContent function. 
+      - leadingWidget - Widget- A widget to display before the toolbar's title.
+      - backGroundColor - Color - To sets backgroundcolor.
+      - width - double - To set width in double data type.
+      - railTextWidget - Function(dynamic obj) - To call railTextWidget function.
+
+         
+   - Example
+    
+      - Step 1 : Import UI kit in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtAppSideBar widget as shown below example.
+                
+      ```dart         
+          
+
+      
+             class Home extends StatelessWidget {
+                  @override
+                  Widget build(BuildContext context) {
+                     return Scaffold(
+                        appBar: GtAppBar(
+                           title: GtText(
+                             text: 'AppBar',
+                            )
+                      ),
+                      drawer: Drawer(
+                        child: GtAppSideBar(
+                          isItemSelected: (obj) {},
+                          getAvatarWidgetContent: (obj) {},
+                          toolTipMessageField: (obj) {},
+                          listApps: [],
+                          trailingWidget: [
+                            Container(
+                               child: Column(
+                                 children: <Widget>[
+                                     Container(
+                                       width: double.infinity,
+                                       padding: EdgeInsets.all(20),
+                                       color: Theme.of(context).primaryColor,
+                                       child: Center(
+                                           child: Column(children: <Widget>[
+                                              Container(
+                                                 width: 100,
+                                                 height: 100,
+                                                 decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                   image: DecorationImage(
+                                                     image: AssetImage('assets/images/profile.jpg'),
+                                                     fit: BoxFit.fill)),
+                                                    ),
+                                                    Text(
+                                                      'Greytrix',
+                                                      style: TextStyle(fontSize: 20),
+                                                      ),
+                                                      GtText(text: 'greytrixindia@gmail.com')
+                                                  ]
+                                             ),
+                                         ),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.file_present),
+                                        title: Text('My File'),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.people),
+                                        title: GtText(text: 'Shared with me'),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.star),
+                                        title: GtText(text: 'Starred')
+                                       ), 
+                                       ListTile(
+                                        leading: Icon(Icons.credit_card_rounded),
+                                        title: GtText(text: 'Recent'),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.offline_share),
+                                        title: GtText(text: 'Offline'),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.upload_rounded),
+                                        title: GtText(text: 'Upload'),
+                                       ),
+                                       ListTile(
+                                        leading: Icon(Icons.cloud_download_outlined),
+                                        title: GtText(text: 'Backup'),
+                                       ),                                                     
+                                    ],
+                                 ),
+                               ),
+                             ]
+                          ),
+                        )
+                     );    
+                 }
+            }
+
+       ```
+     
+      - Step 3 : Result :
+       
+        ![AppSideBar](https://user-images.githubusercontent.com/82582302/119087922-78e8a180-ba25-11eb-88a9-5edc66af81c8.png)
+
+
+
+
+
+# GtDynamicView Widget
+  
+ The GtDynamicView widget is used to write corresponding parsing engines on the client side to implement dyanamic view.
+
+   - Benefits of GtDynamicView Widget
+      - Dynamic views have the benefits of transparent file access.
+      - Fast immediate updates.
+      - Also, get global view of code base.
+      - Derived objects sharing.
+      
+   - Constructors: 
+          - [GtDynamicView](components.md#gtbutton-widget)(
+            {  
+               key key,
+               this.listItems,
+               this.title,
+               this.gtTileRowCrossAxisAlignment,
+               this.gtTileRowMainAxisAlignment,
+               this.toMapjson,
+               this.rowsCount = 1,
+               this.headertextStyle
+            });
+  
+   - Input Parameters of GtDynamicView Widget 
+      - rowsCont - int - To set the number of row.
+      - toMapjson - Map<String, dynamic>- A Map object is a key-value pair to store string or any dynamic data.
+      - listItem - dynamic - To set the data in listItems.
+      - gtTileRowCrossAxisAlignment - CrossAxisAlignment - To set ho items are align on the other axis
+      - gtTileRowMainAxisAlignment - MainAxisAlignment - To set how items are aligned on that axis.
+      - title - String - To set the Title. 
+      - headertextStyle - TextStyle - Sets the heardertextStyle which you want.
+      - datatextStyle - TextStyle - Sets the datatextStyle which you want. 
+
+   - Example
+    
+      - Step 1 : Import UI kit in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtDynamicView widget as shown below example.
+                
+      ```dart   
+        
+         class DynamicViewDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                  return Scaffold(
+                      appBar: GtAppBar(
+                         title: GtText(
+                             text: 'Dynamic View',
+                            ),
+                         ),
+                         body: GtDynamicView(
+                         rowsCount: 11,
+                         title: 'PERSONAL DETAILS',
+                         toMapjson: {
+                            'Personal Email Id': GtTileField(
+                                 displayKey: true,
+                                 row: 1,
+                                 valuePath: 'email',
+                                 flex: 1,
+                                 mobileRow: 1,
+                             ),
+                            'Blood Group': GtTileField(
+                                displayKey: true,
+                                row: 1,
+                                valuePath: 'bloodgroup',
+                                flex: 1,
+                                mobileRow: 2,
+                             ),
+                            'Address1': GtTileField(
+                                displayKey: true,
+                                row: 2,
+                                valuePath: 'address1',
+                                flex: 1,
+                                mobileRow: 3,
+                             ),
+                            'Address2': GtTileField(
+                                displayKey: true,
+                                row: 2,
+                                valuePath: 'address2',
+                                flex: 1,
+                                mobileRow: 4,
+                             ),
+                            'Place ': GtTileField(
+                                displayKey: true,
+                                row: 3,
+                                valuePath: 'place',
+                                flex: 1,
+                                mobileRow: 5,
+                             ),
+                            'City': GtTileField(
+                                displayKey: true,
+                                row: 3,
+                                valuePath: 'city',
+                                flex: 1,
+                                mobileRow: 6,
+                             ),
+                            'Pin Code': GtTileField(
+                                displayKey: true,
+                                row: 4,
+                                valuePath: 'pincode',
+                                flex: 1,
+                                mobileRow: 7,
+                             ),
+                            'Email Id': GtTileField(
+                                displayKey: true,
+                                row: 4,
+                                valuePath: 'emailid',
+                                flex: 1,
+                                mobileRow: 8,
+                             ),
+                            'Bank Branch Code': GtTileField(
+                                displayKey: true,
+                                row: 5,
+                                valuePath: 'bankbranchcode',
+                                flex: 1,
+                                mobileRow: 9,
+                             ),
+                            'Bank Name': GtTileField(
+                                displayKey: true,
+                                row: 5,
+                                valuePath: 'bankname',
+                                flex: 1,
+                                mobileRow: 10,
+                             ),
+                            'Personal Mobile No': GtTileField(
+                                displayKey: false,
+                                row: 6,
+                                valuePath: 'mobileno',
+                                flex: 1,
+                                mobileRow: 10,
+                             ),
+                        },
+                        listItems: {
+                             'email': 'manish98@gmail.com',
+                             'bloodgroup': 'O+',
+                             'address1': 'Khamothe',
+                             'address2': 'Belpada',
+                             'place': '121212434',
+                             'city': 'KHARGHAR',
+                             'pincode': '410210',
+                             'emailid': 'manish98@gmail.com',
+                             'bankbranchcode': '000291',
+                             'bankname': 'HDFC Bank',
+                             'mobileno': '9082948703'
+                        },
+                    ),
+                 );
+              }
+         }
+
+
+
+      ```
+     
+      - Step 3 : Result :
+
+      ![DynamicView](https://user-images.githubusercontent.com/82582302/119608692-fe989280-be13-11eb-962f-91d64ba5f646.png)
+
+
+# GtSignature Widget
+
+ The GtSignature widget is used represent to allow users to sign with finger and export the result as image.
+   - Benefits of GtSignature Widget
+      - Provided the options Save and Clear Buttons.
+      - More properties/options are available to make widget pretty good.
+   - Constructors: 
+          - [GtSignature](components.md#gtsignature-widget)(
+            {  this.color = Colors.black,
+               this.strokeWidth = 2.0,
+               this.changeColorOnPressed,
+               this.changeStrokeWidthOnPressed,
+               this.saveSignOnPressed,
+               this.backgroundColor = Colors.white54,
+               this.signaturePadBackgroundColor = Colors.white70,
+               this.sign,
+               this.signClearOnPressed,});
+   - Input Parameters of GtCurrency Widget   
+      - color - Color - signature color.
+      - strokeWidth - double - width of signature line. Default value is 2.0.
+      - changeColorOnPressed - Function -  Change Color of signature function.
+      - changeStrokeWidthOnPressed - Function - Change signature width function. Example Below. 
+      ```dart
+        void changeStrokeWidthOnPressed(){
+            int min = 1;
+            int max = 10;
+            int selection = min + (Random().nextInt(max - min));
+            strokeWidth = selection.roundToDouble();
+        }
+      ```
+      - saveSignOnPressed - Function - Save the signature of draw function. Example is below.
+      ```dart
+        void saveSignOnPressed(){
+            ByteData _img = ByteData(0);
+            final sign = _sign.currentState;
+            //retrieve image data, do whatever you want with it (send to server, save locally...)
+            final image = await sign.getData();
+            var data = await image.toByteData(format: ui.ImageByteFormat.png);
+            sign.clear();
+            final encoded = base64.encode(data.buffer.asUint8List());
+            setState(() {
+               _img = data;
+            });
+        }
+      ```
+      - backgroundColor - Color - Widget background Color. 
+      - signaturePadBackgroundColor - Color - Signature Pad background Color. 
+      - sign - GlobalKey<SignatureState> - Global key for widget. Example below.
+      ```dart
+         final sign = GlobalKey<SignatureState>();
+      ```
+      - signClearOnPressed - Function - clear pad signature function. Example below.
+      ```dart
+         void signClearOnPressed(){
+            final sign1 = sign.currentState;
+            sign1.clear();
+         }
+      ```
+   - Example
+      - Step 1 : Import UI kit in files that it will be used:
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+      - Step 2 : Used GtSignature widget as shown below example.
+      ```dart
+         class SignatureDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                  return Scaffold(
+                     body: Center(
+                     child: Container(
+                        width: 200,height: 100,
+                        child: GtSignature(
+                        color: Colors.black,
+                        signaturePadBackgroundColor: Colors.grey[200],
+                     ))),
+                  );
+               }
+            }
+     ```
+      - Step 3 : Result :
+           ![image](https://user-images.githubusercontent.com/64594463/118918621-a7e11380-b950-11eb-90d3-3aa4091eb835.png)
+
+
+
+# GtFileUpload Widget
+
+ The GtFileUpload widget is used represent to allow users to file upload with Browse button and Drag and drop files in web, For Mobile only Browse button for file upload.
+   - Benefits of GtFileUpload Widget
+      - Provided the options Browse button and Drag and Drop Files.
+      - More properties/options are available to make widget pretty good.
+   - Constructors: 
+          - [GtFileUpload](components.md#gtfileupload-widget)(
+            {  this.backgroundColor = Colors.white,
+               this.borderColor = Colors.black,
+               this.onPressed,
+               this.selectedFiles,
+               this.iconUpload = Icons.cloud_upload,
+               this.iconColor = Colors.grey,
+               this.iconSize = 100.0,
+               this.fileNameShow = true,
+               this.buttonColor = Colors.blue,
+               this.iconShow = true,
+               this.fontSize = 20,
+               this.extensions,});
+   - Input Parameters of GtFileUpload Widget   
+      - backgroundColor - Color - Back Ground color of widget, Default color is White.
+      - borderColor - Color - Widget border color, Default color is black.
+      - onPressed - Function(dynamic) -  This function return browse files  or Drag file. Example Below.
+      ```dart
+        void onPressed(dynamic files) async {
+           // Browse files or drag files available in parametere
+           // do code here as required
+            String fileName;
+            selectedFilesName.value = "";
+            if(kIsWeb){
+               files.forEach((e) => {
+                  selectedFilesName.value = selectedFilesName.value == null || selectedFilesName.value == "" ? e.name : selectedFilesName.value + ", " + e.name,
+               });
+            }
+            else{
+               files.forEach((e) => {
+                  fileName = e.absolute.toString().substring(e.absolute.toString().lastIndexOf("/") + 1 ),
+                  selectedFilesName.value = selectedFilesName.value == null || selectedFilesName.value == "" ? fileName : selectedFilesName.value + ", " + fileName,
+               });
+            }
+        }
+      ```
+      - selectedFiles - String - This reperesent the selected files name show in UI.
+      - iconUpload - IconData - Icon for upload files, Default Icon is Icons.cloud_upload.
+      - iconColor - Color - Icon color, Default color is grey.
+      - iconSize - double - Size of icon and default size is 100.0.
+      - fileNameShow - bool - Selected Files name show or not in UI, Default is true.
+      - buttonColor - Color - Browse Button color Default color is blue.
+      - iconShow - bool - Icon is shown or not in UI, Default is true.
+      - fontSize - double - Size of Fonts in UI, Default size is 20.
+      - extensions - String - This is Allow to Which Files is Taken from Browse. Pass the extension in string like "pdf,jpg,doc".
+   - Example
+      - Step 1 : Import UI kit in files that it will be used:
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+      - Step 2 : Used GtSignature widget as shown below example.
+      ```dart
+         class FileUploadDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                  return Scaffold(
+                     body: Center(
+                     child: Obx(() => Container(
+                        child: GtFileUpload(
+                           backgroundColor: Colors.blue[100],
+                           onPressed: controller.openFileExplorer,
+                           selectedFiles: controller.selectedFilesName.value,
+                           extensions: "pdf,doc,jpg",
+                           )
+                        ))),
+                  );
+               }
+            }
+     ```
+      - Step 3 : Result :
+           ![image](https://user-images.githubusercontent.com/64594463/119605079-cd1cc880-be0d-11eb-9460-6fab0543abc7.png)
+            ![image](https://user-images.githubusercontent.com/64594463/119605260-13722780-be0e-11eb-857f-0a2d04af8848.png)
+
+
+
 
 
 
