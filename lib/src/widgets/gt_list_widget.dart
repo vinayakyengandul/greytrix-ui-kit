@@ -38,7 +38,7 @@ class GtListPage extends StatelessWidget {
     this.filtersData,
     this.onHoverHandler,
     this.toggleListGridView,
-    this.isListView,
+    this.isListView = true,
     this.backgroundcolor,
     this.onDeleteHandler,
     this.quantityInitialValue,

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 
 class GtBottomBar extends StatelessWidget {
   GtBottomBar({
@@ -13,6 +15,7 @@ class GtBottomBar extends StatelessWidget {
     this.elevation,
     this.selectedItemColor,
     this.unselectedItemColor,
+    this.iconsSize,
   });
 
   final List<BottomNavigationBarItem> bottombarItems;
@@ -26,30 +29,41 @@ class GtBottomBar extends StatelessWidget {
   final double elevation;
   final Color unselectedItemColor;
   final Color selectedItemColor;
+  final double iconsSize;
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      elevation: elevation == null ? 8.0 : elevation,
-      onTap: onTaphandler == null ? (value) => {} : onTaphandler,
-      type: bartype,
-      showSelectedLabels: showSelectedLabels,
-      showUnselectedLabels: showUnselectedLabels,
-      backgroundColor:
-          backgroundColor == null ? Color(0xfff1f1f1) : backgroundColor,
-      unselectedIconTheme: unselectedIconThemedata == null
-          ? IconThemeData(
-              color: Color(0xff5a5278),
-            )
-          : unselectedIconThemedata,
-      selectedIconTheme: unselectedIconThemedata == null
-          ? IconThemeData(
-              color: Color(0xff5a5278),
-            )
-          : selectedIconThemedata,
-      items: bottombarItems,
-      unselectedItemColor: unselectedItemColor ?? Colors.white,
-      selectedItemColor: selectedItemColor ?? Colors.blueAccent,
-    );
+    return Platform.isIOS
+        ? CupertinoTabBar(
+            activeColor: selectedItemColor ?? Colors.blueAccent,
+            backgroundColor:
+                backgroundColor == null ? Color(0xfff1f1f1) : backgroundColor,
+            items: bottombarItems,
+            inactiveColor: unselectedItemColor ?? Colors.white,
+            onTap: onTaphandler == null ? (value) => {} : onTaphandler,
+            iconSize: iconsSize ?? 30.0,
+          )
+        : BottomNavigationBar(
+            elevation: elevation == null ? 8.0 : elevation,
+            onTap: onTaphandler == null ? (value) => {} : onTaphandler,
+            type: bartype,
+            showSelectedLabels: showSelectedLabels,
+            showUnselectedLabels: showUnselectedLabels,
+            backgroundColor:
+                backgroundColor == null ? Color(0xfff1f1f1) : backgroundColor,
+            unselectedIconTheme: unselectedIconThemedata == null
+                ? IconThemeData(
+                    color: Color(0xff5a5278),
+                  )
+                : unselectedIconThemedata,
+            selectedIconTheme: unselectedIconThemedata == null
+                ? IconThemeData(
+                    color: Color(0xff5a5278),
+                  )
+                : selectedIconThemedata,
+            items: bottombarItems,
+            unselectedItemColor: unselectedItemColor ?? Colors.white,
+            selectedItemColor: selectedItemColor ?? Colors.blueAccent,
+          );
   }
 }

@@ -13,6 +13,7 @@ class GtText extends StatelessWidget {
     this.iconColor,
     this.position = GtPosition.PREFIX,
     this.textAlign = TextAlign.start,
+    this.maxLines,
   });
 
   final String text;
@@ -24,6 +25,7 @@ class GtText extends StatelessWidget {
   final Color iconColor;
   final GtPosition position;
   final TextAlign textAlign;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class GtText extends StatelessWidget {
                       : textStyle,
                   overflow: textOverflow,
                   textAlign: textAlign,
+                  maxLines: maxLines ?? 1,
                 ),
                 if (position == GtPosition.POSTFIX && iconData != null)
                   Padding(
@@ -68,6 +71,7 @@ class GtText extends StatelessWidget {
                 : textStyle,
             overflow: textOverflow,
             textAlign: textAlign,
+            maxLines: maxLines ?? 1,
           );
   }
 }

@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:io' show Platform;
 import 'gt_text.dart';
 
-// class GtSwitchButtonFormField extends StatelessWidget {
 class GtSwitchButtonFormField extends FormField<bool> {
   final Function(bool newValue) onChangedHandler;
   final Function(bool newValue) onSaveHandler;
@@ -30,16 +30,27 @@ class GtSwitchButtonFormField extends FormField<bool> {
           },
           initialValue: switchValue,
           builder: (FormFieldState<bool> state) {
-            Widget _switchWidget = Switch(
-              activeColor: switchactiveColor ?? Colors.blueGrey,
-              value: switchValue,
-              onChanged: (changedVal) {
-                if (onChangedHandler != null) {
-                  state.didChange(changedVal);
-                  onChangedHandler(changedVal);
-                }
-              },
-            );
+            Widget _switchWidget = Platform.isIOS
+                ? CupertinoSwitch(
+                    value: switchValue,
+                    activeColor: switchactiveColor ?? Colors.blueGrey,
+                    onChanged: (changedVal) {
+                      if (onChangedHandler != null) {
+                        state.didChange(changedVal);
+                        onChangedHandler(changedVal);
+                      }
+                    },
+                  )
+                : Switch(
+                    activeColor: switchactiveColor ?? Colors.blueGrey,
+                    value: switchValue,
+                    onChanged: (changedVal) {
+                      if (onChangedHandler != null) {
+                        state.didChange(changedVal);
+                        onChangedHandler(changedVal);
+                      }
+                    },
+                  );
             return Column(
               children: [
                 GtText(
