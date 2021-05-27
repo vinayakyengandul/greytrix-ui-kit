@@ -27,6 +27,7 @@ class GtListView extends StatelessWidget {
     this.listViewTableType = GTListViewTableType.Normal,
     this.selectedRowColor = Colors.grey,
     this.rowColors = Colors.white,
+    this.isLeadingShow = true,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -55,6 +56,7 @@ class GtListView extends StatelessWidget {
   final GTListViewTableType listViewTableType;
   final Color selectedRowColor;
   final Color rowColors;
+  final bool isLeadingShow;
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +187,7 @@ class GtListView extends StatelessWidget {
           (k, v) => {
             if ((isMobilePortrait == true) &&
                 rowIndex == 0 &&
-                leadingWidget != null)
+                leadingWidget != null && isLeadingShow)
               {
                 rowsWidgets.add(
                   Padding(
@@ -278,7 +280,7 @@ class GtListView extends StatelessWidget {
 
         return GtListTile(
           columnWidget: Column(children: rowsWidgets),
-          leadingWidget: (isMobilePortrait) ? null : leadingWidget,
+          leadingWidget: (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
               ? listItems[index]['IsSelected']
               : false,
