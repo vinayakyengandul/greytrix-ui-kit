@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../models/enums.dart';
 import 'gt_image_card.dart';
 import 'gt_text.dart';
@@ -73,28 +74,53 @@ class GtButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (buttonType == GtButtonType.BUTTON)
-        ? Platform.isIOS
-            ? CupertinoButton(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GtText(
-                      text: text,
-                      textStyle: textStyle,
-                      position: iconPosition,
-                      iconSize: iconSize,
-                      iconColor: iconColor,
-                      iconData: icondata,
+        ? !kIsWeb
+            ? Platform.isIOS
+                ? CupertinoButton(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GtText(
+                          text: text,
+                          textStyle: textStyle,
+                          position: iconPosition,
+                          iconSize: iconSize,
+                          iconColor: iconColor,
+                          iconData: icondata,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                onPressed: onPressed(),
-                color: color ?? Colors.blue,
-                disabledColor: disabledColor ?? Colors.grey,
-                padding: padding ?? EdgeInsets.all(16.0),
-                borderRadius:
-                    borderRadius ?? BorderRadius.all(Radius.circular(8.0)),
-              )
+                    onPressed: onPressed(),
+                    color: color ?? Colors.blue,
+                    disabledColor: disabledColor ?? Colors.grey,
+                    padding: padding ?? EdgeInsets.all(16.0),
+                    borderRadius:
+                        borderRadius ?? BorderRadius.all(Radius.circular(8.0)),
+                  )
+                : ElevatedButton(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GtText(
+                          text: text,
+                          textStyle: textStyle,
+                          position: iconPosition,
+                          iconSize: iconSize,
+                          iconColor: iconColor,
+                          iconData: icondata,
+                        ),
+                      ],
+                    ),
+                    style: buttonStyle ??
+                        ElevatedButton.styleFrom(
+                          primary: Colors.teal,
+                          onPrimary: Colors.white,
+                          shape: const BeveledRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                        ),
+                    onPressed: () => onPressed(),
+                  )
             : ElevatedButton(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
