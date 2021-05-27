@@ -55,6 +55,7 @@ class GtListPage extends StatelessWidget {
     this.selectedRowColor = Colors.grey,
     this.jsonHeader,
     this.filterBottomSheet,
+    this.isLeadingShow = true,
     this.cardColor = Colors.white,
   })  : assert(listItems != null),
         assert(rowsCount != null),
@@ -122,10 +123,12 @@ class GtListPage extends StatelessWidget {
 
   // FILTER BOTTOM SHEET FOR MOBILE
   final Function filterBottomSheet;
+  //leading Icon SHOW OR NOR
+  final bool isLeadingShow;
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
-    return selectAllcheckbox != null
+    return isLeadingShow ? selectAllcheckbox != null
         ? isImage
             ? Container(
                 width: size.width > 450 ? 30.0 : 65.0,
@@ -266,7 +269,7 @@ class GtListPage extends StatelessWidget {
                           ),
                         );
                       },
-                    ));
+                    )): Container();
   }
 
   // GETS TRAILING WIDGET
@@ -695,6 +698,7 @@ class GtListPage extends StatelessWidget {
                                                         selectedRowColor:
                                                             selectedRowColor,
                                                         rowColors: cardColor,
+                                                        isLeadingShow: isLeadingShow,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:
