@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'gt_text.dart';
 
 class GtSwitchButtonFormField extends FormField<bool> {
@@ -30,17 +31,28 @@ class GtSwitchButtonFormField extends FormField<bool> {
           },
           initialValue: switchValue,
           builder: (FormFieldState<bool> state) {
-            Widget _switchWidget = Platform.isIOS
-                ? CupertinoSwitch(
-                    value: switchValue,
-                    activeColor: switchactiveColor ?? Colors.blueGrey,
-                    onChanged: (changedVal) {
-                      if (onChangedHandler != null) {
-                        state.didChange(changedVal);
-                        onChangedHandler(changedVal);
-                      }
-                    },
-                  )
+            Widget _switchWidget = !kIsWeb
+                ? Platform.isIOS
+                    ? CupertinoSwitch(
+                        value: switchValue,
+                        activeColor: switchactiveColor ?? Colors.blueGrey,
+                        onChanged: (changedVal) {
+                          if (onChangedHandler != null) {
+                            state.didChange(changedVal);
+                            onChangedHandler(changedVal);
+                          }
+                        },
+                      )
+                    : Switch(
+                        activeColor: switchactiveColor ?? Colors.blueGrey,
+                        value: switchValue,
+                        onChanged: (changedVal) {
+                          if (onChangedHandler != null) {
+                            state.didChange(changedVal);
+                            onChangedHandler(changedVal);
+                          }
+                        },
+                      )
                 : Switch(
                     activeColor: switchactiveColor ?? Colors.blueGrey,
                     value: switchValue,
