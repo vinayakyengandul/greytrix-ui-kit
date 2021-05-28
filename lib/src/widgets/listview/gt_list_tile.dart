@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/index.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtListTile extends StatelessWidget {
   final Column columnWidget;

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../greytrix_ui_kit.dart';
 import '../models/common.dart';
-import 'gt_list_tile.dart';
 
 class GtDynamicView extends StatelessWidget {
   GtDynamicView({

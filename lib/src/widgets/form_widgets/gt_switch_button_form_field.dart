@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'gt_text.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtSwitchButtonFormField extends FormField<bool> {
   final Function(bool newValue) onChangedHandler;

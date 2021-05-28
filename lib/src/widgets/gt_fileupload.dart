@@ -19,7 +19,7 @@ class GtFileUpload extends StatelessWidget {
     this.buttonColor = Colors.blue,
     this.iconShow = true,
     this.fontSize = 20,
-    this.extensions,
+    this.extensions = "pdf",
   });
   final Color backgroundColor;
   final Color borderColor;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../widgets/index.dart';
-import '../models/index.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtTagTextField extends StatelessWidget {
   GtTagTextField({
