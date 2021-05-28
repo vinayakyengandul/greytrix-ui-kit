@@ -27,6 +27,10 @@ class GtNavigationRails extends StatelessWidget {
     this.svgheight = 23,
     this.svgwidth = 23,
     this.imageSize = 20,
+    this.isExpandedNavigation = false,
+    this.userProfileLink,
+    this.listExpandedItems,
+    this.onTapExpanded,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -48,6 +52,11 @@ class GtNavigationRails extends StatelessWidget {
   final double svgheight;
   final double svgwidth;
   final double imageSize;
+  // Inputs for Expanded Navigation
+  final bool isExpandedNavigation;
+  final String userProfileLink;
+  final List<dynamic> listExpandedItems;
+  final Function(dynamic) onTapExpanded;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +96,7 @@ class GtNavigationRails extends StatelessWidget {
       }
     }
 
-    return Container(
+    return !isExpandedNavigation ? Container(
       width: isShowLable ? drawerWidth : 0,
       height: double.infinity,
       color: navigationBackGroundColor,
@@ -184,6 +193,109 @@ class GtNavigationRails extends StatelessWidget {
               children: trailingWidget,
             )
           ],
+        ],
+      ),
+   ) : Container(
+      width: drawerWidth,
+      height: double.infinity,
+      color: navigationBackGroundColor,
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+            height: 100.0,
+            child: DrawerHeader(
+              margin: EdgeInsets.all(0.0),
+              padding: EdgeInsets.only(
+                  left: 20.0, top: 10.0, right: 10.0, bottom: 10.0),
+              decoration: BoxDecoration(
+                color: navigationBackGroundColor,
+              ),
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: userProfileLink != null && userProfileLink != "" ? 
+                    NetworkImage(userProfileLink)
+                    : AssetImage(
+                      "lib/assets/images/amanda_minicucci.jpg",
+                      package: 'greytrix_ui_kit',
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Align(
+                              alignment: FractionalOffset.bottomLeft,
+                              child: Text(
+                                selectedTitle.substring(0,selectedTitle.indexOf(" ")),
+                                style: TextStyle(
+                                    color: selectedTitleColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: FractionalOffset.topLeft,
+                              child: Text(
+                                selectedTitle.substring(selectedTitle.indexOf(" "),selectedTitle.length),
+                                style: TextStyle(
+                                  color: selectedTitleColor,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  selectedTitleChange,
+                ],
+              ),
+            ),
+          ),
+          Flexible(child:ListView.builder(
+            itemCount:listExpandedItems.length,
+            itemBuilder: (context, index){
+              List<Widget> listWidget = [];
+              listWidget =  List<Widget>.generate(listExpandedItems[index]["ChildMenu"].length, (i) => 
+              Ink(height: 40,
+                  color: selectedRowColor,
+                  child: ListTile(
+                    leading: GtIcon(icondata: listExpandedItems[index]["ChildMenu"][i]["IconData"], color: iconColor,),
+                    dense: true,
+                    title: GtText(text: listExpandedItems[index]["ChildMenu"][i]["Menu"],
+                      textStyle : TextStyle(color: selectedRowColor,fontSize: 16),
+                    ),
+                    onTap: () {
+                      if(onTapExpanded != null)
+                      onTapExpanded(listExpandedItems[index]["ChildMenu"][i]["Menu"]);
+                    },
+                  ),
+                ),
+                ).toList();
+                return Theme(
+                    data: Theme.of(context).copyWith(unselectedWidgetColor: selectedRowColor),
+                    child: ExpansionTile(
+                      childrenPadding: EdgeInsets.only(left: 30.0),
+                      leading: Icon(listExpandedItems[index]["HeaderIcon"],
+                        color: selectedRowColor,
+                      ),
+                      title: GtText(text: listExpandedItems[index]["HeaderMenu"],
+                        textStyle: TextStyle(color: selectedRowColor,fontSize: 16),
+                      ),
+                      children: <Widget>[
+                        ...listWidget
+                      ]
+                    ));
+            },)),
         ],
       ),
     );

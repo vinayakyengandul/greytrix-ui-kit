@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'gt_icon.dart';
-import 'gt_text.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtDropdownFormField extends StatelessWidget {
   GtDropdownFormField({

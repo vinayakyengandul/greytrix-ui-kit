@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 import 'gt_cart_item.dart';
 import 'gt_text.dart';
+import 'listview/index.dart';
 
 class GtCartDetails extends StatelessWidget {
   double screenWidth, screenHeight;

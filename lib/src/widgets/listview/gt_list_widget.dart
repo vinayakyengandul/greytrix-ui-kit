@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../greytrix_ui_kit.dart';
 import './list_view.dart';
 import './grid_view.dart';
 import 'dart:math' as math;
-import 'gt_iconcheckbox.dart';
-import 'no_list_found.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtListPage extends StatelessWidget {
   GtListPage({

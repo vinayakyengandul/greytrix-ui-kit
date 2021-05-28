@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../greytrix_ui_kit.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtListCard extends StatelessWidget {
   final List<Widget> bodyWidgets;

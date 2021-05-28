@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'gt_text.dart';
+import '../../../greytrix_ui_kit.dart';
 
 class GtCheckboxFormField extends FormField<List<dynamic>> {
   final Map<String, dynamic> displayMapFields;
