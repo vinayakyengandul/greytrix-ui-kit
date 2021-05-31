@@ -8,7 +8,7 @@ class GtListPage extends StatelessWidget {
   GtListPage({
     Key key,
     this.title,
-    this.listItems,
+    @required this.listItems,
     this.enablefilter = false,
     this.viewtype,
     this.backNavigation = false,
@@ -29,7 +29,7 @@ class GtListPage extends StatelessWidget {
     this.filterHandler,
     this.rangeFilterLimits,
     this.rangeFilterDivisions = 10,
-    this.toMapjson,
+    @required this.toMapjson,
     this.isFilterProcessing = false,
     this.pathNavigation = "",
     this.isSpaceInRecords = false,
@@ -42,7 +42,7 @@ class GtListPage extends StatelessWidget {
     this.quantityInitialValue,
     this.incrementHandler,
     this.decrementHandler,
-    this.size,
+    @required this.size,
     this.entity,
     this.isleadingIconPosition = true,
     this.listViewTableType = GTListViewTableType.Normal,
@@ -126,148 +126,155 @@ class GtListPage extends StatelessWidget {
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
-    return isLeadingShow ? selectAllcheckbox != null
-        ? isImage
-            ? Container(
-                width: size.width > 450 ? 30.0 : 65.0,
-                // screen.isPhone ? 65.0 : 30.0,
-                padding: EdgeInsets.only(right: size.width > 450 ? 0.2 : 30),
-                //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
-                child: Row(
-                  children: [
-                    Container(
-                      child: listViewTableType == GTListViewTableType.Normal
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 4.0, right: 25.0),
-                              child: Checkbox(
-                                value: listItems[index]['IsSelected'],
-                                onChanged: (value) => {
-                                  if (onSelectionHandler != null)
-                                    onSelectionHandler(
-                                        !listItems[index]['IsSelected'],
-                                        listItems[index])
-                                },
-                                checkColor: checkboxcheckColor,
-                                activeColor: checkboxactiveColor,
-                                focusColor: checkboxfocusColor,
-                              ),
-                            )
-                          : Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 20.0),
-                              child: Center(
-                                  child: GtCustomCheckbox(
-                                isChecked: listItems[index]['IsSelected'],
-                                onchanged: (value) => {
-                                  if (onSelectionHandler != null)
-                                    onSelectionHandler(
-                                        !listItems[index]['IsSelected'],
-                                        listItems[index])
-                                },
-                                selectedColor: primaryColor,
-                                selectedIconColor: Colors.white,
-                                size: 17,
-                                iconSize: 11,
-                              )),
-                            ),
-                    ),
-                    if (isleadingIconPosition)
-                      listItems[index][valuePath].toString() == "" ||
-                              listItems[index][valuePath] == null
-                          ? Container(
-                              width: 30.0,
-                              height: 30.0,
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/images/no_image_available.png',
-                                  package: 'greytrix_ui_kit',
+    return isLeadingShow
+        ? selectAllcheckbox != null
+            ? isImage
+                ? Container(
+                    width: size.width > 450 ? 30.0 : 65.0,
+                    // screen.isPhone ? 65.0 : 30.0,
+                    padding:
+                        EdgeInsets.only(right: size.width > 450 ? 0.2 : 30),
+                    //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: listViewTableType == GTListViewTableType.Normal
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 4.0, right: 25.0),
+                                  child: Checkbox(
+                                    value: listItems[index]['IsSelected'],
+                                    onChanged: (value) => {
+                                      if (onSelectionHandler != null)
+                                        onSelectionHandler(
+                                            !listItems[index]['IsSelected'],
+                                            listItems[index])
+                                    },
+                                    checkColor: checkboxcheckColor,
+                                    activeColor: checkboxactiveColor,
+                                    focusColor: checkboxfocusColor,
+                                  ),
+                                )
+                              : Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 20.0),
+                                  child: Center(
+                                      child: GtCustomCheckbox(
+                                    isChecked: listItems[index]['IsSelected'],
+                                    onchanged: (value) => {
+                                      if (onSelectionHandler != null)
+                                        onSelectionHandler(
+                                            !listItems[index]['IsSelected'],
+                                            listItems[index])
+                                    },
+                                    selectedColor: primaryColor,
+                                    selectedIconColor: Colors.white,
+                                    size: 17,
+                                    iconSize: 11,
+                                  )),
                                 ),
-                              ),
-                            )
-                          : Container(
-                              width: 30.0,
-                              height: 30.0,
-                              child: Image(
-                                image:
-                                    NetworkImage(listItems[index][valuePath]),
-                                errorBuilder: (BuildContext context,
-                                    Object exception, StackTrace stackTrace) {
-                                  return Image(
+                        ),
+                        if (isleadingIconPosition)
+                          listItems[index][valuePath].toString() == "" ||
+                                  listItems[index][valuePath] == null
+                              ? Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: Image(
                                     image: AssetImage(
                                       'assets/images/no_image_available.png',
                                       package: 'greytrix_ui_kit',
                                     ),
-                                  );
-                                },
-                              )),
-                  ],
-                ),
-              )
-            : isleadingIconPosition
-                ? GtIconCheckbox(
-                    backgroundColor: backgroundcolor,
-                    icon: Icons.perm_identity,
-                    iconcolor: checkboxcheckColor,
-                    selected: listItems[index]['IsSelected'],
-                    onchanged: (value) => {
-                      if (onSelectionHandler != null)
-                        onSelectionHandler(value, listItems[index])
-                    },
-                    checkboxactiveColor: checkboxactiveColor,
-                    checkboxcheckColor: checkboxcheckColor,
-                    checkboxfocusColor: checkboxfocusColor,
+                                  ),
+                                )
+                              : Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: Image(
+                                    image: NetworkImage(
+                                        listItems[index][valuePath]),
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace stackTrace) {
+                                      return Image(
+                                        image: AssetImage(
+                                          'assets/images/no_image_available.png',
+                                          package: 'greytrix_ui_kit',
+                                        ),
+                                      );
+                                    },
+                                  )),
+                      ],
+                    ),
                   )
-                : Padding(
-                    padding: EdgeInsets.only(
-                        left: 4.0,
-                        right: listViewTableType == GTListViewTableType.STRIPED
-                            ? 0.0
-                            : 25.0),
-                    child: Center(
-                        child: GtCustomCheckbox(
-                      isChecked: listItems[index]['IsSelected'],
-                      onchanged: (value) => {
-                        if (onSelectionHandler != null)
-                          onSelectionHandler(
-                              !listItems[index]['IsSelected'], listItems[index])
-                      },
-                      selectedColor: primaryColor,
-                      selectedIconColor: Colors.white,
-                      size: 17,
-                      iconSize: 11,
-                    )),
-                  )
-        : isImage && listItems[index][valuePath].toString() == ""
-            ? Container(
-                width: 50.0,
-                height: 50.0,
-                child: Image(
-                  image: AssetImage(
-                    'assets/images/no_image_available.png',
-                    package: 'greytrix_ui_kit',
-                  ),
-                ),
-              )
-            : leadingIcon != null
-                ? CircleAvatar(
-                    child: leadingIcon,
-                    //backgroundColor: Get.context.theme.colorScheme.onPrimary,
-                  )
-                : Container(
+                : isleadingIconPosition
+                    ? GtIconCheckbox(
+                        backgroundColor: backgroundcolor,
+                        icon: Icons.perm_identity,
+                        iconcolor: checkboxcheckColor,
+                        selected: listItems[index]['IsSelected'],
+                        onchanged: (value) => {
+                          if (onSelectionHandler != null)
+                            onSelectionHandler(value, listItems[index])
+                        },
+                        checkboxactiveColor: checkboxactiveColor,
+                        checkboxcheckColor: checkboxcheckColor,
+                        checkboxfocusColor: checkboxfocusColor,
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(
+                            left: 4.0,
+                            right:
+                                listViewTableType == GTListViewTableType.STRIPED
+                                    ? 0.0
+                                    : 25.0),
+                        child: Center(
+                            child: GtCustomCheckbox(
+                          isChecked: listItems[index]['IsSelected'],
+                          onchanged: (value) => {
+                            if (onSelectionHandler != null)
+                              onSelectionHandler(
+                                  !listItems[index]['IsSelected'],
+                                  listItems[index])
+                          },
+                          selectedColor: primaryColor,
+                          selectedIconColor: Colors.white,
+                          size: 17,
+                          iconSize: 11,
+                        )),
+                      )
+            : isImage && listItems[index][valuePath].toString() == ""
+                ? Container(
                     width: 50.0,
                     height: 50.0,
                     child: Image(
-                      image: NetworkImage(listItems[index][valuePath]),
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace stackTrace) {
-                        return Image(
-                          image: AssetImage(
-                            'assets/images/no_image_available.png',
-                            package: 'greytrix_ui_kit',
-                          ),
-                        );
-                      },
-                    )): Container();
+                      image: AssetImage(
+                        'assets/images/no_image_available.png',
+                        package: 'greytrix_ui_kit',
+                      ),
+                    ),
+                  )
+                : leadingIcon != null
+                    ? CircleAvatar(
+                        child: leadingIcon,
+                        //backgroundColor: Get.context.theme.colorScheme.onPrimary,
+                      )
+                    : Container(
+                        width: 50.0,
+                        height: 50.0,
+                        child: Image(
+                          image: NetworkImage(listItems[index][valuePath]),
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace stackTrace) {
+                            return Image(
+                              image: AssetImage(
+                                'assets/images/no_image_available.png',
+                                package: 'greytrix_ui_kit',
+                              ),
+                            );
+                          },
+                        ))
+        : Container();
   }
 
   // GETS TRAILING WIDGET
@@ -696,7 +703,8 @@ class GtListPage extends StatelessWidget {
                                                         selectedRowColor:
                                                             selectedRowColor,
                                                         rowColors: cardColor,
-                                                        isLeadingShow: isLeadingShow,
+                                                        isLeadingShow:
+                                                            isLeadingShow,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:
