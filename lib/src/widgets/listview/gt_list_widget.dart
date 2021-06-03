@@ -55,6 +55,10 @@ class GtListPage extends StatelessWidget {
     this.filterBottomSheet,
     this.isLeadingShow = true,
     this.cardColor = Colors.white,
+    this.swipeToOption,
+    this.swipeIcon = Icons.delete,
+    this.swipeBackgroundColor = Colors.red,
+    this.swipeIconColor = Colors.white,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -123,6 +127,11 @@ class GtListPage extends StatelessWidget {
   final Function filterBottomSheet;
   //leading Icon SHOW OR NOR
   final bool isLeadingShow;
+  //Swipe To OPtion 
+  final Function(dynamic,int) swipeToOption;
+  final IconData swipeIcon;
+  final Color swipeBackgroundColor;
+  final Color swipeIconColor;
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
@@ -555,7 +564,9 @@ class GtListPage extends StatelessWidget {
                                                   Expanded(
                                                     child: Container(),
                                                   ),
-                                                  size.width < 450
+                                                  size.width < 450 
+                                                  ? enablefilter || viewtype ==
+                                                                ViewType.both 
                                                       ? PopupMenuButton(
                                                           color: Colors.white,
                                                           offset: Offset(0, 35),
@@ -638,7 +649,7 @@ class GtListPage extends StatelessWidget {
                                                                 ),
                                                               ),
                                                           ],
-                                                        )
+                                                        ) : Container()
                                                       : Row(children: [
                                                           if (viewtype ==
                                                               ViewType.both)
@@ -705,6 +716,10 @@ class GtListPage extends StatelessWidget {
                                                         rowColors: cardColor,
                                                         isLeadingShow:
                                                             isLeadingShow,
+                                                        swipeToOption: swipeToOption,
+                                                        swipeBackgroundColor: swipeBackgroundColor,
+                                                        swipeIcon: swipeIcon,
+                                                        swipeIconColor: swipeIconColor,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:

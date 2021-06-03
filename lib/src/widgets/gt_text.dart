@@ -43,14 +43,21 @@ class GtText extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(2.0),
                   ),
-                Text(
+               maxLines != null ? Text(
                   text != null ? text : "",
                   style: textStyle == null
                       ? TextStyle(fontFamily: fontFamily)
                       : textStyle,
                   overflow: textOverflow,
                   textAlign: textAlign,
-                  maxLines: maxLines ?? 1,
+                  maxLines: maxLines,
+                ) : Text(
+                  text != null ? text : "",
+                  style: textStyle == null
+                      ? TextStyle(fontFamily: fontFamily)
+                      : textStyle,
+                  overflow: textOverflow,
+                  textAlign: textAlign,
                 ),
                 if (position == GtPosition.POSTFIX && iconData != null)
                   Padding(
@@ -64,14 +71,21 @@ class GtText extends StatelessWidget {
               ],
             ),
           )
-        : Text(
-            text != null ? text : "",
-            style: textStyle == null
-                ? TextStyle(fontFamily: fontFamily)
-                : textStyle,
-            overflow: textOverflow,
-            textAlign: textAlign,
-            maxLines: maxLines ?? 1,
-          );
+        : maxLines != null ? Text(
+          text != null ? text : "",
+          style: textStyle == null
+              ? TextStyle(fontFamily: fontFamily)
+              : textStyle,
+          overflow: textOverflow,
+          textAlign: textAlign,
+          maxLines: maxLines,
+        ) : Text(
+          text != null ? text : "",
+          style: textStyle == null
+              ? TextStyle(fontFamily: fontFamily)
+              : textStyle,
+          overflow: textOverflow,
+          textAlign: textAlign,
+        );
   }
 }

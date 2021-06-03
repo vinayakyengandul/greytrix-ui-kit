@@ -129,14 +129,14 @@ class Common {
     switch (gtTileField.type) {
       case GtFieldType.STRING:
         Widget _widgetContainer;
-        List<Widget> _textWidgetList = List<Widget>();
+        List<Widget> _textWidgetList = List<Widget>.empty(growable: true);
         _textWidgetList = [];
 
         ///PREPARING THE LIST OF WIDGETS FOR THE STRING AND LIST TYPE TO USE LIST FOR ROW OR A WRAP AS A CHILDRENS
         List<Widget> _widgetList = [
           if (gtTileField.displayKey == true)
             GtText(
-              text: '$key :',
+              text: '$key : ',
               //texttype: gtTileField.keyTextFormatType,
             ),
         ];
@@ -374,7 +374,12 @@ class Common {
       case GtFieldType.STATUS:
         return Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
-          child: Container(
+          child: InkWell(
+                      onHover: (value) {},
+                      onTap: () {
+                        if (navigationHandler != null) navigationHandler();
+                      },
+                      child:  Container(
             child: Wrap(
               // mainAxisAlignment: MainAxisAlignment.start,
               // crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,16 +390,16 @@ class Common {
                     //texttype: gtTileField.keyTextFormatType,
                     textStyle: gtTileField.textStyle,
                   ),
-                value != ""
+                value != "" && value != false
                     ? PhysicalModel(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: gtTileField.statusField[value],
+                        color: gtTileField.statusField[value.toString()],
                         elevation: 5.0,
                         child: Padding(
                           padding: EdgeInsets.only(
                               left: 8, right: 8, bottom: 4, top: 4),
                           child: GtText(
-                            text: '$value',
+                            text: value == true ? gtTileField.valuePath : '$value',
                             textStyle: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -406,7 +411,7 @@ class Common {
               ],
             ),
           ),
-        );
+        ));
         break;
 
       case GtFieldType.DATE:
@@ -443,10 +448,10 @@ class Common {
                 GtAvatar(
                   radius: 16,
                   //backgroundColor: gtTileField,
-                  backGroundImage: AssetImage(
+                  backGroundImage: gtTileField.isAssert ? AssetImage(
                     '$value',
                     package: 'core',
-                  ),
+                  ) : NetworkImage('$value'),
                 )
               ],
             ),
