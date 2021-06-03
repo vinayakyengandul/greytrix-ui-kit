@@ -56,6 +56,7 @@ class GtTileField {
     this.tileDateFormat,
     this.defaultStatusColor = Colors.blue,
     this.chipFieldShape,
+    this.isAssert = true,
   });
   final dynamic value;
   final GtFieldType type;
@@ -109,4 +110,5 @@ class GtTileField {
   final GtTileDateFormat tileDateFormat;
   final Color defaultStatusColor;
   final RoundedRectangleBorder chipFieldShape;
+  final bool isAssert;
 }

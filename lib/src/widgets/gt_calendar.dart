@@ -18,6 +18,6 @@ class GtCalendar extends StatelessWidget {
         initialDate: initialDate ?? DateTime.now(),
         firstDate: firstDate ?? DateTime(1900),
         lastDate: lastDate ?? DateTime(2100),
-        onDateChanged: (date) => {if (onDateChanged != null) onDateChanged});
+        onDateChanged: (date) {if (onDateChanged != null) onDateChanged(date);});
   }
 }

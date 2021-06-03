@@ -27,6 +27,10 @@ class GtListView extends StatelessWidget {
     this.selectedRowColor = Colors.grey,
     this.rowColors = Colors.white,
     this.isLeadingShow = true,
+    this.swipeToOption,
+    this.swipeIcon = Icons.delete,
+    this.swipeBackgroundColor = Colors.red,
+    this.swipeIconColor = Colors.white,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -56,6 +60,11 @@ class GtListView extends StatelessWidget {
   final Color selectedRowColor;
   final Color rowColors;
   final bool isLeadingShow;
+  // SWIPE TO OPTIONS
+  final Function(dynamic,int) swipeToOption;
+  final IconData swipeIcon;
+  final Color swipeBackgroundColor;
+  final Color swipeIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +74,7 @@ class GtListView extends StatelessWidget {
           listViewTableType == GTListViewTableType.Normal ? 0.0 : 20),
       itemCount: listItems.length,
       itemBuilder: (context, index) {
+        final item = listItems[index];
         Color color = listViewTableType == GTListViewTableType.Normal
             ? Colors.white
             : index.isOdd
@@ -277,7 +287,7 @@ class GtListView extends StatelessWidget {
           },
         );
 
-        return GtListTile(
+         Widget listTile = GtListTile(
           columnWidget: Column(children: rowsWidgets),
           leadingWidget: (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
@@ -307,7 +317,65 @@ class GtListView extends StatelessWidget {
           listViewTableType: listViewTableType,
           selectedRowColor: selectedRowColor,
         );
+         return swipeToOption != null ? Dismissible(
+              key: Key(item.toString()),
+
+              confirmDismiss: (DismissDirection direction) async {
+                return await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: GtText(text:"Confirm"),
+                      content: GtText(text:"Are you sure you wish to delete this item?"),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: GtText(text:"DELETE")
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: GtText(text:"CANCEL"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              onDismissed: (direction) {
+                if(swipeToOption != null){
+                swipeToOption(listItems,index);
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text('1 dismissed')));
+                }
+              },
+              secondaryBackground: swipeIconWidget("END"),
+              background: swipeIconWidget("START"),
+              child: listTile,
+            ) : listTile ;
       },
+    );
+  }
+  Widget swipeIconWidget(String strData){
+    return Container(
+          color: swipeBackgroundColor,
+          child: Align(
+            child: Row(
+              mainAxisAlignment: strData == "END" ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: strData == "END" ? 0 : 20,
+                ),
+                Icon(
+                  swipeIcon,
+                  color: swipeIconColor,
+                ),
+                SizedBox(
+                  width: strData == "END" ? 20 : 0,
+                ),
+              ],
+            ),
+            alignment:  strData == "END"  ? Alignment.centerRight : Alignment.centerLeft,
+          ),
     );
   }
 }
