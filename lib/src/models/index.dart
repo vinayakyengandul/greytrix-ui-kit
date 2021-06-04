@@ -6,3 +6,4 @@ export 'sizeconfig.dart';
 export 'common.dart';
 export 'gt_cart_field.dart';
 export 'gt_listview_header_field.dart';
+export 'calendar_event.dart';

@@ -7,7 +7,6 @@
  - [GtTextFormField Widget](#gttextformfield-widget)
  - [GTChip Widget](#gtchip-widget)
  - [GtHeader Widget](#gtheader-widget)
- - [GtTitlebar Widget](#gttitlebar-widget)
  - [CustomPopup Widget](#custompopup-widget)
  - [GtNavigationRails Widget](#gtnavigationrails-widget)
  - [SearchDialog Widget](#searchdialog-widget)
@@ -329,7 +328,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
      
      
      
-# GtHeader Widget
+
   
  The GtHeader widget is used represent the ListTile on the Screen with responsive sizing handle in the core package.
    - Benefits of GtHeader Widget
@@ -378,58 +377,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
      
      
      
-# GtTitlebar Widget
-  
- The gttitlebar widget is used represent the text on the Screen with responsive sizing handle in the core package.
-   - Benefits of GtTitlebar Widget
-      - Handles the font size of the text in dynamic way based on the screen resolution when specified along with fontSize.
-      - Used the GtTitlebar along fontFamily property.
-      
-   - Constructors: 
-          - [GtTitlebar](components.md#gttitlebar-widget)({this.title, this.fontsize, this.textcolor, this.fontFamily});
-  
-   - Input Parameters of GtHeaderWidget Widget   
-         - title - String - This is String type parameter and it shows what we can pass in this parametere.
-         - fontsize - double - It is shows font size.
-         - textcolor - Color - This is used for text color.
-         - fontFamily - String - This is use for text font which we have to take.
-         
-   - Example
-    
-      - Step 1 : Import core in files that it will be used:
-
-      ```dart
-          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-      ```
-
-      - Step 2 : Used GtTitlebar widget and specify the color for the text which is to be displayed.
-                
-      ```dart
-             class WelcomePage extends StatelessWidget {
-                @override
-               Widget build(BuildContext context) {
-               return Container(
-               child:  GtTitlebar(
-                           title: "Details",
-                           fontsize: 20,
-                           textcolor: context.theme.primaryColor,
-                         ),
-               );
-            }
-         }
-     ```
-     
-      - Step 3 : Result :
-                
-           ![image](https://user-images.githubusercontent.com/64594463/103752016-276be700-502f-11eb-958b-e2515129cc34.png)
-     
-     
-     
-     
-     
-     
-     
-     
+   
 # CustomPopup Widget
   
  The custompopup widget is used represent the dialog on the Screen in the core package.
