@@ -16,7 +16,8 @@ class GtTextFormField extends StatelessWidget {
       this.onSaveHandler,
       this.chips,
       this.prefixIcon,
-      this.labeltextStyle});
+      this.labeltextStyle,
+      this.onTapHandler});
   final int maxLength;
   final int maxLines;
   final int minLines;
@@ -27,11 +28,11 @@ class GtTextFormField extends StatelessWidget {
   final bool isRequired;
   final Function(dynamic val) onChangeHandler;
   final Function(dynamic val) onSaveHandler;
+  final Function onTapHandler;
   final EdgeInsets padding;
   final bool obscureText;
   final Icon prefixIcon;
   final TextStyle labeltextStyle;
-
   final Widget chips;
 
   @override
@@ -69,6 +70,9 @@ class GtTextFormField extends StatelessWidget {
             } catch (e) {}
           }
           return null;
+        },
+        onTap: () {
+          if (onTapHandler != null) onTapHandler();
         },
       ),
     );
