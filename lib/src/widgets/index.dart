@@ -35,3 +35,4 @@ export './form_widgets/index.dart';
 export './listview/index.dart';
 export 'gt_actionsheet.dart';
 export 'gt_dialog.dart';
+export 'package:table_calendar/table_calendar.dart';
