@@ -161,8 +161,8 @@ class GtListView extends StatelessWidget {
                       isMobileScreen: isMobilePortrait,
                       quantityInitialValue: quantityInitialValue,
                       incrementHandler: () => incrementHandler(index),
-                      decrementHandler: () => decrementHandler(index)),
-                  itemData: listItems[index],
+                      decrementHandler: () => decrementHandler(index),
+                      itemData: listItems[index]),
                 );
               }
             }
