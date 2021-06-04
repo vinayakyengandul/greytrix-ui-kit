@@ -61,6 +61,8 @@ class GtListPage extends StatelessWidget {
     this.swipeIconColor = Colors.white,
     this.mobileHeader = false,
     this.backButtonColor = Colors.black,
+    this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
+    this.swipeConfirmButtonText = "DELETE",
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -139,6 +141,9 @@ class GtListPage extends StatelessWidget {
   final bool mobileHeader;
   // BACK BUTTON COLOR
   final Color backButtonColor;
+
+  final String swipeConfirmMessage;
+  final String swipeConfirmButtonText;
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
@@ -740,6 +745,10 @@ class GtListPage extends StatelessWidget {
                                                         swipeIcon: swipeIcon,
                                                         swipeIconColor:
                                                             swipeIconColor,
+                                                        swipeConfirmButtonText:
+                                                            swipeConfirmButtonText,
+                                                        swipeConfirmMessage:
+                                                            swipeConfirmMessage,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:
