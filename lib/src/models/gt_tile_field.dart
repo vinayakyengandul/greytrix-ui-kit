@@ -57,6 +57,8 @@ class GtTileField {
     this.defaultStatusColor = Colors.blue,
     this.chipFieldShape,
     this.isAssert = true,
+    this.buttonOnPressed,
+    this.buttonStyle,
   });
   final dynamic value;
   final GtFieldType type;
@@ -111,4 +113,6 @@ class GtTileField {
   final Color defaultStatusColor;
   final RoundedRectangleBorder chipFieldShape;
   final bool isAssert;
+  final Function(dynamic) buttonOnPressed;
+  final ButtonStyle buttonStyle;
 }

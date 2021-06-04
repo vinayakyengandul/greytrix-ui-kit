@@ -123,6 +123,7 @@ class Common {
     int quantityInitialValue,
     Function incrementHandler,
     Function decrementHandler,
+    dynamic itemData,
   }) {
     bool isMobilePortrait = isMobileScreen;
 
@@ -373,45 +374,47 @@ class Common {
 
       case GtFieldType.STATUS:
         return Expanded(
-          flex: isMobilePortrait ? 1 : gtTileField.flex,
-          child: InkWell(
-                      onHover: (value) {},
-                      onTap: () {
-                        if (navigationHandler != null) navigationHandler();
-                      },
-                      child:  Container(
-            child: Wrap(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (gtTileField.displayKey == true)
-                  GtText(
-                    text: '$key : ',
-                    //texttype: gtTileField.keyTextFormatType,
-                    textStyle: gtTileField.textStyle,
-                  ),
-                value != "" && value != false
-                    ? PhysicalModel(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: gtTileField.statusField[value.toString()],
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: 8, right: 8, bottom: 4, top: 4),
-                          child: GtText(
-                            text: value == true ? gtTileField.valuePath : '$value',
-                            textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
-          ),
-        ));
+            flex: isMobilePortrait ? 1 : gtTileField.flex,
+            child: InkWell(
+              onHover: (value) {},
+              onTap: () {
+                if (navigationHandler != null) navigationHandler();
+              },
+              child: Container(
+                child: Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (gtTileField.displayKey == true)
+                      GtText(
+                        text: '$key : ',
+                        //texttype: gtTileField.keyTextFormatType,
+                        textStyle: gtTileField.textStyle,
+                      ),
+                    value != "" && value != false
+                        ? PhysicalModel(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: gtTileField.statusField[value.toString()],
+                            elevation: 5.0,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 8, right: 8, bottom: 4, top: 4),
+                              child: GtText(
+                                text: value == true
+                                    ? gtTileField.valuePath
+                                    : '$value',
+                                textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
+            ));
         break;
 
       case GtFieldType.DATE:
@@ -448,10 +451,12 @@ class Common {
                 GtAvatar(
                   radius: 16,
                   //backgroundColor: gtTileField,
-                  backGroundImage: gtTileField.isAssert ? AssetImage(
-                    '$value',
-                    package: 'core',
-                  ) : NetworkImage('$value'),
+                  backGroundImage: gtTileField.isAssert
+                      ? AssetImage(
+                          '$value',
+                          package: 'core',
+                        )
+                      : NetworkImage('$value'),
                 )
               ],
             ),
@@ -477,6 +482,41 @@ class Common {
                         amount: value.toString(),
                         currency: '\$',
                       ))
+                    : Container(),
+              ],
+            ),
+          ),
+        );
+        break;
+
+      case GtFieldType.BUTTON:
+        return Expanded(
+          flex: isMobilePortrait ? 1 : gtTileField.flex,
+          child: Container(
+            child: Wrap(
+              children: [
+                if (gtTileField.displayKey == true)
+                  GtText(
+                    text: '$key : ',
+                    textStyle: gtTileField.textStyle,
+                  ),
+                value != "" && value != false
+                    ? GtButton(
+                        buttonStyle: gtTileField.buttonStyle != null
+                            ? gtTileField.buttonStyle
+                            : ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white)),
+                        text: value.toString(),
+                        onPressed: () {
+                          if (gtTileField.buttonOnPressed != null)
+                            gtTileField.buttonOnPressed(itemData);
+                        },
+                      )
                     : Container(),
               ],
             ),

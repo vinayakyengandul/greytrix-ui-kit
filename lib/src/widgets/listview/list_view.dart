@@ -31,6 +31,8 @@ class GtListView extends StatelessWidget {
     this.swipeIcon = Icons.delete,
     this.swipeBackgroundColor = Colors.red,
     this.swipeIconColor = Colors.white,
+    this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
+    this.swipeConfirmButtonText = "DELETE",
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -61,10 +63,13 @@ class GtListView extends StatelessWidget {
   final Color rowColors;
   final bool isLeadingShow;
   // SWIPE TO OPTIONS
-  final Function(dynamic,int) swipeToOption;
+  final Function(dynamic, int) swipeToOption;
   final IconData swipeIcon;
   final Color swipeBackgroundColor;
   final Color swipeIconColor;
+
+  final String swipeConfirmMessage;
+  final String swipeConfirmButtonText;
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +162,7 @@ class GtListView extends StatelessWidget {
                       quantityInitialValue: quantityInitialValue,
                       incrementHandler: () => incrementHandler(index),
                       decrementHandler: () => decrementHandler(index)),
+                  itemData: listItems[index],
                 );
               }
             }
@@ -196,7 +202,8 @@ class GtListView extends StatelessWidget {
           (k, v) => {
             if ((isMobilePortrait == true) &&
                 rowIndex == 0 &&
-                leadingWidget != null && isLeadingShow)
+                leadingWidget != null &&
+                isLeadingShow)
               {
                 rowsWidgets.add(
                   Padding(
@@ -287,9 +294,10 @@ class GtListView extends StatelessWidget {
           },
         );
 
-         Widget listTile = GtListTile(
+        Widget listTile = GtListTile(
           columnWidget: Column(children: rowsWidgets),
-          leadingWidget: (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
+          leadingWidget:
+              (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
               ? listItems[index]['IsSelected']
               : false,
@@ -317,65 +325,69 @@ class GtListView extends StatelessWidget {
           listViewTableType: listViewTableType,
           selectedRowColor: selectedRowColor,
         );
-         return swipeToOption != null ? Dismissible(
-              key: Key(item.toString()),
-
-              confirmDismiss: (DismissDirection direction) async {
-                return await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: GtText(text:"Confirm"),
-                      content: GtText(text:"Are you sure you wish to delete this item?"),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: GtText(text:"DELETE")
-                        ),
-                        ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: GtText(text:"CANCEL"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              onDismissed: (direction) {
-                if(swipeToOption != null){
-                swipeToOption(listItems,index);
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('1 dismissed')));
-                }
-              },
-              secondaryBackground: swipeIconWidget("END"),
-              background: swipeIconWidget("START"),
-              child: listTile,
-            ) : listTile ;
+        return swipeToOption != null
+            ? Dismissible(
+                key: Key(item.toString()),
+                confirmDismiss: (DismissDirection direction) async {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: GtText(text: "Confirm"),
+                        content: GtText(text: swipeConfirmMessage),
+                        actions: <Widget>[
+                          ElevatedButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: GtText(text: swipeConfirmButtonText)),
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: GtText(text: "CANCEL"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                onDismissed: (direction) {
+                  if (swipeToOption != null) {
+                    swipeToOption(listItems, index);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('1 dismissed')));
+                  }
+                },
+                secondaryBackground: swipeIconWidget("END"),
+                background: swipeIconWidget("START"),
+                child: listTile,
+              )
+            : listTile;
       },
     );
   }
-  Widget swipeIconWidget(String strData){
+
+  Widget swipeIconWidget(String strData) {
     return Container(
-          color: swipeBackgroundColor,
-          child: Align(
-            child: Row(
-              mainAxisAlignment: strData == "END" ? MainAxisAlignment.end : MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: strData == "END" ? 0 : 20,
-                ),
-                Icon(
-                  swipeIcon,
-                  color: swipeIconColor,
-                ),
-                SizedBox(
-                  width: strData == "END" ? 20 : 0,
-                ),
-              ],
+      color: swipeBackgroundColor,
+      child: Align(
+        child: Row(
+          mainAxisAlignment: strData == "END"
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: strData == "END" ? 0 : 20,
             ),
-            alignment:  strData == "END"  ? Alignment.centerRight : Alignment.centerLeft,
-          ),
+            Icon(
+              swipeIcon,
+              color: swipeIconColor,
+            ),
+            SizedBox(
+              width: strData == "END" ? 20 : 0,
+            ),
+          ],
+        ),
+        alignment:
+            strData == "END" ? Alignment.centerRight : Alignment.centerLeft,
+      ),
     );
   }
 }
