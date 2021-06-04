@@ -31,7 +31,7 @@ class GtCalendar extends StatelessWidget {
   final RangeSelectionMode rangeSelectionMode;
   final List<CalendarEvent> Function(DateTime) eventLoader;
   final CalendarStyle calendarStyle;
-  final CalendarBuilders calendarBuilders;
+  final CalendarBuilders<CalendarEvent> calendarBuilders;
   final Function(DateTime, DateTime) onDaySelected;
   final Function(DateTime, DateTime, DateTime) onRangeSelected;
   final Function(CalendarFormat) onFormatChanged;
@@ -51,7 +51,7 @@ class GtCalendar extends StatelessWidget {
         calendarFormat: calendarFormat ?? CalendarFormat.month,
         rangeSelectionMode: rangeSelectionMode ?? RangeSelectionMode.toggledOff,
         eventLoader: (date) {
-          if (eventLoader(date) != null) eventLoader(date);
+          if (eventLoader(date) != null) return eventLoader(date);
         },
         startingDayOfWeek: StartingDayOfWeek.monday,
         calendarStyle: CalendarStyle(
