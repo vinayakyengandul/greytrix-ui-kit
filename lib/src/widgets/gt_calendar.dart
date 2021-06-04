@@ -29,7 +29,7 @@ class GtCalendar extends StatelessWidget {
   final DateTime rangeEndDay;
   final CalendarFormat calendarFormat;
   final RangeSelectionMode rangeSelectionMode;
-  final List<dynamic> Function(DateTime) eventLoader;
+  final List<CalendarEvent> Function(DateTime) eventLoader;
   final CalendarStyle calendarStyle;
   final CalendarBuilders calendarBuilders;
   final Function(DateTime, DateTime) onDaySelected;
