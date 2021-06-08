@@ -8,9 +8,17 @@ class GtDate extends StatelessWidget {
   final DateTime initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
-  final IconData prefixIcon;
+  final Icon prefixIcon;
   final String label;
+  final TextStyle labeltextStyle;
+  final TextStyle datetextStyle;
+  final TextStyle timetextStyle;
+  final String datefieldLabel;
+  final String timefieldLabel;
   final bool isRequired;
+  final String cancelText;
+  final String confirmText;
+  final ThemeData themeData;
   final Function(dynamic val, GtDateTimeType type, dynamic date)
       onDateSubmitted;
   final Function(dynamic val, GtDateTimeType type) onSaveHandler;
@@ -24,7 +32,7 @@ class GtDate extends StatelessWidget {
     @required this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.prefixIcon = Icons.calendar_today,
+    this.prefixIcon,
     this.isRequired = false,
     this.onDateSubmitted,
     this.onSaveHandler,
@@ -32,6 +40,14 @@ class GtDate extends StatelessWidget {
     this.timeTextEditingController,
     this.datePickerEntryMode = DatePickerEntryMode.calendar,
     this.initialEntryMode = DatePickerMode.day,
+    this.labeltextStyle,
+    this.themeData,
+    this.datefieldLabel,
+    this.timefieldLabel,
+    this.datetextStyle,
+    this.timetextStyle,
+    this.cancelText,
+    this.confirmText,
   });
 
   ///HANDLES THE DATE PICKER DIALOG
@@ -41,6 +57,14 @@ class GtDate extends StatelessWidget {
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: themeData ?? ThemeData.light(),
+          child: child,
+        );
+      },
+      cancelText: cancelText ?? 'Cancel',
+      confirmText: confirmText ?? 'Ok',
       initialDatePickerMode: initialEntryMode,
       initialEntryMode: DatePickerEntryMode.calendar,
     );
@@ -58,6 +82,14 @@ class GtDate extends StatelessWidget {
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: themeData ?? ThemeData.light(),
+          child: child,
+        );
+      },
+      cancelText: cancelText ?? 'Cancel',
+      confirmText: confirmText ?? 'Ok',
       initialTime: TimeOfDay.fromDateTime(initialDate ?? DateTime.now()),
     );
 
@@ -85,9 +117,7 @@ class GtDate extends StatelessWidget {
       children: [
         ///FORM FIELD LABEL
         if (label != null)
-          GtText(
-            text: label,
-          ),
+          GtText(text: label, textStyle: labeltextStyle ?? TextStyle()),
         Row(
           children: [
             ///DATE WIDGET FOR HANDLING DATE DIALOG
@@ -98,7 +128,8 @@ class GtDate extends StatelessWidget {
                   onTap: () => _selectDate(context),
                   child: AbsorbPointer(
                     child: GtTextFormField(
-                      fieldLabel: 'Date',
+                      fieldLabel: datefieldLabel ?? 'Date',
+                      labeltextStyle: datetextStyle ?? TextStyle(),
                       isReadOnly: true,
                       isRequired: isRequired,
                       onSaveHandler: (val) {
@@ -107,7 +138,8 @@ class GtDate extends StatelessWidget {
                         }
                       },
                       textEditingController: dateTextEditingController,
-                      prefixIcon: Icon(Icons.calendar_today_outlined),
+                      prefixIcon:
+                          prefixIcon ?? Icon(Icons.calendar_today_outlined),
                     ),
                   ),
                 ),
@@ -124,7 +156,8 @@ class GtDate extends StatelessWidget {
                   onTap: () => _selectTime(context),
                   child: AbsorbPointer(
                     child: GtTextFormField(
-                      fieldLabel: 'Time',
+                      fieldLabel: timefieldLabel ?? 'Time',
+                      labeltextStyle: timetextStyle ?? TextStyle(),
                       isReadOnly: true,
                       isRequired: isRequired,
                       onSaveHandler: (val) {
@@ -133,7 +166,7 @@ class GtDate extends StatelessWidget {
                         }
                       },
                       textEditingController: timeTextEditingController,
-                      prefixIcon: Icon(Icons.alarm),
+                      prefixIcon: prefixIcon ?? Icon(Icons.alarm),
                     ),
                   ),
                 ),
