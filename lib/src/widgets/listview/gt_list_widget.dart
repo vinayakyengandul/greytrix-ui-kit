@@ -37,7 +37,7 @@ class GtListPage extends StatelessWidget {
     this.onHoverHandler,
     this.toggleListGridView,
     this.isListView = true,
-    this.backgroundcolor,
+    this.backgroundcolor = Colors.white,
     this.onDeleteHandler,
     this.quantityInitialValue,
     this.incrementHandler,
@@ -63,6 +63,8 @@ class GtListPage extends StatelessWidget {
     this.backButtonColor = Colors.black,
     this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
     this.swipeConfirmButtonText = "DELETE",
+    this.cardMarginEdgeInsets = const EdgeInsets.only(top:1,bottom: 1,left:1,right: 1),
+    this.spaceBetweenKeyValue = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -144,6 +146,10 @@ class GtListPage extends StatelessWidget {
 
   final String swipeConfirmMessage;
   final String swipeConfirmButtonText;
+  /// Records Card Margin
+  final EdgeInsets cardMarginEdgeInsets;
+  /// Record Key and Value SpaceBetween
+  final bool spaceBetweenKeyValue;
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
@@ -418,6 +424,9 @@ class GtListPage extends StatelessWidget {
                           //       ),
                           // screen.isPhone
                           size.width < 450
+                          ? enablefilter ||
+                                viewtype ==
+                                    ViewType.both
                               ? PopupMenuButton(
                                   color: Colors.white,
                                   offset: Offset(0, 100),
@@ -472,7 +481,7 @@ class GtListPage extends StatelessWidget {
                                         ),
                                       ),
                                   ],
-                                )
+                                ) : Container()
                               : Row(children: [
                                   if (viewtype == ViewType.both)
                                     IconButton(
@@ -509,7 +518,7 @@ class GtListPage extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   margin: EdgeInsets.all(22),
-                                  color: cardColor,
+                                  color: backgroundcolor,
                                   child: Column(
                                     children: [
                                       listViewTableType ==
@@ -749,6 +758,8 @@ class GtListPage extends StatelessWidget {
                                                             swipeConfirmButtonText,
                                                         swipeConfirmMessage:
                                                             swipeConfirmMessage,
+                                                            cardMarginEdgeInsets:cardMarginEdgeInsets,
+                                                            spaceBetweenKeyValue:spaceBetweenKeyValue,
                                                       )
                                                     : GtGridView(
                                                         cardAspectRatio:

@@ -33,6 +33,7 @@ class GtFormField {
     this.displayMapFields,
     this.switchDefaultVal = false,
     this.displayInFieldLabel = false,
+    this.panelName = "",
   });
 
   final Map<String, String> lookupFields;
@@ -65,4 +66,5 @@ class GtFormField {
   final Map<String, dynamic> displayMapFields;
   final bool switchDefaultVal;
   final bool displayInFieldLabel;
+  final String panelName;
 }

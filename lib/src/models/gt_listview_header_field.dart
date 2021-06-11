@@ -9,7 +9,12 @@ class GtListViewHeaderField {
     this.flex = 1,
     this.textColor = Colors.grey,
     this.buttonColor = Colors.blue,
+    this.buttonHovorColor = Colors.blueAccent,
     this.iconColor = Colors.blue,
+    this.buttonText = "",
+    this.textAlign = TextAlign.center,
+    this.textStyle,
+    this.buttonOnPressed,
   });
   final IconData iconData;
   final String textValue;
@@ -17,5 +22,13 @@ class GtListViewHeaderField {
   final int flex;
   final Color textColor;
   final Color buttonColor;
+  // Button Hover color
+  final Color buttonHovorColor;
   final Color iconColor;
+  final String buttonText;
+  // HEADER TEXT ALIGN
+  final TextAlign textAlign;
+  final TextStyle textStyle;
+  // BUTTON ON Preesed Function
+  final Function buttonOnPressed;
 }

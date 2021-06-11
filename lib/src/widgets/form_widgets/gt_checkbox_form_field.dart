@@ -9,6 +9,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
   final Function(bool isChecked, dynamic val) onChangedHandler;
   final Function(List<dynamic> selctedValues) onSaveHandler;
   final Color activeColor;
+  final TextStyle textStyle;
 
   GtCheckboxFormField(
       {@required this.displayMapFields,
@@ -17,6 +18,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
       this.onSaveHandler,
       this.label,
       this.isRequired = false,
+      this.textStyle,
       this.activeColor})
       : super(
           initialValue: selectedCheckboxValues,
@@ -48,6 +50,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
                         ),
                         GtText(
                           text: e.key,
+                          textStyle: textStyle
                           //texttype: TextformatType.bodyText2,
                         ),
                       ],
@@ -59,6 +62,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
               children: [
                 GtText(
                   text: label,
+                  textStyle: textStyle,
                   //texttype: TextformatType.bodyText2,
                 ),
                 Container(
@@ -66,6 +70,9 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
                     children: [..._widgets],
                   ),
                 ),
+                state.errorText == null
+                    ? Container()
+                    : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
               ],
             );
           },

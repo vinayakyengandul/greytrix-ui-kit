@@ -59,6 +59,12 @@ class GtTileField {
     this.isAssert = true,
     this.buttonOnPressed,
     this.buttonStyle,
+    /// For KEY AND VALUES TextStyle
+    this.keyTextStyle,
+    this.valueTextStyle,
+    this.keyTextAlign = TextAlign.start,
+    this.valueTextAlign = TextAlign.start,
+    this.keyValueBetween = " : ",
   });
   final dynamic value;
   final GtFieldType type;
@@ -115,4 +121,12 @@ class GtTileField {
   final bool isAssert;
   final Function(dynamic) buttonOnPressed;
   final ButtonStyle buttonStyle;
+  /// For KEY AND VALUES TextStyle
+  final TextStyle keyTextStyle;
+  final TextStyle valueTextStyle;
+  /// For KEY AND VALUES TEXT ALIGN
+  final TextAlign keyTextAlign;
+  final TextAlign valueTextAlign;
+  ///String Between key and values  
+  final String keyValueBetween;
 }

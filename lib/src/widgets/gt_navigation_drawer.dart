@@ -265,6 +265,7 @@ class GtNavigationRails extends StatelessWidget {
             itemCount:listExpandedItems.length,
             itemBuilder: (context, index){
               List<Widget> listWidget = [];
+              if(listExpandedItems[index]["ChildMenu"] != null){
               listWidget =  List<Widget>.generate(listExpandedItems[index]["ChildMenu"].length, (i) => 
               Ink(height: 40,
                   color: selectedRowColor,
@@ -276,14 +277,30 @@ class GtNavigationRails extends StatelessWidget {
                     ),
                     onTap: () {
                       if(onTapExpanded != null)
-                      onTapExpanded(listExpandedItems[index]["ChildMenu"][i]["Menu"]);
+                      onTapExpanded(listExpandedItems[index]["HeaderMenu"].toString().toLowerCase() + "/" + listExpandedItems[index]["ChildMenu"][i]["Menu"].toString().toLowerCase());
                     },
                   ),
                 ),
                 ).toList();
+              }
+              else{
+                listWidget = [
+                  ListTile(
+                    leading: GtIcon(icondata: listExpandedItems[index]["HeaderIcon"], color: selectedRowColor,),
+                    dense: true,
+                    title:  GtText(text: listExpandedItems[index]["HeaderMenu"],
+                        textStyle: TextStyle(color: selectedRowColor,fontSize: 16),
+                      ),
+                    onTap: () {
+                      if(onTapExpanded != null)
+                      onTapExpanded(listExpandedItems[index]["HeaderMenu"].toString().toLowerCase());
+                    },
+                  ),
+                ];
+              }
                 return Theme(
                     data: Theme.of(context).copyWith(unselectedWidgetColor: selectedRowColor),
-                    child: ExpansionTile(
+                    child: listExpandedItems[index]["ChildMenu"] != null ? ExpansionTile(
                       childrenPadding: EdgeInsets.only(left: 30.0),
                       leading: Icon(listExpandedItems[index]["HeaderIcon"],
                         color: selectedRowColor,
@@ -294,7 +311,7 @@ class GtNavigationRails extends StatelessWidget {
                       children: <Widget>[
                         ...listWidget
                       ]
-                    ));
+                    ) : listWidget[0]);
             },)),
         ],
       ),

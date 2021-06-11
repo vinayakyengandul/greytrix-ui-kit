@@ -33,6 +33,8 @@ class GtListView extends StatelessWidget {
     this.swipeIconColor = Colors.white,
     this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
     this.swipeConfirmButtonText = "DELETE",
+    this.cardMarginEdgeInsets = const EdgeInsets.all(8.0),
+    this.spaceBetweenKeyValue = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -70,6 +72,10 @@ class GtListView extends StatelessWidget {
 
   final String swipeConfirmMessage;
   final String swipeConfirmButtonText;
+  /// Record Card Margin
+  final EdgeInsets cardMarginEdgeInsets;
+  /// Record Key and Value SpaceBetween
+  final bool spaceBetweenKeyValue;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +87,7 @@ class GtListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = listItems[index];
         Color color = listViewTableType == GTListViewTableType.Normal
-            ? Colors.white
+            ? rowColors
             : index.isOdd
                 ? rowColors
                 : rowColors.withOpacity(0.5);
@@ -162,7 +168,8 @@ class GtListView extends StatelessWidget {
                       quantityInitialValue: quantityInitialValue,
                       incrementHandler: () => incrementHandler(index),
                       decrementHandler: () => decrementHandler(index),
-                      itemData: listItems[index]),
+                      itemData: listItems[index],
+                      spaceBetweenKeyValue:spaceBetweenKeyValue),
                 );
               }
             }
@@ -194,7 +201,7 @@ class GtListView extends StatelessWidget {
         }
         List<Widget> rowsWidgets = List<Widget>.empty(growable: true);
         int rowIndex = 0;
-        EdgeInsets _rowPadding = EdgeInsets.only(top: 0.0, bottom: 0.0);
+        EdgeInsets _rowPadding = EdgeInsets.only(top: 0.0, bottom: spaceBetweenKeyValue ? 10.0 : 0.0);
 
         ///HERE PREPARING THE EACH ROWS DATA WITH RESPECTIVE CHILDREN WIDGETS DATA
         ///ALSO IF MOBILE VIEW IS PRESENT THEN ADDING THE LEADING ICON IN THE FIRST ROW
@@ -324,10 +331,11 @@ class GtListView extends StatelessWidget {
           rowColor: color,
           listViewTableType: listViewTableType,
           selectedRowColor: selectedRowColor,
+          cardMarginEdgeInsets: cardMarginEdgeInsets,
         );
         return swipeToOption != null
             ? Dismissible(
-                key: Key(item.toString()),
+                key: Key(listItems[index].toString()),
                 confirmDismiss: (DismissDirection direction) async {
                   return await showDialog(
                     context: context,
@@ -366,6 +374,7 @@ class GtListView extends StatelessWidget {
 
   Widget swipeIconWidget(String strData) {
     return Container(
+      margin: cardMarginEdgeInsets,
       color: swipeBackgroundColor,
       child: Align(
         child: Row(

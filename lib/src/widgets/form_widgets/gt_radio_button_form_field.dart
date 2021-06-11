@@ -9,6 +9,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
   final Function(bool isChecked, dynamic val) onChangedHandler;
   final Function(dynamic selctedValues) onSaveHandler;
   final Color activeColor;
+  final TextStyle textStyle;
 
   GtRadioButtonFormField(
       {@required this.displayMapFields,
@@ -17,6 +18,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
       this.onSaveHandler,
       this.label,
       this.isRequired = false,
+      this.textStyle,
       this.activeColor})
       : super(
           onSaved: (savedVal) {
@@ -34,19 +36,30 @@ class GtRadioButtonFormField extends FormField<dynamic> {
                 .map(
                   (e) => Row(
                     children: [
-                      Checkbox(
+                      Radio(
                         activeColor: activeColor ?? Colors.blueGrey,
-                        value: selectedRadioButtonVal != null
-                            ? selectedRadioButtonVal == e.value
-                            : false,
+                        groupValue: selectedRadioButtonVal,
                         onChanged: (onChangedVal) {
                           state.didChange(onChangedVal);
                           if (onChangedHandler != null)
-                            onChangedHandler(onChangedVal, e.value);
+                            onChangedHandler(onChangedVal == e.value ? true: false,e.value);
                         },
+                        value: e.value,
                       ),
+                      // Checkbox(
+                      //   activeColor: activeColor ?? Colors.blueGrey,
+                      //   value: selectedRadioButtonVal != null
+                      //       ? selectedRadioButtonVal == e.value
+                      //       : false,
+                      //   onChanged: (onChangedVal) {
+                      //     state.didChange(onChangedVal);
+                      //     if (onChangedHandler != null)
+                      //       onChangedHandler(onChangedVal, e.value);
+                      //   },
+                      // ),
                       GtText(
                         text: e.key,
+                        textStyle: textStyle,
                         //texttype: TextformatType.bodyText2,
                       ),
                     ],
@@ -59,6 +72,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
               children: [
                 GtText(
                   text: label,
+                  textStyle: textStyle,
                   //texttype: TextformatType.bodyText2,
                 ),
                 Container(
@@ -66,6 +80,9 @@ class GtRadioButtonFormField extends FormField<dynamic> {
                     children: [..._widgets],
                   ),
                 ),
+                state.errorText == null
+                    ? Container()
+                    : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
               ],
             );
           },
