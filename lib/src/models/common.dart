@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import './gt_tile_field.dart';
 import '../models/enums.dart';
 import '../widgets/index.dart';
+import '../../greytrix_ui_kit.dart';
 
 class Common {
   ///FUNCTION TO RETRIEVE THE VALUE FROM THE MAP BASED ON PATH
@@ -124,6 +125,7 @@ class Common {
     Function incrementHandler,
     Function decrementHandler,
     dynamic itemData,
+    bool spaceBetweenKeyValue,
   }) {
     bool isMobilePortrait = isMobileScreen;
 
@@ -136,8 +138,16 @@ class Common {
         ///PREPARING THE LIST OF WIDGETS FOR THE STRING AND LIST TYPE TO USE LIST FOR ROW OR A WRAP AS A CHILDRENS
         List<Widget> _widgetList = [
           if (gtTileField.displayKey == true)
-            GtText(
-              text: '$key : ',
+          spaceBetweenKeyValue ? 
+            Expanded(child:GtText(
+              text: '$key' + gtTileField.keyValueBetween,
+              textStyle: gtTileField.keyTextStyle,
+              textAlign: gtTileField.keyTextAlign,
+              //texttype: gtTileField.keyTextFormatType,
+            )) :GtText(
+              text: '$key' + gtTileField.keyValueBetween,
+              textStyle: gtTileField.keyTextStyle,
+              textAlign: gtTileField.keyTextAlign,
               //texttype: gtTileField.keyTextFormatType,
             ),
         ];
@@ -151,8 +161,10 @@ class Common {
                   _textWidgetList.add(
                     GtText(
                       text: '${e[gtTileField.listFieldValuePath]}',
+                      textStyle: gtTileField.valueTextStyle,
                       // texttype: gtTileField.webTextFormatType,
-                      textStyle: gtTileField.textStyle,
+                      // textStyle: gtTileField.textStyle,
+                       textAlign: gtTileField.valueTextAlign,
                       textOverflow: gtTileField.textOverFlow,
                     ),
                   )
@@ -166,18 +178,23 @@ class Common {
             break;
 
           case GtValueType.STRING:
-
+                Widget widget = GtText(
+                text: '$value',
+                textStyle: gtTileField.valueTextStyle,
+                 textAlign: gtTileField.valueTextAlign,
+                // texttype: gtTileField.webTextFormatType,
+                // textStyle: gtTileField.textStyle,
+                textOverflow: gtTileField.textOverFlow,
+              );
             ///PREPARING THE SINGLE STRING TYPE WIDGET
             _widgetList.add(
-              GtText(
-                text: '$value',
-                // texttype: gtTileField.webTextFormatType,
-                textStyle: gtTileField.textStyle,
-                textOverflow: gtTileField.textOverFlow,
-              ),
-            );
+              spaceBetweenKeyValue ?
+              Expanded(child: widget,
+            ):widget);
             _widgetContainer = Container(
-              child: Wrap(
+              child: spaceBetweenKeyValue ? Row(
+                children: _widgetList,
+              ) : Wrap(
                 children: _widgetList,
               ),
             );
@@ -282,7 +299,7 @@ class Common {
         break;
 
       case GtFieldType.CHIP:
-        List<Widget> _chipsList = List<Widget>();
+        List<Widget> _chipsList = List<Widget>.empty(growable: true);
         _chipsList = [];
 
         ///PREPARING THE LIST OF WIDGETS FOR THE STRING AND LIST TYPE TO USE LIST FOR ROW OR A WRAP AS A CHILDRENS
@@ -291,9 +308,11 @@ class Common {
             Padding(
               padding: EdgeInsets.only(top: 2.0),
               child: GtText(
-                text: '$key :',
+                text: '$key' + gtTileField.keyValueBetween,
+                 textStyle: gtTileField.keyTextStyle,
+                textOverflow: gtTileField.textOverFlow,
                 //texttype: gtTileField.keyTextFormatType,
-                textStyle: gtTileField.textStyle,
+                // textStyle: gtTileField.textStyle,
               ),
             ),
         ];
@@ -373,6 +392,38 @@ class Common {
         break;
 
       case GtFieldType.STATUS:
+      Widget keyWidget = GtText(
+            text: '$key' + gtTileField.keyValueBetween,
+              textStyle: gtTileField.keyTextStyle,
+          );
+      Widget valueWidget = value != "" && value != false
+            ? PhysicalModel(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: gtTileField.statusField[value.toString()],
+                elevation: 5.0,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 8, right: 8, bottom: 4, top: 4),
+                  child: GtText(
+                    text: value == true
+                        ? gtTileField.valuePath
+                        : '$value',
+                          textStyle: gtTileField.valueTextStyle,
+                    // textStyle: TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 12,
+                    //     fontWeight: FontWeight.w700),
+                  ),
+                ),
+              )
+            : Container();
+      List<Widget> listWidget = [
+        if (gtTileField.displayKey == true)
+        spaceBetweenKeyValue ? 
+            Expanded(child: keyWidget): keyWidget,
+        spaceBetweenKeyValue ? 
+            Expanded(child: valueWidget): valueWidget,
+      ];
         return Expanded(
             flex: isMobilePortrait ? 1 : gtTileField.flex,
             child: InkWell(
@@ -381,37 +432,9 @@ class Common {
                 if (navigationHandler != null) navigationHandler();
               },
               child: Container(
-                child: Wrap(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (gtTileField.displayKey == true)
-                      GtText(
-                        text: '$key : ',
-                        //texttype: gtTileField.keyTextFormatType,
-                        textStyle: gtTileField.textStyle,
-                      ),
-                    value != "" && value != false
-                        ? PhysicalModel(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            color: gtTileField.statusField[value.toString()],
-                            elevation: 5.0,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8, right: 8, bottom: 4, top: 4),
-                              child: GtText(
-                                text: value == true
-                                    ? gtTileField.valuePath
-                                    : '$value',
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          )
-                        : Container(),
-                  ],
+                child: spaceBetweenKeyValue ? Row(children: listWidget,)
+                : Wrap(
+                  children: listWidget,
                 ),
               ),
             ));
@@ -427,9 +450,10 @@ class Common {
               children: [
                 if (gtTileField.displayKey == true)
                   GtText(
-                    text: '$key : ',
+                    text: '$key' + gtTileField.keyValueBetween,
                     //texttype: gtTileField.keyTextFormatType,
-                    textStyle: gtTileField.textStyle,
+                    // textStyle: gtTileField.textStyle,
+                     textStyle: gtTileField.keyTextStyle,
                   ),
                 //getDateFormatGtText(gtTileField, key, value),
               ],
@@ -471,17 +495,27 @@ class Common {
             child: Row(
               children: [
                 if (gtTileField.displayKey == true)
-                  GtText(
-                    text: '$key : ',
-                    textStyle: gtTileField.textStyle,
+                  spaceBetweenKeyValue ? 
+                  Expanded(child:GtText(
+                    text: '$key' + gtTileField.keyValueBetween,
+                    // textStyle: gtTileField.textStyle,
+                     textStyle: gtTileField.keyTextStyle,
+                  )):GtText(
+                    text: '$key' + gtTileField.keyValueBetween,
+                    // textStyle: gtTileField.textStyle,
+                     textStyle: gtTileField.keyTextStyle,
                   ),
                 value != ""
-                    ? Expanded(
+                    ? !spaceBetweenKeyValue ? Expanded(
                         child: GtCurrency(
-                        amountTextStyle: gtTileField.textStyle,
+                        amountTextStyle: gtTileField.valueTextStyle,
                         amount: value.toString(),
                         currency: '\$',
-                      ))
+                      )): Align(alignment: Alignment.centerRight,child: GtCurrency(
+                        amountTextStyle: gtTileField.valueTextStyle,
+                        amount: value.toString(),
+                        currency: '\$',
+                      ),)
                     : Container(),
               ],
             ),
@@ -490,36 +524,43 @@ class Common {
         break;
 
       case GtFieldType.BUTTON:
+      Widget widget = GtText(
+          text: '$key' + gtTileField.keyValueBetween,
+          // textStyle: gtTileField.textStyle,
+          textStyle: gtTileField.keyTextStyle,
+        );
+        Widget btnWidget = value != "" && value != false
+          ? GtButton(
+              buttonStyle: gtTileField.buttonStyle != null
+                  ? gtTileField.buttonStyle
+                  : ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.blue),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.white)),
+                    // Button Value is true than show KEY value
+              text: value == true ? '$key' : value.toString(),
+              onPressed: () {
+                if (gtTileField.buttonOnPressed != null)
+                  gtTileField.buttonOnPressed(itemData);
+              },
+            )
+          : Container();
+      List<Widget> listwidget = [
+      if (gtTileField.displayKey == true)
+        spaceBetweenKeyValue ? 
+            Expanded(child: widget): widget,
+      spaceBetweenKeyValue ? 
+            Expanded(child: btnWidget): btnWidget,
+      ];
         return Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
           child: Container(
-            child: Wrap(
-              children: [
-                if (gtTileField.displayKey == true)
-                  GtText(
-                    text: '$key : ',
-                    textStyle: gtTileField.textStyle,
-                  ),
-                value != "" && value != false
-                    ? GtButton(
-                        buttonStyle: gtTileField.buttonStyle != null
-                            ? gtTileField.buttonStyle
-                            : ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white)),
-                        text: value.toString(),
-                        onPressed: () {
-                          if (gtTileField.buttonOnPressed != null)
-                            gtTileField.buttonOnPressed(itemData);
-                        },
-                      )
-                    : Container(),
-              ],
-            ),
+            child: spaceBetweenKeyValue ? Row(
+              children: listwidget,
+            ): Wrap(children: listwidget,),
           ),
         );
         break;
@@ -606,8 +647,8 @@ class Common {
           flex: headerFields.flex,
           child: GtText(
             text: headerFields.textValue,
-            textStyle: TextStyle(color: headerFields.textColor),
-            textAlign: TextAlign.center,
+            textStyle: headerFields.textStyle,
+            textAlign: headerFields.textAlign,
           ),
           //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
         );
@@ -622,12 +663,14 @@ class Common {
                   child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xffe8769f)),
+                            MaterialStateProperty.all<Color>(headerFields.buttonColor),
                         overlayColor:
-                            MaterialStateProperty.all<Color>(priColor),
+                            MaterialStateProperty.all<Color>(headerFields.buttonHovorColor),
                       ),
-                      onPressed: () {},
-                      child: GtText(text: 'ADD NEW')),
+                      onPressed: () {
+                        if(headerFields.buttonOnPressed != null) headerFields.buttonOnPressed();
+                      },
+                      child: GtText(text: headerFields.buttonText,textStyle: headerFields.textStyle,)),
                 ),
               ],
             ));
@@ -647,4 +690,360 @@ class Common {
     }
     return widget;
   }
+
+   ///IT RETURNS THE FORM_FIELD WIDET FOR THE FORM VIEW
+  static Widget getFormViewWidget(
+    String controllerTag,
+    GtFormField gtFormField,
+    String key, {
+    Function formFieldOnChangeHandler,
+    Function setFieldValues,
+    Function getFieldValues,
+    Function setFormCheckboxFieldValues,
+    Function setselectedLookupDataValues,
+    Map<String, dynamic> fieldValues,
+    bool forLookupForm = false,
+    TextStyle textStyle,
+    dynamic obx,
+  }) {
+    textStyle = textStyle == null ? TextStyle(fontSize: 12,) : textStyle;
+    EdgeInsets _formFieldPadding = EdgeInsets.all(5.0);
+    bool isMobilePortrait = false;
+    switch (gtFormField.type) {
+      case GtFormFieldType.INPUT:
+      
+        return Expanded(
+          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+          child: Container(
+            padding: _formFieldPadding,
+            child: GtTextFormField(
+              labeltextStyle: textStyle,
+              fieldLabel: key,
+              isReadOnly: gtFormField.isreadOnly,
+              isRequired: gtFormField.isRequired,
+              onChangeHandler: (changedVal) {
+                ///ON_CHANGE HANDLER
+                formFieldOnChangeHandler(
+                  gtFormField.fieldKey,
+                  changedVal,
+                  forLookupForm: forLookupForm,
+                  fromOnChanged: true,
+                );
+              },
+              
+              textEditingController: fieldValues[gtFormField.fieldKey] != null ? TextEditingController(text: fieldValues[gtFormField.fieldKey].toString()) : gtFormField.textEditingController,
+            ),
+          ),
+        );
+        break;
+
+      case GtFormFieldType.DROPDOWN:
+        setFieldValues(
+          gtFormField.fieldKey,
+          gtFormField.dropdownItems.entries.first.value,
+          forLookupForm: forLookupForm,
+        );
+
+        ///ON_CHANGE HANDLER
+        formFieldOnChangeHandler(
+          gtFormField.fieldKey,
+          gtFormField.dropdownItems.entries.first.value,
+          forLookupForm: forLookupForm,
+        );
+        return Expanded(
+          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+          child: Container(
+            padding: _formFieldPadding,
+            child: 
+            // Obx(() =>
+             GtDropdownFormField(
+                dropdownValue: getFieldValues(
+                  gtFormField.fieldKey,
+                  forLookupForm: forLookupForm,
+                ),
+                iconData: Icons.arrow_drop_down,
+                items: gtFormField.dropdownItems,
+                onChangedhandler: (val) => {
+                  setFieldValues(
+                    gtFormField.fieldKey,
+                    val,
+                    fromOnChanged: true,
+                    forLookupForm: forLookupForm,
+                  ),
+
+                  ///ON_CHANGE HANDLER
+                  formFieldOnChangeHandler(
+                    gtFormField.fieldKey,
+                    val,
+                    forLookupForm: forLookupForm,
+                    fromOnChanged: true,
+                  ),
+                },
+                isRequired: gtFormField.isRequired,
+                
+                label: key,
+              ),
+            // ),
+          ),
+        );
+        break;
+
+      case GtFormFieldType.LOOKUP:
+        List<dynamic> templist = [];
+        templist = [];
+
+        ///HERE SETTING THE LOOKUP SUGGESTIONS LIST TO EMPTY FOR FIRST TIME
+        //controller.setLookupDataValues(gtFormField.nodeKey, templist);
+        // Rx<List<dynamic>> _tmp;
+        // _tmp = new Rxn<List<dynamic>>();
+        List<dynamic> _tmp;
+        _tmp = new List<dynamic>.empty(growable: true);
+        _tmp = [];
+
+        ///HERE SETTING THE SELECTED LOOKUP DATA VALUES LIST TO EMPTY FOR FIRST TIME
+        setselectedLookupDataValues(gtFormField.nodeKey, _tmp);
+        return Expanded(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
+                padding: _formFieldPadding,
+                child: 
+                // Obx(() => 
+                GtTagTextField(
+                    displayInFieldLabel: gtFormField.displayInFieldLabel,
+                    fieldLabel: key,
+                    isRequired: gtFormField.isRequired,
+                    onSavedHander: (savedVal) {},
+                    allowMultiselection: gtFormField.isMultiselect,
+                    addNewHandler: (_val) {
+                      if (gtFormField.lookupAddFormFields != null) {
+                        ///SETS THE FORM KEY FOR DIALOG
+                        // setAddLookupFormKey(
+                        //   key,
+                        //   new GlobalKey<FormState>(),
+                        // );
+
+                        ///OPENS UP THE DIALOG FOR THE LOOKUP DATA INSERTION
+                        // Get.dialog(
+                        //   GtLookupAddFormView(
+                        //     tag: controllerTag,
+                        //     dialogTitle: key,
+                        //     formKey: controller.addLookupFormKeys[key],
+                        //     fromMapjson: gtFormField.lookupAddFormFields,
+                        //     parentFormFieldKey: key,
+                        //     lookupAddNodeKey: gtFormField.lookupAddNodeKey,
+                        //     lookupNodeKey: gtFormField.nodeKey,
+                        //     isMultiselect: gtFormField.isMultiselect,
+                        //     parentFieldKey: gtFormField.fieldKey,
+                        //     parentValuePath: gtFormField.valuePath,
+                        //     parentTextEditingController:
+                        //         gtFormField.textEditingController,
+                        //   ),
+                        // );
+                      }
+                    },
+                    looupKeyVisibile: gtFormField.looupKeyVisibile,
+                    lookupFields: gtFormField.lookupFields,
+                    //selectedTaglist: selectedlookupData[gtFormField.nodeKey].value,
+                    onSuggestionSelected: (_val, isMutli) {
+                      setselectedLookupDataValues(
+                        gtFormField.nodeKey,
+                        _val,
+                        fromOnChanged: true,
+                        ismultiSelect: isMutli,
+                        fieldKey: gtFormField.fieldKey,
+                        valuePath: gtFormField.valuePath,
+                      );
+                    },
+                    suggestionsCallback: (pattern) {
+                      // return getSuggestions(
+                      //   pattern,
+                      //   gtFormField.nodeKey,
+                      //   gtFormField.lookupFields,
+                      // );
+                    },
+                    textEditingController: gtFormField.textEditingController,
+                    //taglist: lookupData[gtFormField.nodeKey],
+                    onDeleted: (val) => {
+                      // onDeleteHandler(
+                      //   gtFormField.nodeKey,
+                      //   val,
+                      //   ismultiSelect: gtFormField.isMultiselect,
+                      //   fieldKey: gtFormField.fieldKey,
+                      //   valuePath: gtFormField.valuePath,
+                      //   focusNode: gtFormField.focusNode,
+                      // )
+                    },
+                    focusNode: gtFormField.focusNode,
+                  ),
+                )
+                // )
+                );
+        break;
+
+      case GtFormFieldType.DATETIME:
+        setFieldValues(
+          gtFormField.fieldKey,
+          null,
+          forLookupForm: forLookupForm,
+        );
+        return Expanded(
+          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+          child: 
+          // Obx(() => 
+          Container(
+              padding: _formFieldPadding,
+              child: GtDate(
+                label: key,
+                isRequired: gtFormField.isRequired,
+                type: gtFormField.dateTimeType,
+                initialDate: fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
+                firstDate: gtFormField.firstDate ?? DateTime(1990),
+                lastDate: gtFormField.lastDate ?? DateTime(2100),
+                dateTextEditingController:
+                    gtFormField.dateTextEditingController,
+                timeTextEditingController:
+                    gtFormField.timeTextEditingController,
+                onDateSubmitted:
+                    (dynamic date, GtDateTimeType type, dynamic standardDate) {
+                  setFieldValues(
+                    gtFormField.fieldKey,
+                    standardDate,
+                    fromOnChanged: true,
+                    forLookupForm: forLookupForm,
+                  );
+
+                  ///ON_CHANGE HANDLER
+                  formFieldOnChangeHandler(
+                    gtFormField.fieldKey,
+                    standardDate.toString(),
+                    forLookupForm: forLookupForm,
+                    fromOnChanged: true,
+                  );
+                },
+              ),
+            // ),
+          ),
+        );
+        break;
+
+      case GtFormFieldType.CHECKBOX:
+
+        ///SETTING THE IN CONTROLLER FOR HOLDONG THE SELECTED DATA INITIALLY EMPTY OR DEFAULT
+        List<dynamic> _list = List<dynamic>.empty(growable: true);
+        setFieldValues(
+          gtFormField.fieldKey,
+          _list,
+          forLookupForm: forLookupForm,
+        );
+        return Container(
+          padding: _formFieldPadding,
+          child: 
+          // Obx(() => 
+          GtCheckboxFormField(
+              isRequired: gtFormField.isRequired,
+              label: key,
+              displayMapFields: gtFormField.displayMapFields,
+              selectedCheckboxValues: fieldValues[gtFormField.fieldKey],
+                  // getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
+              onChangedHandler: (isChecked, _val) {
+                ///HERE CALLING CONTROLLER FUNCTION FOR SETTINGTHE CHECBOX FIELD CHECKED AND UNCHECKED DATA
+                setFormCheckboxFieldValues(
+                  gtFormField.fieldKey,
+                  _val,
+                  isChecked,
+                  fieldKey: gtFormField.fieldKey,
+                  forLookupForm: forLookupForm,
+                  setApiVariables: true,
+                );
+              },
+              textStyle: textStyle,
+              )
+          // ),
+        );
+        break;
+
+      case GtFormFieldType.RADIO_BUTTON:
+
+        ///SETTING THE IN CONTROLLER FOR HOLDONG THE SELECTED DATA INITIALLY EMPTY OR DEFAULT
+        setFieldValues(
+          gtFormField.fieldKey,
+          null,
+          forLookupForm: forLookupForm,
+        );
+
+        return Container(
+          padding: _formFieldPadding,
+          child: 
+          //  Obx(() => 
+          GtRadioButtonFormField(
+              isRequired: gtFormField.isRequired,
+              label: key,
+              displayMapFields: gtFormField.displayMapFields,
+              selectedRadioButtonVal: fieldValues[gtFormField.fieldKey],
+                  // getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
+              onChangedHandler: (isChecked, _val) {
+                setFieldValues(
+                  gtFormField.fieldKey,
+                  _val,
+                  forLookupForm: forLookupForm,
+                  fromOnChanged: true,
+                );
+
+                ///HANDLING RADIO BUTTON ON CHANGE EVENT
+                formFieldOnChangeHandler(
+                  gtFormField.fieldKey,
+                  _val,
+                  forLookupForm: forLookupForm,
+                  fromOnChanged: true,
+                );
+              },
+              textStyle: textStyle,
+             ),
+          // ),
+        );
+        break;
+
+      case GtFormFieldType.SWITCH_BUTTON:
+        setFieldValues(
+          gtFormField.fieldKey,
+          gtFormField.switchDefaultVal,
+          forLookupForm: forLookupForm,
+        );
+
+        return Container(
+          padding: _formFieldPadding,
+          child: 
+          // Obx(() => 
+          GtSwitchButtonFormField(
+              isRequired: gtFormField.isRequired,
+              label: key,
+              switchValue: getFieldValues(
+                gtFormField.fieldKey,
+                forLookupForm: forLookupForm,
+              ),
+              onChangedHandler: (onChangedVal) {
+                setFieldValues(
+                  gtFormField.fieldKey,
+                  onChangedVal,
+                  forLookupForm: forLookupForm,
+                  fromOnChanged: true,
+                );
+
+                ///HANDLING RADIO BUTTON ON CHANGE EVENT
+                formFieldOnChangeHandler(
+                  gtFormField.fieldKey,
+                  onChangedVal,
+                  forLookupForm: forLookupForm,
+                  fromOnChanged: true,
+                );
+              },
+            ),
+          // ),
+        );
+        break;
+
+      default:
+        return Container();
+    }
+  }  
 }

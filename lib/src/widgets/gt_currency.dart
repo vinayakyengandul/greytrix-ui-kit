@@ -48,6 +48,7 @@ class GtCurrency extends StatelessWidget {
                     GtText(
                       text: '.${number[1]}',
                       textStyle: TextStyle(
+                        color: amountTextStyle != null ? amountTextStyle.color : null,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -80,6 +81,7 @@ class GtCurrency extends StatelessWidget {
                     GtText(
                       text: '.${number[1]}',
                       textStyle: TextStyle(
+                        color: amountTextStyle != null ? amountTextStyle.color : null,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),

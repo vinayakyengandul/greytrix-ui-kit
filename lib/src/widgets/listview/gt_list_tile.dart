@@ -67,16 +67,7 @@ class GtListTile extends StatelessWidget {
                       : rowColor),
         ),
         //elevation: onHover ? 15.0 : 3.0,
-        margin: isSpaceInRecords
-            ? EdgeInsets.only(
-                right:
-                    listViewTableType == GTListViewTableType.Normal ? 8.0 : 0.0,
-                left:
-                    listViewTableType == GTListViewTableType.Normal ? 8.0 : 0.0,
-                top:
-                    listViewTableType == GTListViewTableType.Normal ? 1.0 : 0.0,
-                bottom: 0.0)
-            : cardMarginEdgeInsets,
+        margin: cardMarginEdgeInsets,
         color: onHover
             ? listViewTableType == GTListViewTableType.Normal
                 ? Colors.blueGrey[100]
