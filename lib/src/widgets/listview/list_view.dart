@@ -35,6 +35,7 @@ class GtListView extends StatelessWidget {
     this.swipeConfirmButtonText = "DELETE",
     this.cardMarginEdgeInsets = const EdgeInsets.all(8.0),
     this.spaceBetweenKeyValue = false,
+    this.horizinalScrollable = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -76,16 +77,14 @@ class GtListView extends StatelessWidget {
   final EdgeInsets cardMarginEdgeInsets;
   /// Record Key and Value SpaceBetween
   final bool spaceBetweenKeyValue;
+  // HORIZONTAL SCROLLABLE 
+  final bool horizinalScrollable;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return ListView.builder(
-      padding: EdgeInsets.all(
-          listViewTableType == GTListViewTableType.Normal ? 0.0 : 20),
-      itemCount: listItems.length,
-      itemBuilder: (context, index) {
-        final item = listItems[index];
+    Widget returnTile(int index){
+
         Color color = listViewTableType == GTListViewTableType.Normal
             ? rowColors
             : index.isOdd
@@ -120,7 +119,6 @@ class GtListView extends StatelessWidget {
             trailingIcon != null ? getTrailingWidget(index) : null;
 
         //HERE PREPARING THE SINGLE GT_FIELD_WIDGET FOR THE SINGLE ITEM FIELD WHICH NEEDS TO BE DISPLAYED
-
         toMapjson.forEach((key, value) {
           if (value.valuePath != null) {
             int row = isMobilePortrait ? value.mobileRow : value.row;
@@ -151,6 +149,7 @@ class GtListView extends StatelessWidget {
                 ));
               } else {
                 rowsData[row].add(
+                  // Common.getGtText(value,key,nodeValue,textStyle: value.valueTextStyle,horizhontalScrollable: horizinalScrollable,isMobileScreen: isMobilePortrait,),
                   Common.getListWidget(
                       value,
                       key,
@@ -169,7 +168,7 @@ class GtListView extends StatelessWidget {
                       incrementHandler: () => incrementHandler(index),
                       decrementHandler: () => decrementHandler(index),
                       itemData: listItems[index],
-                      spaceBetweenKeyValue:spaceBetweenKeyValue),
+                      spaceBetweenKeyValue:spaceBetweenKeyValue,horizinalScrollable: horizinalScrollable),
                 );
               }
             }
@@ -178,7 +177,7 @@ class GtListView extends StatelessWidget {
 
         int currentCount = 0;
         int rowMaxCount = 0;
-        if (!isMobilePortrait) {
+        if (!isMobilePortrait && !horizinalScrollable) {
           rowsData.forEach((k, v) => {
                 if (v.length > rowMaxCount)
                   {
@@ -217,7 +216,7 @@ class GtListView extends StatelessWidget {
                     padding: chipcheck == (rowIndex + 1).toString()
                         ? EdgeInsets.only(top: 0.0, bottom: 0.0)
                         : _rowPadding,
-                    child: Row(
+                    child: !horizinalScrollable ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -278,7 +277,8 @@ class GtListView extends StatelessWidget {
                           )
                         ]
                       ],
-                    ),
+                    ) : 
+                    Container(child: leadingWidget,padding: EdgeInsets.only(left: 10,right: 10),),
                   ),
                 ),
               }
@@ -300,9 +300,8 @@ class GtListView extends StatelessWidget {
             rowIndex++,
           },
         );
-
         Widget listTile = GtListTile(
-          columnWidget: Column(children: rowsWidgets),
+          columnWidget: horizinalScrollable ? Row(children: rowsWidgets) : Column(children: rowsWidgets),
           leadingWidget:
               (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
           isSelected: selectAllcheckbox != null
@@ -332,6 +331,7 @@ class GtListView extends StatelessWidget {
           listViewTableType: listViewTableType,
           selectedRowColor: selectedRowColor,
           cardMarginEdgeInsets: cardMarginEdgeInsets,
+          horizinalScrollable: horizinalScrollable,
         );
         return swipeToOption != null
             ? Dismissible(
@@ -368,10 +368,24 @@ class GtListView extends StatelessWidget {
                 child: listTile,
               )
             : listTile;
+    }
+    return !horizinalScrollable ? ListView.builder(
+      padding: EdgeInsets.all(
+          listViewTableType == GTListViewTableType.Normal ? 0.0 : 20),
+      itemCount: listItems.length,
+      itemBuilder: (context, index) {
+        return returnTile(index);
       },
-    );
+    ): 
+    Column(
+      children: List.generate(listItems.length,
+        (index) =>  Padding(
+            padding: EdgeInsets.all(listViewTableType == GTListViewTableType.Normal ? 0.0 : 0.0),
+            child: returnTile(index),
+          ),
+        )
+      );
   }
-
   Widget swipeIconWidget(String strData) {
     return Container(
       margin: cardMarginEdgeInsets,

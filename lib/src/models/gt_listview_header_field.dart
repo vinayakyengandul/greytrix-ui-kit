@@ -15,6 +15,7 @@ class GtListViewHeaderField {
     this.textAlign = TextAlign.center,
     this.textStyle,
     this.buttonOnPressed,
+    this.mobileFlex,
   });
   final IconData iconData;
   final String textValue;
@@ -31,4 +32,5 @@ class GtListViewHeaderField {
   final TextStyle textStyle;
   // BUTTON ON Preesed Function
   final Function buttonOnPressed;
+  final int mobileFlex;
 }
