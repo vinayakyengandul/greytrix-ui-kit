@@ -74,8 +74,18 @@ class Common {
     String key,
     dynamic data, {
     TextStyle textStyle,
+    bool horizhontalScrollable = false,
+    bool isMobileScreen = false,
   }) {
-    return GtText(
+    return horizhontalScrollable ? SizedBox(
+      width: isMobileScreen ? value.mobileFlex * 100.0: value.flex * 100.0, 
+      child:GtText(
+      text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
+      // texttype: value.webTextFormatType,
+      textOverflow: value.textOverFlow,
+      textStyle: textStyle,
+      fontFamily: value.fontFamily,
+    )) : GtText(
       text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
       // texttype: value.webTextFormatType,
       textOverflow: value.textOverFlow,
@@ -126,6 +136,7 @@ class Common {
     Function decrementHandler,
     dynamic itemData,
     bool spaceBetweenKeyValue,
+    bool horizinalScrollable = false,
   }) {
     bool isMobilePortrait = isMobileScreen;
 
@@ -203,7 +214,7 @@ class Common {
             break;
         }
 
-        return Expanded(
+        return !horizinalScrollable ? Expanded(
           flex: isMobilePortrait ? gtTileField.mobileFlex : gtTileField.flex,
           child: gtTileField.pathNavigation != null
               ? InkWell(
@@ -220,7 +231,25 @@ class Common {
                   padding: EdgeInsets.only(right: 4.0),
                   child: _widgetContainer,
                 ),
-        );
+        ) : gtTileField.pathNavigation != null
+              ? InkWell(
+                  onHover: (value) {},
+                  onTap: () {
+                    if (navigationHandler != null) navigationHandler();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 4.0),
+                    child: SizedBox(
+                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+                      child:Wrap(children :_widgetList))
+                                  ),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.only(right: 4.0),
+                                  child: SizedBox(
+                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+                      child:Wrap(children :_widgetList))
+                );
         break;
 
       case GtFieldType.EMAIL:
@@ -253,7 +282,7 @@ class Common {
         break;
 
       case GtFieldType.QUANTITY:
-        return Expanded(
+        return !horizinalScrollable ? Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
           child: Container(
             child: Row(
@@ -268,7 +297,21 @@ class Common {
               ],
             ),
           ),
-        );
+        ): SizedBox(
+            width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+            child:Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GtCartQuantity(
+                  initialValue: value,
+                  decrementHandler: decrementHandler,
+                  incrementHandler: incrementHandler,
+                )
+              ],
+            ),
+          ));
         break;
 
       case GtFieldType.PHONE:
@@ -463,7 +506,7 @@ class Common {
         break;
 
       case GtFieldType.AVATAR:
-        return Expanded(
+        return !horizinalScrollable ? Expanded(
           flex: isMobilePortrait ? gtTileField.mobileFlex : gtTileField.flex,
           child: Container(
             child: Row(
@@ -485,11 +528,32 @@ class Common {
               ],
             ),
           ),
-        );
+        ) : SizedBox(
+                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+                      child:Container(
+            child: Row(
+              mainAxisAlignment: isMobilePortrait
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GtAvatar(
+                  radius: 16,
+                  //backgroundColor: gtTileField,
+                  backGroundImage: gtTileField.isAssert
+                      ? AssetImage(
+                          '$value',
+                          package: 'core',
+                        )
+                      : NetworkImage('$value'),
+                )
+              ],
+            ),
+          ));
         break;
 
       case GtFieldType.CURRENCY:
-        return Expanded(
+        return !horizinalScrollable ? Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
           child: Container(
             child: Row(
@@ -520,7 +584,13 @@ class Common {
               ],
             ),
           ),
-        );
+        ) : SizedBox(
+              width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+              child: GtCurrency(
+                amountTextStyle: gtTileField.valueTextStyle,
+                amount: value.toString(),
+                currency: '\$',
+              ));
         break;
 
       case GtFieldType.BUTTON:
@@ -555,14 +625,16 @@ class Common {
       spaceBetweenKeyValue ? 
             Expanded(child: btnWidget): btnWidget,
       ];
-        return Expanded(
+        return !horizinalScrollable ? Expanded(
           flex: isMobilePortrait ? 1 : gtTileField.flex,
           child: Container(
             child: spaceBetweenKeyValue ? Row(
               children: listwidget,
             ): Wrap(children: listwidget,),
           ),
-        );
+        ): SizedBox(
+              width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
+              child:  Container(child:Wrap(children:[btnWidget])));
         break;
 
       default:
@@ -627,23 +699,32 @@ class Common {
   static List<Widget> getListViewHeaderWidget(
       {dynamic headerFields,
       Color priColor = Colors.blue,
+      bool headerMobile = false,
+      bool horizinalScrollable = false,
       bool isMobileScreen = false}) {
     List<Widget> widgets;
     widgets = [];
     headerFields.forEach((e) => {
-          if ((e.type == GtListViewHeaderFieldType.BUTTON && isMobileScreen) ||
-              !isMobileScreen)
-            widgets.add(getHeaderWidget(headerFields: e, priColor: priColor))
+          if ((e.type == GtListViewHeaderFieldType.BUTTON && headerMobile) ||
+              !headerMobile)
+            widgets.add(getHeaderWidget(headerFields: e, priColor: priColor,horizinalScrollable: horizinalScrollable,isMobileScreen: isMobileScreen))
         });
     return widgets;
   }
 
   static Widget getHeaderWidget(
-      {dynamic headerFields, Color priColor = Colors.blue}) {
+      {dynamic headerFields, Color priColor = Colors.blue,bool horizinalScrollable = false,bool isMobileScreen = false}) {
     Widget widget;
     switch (headerFields.type) {
       case GtListViewHeaderFieldType.STRING:
-        widget = Expanded(
+        widget = horizinalScrollable ? SizedBox(
+          width: isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
+          child: GtText(
+            text: headerFields.textValue,
+            textStyle: headerFields.textStyle,
+            textAlign: headerFields.textAlign,
+          //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
+        )) : Expanded(
           flex: headerFields.flex,
           child: GtText(
             text: headerFields.textValue,
@@ -654,7 +735,26 @@ class Common {
         );
         break;
       case GtListViewHeaderFieldType.BUTTON:
-        widget = Expanded(
+        widget = horizinalScrollable ? SizedBox(
+          width:isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
+          child:Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(headerFields.buttonColor),
+                        overlayColor:
+                            MaterialStateProperty.all<Color>(headerFields.buttonHovorColor),
+                      ),
+                      onPressed: () {
+                        if(headerFields.buttonOnPressed != null) headerFields.buttonOnPressed();
+                      },
+                      child: GtText(text: headerFields.buttonText,textStyle: headerFields.textStyle,)),
+                ),
+              ],
+            )) : Expanded(
             flex: headerFields.flex,
             child: Row(
               children: [
@@ -676,7 +776,12 @@ class Common {
             ));
         break;
       case GtListViewHeaderFieldType.ICON:
-        widget = Expanded(
+        widget =horizinalScrollable ? SizedBox(
+          width: isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
+          child:GtIcon(
+            icondata: headerFields.iconData,
+            color: headerFields.iconColor,
+        )): Expanded(
           flex: headerFields.flex,
           child: GtIcon(
             icondata: headerFields.iconData,

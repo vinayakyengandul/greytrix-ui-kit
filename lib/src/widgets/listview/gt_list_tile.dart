@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../greytrix_ui_kit.dart';
 
 class GtListTile extends StatelessWidget {
-  final Column columnWidget;
+  final dynamic columnWidget;
   final Widget leadingWidget;
   final Widget trailingWidget;
   final bool isSelected;
@@ -22,6 +22,7 @@ class GtListTile extends StatelessWidget {
   final Color rowColor;
   final GTListViewTableType listViewTableType;
   final Color selectedRowColor;
+  final bool horizinalScrollable;
   GtListTile({
     @required this.onTap,
     @required this.columnWidget,
@@ -43,6 +44,7 @@ class GtListTile extends StatelessWidget {
     this.rowColor = Colors.white,
     this.listViewTableType = GTListViewTableType.Normal,
     this.selectedRowColor = Colors.grey,
+    this.horizinalScrollable = false,
   }) : assert(columnWidget != null);
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class GtListTile extends StatelessWidget {
                   : null,
             ),
             child: Padding(
-              padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+              padding: EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0),
               child: bannerText != null
                   ? Container(
                       child: Row(
@@ -133,7 +135,8 @@ class GtListTile extends StatelessWidget {
                         ],
 
                         ///COLUMN WIDGET WHICH CONTAINS ALL ROWS DATA
-                        Expanded(flex: isImage ? 6 : 4, child: columnWidget),
+                        !horizinalScrollable ? Expanded(flex: isImage ? 6 : 4, child: columnWidget):
+                        columnWidget,
 
                         /////TRAILING WIDGET
                         if (trailingWidget != null) ...[
