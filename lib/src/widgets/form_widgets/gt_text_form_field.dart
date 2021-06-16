@@ -17,6 +17,7 @@ class GtTextFormField extends StatelessWidget {
       this.chips,
       this.prefixIcon,
       this.labeltextStyle,
+      this.textStyle,
       this.onTapHandler});
   final int maxLength;
   final int maxLines;
@@ -34,6 +35,7 @@ class GtTextFormField extends StatelessWidget {
   final Icon prefixIcon;
   final TextStyle labeltextStyle;
   final Widget chips;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class GtTextFormField extends StatelessWidget {
         maxLines: maxLines,
         readOnly: isReadOnly,
         controller: textEditingController,
+        style: textStyle,
         keyboardType: textInputType,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(5, 20, 5, 10),

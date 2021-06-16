@@ -65,6 +65,7 @@ class GtTileField {
     this.keyTextAlign = TextAlign.start,
     this.valueTextAlign = TextAlign.start,
     this.keyValueBetween = " : ",
+    this.buttonElevation = 5.0,
   });
   final dynamic value;
   final GtFieldType type;
@@ -129,4 +130,6 @@ class GtTileField {
   final TextAlign valueTextAlign;
   ///String Between key and values  
   final String keyValueBetween;
+  ///Button elevation 
+  final double buttonElevation;
 }

@@ -26,6 +26,8 @@ class GtDate extends StatelessWidget {
   final TextEditingController timeTextEditingController;
   final DatePickerMode initialEntryMode;
   final DatePickerEntryMode datePickerEntryMode;
+  final Color iconColor;
+  final TextStyle selectedTextStyle;
   GtDate({
     this.type = GtDateTimeType.BOTH,
     @required this.label,
@@ -48,6 +50,8 @@ class GtDate extends StatelessWidget {
     this.timetextStyle,
     this.cancelText,
     this.confirmText,
+    this.iconColor = Colors.black,
+    this.selectedTextStyle,
   });
 
   ///HANDLES THE DATE PICKER DIALOG
@@ -138,8 +142,9 @@ class GtDate extends StatelessWidget {
                         }
                       },
                       textEditingController: dateTextEditingController,
+                      textStyle: selectedTextStyle,
                       prefixIcon:
-                          prefixIcon ?? Icon(Icons.calendar_today_outlined),
+                          prefixIcon ?? Icon(Icons.calendar_today_outlined,color: iconColor,),
                     ),
                   ),
                 ),
@@ -165,8 +170,9 @@ class GtDate extends StatelessWidget {
                           onSaveHandler(initialDate, GtDateTimeType.TIME);
                         }
                       },
+                      textStyle: selectedTextStyle,
                       textEditingController: timeTextEditingController,
-                      prefixIcon: prefixIcon ?? Icon(Icons.alarm),
+                      prefixIcon: prefixIcon ?? Icon(Icons.alarm,color: iconColor,),
                     ),
                   ),
                 ),

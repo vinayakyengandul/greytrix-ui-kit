@@ -36,6 +36,7 @@ class GtListView extends StatelessWidget {
     this.cardMarginEdgeInsets = const EdgeInsets.all(8.0),
     this.spaceBetweenKeyValue = false,
     this.horizinalScrollable = false,
+    this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0,right: 5.0),
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -79,6 +80,8 @@ class GtListView extends StatelessWidget {
   final bool spaceBetweenKeyValue;
   // HORIZONTAL SCROLLABLE 
   final bool horizinalScrollable;
+    /// List Item Padding
+  final EdgeInsets listItemPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -332,6 +335,7 @@ class GtListView extends StatelessWidget {
           selectedRowColor: selectedRowColor,
           cardMarginEdgeInsets: cardMarginEdgeInsets,
           horizinalScrollable: horizinalScrollable,
+          listItemPadding: listItemPadding,
         );
         return swipeToOption != null
             ? Dismissible(

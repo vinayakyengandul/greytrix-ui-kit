@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../greytrix_ui_kit.dart';
 import "package:collection/collection.dart";
 
@@ -24,6 +25,9 @@ class GtFromDynamic extends StatelessWidget{
     this.textStyle,
     this.headerTextStyle,
     this.titleAlignment = Alignment.topLeft,
+    this.validationMessage = true,
+    this.popupMessageTextStyle,
+    this.popupButtonStyle,
   });
   final Key keyy;
   final String tag;
@@ -44,6 +48,9 @@ class GtFromDynamic extends StatelessWidget{
   final TextStyle textStyle;
   final TextStyle headerTextStyle;
   final Alignment titleAlignment;
+  final bool validationMessage;
+  final TextStyle popupMessageTextStyle;
+  final ButtonStyle popupButtonStyle;
   Widget buildform() {
     dynamic rowsData = {};
 
@@ -72,6 +79,7 @@ class GtFromDynamic extends StatelessWidget{
             setselectedLookupDataValues: setselectedLookupDataValues,
             fieldValues: fieldValues,
             textStyle: textStyle,
+            validationMessage: validationMessage
           ),
         );
         data.add({"Row":row,"panelName":value.panelName, "widget": rowsData[row]});
@@ -88,9 +96,10 @@ class GtFromDynamic extends StatelessWidget{
         (k, v) => {
           for(int i = 0; i < v.length; i++){
             rowsWidgets1.add(Padding(padding: _rowPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Wrap(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              // mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: v[i]["widget"],
             ),
           ),),
@@ -188,7 +197,25 @@ class GtFromDynamic extends StatelessWidget{
                 child: GtText(
                   text: submitButtonText,
                 ),
-                onPressed: () { formSubmitHandler();},
+                onPressed: () async{ 
+                  var data =
+                  formSubmitHandler();
+                   
+                  if(!data) showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.white,
+                        title: GtText(text: "Message",textStyle: popupMessageTextStyle),
+                        content: GtText(text: "Required All mandatory Fields..!",textStyle: popupMessageTextStyle,),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            style: popupButtonStyle,
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: GtText(text: "Ok",textStyle: popupMessageTextStyle)),
+                        ],
+                  );});
+                },
               ),
               SizedBox(width: 10.0),
               formResetHandler != null ? ElevatedButton(

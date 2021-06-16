@@ -31,6 +31,7 @@ class GtNavigationRails extends StatelessWidget {
     this.userProfileLink,
     this.listExpandedItems,
     this.onTapExpanded,
+    this.titleTextStyle,
   });
   final List<Rails> nrdlist;
   final int selectedindex;
@@ -57,6 +58,7 @@ class GtNavigationRails extends StatelessWidget {
   final String userProfileLink;
   final List<dynamic> listExpandedItems;
   final Function(dynamic) onTapExpanded;
+  final TextStyle titleTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -224,36 +226,16 @@ class GtNavigationRails extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(left: 10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Align(
-                              alignment: FractionalOffset.bottomLeft,
-                              child: Text(
-                                selectedTitle.substring(0,selectedTitle.indexOf(" ")),
-                                style: TextStyle(
+                      child: Align(
+                              alignment: FractionalOffset.centerLeft,
+                              child: GtText(text:
+                                selectedTitle,
+                                textStyle: titleTextStyle == null ? TextStyle(
                                     color: selectedTitleColor,
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold): titleTextStyle,
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: FractionalOffset.topLeft,
-                              child: Text(
-                                selectedTitle.substring(selectedTitle.indexOf(" "),selectedTitle.length),
-                                style: TextStyle(
-                                  color: selectedTitleColor,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ),
                   selectedTitleChange,
@@ -270,14 +252,14 @@ class GtNavigationRails extends StatelessWidget {
               Ink(height: 40,
                   color: selectedRowColor,
                   child: ListTile(
-                    leading: GtIcon(icondata: listExpandedItems[index]["ChildMenu"][i]["IconData"], color: iconColor,),
+                    leading: GtIcon(icondata: listExpandedItems[index]["ChildMenu"][i]["IconData"] != null ? listExpandedItems[index]["ChildMenu"][i]["IconData"] : Icons.home, color: iconColor,),
                     dense: true,
-                    title: GtText(text: listExpandedItems[index]["ChildMenu"][i]["Menu"],
+                    title: GtText(text: listExpandedItems[index]["ChildMenu"][i]["Menu"] != null ?  listExpandedItems[index]["ChildMenu"][i]["Menu"] : "Home",
                       textStyle : TextStyle(color: selectedRowColor,fontSize: 16),
                     ),
                     onTap: () {
                       if(onTapExpanded != null)
-                      onTapExpanded(listExpandedItems[index]["HeaderMenu"].toString().toLowerCase() + "/" + listExpandedItems[index]["ChildMenu"][i]["Menu"].toString().toLowerCase());
+                      onTapExpanded(listExpandedItems[index]["ChildMenu"][i]["Route"] != null ? listExpandedItems[index]["ChildMenu"][i]["Route"].toString() : "home");
                     },
                   ),
                 ),
@@ -286,14 +268,15 @@ class GtNavigationRails extends StatelessWidget {
               else{
                 listWidget = [
                   ListTile(
-                    leading: GtIcon(icondata: listExpandedItems[index]["HeaderIcon"], color: selectedRowColor,),
+                    leading: GtIcon(icondata: listExpandedItems[index]["HeaderIcon"] != null ? listExpandedItems[index]["HeaderIcon"] : Icons.home, color: selectedRowColor,),
                     dense: true,
-                    title:  GtText(text: listExpandedItems[index]["HeaderMenu"],
+                    title:  GtText(text: listExpandedItems[index]["HeaderMenu"] != null ? listExpandedItems[index]["HeaderMenu"] : "Home",
                         textStyle: TextStyle(color: selectedRowColor,fontSize: 16),
                       ),
                     onTap: () {
                       if(onTapExpanded != null)
-                      onTapExpanded(listExpandedItems[index]["HeaderMenu"].toString().toLowerCase());
+                      onTapExpanded(listExpandedItems[index]["Route"] != null ? listExpandedItems[index]["Route"].toString(): "home");
+                      Navigator.of(context).pop();
                     },
                   ),
                 ];
@@ -302,10 +285,10 @@ class GtNavigationRails extends StatelessWidget {
                     data: Theme.of(context).copyWith(unselectedWidgetColor: selectedRowColor),
                     child: listExpandedItems[index]["ChildMenu"] != null ? ExpansionTile(
                       childrenPadding: EdgeInsets.only(left: 30.0),
-                      leading: Icon(listExpandedItems[index]["HeaderIcon"],
+                      leading: Icon(listExpandedItems[index]["HeaderIcon"] != null ? listExpandedItems[index]["HeaderIcon"] : Icons.home,
                         color: selectedRowColor,
                       ),
-                      title: GtText(text: listExpandedItems[index]["HeaderMenu"],
+                      title: GtText(text: listExpandedItems[index]["HeaderMenu"] != null ? listExpandedItems[index]["HeaderMenu"] : "Home",
                         textStyle: TextStyle(color: selectedRowColor,fontSize: 16),
                       ),
                       children: <Widget>[

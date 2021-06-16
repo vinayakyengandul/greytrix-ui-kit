@@ -10,6 +10,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
   final Function(dynamic selctedValues) onSaveHandler;
   final Color activeColor;
   final TextStyle textStyle;
+  final bool validationMessage;
 
   GtRadioButtonFormField(
       {@required this.displayMapFields,
@@ -19,6 +20,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
       this.label,
       this.isRequired = false,
       this.textStyle,
+      this.validationMessage = true,
       this.activeColor})
       : super(
           onSaved: (savedVal) {
@@ -46,17 +48,6 @@ class GtRadioButtonFormField extends FormField<dynamic> {
                         },
                         value: e.value,
                       ),
-                      // Checkbox(
-                      //   activeColor: activeColor ?? Colors.blueGrey,
-                      //   value: selectedRadioButtonVal != null
-                      //       ? selectedRadioButtonVal == e.value
-                      //       : false,
-                      //   onChanged: (onChangedVal) {
-                      //     state.didChange(onChangedVal);
-                      //     if (onChangedHandler != null)
-                      //       onChangedHandler(onChangedVal, e.value);
-                      //   },
-                      // ),
                       GtText(
                         text: e.key,
                         textStyle: textStyle,
@@ -70,17 +61,24 @@ class GtRadioButtonFormField extends FormField<dynamic> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                GtText(
-                  text: label,
-                  textStyle: textStyle,
-                  //texttype: TextformatType.bodyText2,
-                ),
+                Wrap(children: [
+                  GtText(
+                    text: label,
+                    textStyle: textStyle,
+                    //texttype: TextformatType.bodyText2,
+                  ),
+                  isRequired && !validationMessage ? GtText(
+                    text: " *",
+                    textStyle: TextStyle(color: Colors.red),
+                    //texttype: TextformatType.bodyText2,
+                  ): Container(),
+                ]),
                 Container(
                   child: Wrap(
                     children: [..._widgets],
                   ),
                 ),
-                state.errorText == null
+                state.errorText == null || !validationMessage
                     ? Container()
                     : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
               ],

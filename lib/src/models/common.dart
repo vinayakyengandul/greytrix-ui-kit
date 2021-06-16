@@ -204,6 +204,9 @@ class Common {
             ):widget);
             _widgetContainer = Container(
               child: spaceBetweenKeyValue ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 children: _widgetList,
               ) : Wrap(
                 children: _widgetList,
@@ -443,7 +446,7 @@ class Common {
             ? PhysicalModel(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: gtTileField.statusField[value.toString()],
-                elevation: 5.0,
+                elevation: gtTileField.buttonElevation,
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: 8, right: 8, bottom: 4, top: 4),
@@ -452,6 +455,7 @@ class Common {
                         ? gtTileField.valuePath
                         : '$value',
                           textStyle: gtTileField.valueTextStyle,
+                          textAlign: TextAlign.center,
                     // textStyle: TextStyle(
                     //     color: Colors.white,
                     //     fontSize: 12,
@@ -564,6 +568,7 @@ class Common {
                     text: '$key' + gtTileField.keyValueBetween,
                     // textStyle: gtTileField.textStyle,
                      textStyle: gtTileField.keyTextStyle,
+                     textAlign: gtTileField.keyTextAlign,
                   )):GtText(
                     text: '$key' + gtTileField.keyValueBetween,
                     // textStyle: gtTileField.textStyle,
@@ -809,6 +814,7 @@ class Common {
     Map<String, dynamic> fieldValues,
     bool forLookupForm = false,
     TextStyle textStyle,
+    bool validationMessage = true,
     dynamic obx,
   }) {
     textStyle = textStyle == null ? TextStyle(fontSize: 12,) : textStyle;
@@ -1062,6 +1068,7 @@ class Common {
                 );
               },
               textStyle: textStyle,
+              validationMessage: validationMessage,
               )
           // ),
         );
@@ -1103,6 +1110,7 @@ class Common {
                 );
               },
               textStyle: textStyle,
+              validationMessage: validationMessage,
              ),
           // ),
         );
