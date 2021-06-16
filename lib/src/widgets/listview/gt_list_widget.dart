@@ -66,6 +66,7 @@ class GtListPage extends StatelessWidget {
     this.cardMarginEdgeInsets = const EdgeInsets.only(top:1,bottom: 1,left:1,right: 1),
     this.spaceBetweenKeyValue = false,
     this.horizinalScrollable = false,
+    this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0,right: 5.0),
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -152,6 +153,8 @@ class GtListPage extends StatelessWidget {
   /// Record Key and Value SpaceBetween
   final bool spaceBetweenKeyValue;
   final bool horizinalScrollable;
+  /// List Item Padding
+  final EdgeInsets listItemPadding;
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
@@ -311,15 +314,10 @@ class GtListPage extends StatelessWidget {
     print('getTrailingWidget');
     return trailingIcon != null
         ? Container(
-            //width: SizeConfig.isMobilePortrait!-null ? 65.0 : 30.0,
             width: size.width > 450 ? 30.0 : 65.0,
-            // screen.isPhone ? 65.0 : 30.0,
             padding: size.width > 450
                 ? EdgeInsets.only(right: 30)
                 : EdgeInsets.only(right: 0.2),
-            //EdgeInsets.only(right: 30),
-            // right: SizeConfig.isMobilePortrait ? 0.2 : 30),
-            //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
             child: Row(
               children: [
                 Container(
@@ -398,6 +396,7 @@ class GtListPage extends StatelessWidget {
                     cardMarginEdgeInsets:cardMarginEdgeInsets,
                     spaceBetweenKeyValue:spaceBetweenKeyValue,
                     horizinalScrollable: horizinalScrollable,
+                    listItemPadding: listItemPadding,
               )
             : GtGridView(
                 cardAspectRatio:
@@ -454,13 +453,7 @@ class GtListPage extends StatelessWidget {
                     top: 25,
                   ),
                   width: !horizinalScrollable ? double.infinity: null,
-                  // decoration: BoxDecoration(
-                  //     border: Border(
-                  //         bottom: BorderSide(
-                  //             width: 1,
-                  //             color: backButtonColor))),
-                  child: 
-                  Row(
+                  child: Row(
                     mainAxisAlignment:
                         MainAxisAlignment.start,
                         children:[
@@ -625,11 +618,8 @@ class GtListPage extends StatelessWidget {
                             ]),
                     ],
                   )
-                  // ),
-                  // ]
                   )
               : Container(),
-              Divider(color: backButtonColor,),
           Expanded(
             child: listItems.length == 0
                 ? GtNoListFound()
@@ -657,7 +647,6 @@ class GtListPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(width: 2, color: backButtonColor)
-                              // Get.context.theme.colorScheme.onPrimary),
                               )),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -805,30 +794,19 @@ class GtListPage extends StatelessWidget {
                   : Container(),
 
               ///MAIN CONTENT
-              // Expanded(
-              //   child: Container(
-              //       width: double.infinity,
-              //       height: double.infinity,
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.start,
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-                        Expanded(
-                            flex: 4,
-                            child: Container(
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  margin: EdgeInsets.all(22),
-                                  color: backgroundcolor,
-                                  child: horizinalScrollable ? SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: returnColumn()) : returnColumn()),
-                            )),
-                    //   ],
-                    // )),
-              // ),
+                  Expanded(
+                      flex: 4,
+                      child: Container(
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(10))),
+                            margin: EdgeInsets.all(22),
+                            color: backgroundcolor,
+                            child: horizinalScrollable ? SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: returnColumn()) : returnColumn()),
+                      )),
             ],
           ),
         ],
