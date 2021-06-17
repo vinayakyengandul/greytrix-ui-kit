@@ -6,6 +6,7 @@ class GtTab extends StatelessWidget {
     @required this.tabPages,
     @required this.tablist,
     @required this.pageController,
+    @required this.tabcontroller,
     this.selectedColor,
     this.unselectedColor,
     this.selectedTab,
@@ -23,6 +24,7 @@ class GtTab extends StatelessWidget {
   final int selectedTab;
   final TextStyle selectedTextStyle;
   final TextStyle unselectedTextStyle;
+  final ScrollController tabcontroller;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class GtTab extends StatelessWidget {
         Container(
           child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              controller: tabcontroller,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -53,7 +56,13 @@ class GtTab extends StatelessWidget {
         ),
         Expanded(
             child: PageView(
-          onPageChanged: (index) => onPressed(index, true),
+          onPageChanged: (index) {
+            onPressed(index, true);
+            tabcontroller.animateTo(
+                index * (MediaQuery.of(context).size.width * 0.2),
+                duration: Duration(seconds: 1),
+                curve: Curves.decelerate);
+          },
           controller: pageController,
           children: tabPages,
         ))
