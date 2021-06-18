@@ -259,7 +259,8 @@ class GtNavigationRails extends StatelessWidget {
                     ),
                     onTap: () {
                       if(onTapExpanded != null)
-                      onTapExpanded(listExpandedItems[index]["ChildMenu"][i]["Route"] != null ? listExpandedItems[index]["ChildMenu"][i]["Route"].toString() : "home");
+                      onTapExpanded(listExpandedItems[index]["ChildMenu"][i]["Route"] != null ? {"Name": listExpandedItems[index]["ChildMenu"][i]["Menu"].toString(),"Route":listExpandedItems[index]["ChildMenu"][i]["Route"].toString()} : {"Name":"Home","Route":"home"});
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
@@ -275,7 +276,7 @@ class GtNavigationRails extends StatelessWidget {
                       ),
                     onTap: () {
                       if(onTapExpanded != null)
-                      onTapExpanded(listExpandedItems[index]["Route"] != null ? listExpandedItems[index]["Route"].toString(): "home");
+                      onTapExpanded(listExpandedItems[index]["Route"] != null ?  {"Name": listExpandedItems[index]["HeaderMenu"].toString(),"Route": listExpandedItems[index]["Route"].toString()}: {"Name":"Home","Route":"home"});
                       Navigator.of(context).pop();
                     },
                   ),
