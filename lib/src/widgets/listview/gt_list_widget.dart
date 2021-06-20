@@ -61,12 +61,17 @@ class GtListPage extends StatelessWidget {
     this.swipeIconColor = Colors.white,
     this.mobileHeader = false,
     this.backButtonColor = Colors.black,
-    this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
-    this.swipeConfirmButtonText = "DELETE",
-    this.cardMarginEdgeInsets = const EdgeInsets.only(top:1,bottom: 1,left:1,right: 1),
+    //this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
+    this.swipeConfirmMessageTextWidget,
+    //this.swipeConfirmButtonText = "DELETE",
+    this.swipeConfirmButtonTextWidget,
+    this.swipeCancelButtontextWidget,
+    this.cardMarginEdgeInsets =
+        const EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 1),
     this.spaceBetweenKeyValue = false,
     this.horizinalScrollable = false,
-    this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0,right: 5.0),
+    this.listItemPadding =
+        const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
   })  : assert(listItems != null),
         assert(rowsCount != null),
         super(key: key);
@@ -146,13 +151,20 @@ class GtListPage extends StatelessWidget {
   // BACK BUTTON COLOR
   final Color backButtonColor;
 
-  final String swipeConfirmMessage;
-  final String swipeConfirmButtonText;
+  //final String swipeConfirmMessage;
+  //final String swipeConfirmButtonText;
+
+  final Widget swipeConfirmMessageTextWidget;
+  final Widget swipeConfirmButtonTextWidget;
+  final Widget swipeCancelButtontextWidget;
+
   /// Records Card Margin
   final EdgeInsets cardMarginEdgeInsets;
+
   /// Record Key and Value SpaceBetween
   final bool spaceBetweenKeyValue;
   final bool horizinalScrollable;
+
   /// List Item Padding
   final EdgeInsets listItemPadding;
 
@@ -339,95 +351,61 @@ class GtListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget returnNastedScroll(){
-      return NotificationListener<
-        ScrollNotification>(
+    Widget returnNastedScroll() {
+      return NotificationListener<ScrollNotification>(
         child: isListView == true
             ? GtListView(
                 listItems: listItems,
-                gtTileRowCrossAxisAlignment:
-                    gtTileRowCrossAxisAlignment,
-                gtTileRowMainAxisAlignment:
-                    gtTileRowMainAxisAlignment,
-                onDetailsNavigateHandler:
-                    onDetailsNavigateHandler,
+                gtTileRowCrossAxisAlignment: gtTileRowCrossAxisAlignment,
+                gtTileRowMainAxisAlignment: gtTileRowMainAxisAlignment,
+                onDetailsNavigateHandler: onDetailsNavigateHandler,
                 rowsCount: rowsCount,
-                selectAllcheckbox:
-                    selectAllcheckbox,
+                selectAllcheckbox: selectAllcheckbox,
                 toMapjson: toMapjson,
-                getLeadingWidget:
-                    getLeadingWidget,
-                onHoverHandler:
-                    onHoverHandler,
-                pathNavigation:
-                    pathNavigation,
-                isSpaceInRecords:
-                    isSpaceInRecords,
-                quantityInitialValue:
-                    quantityInitialValue,
-                decrementHandler:
-                    decrementHandler,
-                incrementHandler:
-                    incrementHandler,
-                trailingIcon:
-                    trailingIcon,
-                getTrailingWidget:
-                    getTrailingWidget,
-                isleadingIconPosition:
-                    isleadingIconPosition,
-                listViewTableType:
-                    listViewTableType,
-                selectedRowColor:
-                    selectedRowColor,
+                getLeadingWidget: getLeadingWidget,
+                onHoverHandler: onHoverHandler,
+                pathNavigation: pathNavigation,
+                isSpaceInRecords: isSpaceInRecords,
+                quantityInitialValue: quantityInitialValue,
+                decrementHandler: decrementHandler,
+                incrementHandler: incrementHandler,
+                trailingIcon: trailingIcon,
+                getTrailingWidget: getTrailingWidget,
+                isleadingIconPosition: isleadingIconPosition,
+                listViewTableType: listViewTableType,
+                selectedRowColor: selectedRowColor,
                 rowColors: cardColor,
-                isLeadingShow:
-                    isLeadingShow,
-                swipeToOption:
-                    swipeToOption,
-                swipeBackgroundColor:
-                    swipeBackgroundColor,
+                isLeadingShow: isLeadingShow,
+                swipeToOption: swipeToOption,
+                swipeBackgroundColor: swipeBackgroundColor,
                 swipeIcon: swipeIcon,
-                swipeIconColor:
-                    swipeIconColor,
-                swipeConfirmButtonText:
-                    swipeConfirmButtonText,
-                swipeConfirmMessage:
-                    swipeConfirmMessage,
-                    cardMarginEdgeInsets:cardMarginEdgeInsets,
-                    spaceBetweenKeyValue:spaceBetweenKeyValue,
-                    horizinalScrollable: horizinalScrollable,
-                    listItemPadding: listItemPadding,
+                swipeIconColor: swipeIconColor,
+                swipeConfirmButtontextWidget: swipeConfirmButtonTextWidget,
+                swipeConfirmMessagetextWidget: swipeConfirmMessageTextWidget,
+                swipeCancelButtontextWidget: swipeCancelButtontextWidget,
+                // swipeConfirmButtonText: swipeConfirmButtonTextWidget,
+                // swipeConfirmMessage: swipeConfirmMessage,
+                cardMarginEdgeInsets: cardMarginEdgeInsets,
+                spaceBetweenKeyValue: spaceBetweenKeyValue,
+                horizinalScrollable: horizinalScrollable,
+                listItemPadding: listItemPadding,
               )
             : GtGridView(
-                cardAspectRatio:
-                    cardAspectRatio,
-                cardCrossAxisSpacing:
-                    cardCrossAxisSpacing,
-                cardMainAxisSpacing:
-                    cardMainAxisSpacing,
+                cardAspectRatio: cardAspectRatio,
+                cardCrossAxisSpacing: cardCrossAxisSpacing,
+                cardMainAxisSpacing: cardMainAxisSpacing,
                 listItems: listItems,
-                onDetailsNavigateHandler:
-                    onDetailsNavigateHandler,
-                onSelectionHandler:
-                    onSelectionHandler,
+                onDetailsNavigateHandler: onDetailsNavigateHandler,
+                onSelectionHandler: onSelectionHandler,
                 rowsCount: rowsCount,
                 toMapjson: toMapjson,
-                getLeadingWidget:
-                    getLeadingWidget,
-                onHoverHandler:
-                    onHoverHandler,
-                pathNavigation:
-                    pathNavigation,
+                getLeadingWidget: getLeadingWidget,
+                onHoverHandler: onHoverHandler,
+                pathNavigation: pathNavigation,
               ),
-        onNotification:
-            (ScrollNotification
-                scrollInfo) {
-          if (scrollInfo
-                  .metrics.pixels ==
-              scrollInfo.metrics
-                  .maxScrollExtent) {
-            print(
-                'In Next Paged event');
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+            print('In Next Paged event');
 
             if (filterHandler != null)
               filterHandler(
@@ -439,158 +417,114 @@ class GtListPage extends StatelessWidget {
         },
       );
     }
-    Widget returnColumn(){
+
+    Widget returnColumn() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          listViewTableType ==
-                  GTListViewTableType.STRIPED
-              ? 
-              Container(
+          listViewTableType == GTListViewTableType.STRIPED
+              ? Container(
                   margin: EdgeInsets.only(
                     left: 25,
                     right: 25,
                     top: 25,
                   ),
-                  width: !horizinalScrollable ? double.infinity: null,
+                  width: !horizinalScrollable ? double.infinity : null,
                   child: Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.start,
-                        children:[
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       if (backNavigation)
                         Padding(
-                          padding:
-                              const EdgeInsets.all(
-                                  10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: IconButton(
                               icon: Icon(
                                 Icons.arrow_back,
-                                color:
-                                    backButtonColor,
+                                color: backButtonColor,
                                 //Get.context.theme.iconTheme.color,
                               ),
                               onPressed: () {
                                 // Get.back();
-                                Navigator.pop(
-                                    context);
+                                Navigator.pop(context);
                               }),
                         ),
                       if (selectAllcheckbox != null)
                         Padding(
-                          padding:
-                              EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8),
                           child: Checkbox(
                             value: selectallRecords,
-                            activeColor:
-                                primaryColor,
-                            onChanged: (value) => {
-                              selectAllcheckbox(
-                                  value)
-                            },
+                            activeColor: primaryColor,
+                            onChanged: (value) => {selectAllcheckbox(value)},
                           ),
                         ),
                       if (jsonHeader != null)
-                        ...Common
-                            .getListViewHeaderWidget(
-                                headerFields:
-                                    jsonHeader,
-                                priColor:
-                                    primaryColor,
-                                headerMobile: size
-                                            .width <
-                                        450
-                                    ? mobileHeader
-                                        ? false
-                                        : true
-                                    : false,horizinalScrollable: horizinalScrollable,isMobileScreen: size.width < 450),
-                      !horizinalScrollable ? Expanded(
-                        child: Container(),
-                      ) : Container(),
+                        ...Common.getListViewHeaderWidget(
+                            headerFields: jsonHeader,
+                            priColor: primaryColor,
+                            headerMobile: size.width < 450
+                                ? mobileHeader
+                                    ? false
+                                    : true
+                                : false,
+                            horizinalScrollable: horizinalScrollable,
+                            isMobileScreen: size.width < 450),
+                      !horizinalScrollable
+                          ? Expanded(
+                              child: Container(),
+                            )
+                          : Container(),
                       size.width < 450
-                          ? enablefilter ||
-                                  viewtype ==
-                                      ViewType.both
+                          ? enablefilter || viewtype == ViewType.both
                               ? PopupMenuButton(
-                                  color:
-                                      Colors.white,
-                                  offset:
-                                      Offset(0, 35),
-                                  tooltip:
-                                      "More Actions",
-                                  icon: Icon(Icons
-                                      .more_vert),
-                                  itemBuilder: (BuildContext
-                                          context) =>
+                                  color: Colors.white,
+                                  offset: Offset(0, 35),
+                                  tooltip: "More Actions",
+                                  icon: Icon(Icons.more_vert),
+                                  itemBuilder: (BuildContext context) =>
                                       <PopupMenuEntry>[
                                     if (enablefilter)
                                       PopupMenuItem(
-                                        child:
-                                            ListTile(
-                                          leading: Icon(
-                                              Icons
-                                                  .filter_list),
-                                          title:
-                                              GtText(
-                                            text:
-                                                'Filter',
+                                        child: ListTile(
+                                          leading: Icon(Icons.filter_list),
+                                          title: GtText(
+                                            text: 'Filter',
                                             // texttype: TextformatType.bodyText1,
-                                            textStyle:
-                                                TextStyle(
-                                              fontSize:
-                                                  16,
-                                              fontWeight:
-                                                  FontWeight.w400,
-                                              letterSpacing:
-                                                  0.5,
-                                              fontStyle:
-                                                  FontStyle.normal,
+                                            textStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.5,
+                                              fontStyle: FontStyle.normal,
                                             ),
                                           ),
-                                          onTap:
-                                              () {
-                                            Navigator.pop(
-                                                context);
-                                            if (filterBottomSheet !=
-                                                null)
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            if (filterBottomSheet != null)
                                               filterBottomSheet();
                                           },
                                         ),
                                       ),
-                                    if (viewtype ==
-                                        ViewType
-                                            .both)
+                                    if (viewtype == ViewType.both)
                                       PopupMenuItem(
-                                        child:
-                                            ListTile(
-                                          leading: isListView ==
-                                                  true
+                                        child: ListTile(
+                                          leading: isListView == true
                                               ? Icon(
                                                   Icons.dashboard,
                                                 )
                                               : Icon(
                                                   Icons.list,
                                                 ),
-                                          title:
-                                              GtText(
-                                            text: isListView ==
-                                                    true
+                                          title: GtText(
+                                            text: isListView == true
                                                 ? 'Card'
                                                 : 'List',
                                             // texttype: TextformatType.bodyText1,
-                                            textStyle:
-                                                TextStyle(
-                                              fontSize:
-                                                  16,
-                                              fontWeight:
-                                                  FontWeight.w400,
-                                              letterSpacing:
-                                                  0.5,
-                                              fontStyle:
-                                                  FontStyle.normal,
+                                            textStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.5,
+                                              fontStyle: FontStyle.normal,
                                             ),
                                           ),
-                                          onTap:
-                                              () {
+                                          onTap: () {
                                             toggleListGridView();
                                           },
                                         ),
@@ -599,39 +533,37 @@ class GtListPage extends StatelessWidget {
                                 )
                               : Container()
                           : Row(children: [
-                              if (viewtype ==
-                                  ViewType.both)
+                              if (viewtype == ViewType.both)
                                 IconButton(
                                     icon: isListView
                                         ? Icon(
-                                            Icons
-                                                .dashboard,
+                                            Icons.dashboard,
                                           )
                                         : Icon(
-                                            Icons
-                                                .list,
+                                            Icons.list,
                                           ),
-                                    onPressed: () =>
-                                        {
+                                    onPressed: () => {
                                           toggleListGridView(),
                                         }),
                             ]),
                     ],
-                  )
-                  )
+                  ))
               : Container(),
           Expanded(
-            child: listItems.length == 0
-                ? GtNoListFound()
-                : horizinalScrollable ? Container(child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                    child: Column(children: [ 
-                      returnNastedScroll(),
-                    ]))): returnNastedScroll()
-          ),
+              child: listItems.length == 0
+                  ? GtNoListFound()
+                  : horizinalScrollable
+                      ? Container(
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(children: [
+                                returnNastedScroll(),
+                              ])))
+                      : returnNastedScroll()),
         ],
       );
     }
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -646,8 +578,8 @@ class GtListPage extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           border: Border(
-                              bottom: BorderSide(width: 2, color: backButtonColor)
-                              )),
+                              bottom: BorderSide(
+                                  width: 2, color: backButtonColor))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -716,64 +648,63 @@ class GtListPage extends StatelessWidget {
                           //       ),
                           // screen.isPhone
                           size.width < 450
-                          ? enablefilter ||
-                                viewtype ==
-                                    ViewType.both
-                              ? PopupMenuButton(
-                                  color: Colors.white,
-                                  offset: Offset(0, 100),
-                                  tooltip: "More Actions",
-                                  icon: Icon(Icons.more_vert),
-                                  itemBuilder: (BuildContext context) =>
-                                      <PopupMenuEntry>[
-                                    if (enablefilter)
-                                      PopupMenuItem(
-                                        child: ListTile(
-                                          leading: Icon(Icons.filter_list),
-                                          title: GtText(
-                                            text: 'Filter',
-                                            // texttype: TextformatType.bodyText1,
-                                            textStyle: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              letterSpacing: 0.5,
-                                              fontStyle: FontStyle.normal,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ),
-                                    if (viewtype == ViewType.both)
-                                      PopupMenuItem(
-                                        child: ListTile(
-                                          leading: isListView == true
-                                              ? Icon(
-                                                  Icons.dashboard,
-                                                )
-                                              : Icon(
-                                                  Icons.list,
+                              ? enablefilter || viewtype == ViewType.both
+                                  ? PopupMenuButton(
+                                      color: Colors.white,
+                                      offset: Offset(0, 100),
+                                      tooltip: "More Actions",
+                                      icon: Icon(Icons.more_vert),
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry>[
+                                        if (enablefilter)
+                                          PopupMenuItem(
+                                            child: ListTile(
+                                              leading: Icon(Icons.filter_list),
+                                              title: GtText(
+                                                text: 'Filter',
+                                                // texttype: TextformatType.bodyText1,
+                                                textStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 0.5,
+                                                  fontStyle: FontStyle.normal,
                                                 ),
-                                          title: GtText(
-                                            text: isListView == true
-                                                ? 'Card'
-                                                : 'List',
-                                            // texttype: TextformatType.bodyText1,
-                                            textStyle: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              letterSpacing: 0.5,
-                                              fontStyle: FontStyle.normal,
+                                              ),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
                                             ),
                                           ),
-                                          onTap: () {
-                                            toggleListGridView();
-                                          },
-                                        ),
-                                      ),
-                                  ],
-                                ) : Container()
+                                        if (viewtype == ViewType.both)
+                                          PopupMenuItem(
+                                            child: ListTile(
+                                              leading: isListView == true
+                                                  ? Icon(
+                                                      Icons.dashboard,
+                                                    )
+                                                  : Icon(
+                                                      Icons.list,
+                                                    ),
+                                              title: GtText(
+                                                text: isListView == true
+                                                    ? 'Card'
+                                                    : 'List',
+                                                // texttype: TextformatType.bodyText1,
+                                                textStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 0.5,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                toggleListGridView();
+                                              },
+                                            ),
+                                          ),
+                                      ],
+                                    )
+                                  : Container()
                               : Row(children: [
                                   if (viewtype == ViewType.both)
                                     IconButton(
@@ -794,19 +725,21 @@ class GtListPage extends StatelessWidget {
                   : Container(),
 
               ///MAIN CONTENT
-                  Expanded(
-                      flex: 4,
-                      child: Container(
-                        child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(10))),
-                            margin: EdgeInsets.all(22),
-                            color: backgroundcolor,
-                            child: horizinalScrollable ? SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: returnColumn()) : returnColumn()),
-                      )),
+              Expanded(
+                  flex: 4,
+                  child: Container(
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        margin: EdgeInsets.all(22),
+                        color: backgroundcolor,
+                        child: horizinalScrollable
+                            ? SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: returnColumn())
+                            : returnColumn()),
+                  )),
             ],
           ),
         ],
