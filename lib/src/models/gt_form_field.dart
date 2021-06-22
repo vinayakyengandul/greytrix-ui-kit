@@ -40,6 +40,7 @@ class GtFormField {
     this.suffixTimeIcon,
     this.dateFieldText = "",
     this.timeFieldText = "",
+    this.textInputType = TextInputType.text,
   });
 
   final Map<String, String> lookupFields;
@@ -79,4 +80,5 @@ class GtFormField {
   final Icon suffixTimeIcon;
   final String dateFieldText;
   final String timeFieldText;
+  final TextInputType textInputType;
 }
