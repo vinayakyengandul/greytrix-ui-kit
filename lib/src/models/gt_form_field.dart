@@ -34,6 +34,12 @@ class GtFormField {
     this.switchDefaultVal = false,
     this.displayInFieldLabel = false,
     this.panelName = "",
+    this.prefixDateIcon,
+    this.prefixTimeIcon,
+    this.suffixDateIcon,
+    this.suffixTimeIcon,
+    this.dateFieldText = "",
+    this.timeFieldText = "",
   });
 
   final Map<String, String> lookupFields;
@@ -67,4 +73,10 @@ class GtFormField {
   final bool switchDefaultVal;
   final bool displayInFieldLabel;
   final String panelName;
+  final Icon prefixDateIcon;
+  final Icon prefixTimeIcon;
+  final Icon suffixDateIcon;
+  final Icon suffixTimeIcon;
+  final String dateFieldText;
+  final String timeFieldText;
 }

@@ -8,7 +8,7 @@ class GtDate extends StatelessWidget {
   final DateTime initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
-  final Icon prefixIcon;
+  final Icon prefixDateIcon;
   final String label;
   final TextStyle labeltextStyle;
   final TextStyle datetextStyle;
@@ -28,13 +28,16 @@ class GtDate extends StatelessWidget {
   final DatePickerEntryMode datePickerEntryMode;
   final Color iconColor;
   final TextStyle selectedTextStyle;
+  final Icon prefixTimeIcon;
+  final Icon suffixDateIcon;
+  final Icon suffixTimeIcon;
   GtDate({
     this.type = GtDateTimeType.BOTH,
     @required this.label,
     @required this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.prefixIcon,
+    this.prefixDateIcon,
     this.isRequired = false,
     this.onDateSubmitted,
     this.onSaveHandler,
@@ -44,14 +47,17 @@ class GtDate extends StatelessWidget {
     this.initialEntryMode = DatePickerMode.day,
     this.labeltextStyle,
     this.themeData,
-    this.datefieldLabel,
-    this.timefieldLabel,
+    this.datefieldLabel = "",
+    this.timefieldLabel = "",
     this.datetextStyle,
     this.timetextStyle,
     this.cancelText,
     this.confirmText,
     this.iconColor = Colors.black,
     this.selectedTextStyle,
+    this.prefixTimeIcon,
+    this.suffixDateIcon,
+    this.suffixTimeIcon,
   });
 
   ///HANDLES THE DATE PICKER DIALOG
@@ -132,7 +138,7 @@ class GtDate extends StatelessWidget {
                   onTap: () => _selectDate(context),
                   child: AbsorbPointer(
                     child: GtTextFormField(
-                      fieldLabel: datefieldLabel ?? 'Date',
+                      fieldLabel: datefieldLabel,
                       labeltextStyle: datetextStyle ?? TextStyle(),
                       isReadOnly: true,
                       isRequired: isRequired,
@@ -143,8 +149,9 @@ class GtDate extends StatelessWidget {
                       },
                       textEditingController: dateTextEditingController,
                       textStyle: selectedTextStyle,
-                      prefixIcon:
-                          prefixIcon ?? Icon(Icons.calendar_today_outlined,color: iconColor,),
+                      prefixIcon: prefixDateIcon,
+                      chips: suffixDateIcon,
+                          
                     ),
                   ),
                 ),
@@ -161,7 +168,7 @@ class GtDate extends StatelessWidget {
                   onTap: () => _selectTime(context),
                   child: AbsorbPointer(
                     child: GtTextFormField(
-                      fieldLabel: timefieldLabel ?? 'Time',
+                      fieldLabel: timefieldLabel,
                       labeltextStyle: timetextStyle ?? TextStyle(),
                       isReadOnly: true,
                       isRequired: isRequired,
@@ -172,7 +179,8 @@ class GtDate extends StatelessWidget {
                       },
                       textStyle: selectedTextStyle,
                       textEditingController: timeTextEditingController,
-                      prefixIcon: prefixIcon ?? Icon(Icons.alarm,color: iconColor,),
+                      prefixIcon: prefixTimeIcon,
+                      chips: suffixTimeIcon,
                     ),
                   ),
                 ),

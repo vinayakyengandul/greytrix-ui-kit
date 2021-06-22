@@ -811,6 +811,7 @@ class Common {
     Function getFieldValues,
     Function setFormCheckboxFieldValues,
     Function setselectedLookupDataValues,
+    Function setAddLookupFormKey,
     Map<String, dynamic> fieldValues,
     bool forLookupForm = false,
     TextStyle textStyle,
@@ -849,21 +850,7 @@ class Common {
         break;
 
       case GtFormFieldType.DROPDOWN:
-        setFieldValues(
-          gtFormField.fieldKey,
-          gtFormField.dropdownItems.entries.first.value,
-          forLookupForm: forLookupForm,
-        );
-
-        ///ON_CHANGE HANDLER
-        formFieldOnChangeHandler(
-          gtFormField.fieldKey,
-          gtFormField.dropdownItems.entries.first.value,
-          forLookupForm: forLookupForm,
-        );
-        return Expanded(
-          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
-          child: Container(
+        return Container(
             padding: _formFieldPadding,
             child: 
             // Obx(() =>
@@ -874,6 +861,7 @@ class Common {
                 ),
                 iconData: Icons.arrow_drop_down,
                 items: gtFormField.dropdownItems,
+                textStyle: textStyle,
                 onChangedhandler: (val) => {
                   setFieldValues(
                     gtFormField.fieldKey,
@@ -895,7 +883,7 @@ class Common {
                 label: key,
               ),
             // ),
-          ),
+          
         );
         break;
 
@@ -992,24 +980,25 @@ class Common {
         break;
 
       case GtFormFieldType.DATETIME:
-        setFieldValues(
-          gtFormField.fieldKey,
-          null,
-          forLookupForm: forLookupForm,
-        );
-        return Expanded(
-          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
-          child: 
-          // Obx(() => 
-          Container(
+        return Container(
               padding: _formFieldPadding,
               child: GtDate(
+                iconColor: textStyle.color,
+                selectedTextStyle: textStyle,
+                labeltextStyle: textStyle,
+                timetextStyle: textStyle,
                 label: key,
                 isRequired: gtFormField.isRequired,
                 type: gtFormField.dateTimeType,
                 initialDate: fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
                 firstDate: gtFormField.firstDate ?? DateTime(1990),
                 lastDate: gtFormField.lastDate ?? DateTime(2100),
+                prefixDateIcon: gtFormField.prefixDateIcon,
+                prefixTimeIcon: gtFormField.prefixTimeIcon,
+                suffixDateIcon: gtFormField.suffixDateIcon,
+                suffixTimeIcon: gtFormField.suffixTimeIcon,
+                datefieldLabel: gtFormField.dateFieldText,
+                timefieldLabel: gtFormField.timeFieldText,
                 dateTextEditingController:
                     gtFormField.dateTextEditingController,
                 timeTextEditingController:
@@ -1026,36 +1015,26 @@ class Common {
                   ///ON_CHANGE HANDLER
                   formFieldOnChangeHandler(
                     gtFormField.fieldKey,
-                    standardDate.toString(),
+                    standardDate,
                     forLookupForm: forLookupForm,
                     fromOnChanged: true,
                   );
                 },
-              ),
-            // ),
+              
           ),
         );
         break;
 
       case GtFormFieldType.CHECKBOX:
-
-        ///SETTING THE IN CONTROLLER FOR HOLDONG THE SELECTED DATA INITIALLY EMPTY OR DEFAULT
-        List<dynamic> _list = List<dynamic>.empty(growable: true);
-        setFieldValues(
-          gtFormField.fieldKey,
-          _list,
-          forLookupForm: forLookupForm,
-        );
         return Container(
           padding: _formFieldPadding,
           child: 
-          // Obx(() => 
           GtCheckboxFormField(
               isRequired: gtFormField.isRequired,
               label: key,
               displayMapFields: gtFormField.displayMapFields,
-              selectedCheckboxValues: fieldValues[gtFormField.fieldKey],
-                  // getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
+              selectedCheckboxValues: 
+                   getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
               onChangedHandler: (isChecked, _val) {
                 ///HERE CALLING CONTROLLER FUNCTION FOR SETTINGTHE CHECBOX FIELD CHECKED AND UNCHECKED DATA
                 setFormCheckboxFieldValues(
@@ -1070,19 +1049,10 @@ class Common {
               textStyle: textStyle,
               validationMessage: validationMessage,
               )
-          // ),
         );
         break;
 
       case GtFormFieldType.RADIO_BUTTON:
-
-        ///SETTING THE IN CONTROLLER FOR HOLDONG THE SELECTED DATA INITIALLY EMPTY OR DEFAULT
-        setFieldValues(
-          gtFormField.fieldKey,
-          null,
-          forLookupForm: forLookupForm,
-        );
-
         return Container(
           padding: _formFieldPadding,
           child: 
@@ -1091,8 +1061,8 @@ class Common {
               isRequired: gtFormField.isRequired,
               label: key,
               displayMapFields: gtFormField.displayMapFields,
-              selectedRadioButtonVal: fieldValues[gtFormField.fieldKey],
-                  // getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
+              selectedRadioButtonVal: 
+                  getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
               onChangedHandler: (isChecked, _val) {
                 setFieldValues(
                   gtFormField.fieldKey,
@@ -1117,19 +1087,17 @@ class Common {
         break;
 
       case GtFormFieldType.SWITCH_BUTTON:
-        setFieldValues(
-          gtFormField.fieldKey,
-          gtFormField.switchDefaultVal,
-          forLookupForm: forLookupForm,
-        );
-
         return Container(
           padding: _formFieldPadding,
-          child: 
-          // Obx(() => 
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child:
           GtSwitchButtonFormField(
               isRequired: gtFormField.isRequired,
               label: key,
+              validationMessage: validationMessage,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textStyle: textStyle,
               switchValue: getFieldValues(
                 gtFormField.fieldKey,
                 forLookupForm: forLookupForm,
@@ -1150,8 +1118,7 @@ class Common {
                   fromOnChanged: true,
                 );
               },
-            ),
-          // ),
+            ),)
         );
         break;
 
