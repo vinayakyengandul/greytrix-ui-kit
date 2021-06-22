@@ -11,6 +11,9 @@ class GtSwitchButtonFormField extends FormField<bool> {
   final bool switchValue;
   final bool isRequired;
   final Color switchactiveColor;
+  final TextStyle textStyle;
+  final bool validationMessage;
+  final CrossAxisAlignment crossAxisAlignment;
 
   GtSwitchButtonFormField({
     @required this.label,
@@ -19,6 +22,9 @@ class GtSwitchButtonFormField extends FormField<bool> {
     this.switchValue = false,
     this.isRequired = false,
     this.switchactiveColor,
+    this.textStyle,
+    this.validationMessage = true,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(savedVal);
@@ -64,13 +70,25 @@ class GtSwitchButtonFormField extends FormField<bool> {
                     },
                   );
             return Column(
+              crossAxisAlignment: crossAxisAlignment,
               children: [
-                GtText(
-                  text: label,
-                  //texttype: TextformatType.bodyText2,
-                ),
+                Wrap(children: [
+                  GtText(
+                    text: label,
+                    textStyle: textStyle,
+                    //texttype: TextformatType.bodyText2,
+                  ),
+                  isRequired && !validationMessage ? GtText(
+                    text: " *",
+                    textStyle: TextStyle(color: Colors.red),
+                    //texttype: TextformatType.bodyText2,
+                  ): Container(),
+                ]),
                 SizedBox(height: 5),
                 _switchWidget,
+                 state.errorText == null || !validationMessage
+                    ? Container()
+                    : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
               ],
             );
           },

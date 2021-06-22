@@ -54,7 +54,7 @@ class GtTextFormField extends StatelessWidget {
           contentPadding: EdgeInsets.fromLTRB(5, 20, 5, 10),
           labelText: '$fieldLabel',
           labelStyle: labeltextStyle,
-          suffix: chips,
+          suffixIcon: chips,
           icon: prefixIcon,
         ),
         onChanged: (value) =>

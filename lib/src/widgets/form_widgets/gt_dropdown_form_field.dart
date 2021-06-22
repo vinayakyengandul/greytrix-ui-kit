@@ -10,6 +10,7 @@ class GtDropdownFormField extends StatelessWidget {
     this.onSavehandler,
     this.isRequired = false,
     this.label,
+    this.textStyle,
   });
 
   final IconData iconData;
@@ -19,6 +20,7 @@ class GtDropdownFormField extends StatelessWidget {
   final Function(dynamic newValue) onSavehandler;
   final bool isRequired;
   final String label;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class GtDropdownFormField extends StatelessWidget {
           (label != null)
               ? GtText(
                   text: label,
+                  textStyle: textStyle,
                   //texttype: TextformatType.bodyText2,
                 )
               : SizedBox(),

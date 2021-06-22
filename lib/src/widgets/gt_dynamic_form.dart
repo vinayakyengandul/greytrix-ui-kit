@@ -19,6 +19,7 @@ class GtFromDynamic extends StatelessWidget{
     this.getFieldValues,
     this.setFormCheckboxFieldValues,
     this.setselectedLookupDataValues,
+    this.setAddLookupFormKey,
     this.fieldValues,
     this.backgroundColor = Colors.white,
     this.borderColor = Colors.black,
@@ -42,6 +43,7 @@ class GtFromDynamic extends StatelessWidget{
   final Function(String, {bool forLookupForm}) getFieldValues;
   final Function(String,dynamic,bool,{String fieldKey,bool forLookupForm,bool setApiVariables}) setFormCheckboxFieldValues;
   final Function(String, dynamic, {String fieldKey,String valuePath ,bool fromOnChanged,bool ismultiSelect}) setselectedLookupDataValues;
+  final Function(String, GlobalKey<FormState>) setAddLookupFormKey;
   final Map<String, dynamic> fieldValues;
   final Color backgroundColor;
   final Color borderColor;
@@ -77,6 +79,7 @@ class GtFromDynamic extends StatelessWidget{
             getFieldValues: getFieldValues,
             setFieldValues: setFieldValues,
             setselectedLookupDataValues: setselectedLookupDataValues,
+            setAddLookupFormKey: setAddLookupFormKey,
             fieldValues: fieldValues,
             textStyle: textStyle,
             validationMessage: validationMessage
@@ -199,9 +202,8 @@ class GtFromDynamic extends StatelessWidget{
                 ),
                 onPressed: () async{ 
                   var data =
-                  formSubmitHandler();
-                   
-                  if(!data) showDialog(
+                  await formSubmitHandler();
+                  if(!data && !validationMessage) showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
