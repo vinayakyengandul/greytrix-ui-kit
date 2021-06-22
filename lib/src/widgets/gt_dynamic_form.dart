@@ -29,6 +29,7 @@ class GtFromDynamic extends StatelessWidget{
     this.validationMessage = true,
     this.popupMessageTextStyle,
     this.popupButtonStyle,
+    this.isCountShow = false,
   });
   final Key keyy;
   final String tag;
@@ -53,6 +54,7 @@ class GtFromDynamic extends StatelessWidget{
   final bool validationMessage;
   final TextStyle popupMessageTextStyle;
   final ButtonStyle popupButtonStyle;
+  final bool isCountShow;
   Widget buildform() {
     dynamic rowsData = {};
 
@@ -73,7 +75,7 @@ class GtFromDynamic extends StatelessWidget{
           Common.getFormViewWidget(
             tag,
             value,
-            count.toString() + ". " + key,
+            isCountShow ? count.toString() + ". " + key : key,
             formFieldOnChangeHandler: formFieldOnChangeHandler,
             setFormCheckboxFieldValues: setFormCheckboxFieldValues,
             getFieldValues: getFieldValues,

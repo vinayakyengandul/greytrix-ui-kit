@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class GtTextFormField extends StatelessWidget {
   GtTextFormField(
@@ -50,6 +51,9 @@ class GtTextFormField extends StatelessWidget {
         controller: textEditingController,
         style: textStyle,
         keyboardType: textInputType,
+        inputFormatters: TextInputType.number == textInputType ? [
+          FilteringTextInputFormatter.digitsOnly
+        ] : [],
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(5, 20, 5, 10),
           labelText: '$fieldLabel',

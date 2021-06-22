@@ -829,6 +829,7 @@ class Common {
           child: Container(
             padding: _formFieldPadding,
             child: GtTextFormField(
+              textInputType: gtFormField.textInputType,
               labeltextStyle: textStyle,
               fieldLabel: key,
               isReadOnly: gtFormField.isreadOnly,
