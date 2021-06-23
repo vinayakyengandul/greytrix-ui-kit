@@ -815,6 +815,7 @@ class Common {
     Map<String, dynamic> fieldValues,
     bool forLookupForm = false,
     TextStyle textStyle,
+    TextStyle valueTextStyle,
     bool validationMessage = true,
     dynamic obx,
   }) {
@@ -831,6 +832,7 @@ class Common {
             child: GtTextFormField(
               textInputType: gtFormField.textInputType,
               labeltextStyle: textStyle,
+              textStyle: valueTextStyle,
               fieldLabel: key,
               isReadOnly: gtFormField.isreadOnly,
               isRequired: gtFormField.isRequired,
@@ -864,7 +866,9 @@ class Common {
                 ),
                 iconData: Icons.arrow_drop_down,
                 items: gtFormField.dropdownItems,
+                dropDownBackGround: gtFormField.dropDownBackgroundColor,
                 textStyle: textStyle,
+                valueTextStyle: valueTextStyle,
                 onChangedhandler: !gtFormField.isreadOnly ? (val) => {
                   setFieldValues(
                     gtFormField.fieldKey,
@@ -983,7 +987,9 @@ class Common {
         break;
 
       case GtFormFieldType.DATETIME:
-        return Container(
+        return Expanded(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
               padding: _formFieldPadding,
               child: GtDate(
                 iconColor: textStyle.color,
@@ -1025,11 +1031,13 @@ class Common {
                 },
               
           ),
-        );
+        ));
         break;
 
       case GtFormFieldType.CHECKBOX:
-        return Container(
+        return Expanded(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
           padding: _formFieldPadding,
           child: 
           GtCheckboxFormField(
@@ -1052,11 +1060,13 @@ class Common {
               textStyle: textStyle,
               validationMessage: validationMessage,
               )
-        );
+        ));
         break;
 
       case GtFormFieldType.RADIO_BUTTON:
-        return Container(
+        return Expanded(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
           padding: _formFieldPadding,
           child: 
           //  Obx(() => 
@@ -1086,11 +1096,13 @@ class Common {
               validationMessage: validationMessage,
              ),
           // ),
-        );
+        ));
         break;
 
       case GtFormFieldType.SWITCH_BUTTON:
-        return Container(
+        return Expanded(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
           padding: _formFieldPadding,
           child: Align(
             alignment: Alignment.bottomRight,
@@ -1122,7 +1134,7 @@ class Common {
                 );
               },
             ),)
-        );
+        ));
         break;
 
       default:

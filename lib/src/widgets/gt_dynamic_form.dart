@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import '../../greytrix_ui_kit.dart';
 import "package:collection/collection.dart";
 
-class GtFromDynamic extends StatelessWidget{
-  GtFromDynamic({
+class GtFormDynamic extends StatelessWidget{
+  GtFormDynamic({
     this.keyy,
     @required this.title,
     @required this.formSubmitHandler,
@@ -30,6 +30,7 @@ class GtFromDynamic extends StatelessWidget{
     this.popupMessageTextStyle,
     this.popupButtonStyle,
     this.isCountShow = false,
+    this.valueTextStyle,
   });
   final Key keyy;
   final String tag;
@@ -55,6 +56,7 @@ class GtFromDynamic extends StatelessWidget{
   final TextStyle popupMessageTextStyle;
   final ButtonStyle popupButtonStyle;
   final bool isCountShow;
+  final TextStyle valueTextStyle;
   Widget buildform() {
     dynamic rowsData = {};
 
@@ -84,7 +86,8 @@ class GtFromDynamic extends StatelessWidget{
             setAddLookupFormKey: setAddLookupFormKey,
             fieldValues: fieldValues,
             textStyle: textStyle,
-            validationMessage: validationMessage
+            validationMessage: validationMessage,
+            valueTextStyle: valueTextStyle,
           ),
         );
         data.add({"Row":row,"panelName":value.panelName, "widget": rowsData[row]});
@@ -189,7 +192,7 @@ class GtFromDynamic extends StatelessWidget{
               textStyle: headerTextStyle == null ? TextStyle(fontSize: 15,fontWeight: FontWeight.bold) : headerTextStyle,
             ),
           ),
-          Divider(),
+          Divider(color: borderColor,),
           // main content
           buildform(),
 
