@@ -20,6 +20,7 @@ class GtFileUpload extends StatelessWidget {
     this.iconShow = true,
     this.fontSize = 20,
     this.extensions = "pdf",
+    this.allowMultiple = true,
   });
   final Color backgroundColor;
   final Color borderColor;
@@ -33,6 +34,7 @@ class GtFileUpload extends StatelessWidget {
   final bool iconShow;
   final double fontSize;
   final String extensions;
+  final bool allowMultiple;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,7 @@ class GtFileUpload extends StatelessWidget {
               // ignore: unnecessary_statements
             FilePickerResult result  = (await FilePicker.platform.pickFiles(
                 type: FileType.custom,
-                allowMultiple: true,
+                allowMultiple: allowMultiple,
                 allowedExtensions: (extensions?.isNotEmpty ?? false)
                     ? extensions?.replaceAll(' ', '').split(',')
                     : null,
