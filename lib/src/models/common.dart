@@ -824,7 +824,9 @@ class Common {
     switch (gtFormField.type) {
       case GtFormFieldType.INPUT:
       
-        return Container(
+        return Expanded(
+          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+          child: Container(
             padding: _formFieldPadding,
             child: GtTextFormField(
               textInputType: gtFormField.textInputType,
@@ -844,12 +846,14 @@ class Common {
               
               textEditingController: fieldValues[gtFormField.fieldKey] != null ? TextEditingController(text: fieldValues[gtFormField.fieldKey].toString()) : gtFormField.textEditingController,
             ),
-          
+          ),
         );
         break;
 
       case GtFormFieldType.DROPDOWN:
-        return Container(
+        return Expanded(
+          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+          child: Container(
             padding: _formFieldPadding,
             child: 
             // Obx(() =>
@@ -883,7 +887,7 @@ class Common {
               ),
             // ),
           
-        );
+        ));
         break;
 
       case GtFormFieldType.LOOKUP:
