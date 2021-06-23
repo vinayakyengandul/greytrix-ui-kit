@@ -11,6 +11,8 @@ class GtDropdownFormField extends StatelessWidget {
     this.isRequired = false,
     this.label,
     this.textStyle,
+    this.dropDownBackGround,
+    this.valueTextStyle,
   });
 
   final IconData iconData;
@@ -21,6 +23,8 @@ class GtDropdownFormField extends StatelessWidget {
   final bool isRequired;
   final String label;
   final TextStyle textStyle;
+  final TextStyle valueTextStyle;
+  final Color dropDownBackGround;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,7 @@ class GtDropdownFormField extends StatelessWidget {
               : SizedBox(),
           DropdownButtonFormField(
             value: dropdownValue,
+            dropdownColor: dropDownBackGround,
             icon: GtIcon(icondata: iconData),
             iconSize: 24,
             elevation: 16,
@@ -48,6 +53,7 @@ class GtDropdownFormField extends StatelessWidget {
                     value: e.value,
                     child: GtText(
                       text: e.key,
+                      textStyle: valueTextStyle
                       //texttype: TextformatType.bodyText2,
                     ),
                   ),
