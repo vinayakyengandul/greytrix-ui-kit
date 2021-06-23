@@ -824,9 +824,7 @@ class Common {
     switch (gtFormField.type) {
       case GtFormFieldType.INPUT:
       
-        return Expanded(
-          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
-          child: Container(
+        return Container(
             padding: _formFieldPadding,
             child: GtTextFormField(
               textInputType: gtFormField.textInputType,
@@ -846,7 +844,7 @@ class Common {
               
               textEditingController: fieldValues[gtFormField.fieldKey] != null ? TextEditingController(text: fieldValues[gtFormField.fieldKey].toString()) : gtFormField.textEditingController,
             ),
-          ),
+          
         );
         break;
 
@@ -863,7 +861,7 @@ class Common {
                 iconData: Icons.arrow_drop_down,
                 items: gtFormField.dropdownItems,
                 textStyle: textStyle,
-                onChangedhandler: (val) => {
+                onChangedhandler: !gtFormField.isreadOnly ? (val) => {
                   setFieldValues(
                     gtFormField.fieldKey,
                     val,
@@ -878,7 +876,7 @@ class Common {
                     forLookupForm: forLookupForm,
                     fromOnChanged: true,
                   ),
-                },
+                }: null,
                 isRequired: gtFormField.isRequired,
                 
                 label: key,
