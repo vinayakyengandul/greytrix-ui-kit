@@ -13,6 +13,7 @@ class GtDropdownFormField extends StatelessWidget {
     this.textStyle,
     this.dropDownBackGround,
     this.valueTextStyle,
+    this.isReadOnly = false,
   });
 
   final IconData iconData;
@@ -25,6 +26,7 @@ class GtDropdownFormField extends StatelessWidget {
   final TextStyle textStyle;
   final TextStyle valueTextStyle;
   final Color dropDownBackGround;
+  final bool isReadOnly;
 
   @override
   Widget build(BuildContext context) {

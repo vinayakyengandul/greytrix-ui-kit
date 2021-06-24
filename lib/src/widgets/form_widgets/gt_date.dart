@@ -31,6 +31,7 @@ class GtDate extends StatelessWidget {
   final Icon prefixTimeIcon;
   final Icon suffixDateIcon;
   final Icon suffixTimeIcon;
+  final bool isReadOnly;
   GtDate({
     this.type = GtDateTimeType.BOTH,
     @required this.label,
@@ -58,6 +59,7 @@ class GtDate extends StatelessWidget {
     this.prefixTimeIcon,
     this.suffixDateIcon,
     this.suffixTimeIcon,
+    this.isReadOnly = false,
   });
 
   ///HANDLES THE DATE PICKER DIALOG
@@ -135,7 +137,7 @@ class GtDate extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: GestureDetector(
-                  onTap: () => _selectDate(context),
+                  onTap: () => !isReadOnly ? _selectDate(context) : null,
                   child: AbsorbPointer(
                     child: GtTextFormField(
                       fieldLabel: datefieldLabel,
@@ -165,7 +167,7 @@ class GtDate extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: GestureDetector(
-                  onTap: () => _selectTime(context),
+                  onTap: () => !isReadOnly ? _selectTime(context) : null,
                   child: AbsorbPointer(
                     child: GtTextFormField(
                       fieldLabel: timefieldLabel,
