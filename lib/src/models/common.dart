@@ -869,6 +869,7 @@ class Common {
                 dropDownBackGround: gtFormField.dropDownBackgroundColor,
                 textStyle: textStyle,
                 valueTextStyle: valueTextStyle,
+                isReadOnly: gtFormField.isreadOnly,
                 onChangedhandler: !gtFormField.isreadOnly ? (val) => {
                   setFieldValues(
                     gtFormField.fieldKey,
@@ -999,6 +1000,7 @@ class Common {
                 label: key,
                 isRequired: gtFormField.isRequired,
                 type: gtFormField.dateTimeType,
+                isReadOnly: gtFormField.isreadOnly,
                 initialDate: fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
                 firstDate: gtFormField.firstDate ?? DateTime(1990),
                 lastDate: gtFormField.lastDate ?? DateTime(2100),
