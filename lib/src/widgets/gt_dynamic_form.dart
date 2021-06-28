@@ -7,7 +7,7 @@ import "package:collection/collection.dart";
 class GtFormDynamic extends StatelessWidget{
   GtFormDynamic({
     this.keyy,
-    @required this.title,
+    this.title,
     @required this.formSubmitHandler,
     this.rowCount = 2,
     this.fromMapjson,
@@ -31,6 +31,7 @@ class GtFormDynamic extends StatelessWidget{
     this.popupButtonStyle,
     this.isCountShow = false,
     this.valueTextStyle,
+    this.formPadding = const EdgeInsets.all(15.0),
   });
   final Key keyy;
   final String tag;
@@ -57,6 +58,7 @@ class GtFormDynamic extends StatelessWidget{
   final ButtonStyle popupButtonStyle;
   final bool isCountShow;
   final TextStyle valueTextStyle;
+  final EdgeInsets formPadding;
   Widget buildform() {
     dynamic rowsData = {};
 
@@ -180,11 +182,12 @@ class GtFormDynamic extends StatelessWidget{
       Container(
       width: double.infinity,
       height: double.infinity,
-      padding: EdgeInsets.all(15.0),
+      padding: formPadding,
       child: SingleChildScrollView(child:Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if(title != null)...{
           Align(
             alignment: titleAlignment,
             child: GtText(
@@ -193,6 +196,7 @@ class GtFormDynamic extends StatelessWidget{
             ),
           ),
           Divider(color: borderColor,),
+          },
           // main content
           buildform(),
 
