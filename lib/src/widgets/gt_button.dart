@@ -10,7 +10,7 @@ class GtButton extends StatelessWidget {
   GtButton({
     this.buttonStyle,
     this.iconColor,
-    this.iconPosition,
+    this.iconPosition = GtPosition.PREFIX,
     this.iconSize,
     this.icondata,
     this.onPressed,
