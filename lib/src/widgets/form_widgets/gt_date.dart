@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'gt_text_form_field.dart';
 
 class GtDate extends StatelessWidget {
@@ -32,6 +33,7 @@ class GtDate extends StatelessWidget {
   final Icon suffixDateIcon;
   final Icon suffixTimeIcon;
   final bool isReadOnly;
+  final String dateFormat;
   GtDate({
     this.type = GtDateTimeType.BOTH,
     @required this.label,
@@ -60,6 +62,7 @@ class GtDate extends StatelessWidget {
     this.suffixDateIcon,
     this.suffixTimeIcon,
     this.isReadOnly = false,
+    this.dateFormat = "yyyy-MM-dd"
   });
 
   ///HANDLES THE DATE PICKER DIALOG
@@ -82,7 +85,8 @@ class GtDate extends StatelessWidget {
     );
     if (picked != null && onDateSubmitted != null) {
       ///HERE AS IT RETURNS THE TIME ALL IN 00:00 FORMAT THEN REEMOVING THE TIME FROM PICKED DATE
-      dynamic _picked = (picked).toString().split(' ')[0];
+      String formattedDate = DateFormat(dateFormat).format(picked);
+      dynamic _picked = (formattedDate).toString().split(' ')[0];
       if (dateTextEditingController != null) {
         dateTextEditingController.text = _picked;
       }
