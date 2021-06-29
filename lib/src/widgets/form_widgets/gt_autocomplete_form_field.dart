@@ -25,6 +25,8 @@ class GtTagTextField extends StatelessWidget {
     this.displayInFieldLabel = false,
     this.labelfontsize,
     this.textColor = Colors.black,
+    this.addButtonOption = false,
+    this.customWidgetPanel,
   });
 
   final String fieldLabel;
@@ -50,6 +52,11 @@ class GtTagTextField extends StatelessWidget {
 
   /// ADDED TO GENERIC UI  WIDGETS
   final double labelfontsize;
+
+  //ADD button option 
+  final bool addButtonOption;
+  //Custom Widget for panel item
+  final Function(dynamic obj) customWidgetPanel;
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +141,8 @@ class GtTagTextField extends StatelessWidget {
             return (suggestion is Map<String, dynamic>)
                 ? (selectedTaglist.contains(suggestion))
                     ? Container()
-                    : ListTile(
-                        title: Column(
+                    : customWidgetPanel == null ?ListTile(
+                        title: Column( 
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: lookupFields.entries
@@ -167,7 +174,7 @@ class GtTagTextField extends StatelessWidget {
                                   ))
                               .toList(),
                         ),
-                      )
+                      ) : customWidgetPanel(suggestion)
                 : addNewHandler == null
                     ? Container()
                     : ListTile(
@@ -207,7 +214,7 @@ class GtTagTextField extends StatelessWidget {
           transitionBuilder: (context, suggestionsBox, controller) {
             return suggestionsBox;
           },
-          noItemsFoundBuilder: (context) {
+          noItemsFoundBuilder: addButtonOption ? (context) {
             return Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -230,7 +237,7 @@ class GtTagTextField extends StatelessWidget {
                 ],
               ),
             );
-          },
+          } : null,
         ),
       ],
     );
