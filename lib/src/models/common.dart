@@ -1000,6 +1000,7 @@ class Common {
                 label: key,
                 isRequired: gtFormField.isRequired,
                 type: gtFormField.dateTimeType,
+                dateFormat: gtFormField.dateFormat,
                 isReadOnly: gtFormField.isreadOnly,
                 initialDate: fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
                 firstDate: gtFormField.firstDate ?? DateTime(1990),
