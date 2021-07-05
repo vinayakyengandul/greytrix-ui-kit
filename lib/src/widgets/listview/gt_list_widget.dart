@@ -29,7 +29,7 @@ class GtListPage extends StatelessWidget {
     this.filterHandler,
     this.rangeFilterLimits,
     this.rangeFilterDivisions = 10,
-    @required this.toMapjson,
+    this.toMapjson,
     this.isFilterProcessing = false,
     this.pathNavigation = "",
     this.isSpaceInRecords = false,
@@ -72,8 +72,11 @@ class GtListPage extends StatelessWidget {
     this.horizinalScrollable = false,
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
+        this.itemDatawidget,
+        this.isCustomItemWidget = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
+        assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
         super(key: key);
 
   final Map<String, dynamic> filtersData;
@@ -167,6 +170,10 @@ class GtListPage extends StatelessWidget {
 
   /// List Item Padding
   final EdgeInsets listItemPadding;
+  ///Record Item data Widget from User
+  final Function(int index,dynamic obj) itemDatawidget;
+  final bool isCustomItemWidget;
+
 
   ///RETURNS THE LEADING WIDGET
   Widget getLeadingWidget(int index, bool isImage, String valuePath) {
@@ -389,6 +396,8 @@ class GtListPage extends StatelessWidget {
                 spaceBetweenKeyValue: spaceBetweenKeyValue,
                 horizinalScrollable: horizinalScrollable,
                 listItemPadding: listItemPadding,
+                itemDatawidget: itemDatawidget,
+                isCustomItemWidget: isCustomItemWidget,
               )
             : GtGridView(
                 cardAspectRatio: cardAspectRatio,

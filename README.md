@@ -26,6 +26,11 @@
  - [GtButton Widget](#gtbutton-widget)
  - [GtAppSideBar Widget](#gtappsidebar-widget)
  - [GtDynamicView Widget](#gtdynamicview-widget)
+ - [GtSignature Widget](#gtsignature-widget)
+ - [GtFileUpload Widget](#gtfileupload-widget)
+ - [GtTagTextField Widget](#gttagtextfield-widget)
+ - [GtListPage Widget](#gtlistpage-widget)
+ - [GtCheckboxFormField Widget](#gtcheckboxformfield-widget)
 
  
  
@@ -2214,3 +2219,424 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
 
 
 
+
+# GtTagTextField Widget
+  
+ The gttagtextfield widget is used represent the Suggestions list when click on the Screen with alng as optional parameter.
+   - Benefits of GtTagTextField Widget
+      - Handles the font size of the text in dynamic way based on the screen resolution when specified along with required Fields.
+        
+   - Constructors: 
+      - [GtTagTextField](components.md#gttagtextfield-widget)({
+            @required this.onDeleted,
+            @required this.suggestionsCallback,
+            @required this.onSuggestionSelected,
+            @required this.taglist,
+            @required this.textEditingController,
+            @required this.lookupFields,
+            this.addNewHandler,
+            this.onSavedHander,
+            this.allowMultiselection = false,
+            this.looupKeyVisibile = false,
+            this.selectedTaglist,
+            this.maxLines = 1,
+            this.minLines = 1,
+            this.maxLength,
+            this.isRequired = false,
+            @required this.fieldLabel,
+            this.focusNode,
+            this.suggestionsBoxController,
+            this.displayInFieldLabel = false,
+            this.labelfontsize,
+            this.textColor = Colors.black,
+            this.addButtonOption = false,
+            this.customWidgetPanel,});
+           
+   - Input Parameters of GtTagTextField Widget
+      - onDeleted - Function - This is required parameter, it well used to Delete the selected tag in Search Box.
+      - suggestionsCallback - Function - This is required parameter, This will return the suggestion list when user type any key list of suggestion will return.
+      - onSuggestionSelected - Function - This is required parameter, It will select the suggestion list item.
+      - taglist - List<dynamic> - This is required parameter, Tag list is selected Tag List from suggestion list.
+      - textEditingController - TextEditingController - This is required parameter, Text Controller for textField.
+      - lookupFields - Map<String, String> - This is required parameter, This show Suggestion lookup fields.
+      - addNewHandler - Function - This for suggestion not match with text than it will give option for add.
+      - allowMultiselection - bool - This used for suggestion selection was multiple or single. Default is false.
+      - looupKeyVisibile - bool - This used for lookUp Key Fields visible. Default is false.
+      - selectedTaglist - List<dynamic> - Tag list is selected Tag List from suggestion list.
+      - isRequired - bool - This field is required or not defined. Default is false.
+      - fieldLabel - String - This is required parameter, This will display Field label.
+      - focusNode - FocusNode - This will used for focuse on delete handler.
+      - displayInFieldLabel - bool - This will display label in field, Default is false.
+      - labelfontsize - double - This will used for label font size.
+      - textColor - Color - This is display text color, default color was Black.
+      - addButtonOption - bool - This is add button option, default is false.
+      - customWidgetPanel - Widget - Custome widget for when Suggestion list have to change.
+      
+   - Example
+    
+      - Step 1 : Import in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtTagTextField widget and specify the is to be displayed.
+                
+      ```dart
+            class TextDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278)),
+                     body: Container(
+                       child: GtTagTextField(
+                           textColor: Colors.blue,
+                           fieldLabel: "Product",
+                           isRequired: false,
+                           allowMultiselection: false,
+                           looupKeyVisibile: false,
+                           displayInFieldLabel: false,
+                           textEditingController:  new TextEditingController(text: ' '),
+                           lookupFields: {'company': 'company'},
+                           selectedTaglist: [],
+                           taglist: [],
+                           onDeleted: (val) => {},
+                           onSuggestionSelected: (_val, isMutli) {},
+                           suggestionsCallback: (pattern) async {
+                              return [{
+                                 "company": "Apple",
+                                 "description": "job description",
+                              },
+                              {
+                                 "company": "Google",
+                                 "description": "job description",
+                              },];
+                           }
+                       ),
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtTagTextField](https://user-images.githubusercontent.com/64594463/124076547-09be8e00-da64-11eb-9b70-6f11232784e1.png)
+
+# GtListPage Widget
+  
+ The GtListPage widget is used represent the Listview on the Screen with alng as optional parameter.
+   - Benefits of gtlistpage Widget
+      - Handles the Listview font size of the text in dynamic way based on the screen resolution when specified along with required Fields.
+        
+   - Constructors: 
+      - [GtListPage](components.md#gtlistpage-widget)({
+         Key key,this.title,@required this.listItems,this.enablefilter = false,this.viewtype,this.backNavigation = false,.selectAllcheckbox,
+         this.selectallRecords = false,this.showStats,this.leadingIcon,this.trailingIcon,this.onDetailsNavigateHandler,this.onSelectionHandler,
+         this.gtTileRowCrossAxisAlignment = CrossAxisAlignment.center,this.gtTileRowMainAxisAlignment = MainAxisAlignment.center,this.rowsCount = 2,
+         this.cardAspectRatio = 1.5,this.cardCrossAxisSpacing = 8,this.cardMainAxisSpacing = 12,this.tag,this.filterHandler,this.rangeFilterLimits,
+         this.rangeFilterDivisions = 10,@required this.toMapjson,this.isFilterProcessing = false,this.pathNavigation = "",this.isSpaceInRecords = false,
+         this.filtersData,this.onHoverHandler,this.toggleListGridView,this.isListView = true,this.backgroundcolor = Colors.white,this.onDeleteHandler,
+         this.quantityInitialValue,this.incrementHandler,this.decrementHandler,@required this.size,this.entity,
+         this.isleadingIconPosition = true,this.listViewTableType = GTListViewTableType.Normal,this.primaryColor = Colors.blue,
+         this.checkboxactiveColor = Colors.blue,this.checkboxcheckColor = Colors.white,this.checkboxfocusColor = Colors.blue,this.selectedRowColor = Colors.grey,this.jsonHeader,this.filterBottomSheet,this.isLeadingShow = true,this.cardColor = Colors.white,this.swipeToOption,
+         this.swipeIcon = Icons.delete,this.swipeBackgroundColor = Colors.red,this.swipeIconColor = Colors.white,this.mobileHeader = false,
+         this.backButtonColor = Colors.black,//this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
+         this.swipeConfirmMessageTextWidget,//this.swipeConfirmButtonText = "DELETE",this.swipeConfirmButtonTextWidget,
+         this.swipeCancelButtontextWidget,this.cardMarginEdgeInsets =const EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 1),
+         this.spaceBetweenKeyValue = false,this.horizinalScrollable = false,
+                  this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
+                  this.itemDatawidget,this.isCustomItemWidget = false,});
+           
+   - Input Parameters of GtListPage Widget
+      - title - Widget - This is Listview Title widget.
+      - listItems - List<dynamic> - This is required parameter, have to pass list of Data.
+      - enablefilter - bool - This used for filter display or not, Default is false.
+      - viewtype - Viewtype - This is Type of Listview, Default is Viewtype.List.
+      - backNavigation - bool - This is display back button in top od list, Default is false.
+      - selectAllcheckbox - Function - This for Record all selection function.
+      - selectallRecords - bool - select all Record Checkbox is display in Listview, Default is false.
+      - leadingIcon - Widget - This is Leading Widget For Each item of listview.
+      - trailingIcon - Widget - This is trailing Widget For Each item of listview.
+      - onDetailsNavigateHandler - Function - This used for Lisview item click handle.
+      - onSelectionHandler - Function - This is on record checked selection.
+      - gtTileRowCrossAxisAlignment -  CrossAxisAlignment - This Listview alignment, Default is CrossAxisAlignment.center.
+      - gtTileRowMainAxisAlignment - MainAxisAlignment - This Listview alignment, Default is MainAxisAlignment.center.
+      - rowsCount - int - Listview each Item Row Count, Default is 2.
+      - cardAspectRatio - double - This is card ration, Default is 1.5.
+      - cardCrossAxisSpacing - double - This will card spacing in cross, default is 8.
+      - cardMainAxisSpacing - double - This will card spacing in Main, default is 12.
+      - tag - String - This is tag for each listview will different.
+      - filterHandler - Function - Filter is refresh handler when we go to nextpage event.
+      - onHoverHandler - Function - This is when hover on record item hover function call.
+      - toMapjson - Map<String, dynamic> - This contains which fields we have to show in ListView of each row. And we used GtTileField widget check below.
+         - Constructor of GtTileField
+      
+            - GtTileField({this.row, this.mobileRow, this.value, this.iconData, this.flex = 1, this.mobileFlex = 1,
+                this.textOverFlow, this.displayKey = false, this.type = GtFieldType.STRING, this.webTextFormatType = TextformatType.caption,
+                this.mobileTextFormatType = TextformatType.caption, this.keyTextFormatType = TextformatType.caption,
+                this.isCardTitle = false, this.isCardSubTitle = false, this.isBannerField = false, this.cardRow, this.filterType,
+                this.filterItems, this.valuePath, this.filterValue, this.filterLabel, this.rangeStart, this.rangeEnd, this.bannerItems,this.pathNavigation,this.filterNodeValue,this.lookUpDisplayNode,
+                  this.lookUpFilterNode,this.fieldTextColor,this.fieldTextBackgroundColor,this.navigationNode,
+                  this.textStyle,this.lookupAddNodeKey,this.lookupAddVariableKey,this.focusNode,
+                  this.textEditingController,this.lookupFields,this.looupKeyVisibile,this.nodeKey,
+                  this.fieldKey,this.isRequired = false,this.isMultiselect = false,this.valueType =GtValueType.STRING,this.listFieldValuePath,this.isActiveInactiveField = false,this.activeInactiveItems,
+                  this.statusField,this.fontFamily,this.tileDateFormat, this.defaultStatusColor = Colors.blue,
+                  this.chipFieldShape,this.isAssert = true,this.buttonOnPressed,this.buttonStyle,
+                  this.keyTextStyle,this.valueTextStyle,this.keyTextAlign = TextAlign.start,
+                  this.valueTextAlign = TextAlign.start, this.keyValueBetween = " : ",
+                  this.buttonElevation = 5.0,});
+      
+         - Input Parameters of GtTileField Widget
+      
+            - row - int - This is contains which row have to display this field in web. 
+            - mobileRow - int - This is contains which row have to display this field in mobile.
+            - value - dynamic - This contains value of the field.
+            - iconData- IconData - Showing Icon start of the field.
+            - flex - int - The flex factor to use for this child. This is for Web.
+            - mobileFlex - int -  The mobileFlex factor to use for this child. This is for mobile.
+            - textOverFlow- TextOverflow - Defaults to retrieving the value from the nearest DefaultTextStyle ancestor.
+            - displayKey - bool - This is for Display field label name, If displaykey is true than field name is showing with value. Default is false.
+            - type - GtFieldType - Type of field is define like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
+            - webTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for web.
+            - mobileTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for mobile.
+            - keyTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for label.
+            - isCardTitle - bool - This contains field is showing in title or not in Card. Default false.
+            - isCardSubTitle - bool - This contains field is showing in SubTitle or not in Card. Default false.
+            - isBannerField - bool - This used for A banner displays a prominent message and related field. Default value is false. 
+            - cardRow- int -  This is contains which row have to display this field in card. 
+            - filterType - GtFilterType - This field is used for which type is filter like (  RADIO_BUTTON_FILTER,  CHECKBOX_BUTTON_FILTER,  RANGE_FILTER,  SORT_FILTER,)
+            - filterItems - Map<String, dynamic> - This is Sort the List as per given sort fields. And also Display the fields in UI. 
+            - valuePath - String - This is define which is Field map with valuePath.
+            - filterValue - String - This value is send to the API for this field.
+            - filterLabel - String - It will show in UI in this filter field.    
+            - rangeStart- String - This is Range Start field name.
+            - rangeEnd - String - This is Range End field name.
+            - bannerItems - Map<String, dynamic> - It will show banner Items.
+            - pathNavigation - String - This is Path navigation on field click.
+            - filterNodeValue - String - This is Filter Field name as handle filter.
+            - lookUpDisplayNode - String - This LookupFilter Display node. 
+            - lookUpFilterNode - String - This Lookup Filter node as handle. 
+            - fieldTextColor - Color - This is Field text color.
+            - fieldTextBackgroundColor - Color - This is Field background text color.
+            - navigationNode - Color -  This is navigation node on field click.
+            - textStyle - TextStyle - This is for text field styling.
+            - lookupAddNodeKey - String - This is add look up node.
+            - lookupAddVariableKey - String - This is lookUp Add variable Key.
+            - focusNode - FocusNode - This is field focuse.
+            - textEditingController - TextEditingController - This is text field controller.
+            - lookupFields - Map<String, String> - This is Look up fields which have to display on look up.
+            - looupKeyVisibile - bool - This is Lookup key Visibile for diaply, Default is false.
+            - nodeKey - String - This is node key that lookup field define.
+            - fieldKey - String - This is lookup field key.
+            - isRequired - bool - This field is required or not defined. Default is false.
+            - isMultiselect - bool - This is lookup data is multi selected or not.
+            - valueType - GtValueType - This is define which type is field, Default is STRING.
+            - listFieldValuePath - String - This is List Field value path for display.
+            - isActiveInactiveField - bool - This is field is active or inactive define.
+            - activeInactiveItems - Map<String, dynamic> - This is Active and inactive record item.
+            - statusField - Map<String, dynamic> - This is for Status Field.
+            - buttonOnPressed - Function - This is button on preesed function for button field.
+            - buttonStyle - ButtonStyle - This is button field style.
+            - keyTextStyle - TextStyle - This is the Field Key Styling.
+            - valueTextStyle - TextStyle - This is the Field value Styling.
+            - keyTextAlign - TextAlign - This is for field key textAlign.
+            - valueTextAlign - TextAlign - This is for field value textAlign.
+            - keyValueBetween - String - This is Key and value between String display.
+            - buttonElevation - bouble - This is button elvation.
+      - pathNavigation - String - This is path of navigate each record.
+      - isSpaceInRecords - bool - This is space in records, default is false.
+      - filtersData - Map<String, dynamic> - This is the filter data for display filter.
+      - isListView - bool - This is for Type of List, Default is true.
+      - backgroundcolor - Color - This is background color of listview.
+      - onDeleteHandler - Function - This is function is handle in trailing for deleting the records.
+      - quantityInitialValue - int - this is the quantity of initial value.
+      - toggleListGridView - Function - This will listview type change function.
+      - incrementHandler - Function - This function Widget increment Handler.
+      - decrementHandler - Function - This function Widget decrement Handler.
+      - size - Size - This is required field, For this Listview Responsevie size.
+      - entity - String - This is for on delete entity name.
+      - isleadingIconPosition - bool - This is leading icon position is define, Default is true.
+      - listViewTableType - GTListViewTableType - This is Listview type , Default is GTListViewTableType.Normal.
+      - primaryColor - Color - This is Listview primary color define.
+      - checkboxactiveColor - Color - This is checkbox active Color.
+      - checkboxcheckColor - Color - This is checkbox check Color.
+      - checkboxfocusColor - Color - This is checkbox focuse Color.
+      - selectedRowColor - Color - This is Selected Row Color.
+      - jsonHeader - List<dynamic> - This is for Show Listview Header json.
+      - filterBottomSheet - Function - This is BottomSheet Filter function.
+      - isLeadingShow - bool - This is Leading Icon show or not, Default is true.
+      - cardColor - Color - This is Listview Background Card Color.
+      - swipeToOption - Function - This is Define option for type swipe to delete or any option.
+      - swipeIcon - IconData - This is Swipe icon data.
+      - swipeBackgroundColor - Color- this is swipe background color.
+      - swipeIconColor - Color- this is swipe Icon color.
+      - mobileHeader - bool- This is header for mobile or not, default is false.
+      - backButtonColor - Color - Listview back button color.
+      - swipeConfirmMessageTextWidget - Widget - This is swipe confirmation message widget.
+      - swipeConfirmButtonTextWidget - Widget - This is swipe confirmation button widget.
+      - swipeCancelButtontextWidget - Widget - This is swipe cancel button widget.
+      - cardMarginEdgeInsets - EdgeInsets - This is card margin for design.
+      - spaceBetweenKeyValue - bool - This is space between key and value, default is false.
+      - horizinalScrollable - bool - This is horizinal Scrollable, default is false.
+      - listItemPadding - EdgeInsets - This is item padding.
+      - itemDatawidget - Function - This is Custom Widget of Each Item.
+      - isCustomItemWidget - bool - This is Custom Widget define, Default is false.
+      
+   - Example
+    
+      - Step 1 : Import in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtListPage widget and specify the is to be displayed.
+                
+      ```dart
+            class TextDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278)),
+                     body: Container(
+                       child: GtListPage(
+                           rowsCount: 2,
+                           title: GtText(
+                           textStyle: TextStyle(
+                              color: Colors.black,
+                           ),
+                              text: "Task"
+                           ),
+                           leadingIcon: GtIcon(
+                           icondata: Icons.account_circle_rounded,
+                           ),
+                           isLeadingShow: false,
+                           listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER",},
+                           {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER",}],
+                           viewtype: ViewType.list,
+                           spaceBetweenKeyValue: false,
+                           toMapjson: {
+                           'Name': GtTileField(
+                              valuePath: 'FName',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 1,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                              webTextFormatType: TextformatType.textwithopacity,
+                           ),
+                           'Code': GtTileField(
+                              valuePath: 'Code',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 2,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                              webTextFormatType: TextformatType.textwithopacity,
+                           ),
+                           },
+                           tag: "Task",
+                           gtTileRowMainAxisAlignment: MainAxisAlignment.center,
+                           gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
+                           isSpaceInRecords: true,
+                           isListView: true,
+                           isleadingIconPosition: false,
+                           size: Get.size,
+                           listViewTableType: GTListViewTableType.Normal,
+                           cardColor: Colors.blueGrey[200],
+                           enablefilter: false,
+                           backgroundcolor: Colors.white10,
+                           cardMarginEdgeInsets: const EdgeInsets.all(5),
+                           listItemPadding: const EdgeInsets.only(left: 15,right: 30, top: 8,bottom: 8),
+                           backNavigation: true,
+                           horizinalScrollable: false,
+                       ),
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtListPage](https://user-images.githubusercontent.com/64594463/124108984-51eda880-da84-11eb-9ad8-4da2f5880f38.png)
+
+# GtCheckboxFormField Widget
+  
+ The gtcheckboxformfield widget is used represent the Form field checkbox on the Screen with alng optional parameter.
+   - Benefits of GtCheckboxFormField Widget
+      - Handles the font size of the text in dynamic way based on the screen resolution when specified.
+        
+   - Constructors: 
+      - [GtCheckboxFormField](components.md#gtcheckboxformfield-widget)({@required this.displayMapFields,
+            @required this.selectedCheckboxValues,
+            @required this.onChangedHandler,
+            this.onSaveHandler,
+            this.label,
+            this.isRequired = false,
+            this.textStyle,
+            this.validationMessage = true,
+            this.activeColor,});
+           
+   - Input Parameters of GtCheckboxFormField Widget
+      - displayMapFields - Map<String, dynamic> - This is required parameter, It is display field list.
+      - selectedCheckboxValues - dynamic - This is required parameter, It is display selected check box value.
+      - onChangedHandler - Function - This is required parameter, It handle on change of checkbox.
+      - onSaveHandler - Function - This is on saved handler.
+      - label - String - This is Field label.
+      - isRequired - bool - This is field is required or not.
+      - textStyle - TextStyle - this is text styling in widget.
+      - validationMessage - bool - This is show vaidation message or not.
+      - activeColor - Color - Color of active check box.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtText widget and specify the textformattype for the text which is to be displayed.
+                
+      ```dart
+            class TextDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Customers')),
+                     body: Container(
+                       child:  GtCheckboxFormField(
+                           displayMapFields: {"data" : "true","Data1": "false"},
+                           selectedCheckboxValues: ["true"],
+                           label: "Demo",
+                           onChangedHandler: (val,data) => {}
+                        )
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![Gtext](https://user-images.githubusercontent.com/64594463/124129481-72752d00-da9b-11eb-8959-cc51e11dfb65.png)
