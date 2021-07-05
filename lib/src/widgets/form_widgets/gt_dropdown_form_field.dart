@@ -63,7 +63,7 @@ class GtDropdownFormField extends StatelessWidget {
                 .toList(),
             onSaved: onSavehandler,
             validator: (dynamic value) {
-              if (isRequired == true && value == null) {
+              if (isRequired == true && (value == null || value.isEmpty)) {
                 return 'Please select atleast one option';
               } else {}
 

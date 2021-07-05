@@ -41,8 +41,11 @@ class GtListView extends StatelessWidget {
     this.horizinalScrollable = false,
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
+        this.itemDatawidget,
+        this.isCustomItemWidget = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
+         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
         super(key: key);
 
   final int rowsCount;
@@ -93,11 +96,16 @@ class GtListView extends StatelessWidget {
 
   /// List Item Padding
   final EdgeInsets listItemPadding;
+  ///Record Item data Widget from User
+  final Function(int index,dynamic obj) itemDatawidget;
+  final bool isCustomItemWidget;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Widget returnTile(int index) {
+      Widget listTile;
+      if(isCustomItemWidget == false){
       Color color = listViewTableType == GTListViewTableType.Normal
           ? rowColors
           : index.isOdd
@@ -319,7 +327,7 @@ class GtListView extends StatelessWidget {
           rowIndex++,
         },
       );
-      Widget listTile = GtListTile(
+      listTile = GtListTile(
         columnWidget: horizinalScrollable
             ? Row(children: rowsWidgets)
             : Column(children: rowsWidgets),
@@ -354,6 +362,7 @@ class GtListView extends StatelessWidget {
         horizinalScrollable: horizinalScrollable,
         listItemPadding: listItemPadding,
       );
+      }
       return swipeToOption != null
           ? Dismissible(
               key: Key(listItems[index].toString()),
@@ -391,9 +400,11 @@ class GtListView extends StatelessWidget {
               },
               secondaryBackground: swipeIconWidget("END"),
               background: swipeIconWidget("START"),
-              child: listTile,
+              child: isCustomItemWidget ? itemDatawidget(index,listItems[index])
+              : listTile,
             )
-          : listTile;
+          : isCustomItemWidget ? itemDatawidget(index,listItems[index])
+              : listTile;
     }
 
     return !horizinalScrollable
