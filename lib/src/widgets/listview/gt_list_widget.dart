@@ -74,6 +74,7 @@ class GtListPage extends StatelessWidget {
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
         this.itemDatawidget,
         this.isCustomItemWidget = false,
+        this.swipeSnackBartextWidget,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -160,6 +161,7 @@ class GtListPage extends StatelessWidget {
   final Widget swipeConfirmMessageTextWidget;
   final Widget swipeConfirmButtonTextWidget;
   final Widget swipeCancelButtontextWidget;
+  final Widget swipeSnackBartextWidget;
 
   /// Records Card Margin
   final EdgeInsets cardMarginEdgeInsets;
@@ -398,6 +400,7 @@ class GtListPage extends StatelessWidget {
                 listItemPadding: listItemPadding,
                 itemDatawidget: itemDatawidget,
                 isCustomItemWidget: isCustomItemWidget,
+                swipeSnackBartextWidget: swipeSnackBartextWidget,
               )
             : GtGridView(
                 cardAspectRatio: cardAspectRatio,

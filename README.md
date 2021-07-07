@@ -31,6 +31,9 @@
  - [GtTagTextField Widget](#gttagtextfield-widget)
  - [GtListPage Widget](#gtlistpage-widget)
  - [GtCheckboxFormField Widget](#gtcheckboxformfield-widget)
+ - [GtDropdownFormField Widget](#gtdropdownformfield-widget)
+ - [GtRadioButtonFormField Widget](#gtradiobuttonformfield-widget)
+ - [GtSwitchButtonFormField Widget](#gtswitchbuttonformfield-widget)
 
  
  
@@ -2639,4 +2642,207 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
      
       - Step 3 : Result :
       
-          ![Gtext](https://user-images.githubusercontent.com/64594463/124129481-72752d00-da9b-11eb-8959-cc51e11dfb65.png)
+          ![GtCheckboxFormField](https://user-images.githubusercontent.com/64594463/124129481-72752d00-da9b-11eb-8959-cc51e11dfb65.png)
+
+# GtDropdownFormField Widget
+  
+ The GtDropdownFormField widget is used represent the Form field drop Down on the Screen with alng optional parameter.
+   - Benefits of GtDropdownFormField Widget
+      - Handles the font size of the text in dynamic way based on the screen resolution when specified.
+        
+   - Constructors: 
+      - [GtDropdownFormField](components.md#gtdropdownformfield-widget)({
+            this.iconData,
+            this.items,
+            this.dropdownValue,
+            this.onChangedhandler,
+            this.onSavehandler,
+            this.isRequired = false,
+            this.label,
+            this.textStyle,
+            this.dropDownBackGround,
+            this.valueTextStyle,
+            this.isReadOnly = false,});
+           
+   - Input Parameters of GtCheckboxFormField Widget
+      - iconData - IconData - This is dropdown field icon.
+      - items - Map<String, dynamic> - It is display field list in drop down.
+      - dropdownValue - dynamic - It is display selected value of dropdown.
+      - onChangedHandler - Function - It handle on change of checkbox.
+      - onSaveHandler - Function - This is on saved handler.
+      - label - String - This is Field label.
+      - isRequired - bool - This is field is required or not.
+      - textStyle - TextStyle - this is text styling in widget.
+      - dropDownBackGround - Color - This is dropdown background color.
+      - valueTextStyle - TextStyle - This is dropdown Text Style.
+      - isReadOnly - bool - This is Field is Required or not.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtText widget and specify the textformattype for the text which is to be displayed.
+                
+      ```dart
+            class TextDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Customers')),
+                     body: Container(
+                       child:  GtDropdownFormField(
+                           iconData: Icons.arrow_circle_down,
+                           label: "Demo",
+                           dropdownValue: "User1",
+                           isRequired: false,
+                           items: {"User1" : "User1", "User2": "User2"},
+                           onChangedhandler: (data) {}
+                        )
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448490-23334300-dda0-11eb-9779-11de6773df7f.png)
+
+          ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448563-39410380-dda0-11eb-9b61-4e9091bdac4d.png)
+
+# GtRadioButtonFormField Widget
+  
+ The GtRadioButtonFormField widget is used represent the Form field Redio options on the Screen with alng optional parameter.
+   - Benefits of GtRadioButtonFormField Widget
+      - Handles the font size of the text in dynamic way based on the screen resolution when specified.
+        
+   - Constructors: 
+      - [GtRadioButtonFormField](components.md#gtradiobuttonformfield-widget)({
+            @required this.displayMapFields,
+            @required this.selectedRadioButtonVal,
+            @required this.onChangedHandler,
+            this.onSaveHandler,
+            this.label,
+            this.isRequired = false,
+            this.textStyle,
+            this.validationMessage = true,
+            this.activeColor});
+           
+    - Input Parameters of GtRadioButtonFormField Widget
+      - displayMapFields - Map<String, dynamic> - This is required parameter, It is display field Redio.
+      - selectedRadioButtonVal - dynamic - This is required parameter, It is display selected Redio button value.
+      - onChangedHandler - Function - This is required parameter, It handle on change of Redio button.
+      - onSaveHandler - Function - This is on saved handler.
+      - label - String - This is Field label.
+      - isRequired - bool - This is field is required or not.
+      - textStyle - TextStyle - this is text styling in widget.
+      - validationMessage - bool - This is show vaidation message or not.
+      - activeColor - Color - Color of active redio button.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtRadioButtonFormField widget and specify the Redio button which is to be displayed.
+                
+      ```dart
+            class RedioDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Customers')),
+                     body: Container(
+                       child:  GtRadioButtonFormField(
+                           label: "Demo",
+                           isRequired: false,
+                           selectedRadioButtonVal: "User1",
+                           displayMapFields: {"User1" : "User1", "User2": "User2"},
+                           onChangedHandler: (chk, data) {}
+                        )
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtRadioButtonFormField](https://user-images.githubusercontent.com/64594463/124449969-99847500-dda1-11eb-822a-eb30acc1bba0.png)
+
+# GtSwitchButtonFormField Widget
+  
+ The GtSwitchButtonFormField widget is used represent the Form field Switch button on the Screen with alng optional parameter.
+   - Benefits of GtSwitchButtonFormField Widget
+      - Handles the font size of the switch button in dynamic way based on the screen resolution when specified.
+        
+   - Constructors: 
+      - [GtSwitchButtonFormField](components.md#gtswitchbuttonformfield-widget)({
+            @required this.label,
+            @required this.onChangedHandler,
+            this.onSaveHandler,
+            this.switchValue = false,
+            this.isRequired = false,
+            this.switchactiveColor,
+            this.textStyle,
+            this.validationMessage = true,
+            this.crossAxisAlignment = CrossAxisAlignment.center});
+           
+    - Input Parameters of GtRadioButtonFormField Widget
+      - label - String - This is required parameter, This is Field label.
+      - onChangedHandler - Function - This is required parameter, It handle on change of Switch button.
+      - switchValue - bool - It is display selected Switch button value.
+      - onSaveHandler - Function - This is on saved handler.
+      - isRequired - bool - This is field is required or not.
+      - textStyle - TextStyle - this is text styling in widget.
+      - validationMessage - bool - This is show vaidation message or not.
+      - switchactiveColor - Color - Color of active switch button.
+      - crossAxisAlignment - CrossAxisAlignment - This is alignment of cross axis alignment.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtSwitchButtonFormField widget and specify the Switch button the which is to be displayed.
+                
+      ```dart
+            class SwitchDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Customers')),
+                     body: Container(
+                       child:  GtSwitchButtonFormField(
+                           label: "Demo",
+                           isRequired: false,
+                           switchValue: true,
+                           switchactiveColor: Colors.blue,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           onChangedHandler: (chk) { }
+                        )
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/124451092-ace41000-dda2-11eb-9c3a-06500b708187.png)

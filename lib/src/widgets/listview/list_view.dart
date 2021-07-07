@@ -43,6 +43,7 @@ class GtListView extends StatelessWidget {
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
         this.itemDatawidget,
         this.isCustomItemWidget = false,
+        this.swipeSnackBartextWidget,
   })  : assert(listItems != null),
         assert(rowsCount != null),
          assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -85,6 +86,7 @@ class GtListView extends StatelessWidget {
   final Widget swipeConfirmMessagetextWidget;
   final Widget swipeConfirmButtontextWidget;
   final Widget swipeCancelButtontextWidget;
+  final Widget swipeSnackBartextWidget;
 
   /// Record Card Margin
   final EdgeInsets cardMarginEdgeInsets;
@@ -395,7 +397,7 @@ class GtListView extends StatelessWidget {
                 if (swipeToOption != null) {
                   swipeToOption(listItems, index);
                   ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('1 dismissed')));
+                      .showSnackBar(SnackBar(content: swipeSnackBartextWidget ?? Text('1 dismissed')));
                 }
               },
               secondaryBackground: swipeIconWidget("END"),
