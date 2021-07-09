@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import '../../models/enums.dart';
+import '../gt_text.dart';
 import 'gt_text_form_field.dart';
 
 class GtDate extends StatelessWidget {
@@ -34,36 +35,35 @@ class GtDate extends StatelessWidget {
   final Icon suffixTimeIcon;
   final bool isReadOnly;
   final String dateFormat;
-  GtDate({
-    this.type = GtDateTimeType.BOTH,
-    @required this.label,
-    @required this.initialDate,
-    this.firstDate,
-    this.lastDate,
-    this.prefixDateIcon,
-    this.isRequired = false,
-    this.onDateSubmitted,
-    this.onSaveHandler,
-    this.dateTextEditingController,
-    this.timeTextEditingController,
-    this.datePickerEntryMode = DatePickerEntryMode.calendar,
-    this.initialEntryMode = DatePickerMode.day,
-    this.labeltextStyle,
-    this.themeData,
-    this.datefieldLabel = "",
-    this.timefieldLabel = "",
-    this.datetextStyle,
-    this.timetextStyle,
-    this.cancelText,
-    this.confirmText,
-    this.iconColor = Colors.black,
-    this.selectedTextStyle,
-    this.prefixTimeIcon,
-    this.suffixDateIcon,
-    this.suffixTimeIcon,
-    this.isReadOnly = false,
-    this.dateFormat = "yyyy-MM-dd"
-  });
+  GtDate(
+      {this.type = GtDateTimeType.BOTH,
+      @required this.label,
+      @required this.initialDate,
+      this.firstDate,
+      this.lastDate,
+      this.prefixDateIcon,
+      this.isRequired = false,
+      this.onDateSubmitted,
+      this.onSaveHandler,
+      this.dateTextEditingController,
+      this.timeTextEditingController,
+      this.datePickerEntryMode = DatePickerEntryMode.calendar,
+      this.initialEntryMode = DatePickerMode.day,
+      this.labeltextStyle,
+      this.themeData,
+      this.datefieldLabel = "",
+      this.timefieldLabel = "",
+      this.datetextStyle,
+      this.timetextStyle,
+      this.cancelText,
+      this.confirmText,
+      this.iconColor = Colors.black,
+      this.selectedTextStyle,
+      this.prefixTimeIcon,
+      this.suffixDateIcon,
+      this.suffixTimeIcon,
+      this.isReadOnly = false,
+      this.dateFormat = "yyyy-MM-dd"});
 
   ///HANDLES THE DATE PICKER DIALOG
   Future<Null> _selectDate(BuildContext context) async {
@@ -157,7 +157,6 @@ class GtDate extends StatelessWidget {
                       textStyle: selectedTextStyle,
                       prefixIcon: prefixDateIcon,
                       chips: suffixDateIcon,
-                          
                     ),
                   ),
                 ),

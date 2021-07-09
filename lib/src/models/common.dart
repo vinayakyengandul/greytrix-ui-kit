@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 import './gt_tile_field.dart';
 import '../models/enums.dart';
 import '../widgets/index.dart';
-import '../../greytrix_ui_kit.dart';
+import 'enums.dart';
+import 'gt_form_field.dart';
 
 class Common {
   ///FUNCTION TO RETRIEVE THE VALUE FROM THE MAP BASED ON PATH
@@ -77,21 +78,24 @@ class Common {
     bool horizhontalScrollable = false,
     bool isMobileScreen = false,
   }) {
-    return horizhontalScrollable ? SizedBox(
-      width: isMobileScreen ? value.mobileFlex * 100.0: value.flex * 100.0, 
-      child:GtText(
-      text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
-      // texttype: value.webTextFormatType,
-      textOverflow: value.textOverFlow,
-      textStyle: textStyle,
-      fontFamily: value.fontFamily,
-    )) : GtText(
-      text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
-      // texttype: value.webTextFormatType,
-      textOverflow: value.textOverFlow,
-      textStyle: textStyle,
-      fontFamily: value.fontFamily,
-    );
+    return horizhontalScrollable
+        ? SizedBox(
+            width:
+                isMobileScreen ? value.mobileFlex * 100.0 : value.flex * 100.0,
+            child: GtText(
+              text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
+              // texttype: value.webTextFormatType,
+              textOverflow: value.textOverFlow,
+              textStyle: textStyle,
+              fontFamily: value.fontFamily,
+            ))
+        : GtText(
+            text: '${value.displayKey == true ? (key + ' : ') : ''}$data',
+            // texttype: value.webTextFormatType,
+            textOverflow: value.textOverFlow,
+            textStyle: textStyle,
+            fontFamily: value.fontFamily,
+          );
   }
 
   static Widget getdynamicGtText(
@@ -149,18 +153,20 @@ class Common {
         ///PREPARING THE LIST OF WIDGETS FOR THE STRING AND LIST TYPE TO USE LIST FOR ROW OR A WRAP AS A CHILDRENS
         List<Widget> _widgetList = [
           if (gtTileField.displayKey == true)
-          spaceBetweenKeyValue ? 
-            Expanded(child:GtText(
-              text: '$key' + gtTileField.keyValueBetween,
-              textStyle: gtTileField.keyTextStyle,
-              textAlign: gtTileField.keyTextAlign,
-              //texttype: gtTileField.keyTextFormatType,
-            )) :GtText(
-              text: '$key' + gtTileField.keyValueBetween,
-              textStyle: gtTileField.keyTextStyle,
-              textAlign: gtTileField.keyTextAlign,
-              //texttype: gtTileField.keyTextFormatType,
-            ),
+            spaceBetweenKeyValue
+                ? Expanded(
+                    child: GtText(
+                    text: '$key' + gtTileField.keyValueBetween,
+                    textStyle: gtTileField.keyTextStyle,
+                    textAlign: gtTileField.keyTextAlign,
+                    //texttype: gtTileField.keyTextFormatType,
+                  ))
+                : GtText(
+                    text: '$key' + gtTileField.keyValueBetween,
+                    textStyle: gtTileField.keyTextStyle,
+                    textAlign: gtTileField.keyTextAlign,
+                    //texttype: gtTileField.keyTextFormatType,
+                  ),
         ];
 
         switch (gtValueType) {
@@ -175,7 +181,7 @@ class Common {
                       textStyle: gtTileField.valueTextStyle,
                       // texttype: gtTileField.webTextFormatType,
                       // textStyle: gtTileField.textStyle,
-                       textAlign: gtTileField.valueTextAlign,
+                      textAlign: gtTileField.valueTextAlign,
                       textOverflow: gtTileField.textOverFlow,
                     ),
                   )
@@ -189,70 +195,80 @@ class Common {
             break;
 
           case GtValueType.STRING:
-                Widget widget = GtText(
-                text: '$value',
-                textStyle: gtTileField.valueTextStyle,
-                 textAlign: gtTileField.valueTextAlign,
-                // texttype: gtTileField.webTextFormatType,
-                // textStyle: gtTileField.textStyle,
-                textOverflow: gtTileField.textOverFlow,
-              );
+            Widget widget = GtText(
+              text: '$value',
+              textStyle: gtTileField.valueTextStyle,
+              textAlign: gtTileField.valueTextAlign,
+              // texttype: gtTileField.webTextFormatType,
+              // textStyle: gtTileField.textStyle,
+              textOverflow: gtTileField.textOverFlow,
+            );
+
             ///PREPARING THE SINGLE STRING TYPE WIDGET
-            _widgetList.add(
-              spaceBetweenKeyValue ?
-              Expanded(child: widget,
-            ):widget);
+            _widgetList.add(spaceBetweenKeyValue
+                ? Expanded(
+                    child: widget,
+                  )
+                : widget);
             _widgetContainer = Container(
-              child: spaceBetweenKeyValue ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                children: _widgetList,
-              ) : Wrap(
-                children: _widgetList,
-              ),
+              child: spaceBetweenKeyValue
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _widgetList,
+                    )
+                  : Wrap(
+                      children: _widgetList,
+                    ),
             );
             break;
           default:
             break;
         }
 
-        return !horizinalScrollable ? Expanded(
-          flex: isMobilePortrait ? gtTileField.mobileFlex : gtTileField.flex,
-          child: gtTileField.pathNavigation != null
-              ? InkWell(
-                  onHover: (value) {},
-                  onTap: () {
-                    if (navigationHandler != null) navigationHandler();
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 4.0),
-                    child: _widgetContainer,
-                  ),
-                )
-              : Padding(
-                  padding: EdgeInsets.only(right: 4.0),
-                  child: _widgetContainer,
-                ),
-        ) : gtTileField.pathNavigation != null
-              ? InkWell(
-                  onHover: (value) {},
-                  onTap: () {
-                    if (navigationHandler != null) navigationHandler();
-                  },
-                  child: Padding(
+        return !horizinalScrollable
+            ? Expanded(
+                flex: isMobilePortrait
+                    ? gtTileField.mobileFlex
+                    : gtTileField.flex,
+                child: gtTileField.pathNavigation != null
+                    ? InkWell(
+                        onHover: (value) {},
+                        onTap: () {
+                          if (navigationHandler != null) navigationHandler();
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 4.0),
+                          child: _widgetContainer,
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(right: 4.0),
+                        child: _widgetContainer,
+                      ),
+              )
+            : gtTileField.pathNavigation != null
+                ? InkWell(
+                    onHover: (value) {},
+                    onTap: () {
+                      if (navigationHandler != null) navigationHandler();
+                    },
+                    child: Padding(
+                        padding: EdgeInsets.only(right: 4.0),
+                        child: SizedBox(
+                            width: isMobileScreen
+                                ? gtTileField.mobileFlex * 100.0
+                                : gtTileField.flex * 100.0,
+                            child: Wrap(children: _widgetList))),
+                  )
+                : Padding(
                     padding: EdgeInsets.only(right: 4.0),
                     child: SizedBox(
-                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-                      child:Wrap(children :_widgetList))
-                                  ),
-                                )
-                              : Padding(
-                                  padding: EdgeInsets.only(right: 4.0),
-                                  child: SizedBox(
-                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-                      child:Wrap(children :_widgetList))
-                );
+                        width: isMobileScreen
+                            ? gtTileField.mobileFlex * 100.0
+                            : gtTileField.flex * 100.0,
+                        child: Wrap(children: _widgetList)));
         break;
 
       case GtFieldType.EMAIL:
@@ -285,36 +301,40 @@ class Common {
         break;
 
       case GtFieldType.QUANTITY:
-        return !horizinalScrollable ? Expanded(
-          flex: isMobilePortrait ? 1 : gtTileField.flex,
-          child: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GtCartQuantity(
-                  initialValue: value,
-                  decrementHandler: decrementHandler,
-                  incrementHandler: incrementHandler,
-                )
-              ],
-            ),
-          ),
-        ): SizedBox(
-            width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-            child:Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GtCartQuantity(
-                  initialValue: value,
-                  decrementHandler: decrementHandler,
-                  incrementHandler: incrementHandler,
-                )
-              ],
-            ),
-          ));
+        return !horizinalScrollable
+            ? Expanded(
+                flex: isMobilePortrait ? 1 : gtTileField.flex,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GtCartQuantity(
+                        initialValue: value,
+                        decrementHandler: decrementHandler,
+                        incrementHandler: incrementHandler,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            : SizedBox(
+                width: isMobileScreen
+                    ? gtTileField.mobileFlex * 100.0
+                    : gtTileField.flex * 100.0,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GtCartQuantity(
+                        initialValue: value,
+                        decrementHandler: decrementHandler,
+                        incrementHandler: incrementHandler,
+                      )
+                    ],
+                  ),
+                ));
         break;
 
       case GtFieldType.PHONE:
@@ -355,7 +375,7 @@ class Common {
               padding: EdgeInsets.only(top: 2.0),
               child: GtText(
                 text: '$key' + gtTileField.keyValueBetween,
-                 textStyle: gtTileField.keyTextStyle,
+                textStyle: gtTileField.keyTextStyle,
                 textOverflow: gtTileField.textOverFlow,
                 //texttype: gtTileField.keyTextFormatType,
                 // textStyle: gtTileField.textStyle,
@@ -438,24 +458,22 @@ class Common {
         break;
 
       case GtFieldType.STATUS:
-      Widget keyWidget = GtText(
-            text: '$key' + gtTileField.keyValueBetween,
-              textStyle: gtTileField.keyTextStyle,
-          );
-      Widget valueWidget = value != "" && value != false
+        Widget keyWidget = GtText(
+          text: '$key' + gtTileField.keyValueBetween,
+          textStyle: gtTileField.keyTextStyle,
+        );
+        Widget valueWidget = value != "" && value != false
             ? PhysicalModel(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: gtTileField.statusField[value.toString()],
                 elevation: gtTileField.buttonElevation,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: 8, right: 8, bottom: 4, top: 4),
+                  padding:
+                      EdgeInsets.only(left: 8, right: 8, bottom: 4, top: 4),
                   child: GtText(
-                    text: value == true
-                        ? gtTileField.valuePath
-                        : '$value',
-                          textStyle: gtTileField.valueTextStyle,
-                          textAlign: TextAlign.center,
+                    text: value == true ? gtTileField.valuePath : '$value',
+                    textStyle: gtTileField.valueTextStyle,
+                    textAlign: TextAlign.center,
                     // textStyle: TextStyle(
                     //     color: Colors.white,
                     //     fontSize: 12,
@@ -464,13 +482,11 @@ class Common {
                 ),
               )
             : Container();
-      List<Widget> listWidget = [
-        if (gtTileField.displayKey == true)
-        spaceBetweenKeyValue ? 
-            Expanded(child: keyWidget): keyWidget,
-        spaceBetweenKeyValue ? 
-            Expanded(child: valueWidget): valueWidget,
-      ];
+        List<Widget> listWidget = [
+          if (gtTileField.displayKey == true)
+            spaceBetweenKeyValue ? Expanded(child: keyWidget) : keyWidget,
+          spaceBetweenKeyValue ? Expanded(child: valueWidget) : valueWidget,
+        ];
         return Expanded(
             flex: isMobilePortrait ? 1 : gtTileField.flex,
             child: InkWell(
@@ -479,10 +495,13 @@ class Common {
                 if (navigationHandler != null) navigationHandler();
               },
               child: Container(
-                child: spaceBetweenKeyValue ? Row(children: listWidget,)
-                : Wrap(
-                  children: listWidget,
-                ),
+                child: spaceBetweenKeyValue
+                    ? Row(
+                        children: listWidget,
+                      )
+                    : Wrap(
+                        children: listWidget,
+                      ),
               ),
             ));
         break;
@@ -500,7 +519,7 @@ class Common {
                     text: '$key' + gtTileField.keyValueBetween,
                     //texttype: gtTileField.keyTextFormatType,
                     // textStyle: gtTileField.textStyle,
-                     textStyle: gtTileField.keyTextStyle,
+                    textStyle: gtTileField.keyTextStyle,
                   ),
                 //getDateFormatGtText(gtTileField, key, value),
               ],
@@ -510,136 +529,157 @@ class Common {
         break;
 
       case GtFieldType.AVATAR:
-        return !horizinalScrollable ? Expanded(
-          flex: isMobilePortrait ? gtTileField.mobileFlex : gtTileField.flex,
-          child: Container(
-            child: Row(
-              mainAxisAlignment: isMobilePortrait
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GtAvatar(
-                  radius: 16,
-                  //backgroundColor: gtTileField,
-                  backGroundImage: gtTileField.isAssert
-                      ? AssetImage(
-                          '$value',
-                          package: 'core',
-                        )
-                      : NetworkImage('$value'),
-                )
-              ],
-            ),
-          ),
-        ) : SizedBox(
-                      width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-                      child:Container(
-            child: Row(
-              mainAxisAlignment: isMobilePortrait
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GtAvatar(
-                  radius: 16,
-                  //backgroundColor: gtTileField,
-                  backGroundImage: gtTileField.isAssert
-                      ? AssetImage(
-                          '$value',
-                          package: 'core',
-                        )
-                      : NetworkImage('$value'),
-                )
-              ],
-            ),
-          ));
+        return !horizinalScrollable
+            ? Expanded(
+                flex: isMobilePortrait
+                    ? gtTileField.mobileFlex
+                    : gtTileField.flex,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: isMobilePortrait
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GtAvatar(
+                        radius: 16,
+                        //backgroundColor: gtTileField,
+                        backGroundImage: gtTileField.isAssert
+                            ? AssetImage(
+                                '$value',
+                                package: 'core',
+                              )
+                            : NetworkImage('$value'),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            : SizedBox(
+                width: isMobileScreen
+                    ? gtTileField.mobileFlex * 100.0
+                    : gtTileField.flex * 100.0,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: isMobilePortrait
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GtAvatar(
+                        radius: 16,
+                        //backgroundColor: gtTileField,
+                        backGroundImage: gtTileField.isAssert
+                            ? AssetImage(
+                                '$value',
+                                package: 'core',
+                              )
+                            : NetworkImage('$value'),
+                      )
+                    ],
+                  ),
+                ));
         break;
 
       case GtFieldType.CURRENCY:
-        return !horizinalScrollable ? Expanded(
-          flex: isMobilePortrait ? 1 : gtTileField.flex,
-          child: Container(
-            child: Row(
-              children: [
-                if (gtTileField.displayKey == true)
-                  spaceBetweenKeyValue ? 
-                  Expanded(child:GtText(
-                    text: '$key' + gtTileField.keyValueBetween,
-                    // textStyle: gtTileField.textStyle,
-                     textStyle: gtTileField.keyTextStyle,
-                     textAlign: gtTileField.keyTextAlign,
-                  )):GtText(
-                    text: '$key' + gtTileField.keyValueBetween,
-                    // textStyle: gtTileField.textStyle,
-                     textStyle: gtTileField.keyTextStyle,
+        return !horizinalScrollable
+            ? Expanded(
+                flex: isMobilePortrait ? 1 : gtTileField.flex,
+                child: Container(
+                  child: Row(
+                    children: [
+                      if (gtTileField.displayKey == true)
+                        spaceBetweenKeyValue
+                            ? Expanded(
+                                child: GtText(
+                                text: '$key' + gtTileField.keyValueBetween,
+                                // textStyle: gtTileField.textStyle,
+                                textStyle: gtTileField.keyTextStyle,
+                                textAlign: gtTileField.keyTextAlign,
+                              ))
+                            : GtText(
+                                text: '$key' + gtTileField.keyValueBetween,
+                                // textStyle: gtTileField.textStyle,
+                                textStyle: gtTileField.keyTextStyle,
+                              ),
+                      value != ""
+                          ? !spaceBetweenKeyValue
+                              ? Expanded(
+                                  child: GtCurrency(
+                                  amountTextStyle: gtTileField.valueTextStyle,
+                                  amount: value.toString(),
+                                  currency: '\$',
+                                ))
+                              : Align(
+                                  alignment: Alignment.centerRight,
+                                  child: GtCurrency(
+                                    amountTextStyle: gtTileField.valueTextStyle,
+                                    amount: value.toString(),
+                                    currency: '\$',
+                                  ),
+                                )
+                          : Container(),
+                    ],
                   ),
-                value != ""
-                    ? !spaceBetweenKeyValue ? Expanded(
-                        child: GtCurrency(
-                        amountTextStyle: gtTileField.valueTextStyle,
-                        amount: value.toString(),
-                        currency: '\$',
-                      )): Align(alignment: Alignment.centerRight,child: GtCurrency(
-                        amountTextStyle: gtTileField.valueTextStyle,
-                        amount: value.toString(),
-                        currency: '\$',
-                      ),)
-                    : Container(),
-              ],
-            ),
-          ),
-        ) : SizedBox(
-              width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-              child: GtCurrency(
-                amountTextStyle: gtTileField.valueTextStyle,
-                amount: value.toString(),
-                currency: '\$',
-              ));
+                ),
+              )
+            : SizedBox(
+                width: isMobileScreen
+                    ? gtTileField.mobileFlex * 100.0
+                    : gtTileField.flex * 100.0,
+                child: GtCurrency(
+                  amountTextStyle: gtTileField.valueTextStyle,
+                  amount: value.toString(),
+                  currency: '\$',
+                ));
         break;
 
       case GtFieldType.BUTTON:
-      Widget widget = GtText(
+        Widget widget = GtText(
           text: '$key' + gtTileField.keyValueBetween,
           // textStyle: gtTileField.textStyle,
           textStyle: gtTileField.keyTextStyle,
         );
         Widget btnWidget = value != "" && value != false
-          ? GtButton(
-              buttonStyle: gtTileField.buttonStyle != null
-                  ? gtTileField.buttonStyle
-                  : ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.blue),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.white)),
-                    // Button Value is true than show KEY value
-              text: value == true ? '$key' : value.toString(),
-              onPressed: () {
-                if (gtTileField.buttonOnPressed != null)
-                  gtTileField.buttonOnPressed(itemData);
-              },
-            )
-          : Container();
-      List<Widget> listwidget = [
-      if (gtTileField.displayKey == true)
-        spaceBetweenKeyValue ? 
-            Expanded(child: widget): widget,
-      spaceBetweenKeyValue ? 
-            Expanded(child: btnWidget): btnWidget,
-      ];
-        return !horizinalScrollable ? Expanded(
-          flex: isMobilePortrait ? 1 : gtTileField.flex,
-          child: Container(
-            child: spaceBetweenKeyValue ? Row(
-              children: listwidget,
-            ): Wrap(children: listwidget,),
-          ),
-        ): SizedBox(
-              width: isMobileScreen ? gtTileField.mobileFlex * 100.0: gtTileField.flex * 100.0, 
-              child:  Container(child:Wrap(children:[btnWidget])));
+            ? GtButton(
+                buttonStyle: gtTileField.buttonStyle != null
+                    ? gtTileField.buttonStyle
+                    : ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white)),
+                // Button Value is true than show KEY value
+                text: value == true ? '$key' : value.toString(),
+                onPressed: () {
+                  if (gtTileField.buttonOnPressed != null)
+                    gtTileField.buttonOnPressed(itemData);
+                },
+              )
+            : Container();
+        List<Widget> listwidget = [
+          if (gtTileField.displayKey == true)
+            spaceBetweenKeyValue ? Expanded(child: widget) : widget,
+          spaceBetweenKeyValue ? Expanded(child: btnWidget) : btnWidget,
+        ];
+        return !horizinalScrollable
+            ? Expanded(
+                flex: isMobilePortrait ? 1 : gtTileField.flex,
+                child: Container(
+                  child: spaceBetweenKeyValue
+                      ? Row(
+                          children: listwidget,
+                        )
+                      : Wrap(
+                          children: listwidget,
+                        ),
+                ),
+              )
+            : SizedBox(
+                width: isMobileScreen
+                    ? gtTileField.mobileFlex * 100.0
+                    : gtTileField.flex * 100.0,
+                child: Container(child: Wrap(children: [btnWidget])));
         break;
 
       default:
@@ -712,87 +752,114 @@ class Common {
     headerFields.forEach((e) => {
           if ((e.type == GtListViewHeaderFieldType.BUTTON && headerMobile) ||
               !headerMobile)
-            widgets.add(getHeaderWidget(headerFields: e, priColor: priColor,horizinalScrollable: horizinalScrollable,isMobileScreen: isMobileScreen))
+            widgets.add(getHeaderWidget(
+                headerFields: e,
+                priColor: priColor,
+                horizinalScrollable: horizinalScrollable,
+                isMobileScreen: isMobileScreen))
         });
     return widgets;
   }
 
   static Widget getHeaderWidget(
-      {dynamic headerFields, Color priColor = Colors.blue,bool horizinalScrollable = false,bool isMobileScreen = false}) {
+      {dynamic headerFields,
+      Color priColor = Colors.blue,
+      bool horizinalScrollable = false,
+      bool isMobileScreen = false}) {
     Widget widget;
     switch (headerFields.type) {
       case GtListViewHeaderFieldType.STRING:
-        widget = horizinalScrollable ? SizedBox(
-          width: isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
-          child: GtText(
-            text: headerFields.textValue,
-            textStyle: headerFields.textStyle,
-            textAlign: headerFields.textAlign,
-          //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
-        )) : Expanded(
-          flex: headerFields.flex,
-          child: GtText(
-            text: headerFields.textValue,
-            textStyle: headerFields.textStyle,
-            textAlign: headerFields.textAlign,
-          ),
-          //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
-        );
+        widget = horizinalScrollable
+            ? SizedBox(
+                width: isMobileScreen
+                    ? headerFields.mobileFlex * 100
+                    : headerFields.flex * 100,
+                child: GtText(
+                  text: headerFields.textValue,
+                  textStyle: headerFields.textStyle,
+                  textAlign: headerFields.textAlign,
+                  //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
+                ))
+            : Expanded(
+                flex: headerFields.flex,
+                child: GtText(
+                  text: headerFields.textValue,
+                  textStyle: headerFields.textStyle,
+                  textAlign: headerFields.textAlign,
+                ),
+                //child: GtCurrency(labelTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.w200),amountTextStyle: TextStyle(color: headerFields.textColor,fontWeight: FontWeight.bold)),
+              );
         break;
       case GtListViewHeaderFieldType.BUTTON:
-        widget = horizinalScrollable ? SizedBox(
-          width:isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
-          child:Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(headerFields.buttonColor),
-                        overlayColor:
-                            MaterialStateProperty.all<Color>(headerFields.buttonHovorColor),
-                      ),
-                      onPressed: () {
-                        if(headerFields.buttonOnPressed != null) headerFields.buttonOnPressed();
-                      },
-                      child: GtText(text: headerFields.buttonText,textStyle: headerFields.textStyle,)),
-                ),
-              ],
-            )) : Expanded(
-            flex: headerFields.flex,
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(headerFields.buttonColor),
-                        overlayColor:
-                            MaterialStateProperty.all<Color>(headerFields.buttonHovorColor),
-                      ),
-                      onPressed: () {
-                        if(headerFields.buttonOnPressed != null) headerFields.buttonOnPressed();
-                      },
-                      child: GtText(text: headerFields.buttonText,textStyle: headerFields.textStyle,)),
-                ),
-              ],
-            ));
+        widget = horizinalScrollable
+            ? SizedBox(
+                width: isMobileScreen
+                    ? headerFields.mobileFlex * 100
+                    : headerFields.flex * 100,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                headerFields.buttonColor),
+                            overlayColor: MaterialStateProperty.all<Color>(
+                                headerFields.buttonHovorColor),
+                          ),
+                          onPressed: () {
+                            if (headerFields.buttonOnPressed != null)
+                              headerFields.buttonOnPressed();
+                          },
+                          child: GtText(
+                            text: headerFields.buttonText,
+                            textStyle: headerFields.textStyle,
+                          )),
+                    ),
+                  ],
+                ))
+            : Expanded(
+                flex: headerFields.flex,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                headerFields.buttonColor),
+                            overlayColor: MaterialStateProperty.all<Color>(
+                                headerFields.buttonHovorColor),
+                          ),
+                          onPressed: () {
+                            if (headerFields.buttonOnPressed != null)
+                              headerFields.buttonOnPressed();
+                          },
+                          child: GtText(
+                            text: headerFields.buttonText,
+                            textStyle: headerFields.textStyle,
+                          )),
+                    ),
+                  ],
+                ));
         break;
       case GtListViewHeaderFieldType.ICON:
-        widget =horizinalScrollable ? SizedBox(
-          width: isMobileScreen ?headerFields.mobileFlex * 100 : headerFields.flex * 100,
-          child:GtIcon(
-            icondata: headerFields.iconData,
-            color: headerFields.iconColor,
-        )): Expanded(
-          flex: headerFields.flex,
-          child: GtIcon(
-            icondata: headerFields.iconData,
-            color: headerFields.iconColor,
-          ),
-        );
+        widget = horizinalScrollable
+            ? SizedBox(
+                width: isMobileScreen
+                    ? headerFields.mobileFlex * 100
+                    : headerFields.flex * 100,
+                child: GtIcon(
+                  icondata: headerFields.iconData,
+                  color: headerFields.iconColor,
+                ))
+            : Expanded(
+                flex: headerFields.flex,
+                child: GtIcon(
+                  icondata: headerFields.iconData,
+                  color: headerFields.iconColor,
+                ),
+              );
         break;
       default:
         widget;
@@ -801,7 +868,7 @@ class Common {
     return widget;
   }
 
-   ///IT RETURNS THE FORM_FIELD WIDET FOR THE FORM VIEW
+  ///IT RETURNS THE FORM_FIELD WIDET FOR THE FORM VIEW
   static Widget getFormViewWidget(
     String controllerTag,
     GtFormField gtFormField,
@@ -819,12 +886,15 @@ class Common {
     bool validationMessage = true,
     dynamic obx,
   }) {
-    textStyle = textStyle == null ? TextStyle(fontSize: 12,) : textStyle;
+    textStyle = textStyle == null
+        ? TextStyle(
+            fontSize: 12,
+          )
+        : textStyle;
     EdgeInsets _formFieldPadding = EdgeInsets.all(5.0);
     bool isMobilePortrait = false;
     switch (gtFormField.type) {
       case GtFormFieldType.INPUT:
-      
         return Expanded(
           flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
           child: Container(
@@ -845,8 +915,10 @@ class Common {
                   fromOnChanged: true,
                 );
               },
-              
-              textEditingController: fieldValues[gtFormField.fieldKey] != null ? TextEditingController(text: fieldValues[gtFormField.fieldKey].toString()) : gtFormField.textEditingController,
+              textEditingController: fieldValues[gtFormField.fieldKey] != null
+                  ? TextEditingController(
+                      text: fieldValues[gtFormField.fieldKey].toString())
+                  : gtFormField.textEditingController,
             ),
           ),
         );
@@ -854,12 +926,12 @@ class Common {
 
       case GtFormFieldType.DROPDOWN:
         return Expanded(
-          flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
-          child: Container(
-            padding: _formFieldPadding,
-            child: 
-            // Obx(() =>
-             GtDropdownFormField(
+            flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
+            child: Container(
+              padding: _formFieldPadding,
+              child:
+                  // Obx(() =>
+                  GtDropdownFormField(
                 dropdownValue: getFieldValues(
                   gtFormField.fieldKey,
                   forLookupForm: forLookupForm,
@@ -870,29 +942,29 @@ class Common {
                 textStyle: textStyle,
                 valueTextStyle: valueTextStyle,
                 isReadOnly: gtFormField.isreadOnly,
-                onChangedhandler: !gtFormField.isreadOnly ? (val) => {
-                  setFieldValues(
-                    gtFormField.fieldKey,
-                    val,
-                    fromOnChanged: true,
-                    forLookupForm: forLookupForm,
-                  ),
+                onChangedhandler: !gtFormField.isreadOnly
+                    ? (val) => {
+                          setFieldValues(
+                            gtFormField.fieldKey,
+                            val,
+                            fromOnChanged: true,
+                            forLookupForm: forLookupForm,
+                          ),
 
-                  ///ON_CHANGE HANDLER
-                  formFieldOnChangeHandler(
-                    gtFormField.fieldKey,
-                    val,
-                    forLookupForm: forLookupForm,
-                    fromOnChanged: true,
-                  ),
-                }: null,
+                          ///ON_CHANGE HANDLER
+                          formFieldOnChangeHandler(
+                            gtFormField.fieldKey,
+                            val,
+                            forLookupForm: forLookupForm,
+                            fromOnChanged: true,
+                          ),
+                        }
+                    : null,
                 isRequired: gtFormField.isRequired,
-                
                 label: key,
               ),
-            // ),
-          
-        ));
+              // ),
+            ));
         break;
 
       case GtFormFieldType.LOOKUP:
@@ -912,79 +984,79 @@ class Common {
         return Expanded(
             flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
             child: Container(
-                padding: _formFieldPadding,
-                child: 
-                // Obx(() => 
-                GtTagTextField(
-                    displayInFieldLabel: gtFormField.displayInFieldLabel,
-                    fieldLabel: key,
-                    isRequired: gtFormField.isRequired,
-                    onSavedHander: (savedVal) {},
-                    allowMultiselection: gtFormField.isMultiselect,
-                    addNewHandler: (_val) {
-                      if (gtFormField.lookupAddFormFields != null) {
-                        ///SETS THE FORM KEY FOR DIALOG
-                        // setAddLookupFormKey(
-                        //   key,
-                        //   new GlobalKey<FormState>(),
-                        // );
+              padding: _formFieldPadding,
+              child:
+                  // Obx(() =>
+                  GtTagTextField(
+                displayInFieldLabel: gtFormField.displayInFieldLabel,
+                fieldLabel: key,
+                isRequired: gtFormField.isRequired,
+                onSavedHander: (savedVal) {},
+                allowMultiselection: gtFormField.isMultiselect,
+                addNewHandler: (_val) {
+                  if (gtFormField.lookupAddFormFields != null) {
+                    ///SETS THE FORM KEY FOR DIALOG
+                    // setAddLookupFormKey(
+                    //   key,
+                    //   new GlobalKey<FormState>(),
+                    // );
 
-                        ///OPENS UP THE DIALOG FOR THE LOOKUP DATA INSERTION
-                        // Get.dialog(
-                        //   GtLookupAddFormView(
-                        //     tag: controllerTag,
-                        //     dialogTitle: key,
-                        //     formKey: controller.addLookupFormKeys[key],
-                        //     fromMapjson: gtFormField.lookupAddFormFields,
-                        //     parentFormFieldKey: key,
-                        //     lookupAddNodeKey: gtFormField.lookupAddNodeKey,
-                        //     lookupNodeKey: gtFormField.nodeKey,
-                        //     isMultiselect: gtFormField.isMultiselect,
-                        //     parentFieldKey: gtFormField.fieldKey,
-                        //     parentValuePath: gtFormField.valuePath,
-                        //     parentTextEditingController:
-                        //         gtFormField.textEditingController,
-                        //   ),
-                        // );
-                      }
-                    },
-                    looupKeyVisibile: gtFormField.looupKeyVisibile,
-                    lookupFields: gtFormField.lookupFields,
-                    //selectedTaglist: selectedlookupData[gtFormField.nodeKey].value,
-                    onSuggestionSelected: (_val, isMutli) {
-                      setselectedLookupDataValues(
-                        gtFormField.nodeKey,
-                        _val,
-                        fromOnChanged: true,
-                        ismultiSelect: isMutli,
-                        fieldKey: gtFormField.fieldKey,
-                        valuePath: gtFormField.valuePath,
-                      );
-                    },
-                    suggestionsCallback: (pattern) {
-                      // return getSuggestions(
-                      //   pattern,
-                      //   gtFormField.nodeKey,
-                      //   gtFormField.lookupFields,
-                      // );
-                    },
-                    textEditingController: gtFormField.textEditingController,
-                    //taglist: lookupData[gtFormField.nodeKey],
-                    onDeleted: (val) => {
-                      // onDeleteHandler(
-                      //   gtFormField.nodeKey,
-                      //   val,
-                      //   ismultiSelect: gtFormField.isMultiselect,
-                      //   fieldKey: gtFormField.fieldKey,
-                      //   valuePath: gtFormField.valuePath,
-                      //   focusNode: gtFormField.focusNode,
-                      // )
-                    },
-                    focusNode: gtFormField.focusNode,
-                  ),
-                )
-                // )
-                );
+                    ///OPENS UP THE DIALOG FOR THE LOOKUP DATA INSERTION
+                    // Get.dialog(
+                    //   GtLookupAddFormView(
+                    //     tag: controllerTag,
+                    //     dialogTitle: key,
+                    //     formKey: controller.addLookupFormKeys[key],
+                    //     fromMapjson: gtFormField.lookupAddFormFields,
+                    //     parentFormFieldKey: key,
+                    //     lookupAddNodeKey: gtFormField.lookupAddNodeKey,
+                    //     lookupNodeKey: gtFormField.nodeKey,
+                    //     isMultiselect: gtFormField.isMultiselect,
+                    //     parentFieldKey: gtFormField.fieldKey,
+                    //     parentValuePath: gtFormField.valuePath,
+                    //     parentTextEditingController:
+                    //         gtFormField.textEditingController,
+                    //   ),
+                    // );
+                  }
+                },
+                looupKeyVisibile: gtFormField.looupKeyVisibile,
+                lookupFields: gtFormField.lookupFields,
+                //selectedTaglist: selectedlookupData[gtFormField.nodeKey].value,
+                onSuggestionSelected: (_val, isMutli) {
+                  setselectedLookupDataValues(
+                    gtFormField.nodeKey,
+                    _val,
+                    fromOnChanged: true,
+                    ismultiSelect: isMutli,
+                    fieldKey: gtFormField.fieldKey,
+                    valuePath: gtFormField.valuePath,
+                  );
+                },
+                suggestionsCallback: (pattern) {
+                  // return getSuggestions(
+                  //   pattern,
+                  //   gtFormField.nodeKey,
+                  //   gtFormField.lookupFields,
+                  // );
+                },
+                textEditingController: gtFormField.textEditingController,
+                //taglist: lookupData[gtFormField.nodeKey],
+                onDeleted: (val) => {
+                  // onDeleteHandler(
+                  //   gtFormField.nodeKey,
+                  //   val,
+                  //   ismultiSelect: gtFormField.isMultiselect,
+                  //   fieldKey: gtFormField.fieldKey,
+                  //   valuePath: gtFormField.valuePath,
+                  //   focusNode: gtFormField.focusNode,
+                  // )
+                },
+                focusNode: gtFormField.focusNode,
+              ),
+            )
+            // )
+            );
         break;
 
       case GtFormFieldType.DATETIME:
@@ -1002,7 +1074,8 @@ class Common {
                 type: gtFormField.dateTimeType,
                 dateFormat: gtFormField.dateFormat,
                 isReadOnly: gtFormField.isreadOnly,
-                initialDate: fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
+                initialDate:
+                    fieldValues[gtFormField.fieldKey] ?? DateTime.now(),
                 firstDate: gtFormField.firstDate ?? DateTime(1990),
                 lastDate: gtFormField.lastDate ?? DateTime(2100),
                 prefixDateIcon: gtFormField.prefixDateIcon,
@@ -1032,116 +1105,112 @@ class Common {
                     fromOnChanged: true,
                   );
                 },
-              
-          ),
-        ));
+              ),
+            ));
         break;
 
       case GtFormFieldType.CHECKBOX:
         return Expanded(
             flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
             child: Container(
-          padding: _formFieldPadding,
-          child: 
-          GtCheckboxFormField(
-              isRequired: gtFormField.isRequired,
-              label: key,
-              displayMapFields: gtFormField.displayMapFields,
-              selectedCheckboxValues: 
-                   getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
-              onChangedHandler: (isChecked, _val) {
-                ///HERE CALLING CONTROLLER FUNCTION FOR SETTINGTHE CHECBOX FIELD CHECKED AND UNCHECKED DATA
-                setFormCheckboxFieldValues(
-                  gtFormField.fieldKey,
-                  _val,
-                  isChecked,
-                  fieldKey: gtFormField.fieldKey,
-                  forLookupForm: forLookupForm,
-                  setApiVariables: true,
-                );
-              },
-              textStyle: textStyle,
-              validationMessage: validationMessage,
-              )
-        ));
+                padding: _formFieldPadding,
+                child: GtCheckboxFormField(
+                  isRequired: gtFormField.isRequired,
+                  label: key,
+                  displayMapFields: gtFormField.displayMapFields,
+                  selectedCheckboxValues: getFieldValues(gtFormField.fieldKey,
+                      forLookupForm: forLookupForm),
+                  onChangedHandler: (isChecked, _val) {
+                    ///HERE CALLING CONTROLLER FUNCTION FOR SETTINGTHE CHECBOX FIELD CHECKED AND UNCHECKED DATA
+                    setFormCheckboxFieldValues(
+                      gtFormField.fieldKey,
+                      _val,
+                      isChecked,
+                      fieldKey: gtFormField.fieldKey,
+                      forLookupForm: forLookupForm,
+                      setApiVariables: true,
+                    );
+                  },
+                  textStyle: textStyle,
+                  validationMessage: validationMessage,
+                )));
         break;
 
       case GtFormFieldType.RADIO_BUTTON:
         return Expanded(
             flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
             child: Container(
-          padding: _formFieldPadding,
-          child: 
-          //  Obx(() => 
-          GtRadioButtonFormField(
-              isRequired: gtFormField.isRequired,
-              label: key,
-              displayMapFields: gtFormField.displayMapFields,
-              selectedRadioButtonVal: 
-                  getFieldValues(gtFormField.fieldKey, forLookupForm: forLookupForm),
-              onChangedHandler: (isChecked, _val) {
-                setFieldValues(
-                  gtFormField.fieldKey,
-                  _val,
-                  forLookupForm: forLookupForm,
-                  fromOnChanged: true,
-                );
+              padding: _formFieldPadding,
+              child:
+                  //  Obx(() =>
+                  GtRadioButtonFormField(
+                isRequired: gtFormField.isRequired,
+                label: key,
+                displayMapFields: gtFormField.displayMapFields,
+                selectedRadioButtonVal: getFieldValues(gtFormField.fieldKey,
+                    forLookupForm: forLookupForm),
+                onChangedHandler: (isChecked, _val) {
+                  setFieldValues(
+                    gtFormField.fieldKey,
+                    _val,
+                    forLookupForm: forLookupForm,
+                    fromOnChanged: true,
+                  );
 
-                ///HANDLING RADIO BUTTON ON CHANGE EVENT
-                formFieldOnChangeHandler(
-                  gtFormField.fieldKey,
-                  _val,
-                  forLookupForm: forLookupForm,
-                  fromOnChanged: true,
-                );
-              },
-              textStyle: textStyle,
-              validationMessage: validationMessage,
-             ),
-          // ),
-        ));
+                  ///HANDLING RADIO BUTTON ON CHANGE EVENT
+                  formFieldOnChangeHandler(
+                    gtFormField.fieldKey,
+                    _val,
+                    forLookupForm: forLookupForm,
+                    fromOnChanged: true,
+                  );
+                },
+                textStyle: textStyle,
+                validationMessage: validationMessage,
+              ),
+              // ),
+            ));
         break;
 
       case GtFormFieldType.SWITCH_BUTTON:
         return Expanded(
             flex: isMobilePortrait ? gtFormField.mobileFlex : gtFormField.flex,
             child: Container(
-          padding: _formFieldPadding,
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child:
-          GtSwitchButtonFormField(
-              isRequired: gtFormField.isRequired,
-              label: key,
-              validationMessage: validationMessage,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              textStyle: textStyle,
-              switchValue: getFieldValues(
-                gtFormField.fieldKey,
-                forLookupForm: forLookupForm,
-              ),
-              onChangedHandler: (onChangedVal) {
-                setFieldValues(
-                  gtFormField.fieldKey,
-                  onChangedVal,
-                  forLookupForm: forLookupForm,
-                  fromOnChanged: true,
-                );
+                padding: _formFieldPadding,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: GtSwitchButtonFormField(
+                    isRequired: gtFormField.isRequired,
+                    label: key,
+                    validationMessage: validationMessage,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textStyle: textStyle,
+                    switchValue: getFieldValues(
+                      gtFormField.fieldKey,
+                      forLookupForm: forLookupForm,
+                    ),
+                    onChangedHandler: (onChangedVal) {
+                      setFieldValues(
+                        gtFormField.fieldKey,
+                        onChangedVal,
+                        forLookupForm: forLookupForm,
+                        fromOnChanged: true,
+                      );
 
-                ///HANDLING RADIO BUTTON ON CHANGE EVENT
-                formFieldOnChangeHandler(
-                  gtFormField.fieldKey,
-                  onChangedVal,
-                  forLookupForm: forLookupForm,
-                  fromOnChanged: true,
-                );
-              },
-            ),)
-        ));
+                      ///HANDLING RADIO BUTTON ON CHANGE EVENT
+                      formFieldOnChangeHandler(
+                        gtFormField.fieldKey,
+                        onChangedVal,
+                        forLookupForm: forLookupForm,
+                        fromOnChanged: true,
+                      );
+                    },
+                  ),
+                )));
         break;
 
       default:
         return Container();
     }
-  }  
+  }
 }
