@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class GtBottomSheet extends StatelessWidget {
   GtBottomSheet({
@@ -26,13 +27,20 @@ class GtBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
-        ? CupertinoActionSheet(
-            title: title,
-            actions: actions,
-            actionScrollController: actionScrollController,
-            cancelButton: cancelButton,
-          )
+    return !kIsWeb
+        ? Platform.isIOS
+            ? CupertinoActionSheet(
+                title: title,
+                actions: actions,
+                actionScrollController: actionScrollController,
+                cancelButton: cancelButton,
+              )
+            : BottomSheet(
+                onClosing: onClosing ?? () => {},
+                backgroundColor: backgroundColor,
+                builder: builder,
+                elevation: elevation,
+              )
         : BottomSheet(
             onClosing: onClosing ?? () => {},
             backgroundColor: backgroundColor,

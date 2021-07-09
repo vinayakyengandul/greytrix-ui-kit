@@ -90,7 +90,7 @@ class GtButton extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onPressed: onPressed(),
+                    onPressed:()=> onPressed(),
                     color: color ?? Colors.blue,
                     disabledColor: disabledColor ?? Colors.grey,
                     padding: padding ?? EdgeInsets.all(16.0),

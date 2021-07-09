@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+import './gt_icon.dart';
 import '../models/enums.dart';
 
 class GtText extends StatelessWidget {
@@ -43,22 +43,24 @@ class GtText extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(2.0),
                   ),
-               maxLines != null ? Text(
-                  text != null ? text : "",
-                  style: textStyle == null
-                      ? TextStyle(fontFamily: fontFamily)
-                      : textStyle,
-                  overflow: textOverflow,
-                  textAlign: textAlign,
-                  maxLines: maxLines,
-                ) : Text(
-                  text != null ? text : "",
-                  style: textStyle == null
-                      ? TextStyle(fontFamily: fontFamily)
-                      : textStyle,
-                  overflow: textOverflow,
-                  textAlign: textAlign,
-                ),
+                maxLines != null
+                    ? Text(
+                        text != null ? text : "",
+                        style: textStyle == null
+                            ? TextStyle(fontFamily: fontFamily)
+                            : textStyle,
+                        overflow: textOverflow,
+                        textAlign: textAlign,
+                        maxLines: maxLines,
+                      )
+                    : Text(
+                        text != null ? text : "",
+                        style: textStyle == null
+                            ? TextStyle(fontFamily: fontFamily)
+                            : textStyle,
+                        overflow: textOverflow,
+                        textAlign: textAlign,
+                      ),
                 if (position == GtPosition.POSTFIX && iconData != null)
                   Padding(
                     child: GtIcon(
@@ -71,21 +73,23 @@ class GtText extends StatelessWidget {
               ],
             ),
           )
-        : maxLines != null ? Text(
-          text != null ? text : "",
-          style: textStyle == null
-              ? TextStyle(fontFamily: fontFamily)
-              : textStyle,
-          overflow: textOverflow,
-          textAlign: textAlign,
-          maxLines: maxLines,
-        ) : Text(
-          text != null ? text : "",
-          style: textStyle == null
-              ? TextStyle(fontFamily: fontFamily)
-              : textStyle,
-          overflow: textOverflow,
-          textAlign: textAlign,
-        );
+        : maxLines != null
+            ? Text(
+                text != null ? text : "",
+                style: textStyle == null
+                    ? TextStyle(fontFamily: fontFamily)
+                    : textStyle,
+                overflow: textOverflow,
+                textAlign: textAlign,
+                maxLines: maxLines,
+              )
+            : Text(
+                text != null ? text : "",
+                style: textStyle == null
+                    ? TextStyle(fontFamily: fontFamily)
+                    : textStyle,
+                overflow: textOverflow,
+                textAlign: textAlign,
+              );
   }
 }
