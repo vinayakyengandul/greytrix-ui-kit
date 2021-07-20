@@ -37,3 +37,4 @@ export 'gt_actionsheet.dart';
 export 'gt_dialog.dart';
 export 'package:table_calendar/table_calendar.dart';
 export 'gt_dynamic_form.dart';
+export 'survey_widget.dart';
