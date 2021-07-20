@@ -34,7 +34,7 @@
  - [GtDropdownFormField Widget](#gtdropdownformfield-widget)
  - [GtRadioButtonFormField Widget](#gtradiobuttonformfield-widget)
  - [GtSwitchButtonFormField Widget](#gtswitchbuttonformfield-widget)
-
+ - [GtSurveyKit Widget](#gtsurveykit-widget)
  
  
  
@@ -2846,3 +2846,79 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 3 : Result :
       
           ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/124451092-ace41000-dda2-11eb-9c3a-06500b708187.png)
+
+# GtSurveyKit Widget
+  
+ The GtSurveyKit widget is used represent the Survey.
+   - Benefits of GtSurveyKit Widget
+      - Handles the font size way based on the screen resolution when specified.
+
+   - Android
+    - Make sure to add this line android:usesCleartextTraffic="true" in your <project-directory>/android/app/src/main/AndroidManifest.xml under application like this:
+         <application
+               android:usesCleartextTraffic="true">
+         </application>
+    - Required Permissions are:
+         <uses-permission android:name="android.permission.INTERNET" />
+         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+         <uses-permission android:name="android.permission.WAKE_LOCK" />
+   - IOS
+    - Add following code in your <project-directory>/ios/Runner/Info.plist
+         <key>NSAppTransportSecurity</key>
+         <dict>
+            <key>NSAllowsArbitraryLoads</key> <true/>
+         </dict>
+         <key>io.flutter.embedded_views_preview</key> <true/> 
+        
+   - Constructors: 
+      - [GtSurveyKit](components.md#gtsurveykit-widget)({
+            this.apiData = "",
+            this.isHtml = true,
+            this.submitData,});
+           
+    - Input Parameters of GtSurveyKit Widget
+      - apiData - String - This is Data of survey for question.
+      - isHtml - bool - This is widget type is html or not.
+      - submitData - Function(dynamic) - This Function It will return survey result.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtSurveyKit widget and specify the Survey to be displayed.
+                
+      ```dart
+            class SurveyDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Survey')),
+                     body: Container(
+                        height: double.infinity,
+                        width:  double.infinity,
+                        child: GtSurveyKit(
+                           apiData: '''{"title":"question12","description":"SURVEY DESCRIPTION","logoPosition":"right","pages":[{"name":"page1","elements":[{"type":"text","name":"question1","title":"question1 TITLE","description":"question1 Description","correctAnswer":"CORRECT ANSWER","isRequired":true},{"type":"text","name":"question2","title":"question2 TITLE","description":"question2 DESCRIPTION","correctAnswer":"CORRECT ANSWER","isRequired":true,"inputType":"datetime"},{"type":"checkbox","name":"question3","title":"question3 CHECKBOX","description":"question3 CHECKBOX DESC","correctAnswer":["item1","item2"],"choices":["item1","item2","item3"],"hasOther":true,"hasSelectAll":true,"maxSelectedChoices":12},{"type":"radiogroup","name":"question4","choices":["item1","item2","item3"]},{"type":"dropdown","name":"question5","choices":["item1","item2","item3"]},{"type":"rating","name":"question6"},{"type":"ranking","name":"question7","choices":["item1","item2","item3"]},{"type":"imagepicker","name":"question8","choices":[{"value":"lion","imageLink":"https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"},{"value":"giraffe","imageLink":"https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"},{"value":"panda","imageLink":"https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg"},{"value":"camel","imageLink":"https://surveyjs.io/Content/Images/examples/image-picker/camel.jpg"}]},{"type":"image","name":"question9","imageLink":"https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"},{"type":"matrix","name":"question10","correctAnswer":{"Row 1":"Column 1","Row 2":"Column 1"},"columns":["Column 1","Column 2","Column 3"],"rows":["Row 1","Row 2"]},{"type":"matrixdropdown","name":"question11","columns":[{"name":"Column 1"},{"name":"Column 2"},{"name":"Column 3"}],"choices":[1,2,3,4,5],"rows":["Row 1","Row 2"]},{"type":"html","name":"question12"}],"questionTitleLocation":"top","title":"PAGE 1","description":"PAGE 1 Description"},{"name":"page2","title":"PAGE 2"}],"showPageNumbers":true,"showProgressBar":"top","progressBarType":"requiredQuestions","questionStartIndex":"1","maxTimeToFinish":12,"maxTimeToFinishPage":2,"showTimerPanel":"top"}''',
+                           submitData: (data){
+                              print("User Side data");
+                              print(data);
+                           },
+                        ),
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtSurveyKit](https://user-images.githubusercontent.com/64594463/126281733-662cc42d-33ff-4903-891d-205de4632856.png)
+
+          ![GtSurveyKit1](https://user-images.githubusercontent.com/64594463/126281839-d8149d79-4947-4c80-bce8-c6c172ef3754.png)
+
+          ![GtSurveyKit2](https://user-images.githubusercontent.com/64594463/126282052-ce846ff7-d602-437b-be36-957acd9f4cb6.png)
