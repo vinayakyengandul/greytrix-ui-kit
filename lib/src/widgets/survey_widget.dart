@@ -3,12 +3,14 @@ import 'package:easy_web_view/easy_web_view.dart';
 
 class GtSurveyKit extends StatelessWidget {
 
-  GtSurveyKit({this.apiData = "",
-    this.isHtml = true,
-    this.submitData,
-  });
+  GtSurveyKit({
+    @required this.apiData,
+    @required this.submitData,
+  }) : assert(apiData != "" && apiData != null && submitData != null);
+  
+  /// Survey question data in String format
   final String apiData;
-  final bool isHtml;
+  /// Survey return data function
   final Function(dynamic) submitData;
 
   @override
@@ -42,7 +44,7 @@ class GtSurveyKit extends StatelessWidget {
               </body>
           </html>''',
         key: UniqueKey(),
-        isHtml: isHtml, // Use Html syntax
+        isHtml: true, // Use Html syntax
         isMarkdown: false, // Use markdown syntax
         convertToWidgets: false, // Try to convert to flutter widgets
         webAllowFullScreen: false,
