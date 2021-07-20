@@ -2855,13 +2855,17 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
 
    - Android
     - Make sure to add this line android:usesCleartextTraffic="true" in your <project-directory>/android/app/src/main/AndroidManifest.xml under application like this:
+      ```dart
          <application
                android:usesCleartextTraffic="true">
          </application>
+      ---
     - Required Permissions are:
+        ```dart
          <uses-permission android:name="android.permission.INTERNET" />
          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
          <uses-permission android:name="android.permission.WAKE_LOCK" />
+       ```
    - IOS
     - Add following code in your <project-directory>/ios/Runner/Info.plist
          <key>NSAppTransportSecurity</key>
