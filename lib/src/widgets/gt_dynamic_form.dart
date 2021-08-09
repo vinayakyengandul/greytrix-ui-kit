@@ -32,6 +32,7 @@ class GtFormDynamic extends StatelessWidget{
     this.isCountShow = false,
     this.valueTextStyle,
     this.formPadding = const EdgeInsets.all(15.0),
+    this.dropdownColor = Colors.grey,
   });
   final Key keyy;
   final String tag;
@@ -59,6 +60,7 @@ class GtFormDynamic extends StatelessWidget{
   final bool isCountShow;
   final TextStyle valueTextStyle;
   final EdgeInsets formPadding;
+  final Color dropdownColor;
   Widget buildform() {
     dynamic rowsData = {};
 
@@ -90,6 +92,7 @@ class GtFormDynamic extends StatelessWidget{
             textStyle: textStyle,
             validationMessage: validationMessage,
             valueTextStyle: valueTextStyle,
+            dropDownColor: dropdownColor,
           ),
         );
         data.add({"Row":row,"panelName":value.panelName, "widget": rowsData[row]});

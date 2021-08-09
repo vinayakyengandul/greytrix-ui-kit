@@ -885,6 +885,7 @@ class Common {
     TextStyle valueTextStyle,
     bool validationMessage = true,
     dynamic obx,
+    Color dropDownColor,
   }) {
     textStyle = textStyle == null
         ? TextStyle(
@@ -938,7 +939,7 @@ class Common {
                 ),
                 iconData: Icons.arrow_drop_down,
                 items: gtFormField.dropdownItems,
-                dropDownBackGround: gtFormField.dropDownBackgroundColor,
+                dropDownBackGround: dropDownColor,
                 textStyle: textStyle,
                 valueTextStyle: valueTextStyle,
                 isReadOnly: gtFormField.isreadOnly,
