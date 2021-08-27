@@ -189,7 +189,7 @@ class GtCartItem extends StatelessWidget {
       // padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(14)),
-        color: Colors.white,
+        color:  Theme.of(context).cardColor,
       ),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

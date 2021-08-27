@@ -62,7 +62,7 @@ class GtDynamicView extends StatelessWidget {
                   value, key, Common.getValue(listItems, value.valuePath),
                   labeltextStyle: headertextStyle ??
                       TextStyle(
-                        color: Color(0xff5a5278).withOpacity(1.0),
+                        color: Theme.of(context).primaryColor.withOpacity(1.0),
                         fontFamily: 'Montserrat-Light',
                         fontSize: 13,
                       ),
@@ -126,7 +126,7 @@ class GtDynamicView extends StatelessWidget {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: backgroundColor ?? Colors.white,
+          color: backgroundColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +138,7 @@ class GtDynamicView extends StatelessWidget {
                 text: title,
                 textStyle: titleTextStyle ??
                     TextStyle(
-                        color: Color(0xff5a5278).withOpacity(0.9),
+                        color: Theme.of(context).primaryColor.withOpacity(0.9),
                         fontFamily: 'Montserrat-Light',
                         fontSize: 16),
               ),
@@ -150,7 +150,7 @@ class GtDynamicView extends StatelessWidget {
     }
 
     return Container(
-        color: cardColor ?? Color(0xfff1f1f1),
+        color: cardColor ?? Theme.of(context).cardColor,
         padding: EdgeInsets.all(15.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

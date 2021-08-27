@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GtCartQuantity extends StatelessWidget {
   GtCartQuantity(
-      {this.iconColor = Colors.black,
+      {this.iconColor,
       this.initialValue = 1,
       this.incrementHandler,
       this.decrementHandler});
@@ -19,7 +19,7 @@ class GtCartQuantity extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               IconButton(
-                color: iconColor,
+                color: iconColor ?? Theme.of(context).iconTheme.color,
                 icon: Icon(Icons.remove_circle_outline),
                 onPressed: () =>
                     {if (decrementHandler != null) decrementHandler},

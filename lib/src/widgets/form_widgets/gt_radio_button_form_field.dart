@@ -39,7 +39,7 @@ class GtRadioButtonFormField extends FormField<dynamic> {
                   (e) => Row(
                     children: [
                       Radio(
-                        activeColor: activeColor ?? Colors.blueGrey,
+                        activeColor: activeColor,
                         groupValue: selectedRadioButtonVal,
                         onChanged: (onChangedVal) {
                           state.didChange(onChangedVal);

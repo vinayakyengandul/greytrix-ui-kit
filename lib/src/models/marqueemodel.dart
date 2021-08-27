@@ -1,0 +1,3 @@
+class MarqueeModel {
+  int position;
+}

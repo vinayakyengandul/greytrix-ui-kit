@@ -12,14 +12,14 @@ class GtNavigationRails extends StatelessWidget {
     this.setindex,
     this.isShowLable = true,
     this.trailingWidget,
-    this.navigationBackGroundColor = Colors.white,
-    this.selectedRowColor = Colors.blueGrey,
-    this.selectedRowDarkColor = Colors.grey,
-    this.iconColor = Colors.black,
+    this.navigationBackGroundColor,
+    this.selectedRowColor,
+    this.selectedRowDarkColor,
+    this.iconColor,
     this.onHoverHandler,
     this.onHover,
     this.selectedTitle = "",
-    this.selectedTitleColor = Colors.blue,
+    this.selectedTitleColor,
     this.selectedTitleChange,
     this.selectedTitleOnTap,
     this.drawerWidth = 200,
@@ -68,7 +68,10 @@ class GtNavigationRails extends StatelessWidget {
         case GtIconType.ICON:
           return GtIcon(
             icondata: nrdlist[index].icon,
-            color: selectedindex == index ? selectedRowDarkColor : iconColor,
+            color: selectedindex == index ? selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color : Theme.of(context).navigationRailTheme.unselectedIconTheme.color,
             size: railIconSize,
           );
           break;
@@ -80,7 +83,10 @@ class GtNavigationRails extends StatelessWidget {
                 AssetImage(nrdlist[index].imageUrl),
                 size: imageSize,
                 color:
-                    selectedindex == index ? selectedRowDarkColor : iconColor,
+                    selectedindex == index ? selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color : iconColor,
               ));
           break;
 
@@ -102,7 +108,7 @@ class GtNavigationRails extends StatelessWidget {
         ? Container(
             width: isShowLable ? drawerWidth : 0,
             height: double.infinity,
-            color: navigationBackGroundColor,
+            color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
             child: Column(
               children: [
                 if (selectedTitle != "" && selectedTitle != null)
@@ -115,7 +121,10 @@ class GtNavigationRails extends StatelessWidget {
                         title: GtText(
                           text: selectedTitle,
                           textStyle: TextStyle(
-                              color: selectedRowDarkColor,
+                              color: selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color,
                               fontSize: 16,
                               fontWeight: FontWeight.w900),
                         ),
@@ -133,16 +142,22 @@ class GtNavigationRails extends StatelessWidget {
                           // color: selectedindex == index
                           //     ? selectedRowColor
                           //     : navigationBackGroundColor,
-                          color: navigationBackGroundColor,
+                          color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
                               right: BorderSide(
                                 color: onHover == index
-                                    ? selectedRowDarkColor
+                                    ? selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color
                                     : selectedindex == index
-                                        ? selectedRowDarkColor
-                                        : navigationBackGroundColor,
+                                        ? selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color
+                                        : navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
                                 width: 2.5,
                               ),
                             )),
@@ -168,7 +183,10 @@ class GtNavigationRails extends StatelessWidget {
                                       child: AnimatedDefaultTextStyle(
                                         style: TextStyle(
                                           color: selectedindex == index
-                                              ? selectedRowDarkColor
+                                              ? selectedRowDarkColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color
                                               : iconColor,
                                           letterSpacing: onHover != null
                                               ? onHover == index
@@ -205,7 +223,7 @@ class GtNavigationRails extends StatelessWidget {
         : Container(
             width: drawerWidth,
             height: double.infinity,
-            color: navigationBackGroundColor,
+            color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
             child: Column(
               children: <Widget>[
                 Container(
@@ -216,7 +234,7 @@ class GtNavigationRails extends StatelessWidget {
                     padding: EdgeInsets.only(
                         left: 20.0, top: 10.0, right: 10.0, bottom: 10.0),
                     decoration: BoxDecoration(
-                      color: navigationBackGroundColor,
+                      color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
                     ),
                     child: Row(
                       children: <Widget>[
@@ -261,7 +279,7 @@ class GtNavigationRails extends StatelessWidget {
                         listExpandedItems[index]["ChildMenu"].length,
                         (i) => Ink(
                           height: 40,
-                          color: selectedRowColor,
+                          color: selectedRowColor ??  Theme.of(context).navigationRailTheme.selectedIconTheme.color,
                           child: ListTile(
                             leading: GtIcon(
                               icondata: listExpandedItems[index]["ChildMenu"][i]
@@ -270,7 +288,7 @@ class GtNavigationRails extends StatelessWidget {
                                   ? listExpandedItems[index]["ChildMenu"][i]
                                       ["IconData"]
                                   : Icons.home,
-                              color: iconColor,
+                              color: Theme.of(context).navigationRailTheme.unselectedIconTheme.color,
                             ),
                             dense: true,
                             title: GtText(
@@ -281,7 +299,10 @@ class GtNavigationRails extends StatelessWidget {
                                       ["Menu"]
                                   : "Home",
                               textStyle: TextStyle(
-                                  color: selectedRowColor, fontSize: 16),
+                                  color: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color, fontSize: 16),
                             ),
                             onTap: () {
                               if (onTapExpanded != null)
@@ -310,7 +331,10 @@ class GtNavigationRails extends StatelessWidget {
                                 listExpandedItems[index]["HeaderIcon"] != null
                                     ? listExpandedItems[index]["HeaderIcon"]
                                     : Icons.home,
-                            color: selectedRowColor,
+                            color: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color,
                           ),
                           dense: true,
                           title: GtText(
@@ -318,7 +342,10 @@ class GtNavigationRails extends StatelessWidget {
                                 ? listExpandedItems[index]["HeaderMenu"]
                                 : "Home",
                             textStyle: TextStyle(
-                                color: selectedRowColor, fontSize: 16),
+                                color: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color, fontSize: 16),
                           ),
                           onTap: () {
                             if (onTapExpanded != null)
@@ -340,7 +367,10 @@ class GtNavigationRails extends StatelessWidget {
                     }
                     return Theme(
                         data: Theme.of(context)
-                            .copyWith(unselectedWidgetColor: selectedRowColor),
+                            .copyWith(unselectedWidgetColor: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color),
                         child: listExpandedItems[index]["ChildMenu"] != null
                             ? ExpansionTile(
                                 childrenPadding: EdgeInsets.only(left: 30.0),
@@ -348,7 +378,10 @@ class GtNavigationRails extends StatelessWidget {
                                   listExpandedItems[index]["HeaderIcon"] != null
                                       ? listExpandedItems[index]["HeaderIcon"]
                                       : Icons.home,
-                                  color: selectedRowColor,
+                                  color: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color,
                                 ),
                                 title: GtText(
                                   text: listExpandedItems[index]
@@ -357,7 +390,10 @@ class GtNavigationRails extends StatelessWidget {
                                       ? listExpandedItems[index]["HeaderMenu"]
                                       : "Home",
                                   textStyle: TextStyle(
-                                      color: selectedRowColor, fontSize: 16),
+                                      color: selectedRowColor ??  Theme.of(context)
+                                      .navigationRailTheme
+                                      .selectedIconTheme
+                                      .color, fontSize: 16),
                                 ),
                                 children: <Widget>[...listWidget])
                             : listWidget[0]);

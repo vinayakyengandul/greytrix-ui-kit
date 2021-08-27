@@ -52,7 +52,7 @@ class GtUserMenuBar extends StatelessWidget {
                   style: greetingTextStyle == null
                       ? TextStyle(
                           fontSize: 14.0,
-                          color: Color.fromRGBO(152, 156, 173, 1),
+                          // color: Color.fromRGBO(152, 156, 173, 1),
                         )
                       : greetingTextStyle,
                 ),
@@ -62,7 +62,7 @@ class GtUserMenuBar extends StatelessWidget {
                     ? TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(38, 50, 98, 1),
+                        // color: Color.fromRGBO(38, 50, 98, 1),
                       )
                     : userNameTextStyle,
               ),

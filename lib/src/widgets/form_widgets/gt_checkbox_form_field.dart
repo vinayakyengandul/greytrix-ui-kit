@@ -38,7 +38,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
                 .map((e) => Row(
                       children: [
                         Checkbox(
-                          activeColor: activeColor ?? Colors.blueGrey,
+                          activeColor: activeColor,
 
                           ///CHECKINF IF SELCTED ITEMS CONTAINS THE VALUE REQUESTED
                           value: selectedCheckboxValues != null

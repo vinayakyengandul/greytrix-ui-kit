@@ -36,8 +36,7 @@ class GTChip extends StatelessWidget {
               text: label,
               //texttype: textFormatType,
               textStyle: textStyle),
-          backgroundColor:
-              backgroundColor != null ? backgroundColor : Colors.white),
+          backgroundColor: backgroundColor),
     );
   }
 }

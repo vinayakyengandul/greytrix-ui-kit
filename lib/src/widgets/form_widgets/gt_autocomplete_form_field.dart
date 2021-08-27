@@ -24,7 +24,7 @@ class GtTagTextField extends StatelessWidget {
     this.suggestionsBoxController,
     this.displayInFieldLabel = false,
     this.labelfontsize,
-    this.textColor = Colors.black,
+    this.textColor,
     this.addButtonOption = false,
     this.customWidgetPanel,
   });

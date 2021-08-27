@@ -74,7 +74,7 @@ class GtDate extends StatelessWidget {
       lastDate: lastDate,
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: themeData ?? ThemeData.light(),
+          data: themeData ?? Theme.of(context),
           child: child,
         );
       },
@@ -100,7 +100,7 @@ class GtDate extends StatelessWidget {
       context: context,
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: themeData ?? ThemeData.light(),
+          data: themeData ?? Theme.of(context),
           child: child,
         );
       },

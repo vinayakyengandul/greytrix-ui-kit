@@ -13,12 +13,12 @@ class GtAppSideBar extends StatelessWidget {
     this.selectedindex,
     this.onTapHandler,
     this.trailingWidget,
-    this.navigationBackGroundColor = Colors.white,
-    this.selectedRowColor = Colors.blueGrey,
-    this.selectedRowDarkColor = Colors.grey,
-    this.iconColor = Colors.black,
+    this.navigationBackGroundColor,
+    this.selectedRowColor,
+    this.selectedRowDarkColor,
+    this.iconColor,
     this.leadingWidget,
-    this.backGroundColor = Colors.white,
+    this.backGroundColor,
     this.width = 60.0,
     this.railTextWidget,
   }) : assert(listApps != null),
@@ -46,7 +46,7 @@ class GtAppSideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backGroundColor,
+      color: backGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
       width: width,
       height: double.infinity,
       padding: EdgeInsets.only(right: 10,left: 10),
@@ -69,14 +69,14 @@ class GtAppSideBar extends StatelessWidget {
                         message: toolTipMessageField(listApps[index]) == null ? "" : toolTipMessageField(listApps[index]),
                         child: Center(
                           child: InkWell(
-                            hoverColor: navigationBackGroundColor,
+                            hoverColor: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
                             onTap: () => {if(onTapHandler != null) onTapHandler(listApps[index])},
                             child : Column(
                               children: [
                                   CircleAvatar(
                                   backgroundColor: isItemSelected(listApps[index])
-                                      ? selectedRowColor
-                                      : navigationBackGroundColor,
+                                      ? selectedRowColor ??  Theme.of(context).navigationRailTheme.selectedIconTheme.color
+                                      : navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
                                     child: getAvatarWidgetContent(listApps[index])
                                  ),
                                 if(railTextWidget != null) railTextWidget(listApps[index]),

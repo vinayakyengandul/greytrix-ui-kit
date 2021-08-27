@@ -8,15 +8,15 @@ import 'dart:io';
 
 class GtFileUpload extends StatelessWidget {
   GtFileUpload({
-    this.backgroundColor = Colors.white,
-    this.borderColor = Colors.black,
+    this.backgroundColor,
+    this.borderColor,
     this.onPressed,
     this.selectedFiles,
     this.iconUpload = Icons.cloud_upload,
-    this.iconColor = Colors.grey,
+    this.iconColor,
     this.iconSize = 100.0,
     this.fileNameShow = true,
-    this.buttonColor = Colors.blue,
+    this.buttonColor,
     this.iconShow = true,
     this.fontSize = 20,
     this.extensions = "pdf",
@@ -44,7 +44,7 @@ class GtFileUpload extends StatelessWidget {
       padding: EdgeInsets.all(30),
       decoration: BoxDecoration(
         color: backgroundColor,
-        border: Border.all(color: borderColor, width: 1),
+        border: Border.all(color: borderColor ?? Theme.of(context).disabledColor , width: 1),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ class GtFileUpload extends StatelessWidget {
             },
             child: GtText(text: "Drag and Drop here",textStyle: TextStyle(color: buttonColor,fontSize: fontSize),)
           ): Container(),
-          kIsWeb ? GtText(text: "Or",textStyle: TextStyle(color: Colors.black,fontSize: fontSize),): Container(),
+          kIsWeb ? GtText(text: "Or",textStyle: TextStyle(fontSize: fontSize),): Container(),
            GtButton(
             text: "Browse",
             buttonStyle: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonColor),textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12))),

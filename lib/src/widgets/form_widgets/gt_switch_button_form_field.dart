@@ -41,7 +41,7 @@ class GtSwitchButtonFormField extends FormField<bool> {
                 ? Platform.isIOS
                     ? CupertinoSwitch(
                         value: switchValue,
-                        activeColor: switchactiveColor ?? Colors.blueGrey,
+                        activeColor: switchactiveColor,
                         onChanged: (changedVal) {
                           if (onChangedHandler != null) {
                             state.didChange(changedVal);
@@ -50,7 +50,7 @@ class GtSwitchButtonFormField extends FormField<bool> {
                         },
                       )
                     : Switch(
-                        activeColor: switchactiveColor ?? Colors.blueGrey,
+                        activeColor: switchactiveColor,
                         value: switchValue,
                         onChanged: (changedVal) {
                           if (onChangedHandler != null) {
@@ -60,7 +60,7 @@ class GtSwitchButtonFormField extends FormField<bool> {
                         },
                       )
                 : Switch(
-                    activeColor: switchactiveColor ?? Colors.blueGrey,
+                    activeColor: switchactiveColor,
                     value: switchValue,
                     onChanged: (changedVal) {
                       if (onChangedHandler != null) {
