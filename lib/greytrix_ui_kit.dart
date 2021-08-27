@@ -4,9 +4,5 @@ library greytrix_ui_kit;
 export './src/models/index.dart';
 export './src/widgets/index.dart';
 export 'package:flutter_signature_pad/flutter_signature_pad.dart';
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export './src/controllers/index.dart';
+export 'package:flex_color_scheme/flex_color_scheme.dart';

@@ -11,7 +11,8 @@ class GtTabButton extends StatelessWidget {
       this.selectedColor,
       this.unselectedColor,
       this.selectedTextStyle,
-      this.unselectedTextStyle});
+      this.unselectedTextStyle,
+      this.isTophighlighted = false});
 
   final String text;
   final int selectedPage;
@@ -21,6 +22,7 @@ class GtTabButton extends StatelessWidget {
   final Color unselectedColor;
   final TextStyle unselectedTextStyle;
   final TextStyle selectedTextStyle;
+  final bool isTophighlighted;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,19 @@ class GtTabButton extends StatelessWidget {
       onTap: onPressed ?? () => {},
       child: Container(
         decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(
-                  color: selectedPage == pageNumber
-                      ? selectedColor ?? Colors.blue
-                      : unselectedColor ?? Colors.white,
-                  width: 5.0)),
+          border: isTophighlighted
+              ? Border(
+                  top: BorderSide(
+                      color: selectedPage == pageNumber
+                          ? selectedColor ?? Theme.of(context).primaryColor
+                      : unselectedColor ?? Theme.of(context).backgroundColor,
+                      width: 5.0))
+              : Border(
+                  bottom: BorderSide(
+                      color: selectedPage == pageNumber
+                         ? selectedColor ?? Theme.of(context).primaryColor
+                      : unselectedColor ?? Theme.of(context).backgroundColor,
+                      width: 5.0)),
         ),
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 20.0),
         child: GtText(

@@ -11,7 +11,7 @@ class GtAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.bottom,
     this.elevation: 0.0,
-    this.backgroundColor = Colors.grey,
+    this.backgroundColor,
     this.flexibleSpace,
   })  : assert(automaticallyImplyLeading != null),
         assert(primary != null),

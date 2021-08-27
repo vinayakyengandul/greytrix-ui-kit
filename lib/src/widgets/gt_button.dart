@@ -91,8 +91,8 @@ class GtButton extends StatelessWidget {
                       ],
                     ),
                     onPressed:()=> onPressed(),
-                    color: color ?? Colors.blue,
-                    disabledColor: disabledColor ?? Colors.grey,
+                    color: color,
+                    disabledColor: disabledColor,
                     padding: padding ?? EdgeInsets.all(16.0),
                     borderRadius:
                         borderRadius ?? BorderRadius.all(Radius.circular(8.0)),
@@ -111,14 +111,14 @@ class GtButton extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: buttonStyle ??
-                        ElevatedButton.styleFrom(
-                          primary: Colors.teal,
-                          onPrimary: Colors.white,
-                          shape: const BeveledRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                        ),
+                    style: buttonStyle,
+                        // ElevatedButton.styleFrom(
+                        //   primary: Colors.teal,
+                        //   onPrimary: Colors.white,
+                        //   shape: const BeveledRectangleBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(5))),
+                        // ),
                     onPressed: () => onPressed(),
                   )
             : ElevatedButton(
@@ -135,13 +135,13 @@ class GtButton extends StatelessWidget {
                     ),
                   ],
                 ),
-                style: buttonStyle ??
-                    ElevatedButton.styleFrom(
-                      primary: Colors.teal,
-                      onPrimary: Colors.white,
-                      shape: const BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                    ),
+                style: buttonStyle,
+                    // ElevatedButton.styleFrom(
+                    //   primary: Colors.teal,
+                    //   onPrimary: Colors.white,
+                    //   shape: const BeveledRectangleBorder(
+                    //       borderRadius: BorderRadius.all(Radius.circular(5))),
+                    // ),
                 onPressed: () => onPressed(),
               )
         : (buttonType == GtButtonType.RADIO)

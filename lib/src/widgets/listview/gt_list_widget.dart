@@ -37,7 +37,7 @@ class GtListPage extends StatelessWidget {
     this.onHoverHandler,
     this.toggleListGridView,
     this.isListView = true,
-    this.backgroundcolor = Colors.white,
+    this.backgroundcolor,
     this.onDeleteHandler,
     this.quantityInitialValue,
     this.incrementHandler,
@@ -46,21 +46,21 @@ class GtListPage extends StatelessWidget {
     this.entity,
     this.isleadingIconPosition = true,
     this.listViewTableType = GTListViewTableType.Normal,
-    this.primaryColor = Colors.blue,
-    this.checkboxactiveColor = Colors.blue,
-    this.checkboxcheckColor = Colors.white,
-    this.checkboxfocusColor = Colors.blue,
-    this.selectedRowColor = Colors.grey,
+    this.primaryColor,
+    this.checkboxactiveColor,
+    this.checkboxcheckColor,
+    this.checkboxfocusColor,
+    this.selectedRowColor,
     this.jsonHeader,
     this.filterBottomSheet,
     this.isLeadingShow = true,
-    this.cardColor = Colors.white,
+    this.cardColor,
     this.swipeToOption,
     this.swipeIcon = Icons.delete,
     this.swipeBackgroundColor = Colors.red,
     this.swipeIconColor = Colors.white,
     this.mobileHeader = false,
-    this.backButtonColor = Colors.black,
+    this.backButtonColor,
     //this.swipeConfirmMessage = "Are you sure you wish to delete this item?",
     this.swipeConfirmMessageTextWidget,
     //this.swipeConfirmButtonText = "DELETE",
@@ -75,6 +75,7 @@ class GtListPage extends StatelessWidget {
         this.itemDatawidget,
         this.isCustomItemWidget = false,
         this.swipeSnackBartextWidget,
+        this.mainCardMargin = const EdgeInsets.all(8),
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -175,160 +176,10 @@ class GtListPage extends StatelessWidget {
   ///Record Item data Widget from User
   final Function(int index,dynamic obj) itemDatawidget;
   final bool isCustomItemWidget;
+  final EdgeInsets mainCardMargin;
 
 
-  ///RETURNS THE LEADING WIDGET
-  Widget getLeadingWidget(int index, bool isImage, String valuePath) {
-    return isLeadingShow
-        ? selectAllcheckbox != null
-            ? isImage
-                ? Container(
-                    width: size.width > 450 ? 30.0 : 65.0,
-                    // screen.isPhone ? 65.0 : 30.0,
-                    padding:
-                        EdgeInsets.only(right: size.width > 450 ? 0.2 : 30),
-                    //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
-                    child: Row(
-                      children: [
-                        Container(
-                          child: listViewTableType == GTListViewTableType.Normal
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 4.0, right: 25.0),
-                                  child: Checkbox(
-                                    value: listItems[index]['IsSelected'],
-                                    onChanged: (value) => {
-                                      if (onSelectionHandler != null)
-                                        onSelectionHandler(
-                                            !listItems[index]['IsSelected'],
-                                            listItems[index])
-                                    },
-                                    checkColor: checkboxcheckColor,
-                                    activeColor: checkboxactiveColor,
-                                    focusColor: checkboxfocusColor,
-                                  ),
-                                )
-                              : Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 10.0, right: 20.0),
-                                  child: Center(
-                                      child: GtCustomCheckbox(
-                                    isChecked: listItems[index]['IsSelected'],
-                                    onchanged: (value) => {
-                                      if (onSelectionHandler != null)
-                                        onSelectionHandler(
-                                            !listItems[index]['IsSelected'],
-                                            listItems[index])
-                                    },
-                                    selectedColor: primaryColor,
-                                    selectedIconColor: Colors.white,
-                                    size: 17,
-                                    iconSize: 11,
-                                  )),
-                                ),
-                        ),
-                        if (isleadingIconPosition)
-                          listItems[index][valuePath].toString() == "" ||
-                                  listItems[index][valuePath] == null
-                              ? Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: Image(
-                                    image: AssetImage(
-                                      'assets/images/no_image_available.png',
-                                      package: 'greytrix_ui_kit',
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: Image(
-                                    image: NetworkImage(
-                                        listItems[index][valuePath]),
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace stackTrace) {
-                                      return Image(
-                                        image: AssetImage(
-                                          'assets/images/no_image_available.png',
-                                          package: 'greytrix_ui_kit',
-                                        ),
-                                      );
-                                    },
-                                  )),
-                      ],
-                    ),
-                  )
-                : isleadingIconPosition
-                    ? GtIconCheckbox(
-                        backgroundColor: backgroundcolor,
-                        icon: Icons.perm_identity,
-                        iconcolor: checkboxcheckColor,
-                        selected: listItems[index]['IsSelected'],
-                        onchanged: (value) => {
-                          if (onSelectionHandler != null)
-                            onSelectionHandler(value, listItems[index])
-                        },
-                        checkboxactiveColor: checkboxactiveColor,
-                        checkboxcheckColor: checkboxcheckColor,
-                        checkboxfocusColor: checkboxfocusColor,
-                      )
-                    : Padding(
-                        padding: EdgeInsets.only(
-                            left: 4.0,
-                            right:
-                                listViewTableType == GTListViewTableType.STRIPED
-                                    ? 0.0
-                                    : 25.0),
-                        child: Center(
-                            child: GtCustomCheckbox(
-                          isChecked: listItems[index]['IsSelected'],
-                          onchanged: (value) => {
-                            if (onSelectionHandler != null)
-                              onSelectionHandler(
-                                  !listItems[index]['IsSelected'],
-                                  listItems[index])
-                          },
-                          selectedColor: primaryColor,
-                          selectedIconColor: Colors.white,
-                          size: 17,
-                          iconSize: 11,
-                        )),
-                      )
-            : isImage && listItems[index][valuePath].toString() == ""
-                ? Container(
-                    width: 50.0,
-                    height: 50.0,
-                    child: Image(
-                      image: AssetImage(
-                        'assets/images/no_image_available.png',
-                        package: 'greytrix_ui_kit',
-                      ),
-                    ),
-                  )
-                : leadingIcon != null
-                    ? CircleAvatar(
-                        child: leadingIcon,
-                        //backgroundColor: Get.context.theme.colorScheme.onPrimary,
-                      )
-                    : Container(
-                        width: 50.0,
-                        height: 50.0,
-                        child: Image(
-                          image: NetworkImage(listItems[index][valuePath]),
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace stackTrace) {
-                            return Image(
-                              image: AssetImage(
-                                'assets/images/no_image_available.png',
-                                package: 'greytrix_ui_kit',
-                              ),
-                            );
-                          },
-                        ))
-        : Container();
-  }
+  
 
   // GETS TRAILING WIDGET
   Widget getTrailingWidget(int index) {
@@ -360,6 +211,158 @@ class GtListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///RETURNS THE LEADING WIDGET
+    Widget getLeadingWidget(int index, bool isImage, String valuePath) {
+      return isLeadingShow
+          ? selectAllcheckbox != null
+              ? isImage
+                  ? Container(
+                      width: size.width > 450 ? 30.0 : 65.0,
+                      // screen.isPhone ? 65.0 : 30.0,
+                      padding:
+                          EdgeInsets.only(right: size.width > 450 ? 0.2 : 30),
+                      //EdgeInsets.only(right: screen.isPhone ? 0.2 : 30),
+                      child: Row(
+                        children: [
+                          Container(
+                            child: listViewTableType == GTListViewTableType.Normal
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, right: 25.0),
+                                    child: Checkbox(
+                                      value: listItems[index]['IsSelected'],
+                                      onChanged: (value) => {
+                                        if (onSelectionHandler != null)
+                                          onSelectionHandler(
+                                              !listItems[index]['IsSelected'],
+                                              listItems[index])
+                                      },
+                                      checkColor: checkboxcheckColor,
+                                      activeColor: checkboxactiveColor,
+                                      focusColor: checkboxfocusColor,
+                                    ),
+                                  )
+                                : Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20.0),
+                                    child: Center(
+                                        child: GtCustomCheckbox(
+                                      isChecked: listItems[index]['IsSelected'],
+                                      onchanged: (value) => {
+                                        if (onSelectionHandler != null)
+                                          onSelectionHandler(
+                                              !listItems[index]['IsSelected'],
+                                              listItems[index])
+                                      },
+                                      selectedColor: primaryColor,
+                                      selectedIconColor: Colors.white,
+                                      size: 17,
+                                      iconSize: 11,
+                                    )),
+                                  ),
+                          ),
+                          if (isleadingIconPosition)
+                            listItems[index][valuePath].toString() == "" ||
+                                    listItems[index][valuePath] == null
+                                ? Container(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/images/no_image_available.png',
+                                        package: 'greytrix_ui_kit',
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: Image(
+                                      image: NetworkImage(
+                                          listItems[index][valuePath]),
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace stackTrace) {
+                                        return Image(
+                                          image: AssetImage(
+                                            'assets/images/no_image_available.png',
+                                            package: 'greytrix_ui_kit',
+                                          ),
+                                        );
+                                      },
+                                    )),
+                        ],
+                      ),
+                    )
+                  : isleadingIconPosition
+                      ? GtIconCheckbox(
+                          backgroundColor: backgroundcolor ?? Theme.of(context).backgroundColor,
+                          icon: Icons.perm_identity,
+                          iconcolor: checkboxcheckColor,
+                          selected: listItems[index]['IsSelected'],
+                          onchanged: (value) => {
+                            if (onSelectionHandler != null)
+                              onSelectionHandler(value, listItems[index])
+                          },
+                          checkboxactiveColor: checkboxactiveColor,
+                          checkboxcheckColor: checkboxcheckColor,
+                          checkboxfocusColor: checkboxfocusColor,
+                        )
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              left: 4.0,
+                              right:
+                                  listViewTableType == GTListViewTableType.STRIPED
+                                      ? 0.0
+                                      : 25.0),
+                          child: Center(
+                              child: GtCustomCheckbox(
+                            isChecked: listItems[index]['IsSelected'],
+                            onchanged: (value) => {
+                              if (onSelectionHandler != null)
+                                onSelectionHandler(
+                                    !listItems[index]['IsSelected'],
+                                    listItems[index])
+                            },
+                            selectedColor: primaryColor,
+                            selectedIconColor: Colors.white,
+                            size: 17,
+                            iconSize: 11,
+                          )),
+                        )
+              : isImage && listItems[index][valuePath].toString() == ""
+                  ? Container(
+                      width: 50.0,
+                      height: 50.0,
+                      child: Image(
+                        image: AssetImage(
+                          'assets/images/no_image_available.png',
+                          package: 'greytrix_ui_kit',
+                        ),
+                      ),
+                    )
+                  : leadingIcon != null
+                      ? CircleAvatar(
+                          child: leadingIcon,
+                          //backgroundColor: Get.context.theme.colorScheme.onPrimary,
+                        )
+                      : Container(
+                          width: 50.0,
+                          height: 50.0,
+                          child: Image(
+                            image: NetworkImage(listItems[index][valuePath]),
+                            errorBuilder: (BuildContext context, Object exception,
+                                StackTrace stackTrace) {
+                              return Image(
+                                image: AssetImage(
+                                  'assets/images/no_image_available.png',
+                                  package: 'greytrix_ui_kit',
+                                ),
+                              );
+                            },
+                          ))
+          : Container();
+    }
     Widget returnNastedScroll() {
       return NotificationListener<ScrollNotification>(
         child: isListView == true
@@ -382,8 +385,8 @@ class GtListPage extends StatelessWidget {
                 getTrailingWidget: getTrailingWidget,
                 isleadingIconPosition: isleadingIconPosition,
                 listViewTableType: listViewTableType,
-                selectedRowColor: selectedRowColor,
-                rowColors: cardColor,
+                selectedRowColor: selectedRowColor ?? Theme.of(context).selectedRowColor,
+                rowColors: cardColor ?? Theme.of(context).cardColor,
                 isLeadingShow: isLeadingShow,
                 swipeToOption: swipeToOption,
                 swipeBackgroundColor: swipeBackgroundColor,
@@ -401,6 +404,7 @@ class GtListPage extends StatelessWidget {
                 itemDatawidget: itemDatawidget,
                 isCustomItemWidget: isCustomItemWidget,
                 swipeSnackBartextWidget: swipeSnackBartextWidget,
+                mainCardMargin: mainCardMargin,
               )
             : GtGridView(
                 cardAspectRatio: cardAspectRatio,
@@ -429,18 +433,13 @@ class GtListPage extends StatelessWidget {
         },
       );
     }
-
     Widget returnColumn() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           listViewTableType == GTListViewTableType.STRIPED
               ? Container(
-                  margin: EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                    top: 25,
-                  ),
+                  margin: mainCardMargin,
                   width: !horizinalScrollable ? double.infinity : null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -591,7 +590,7 @@ class GtListPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  width: 2, color: backButtonColor))),
+                                  width: 2, color: backButtonColor ?? Theme.of(context).disabledColor))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -744,8 +743,8 @@ class GtListPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        margin: EdgeInsets.all(22),
-                        color: backgroundcolor,
+                        margin: mainCardMargin,
+                        color: backgroundcolor ?? Theme.of(context).backgroundColor,
                         child: horizinalScrollable
                             ? SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,

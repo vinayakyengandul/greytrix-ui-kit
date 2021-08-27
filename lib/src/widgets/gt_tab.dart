@@ -13,6 +13,7 @@ class GtTab extends StatelessWidget {
     this.onPressed,
     this.selectedTextStyle,
     this.unselectedTextStyle,
+    this.isTophighlighted = false
   }) : assert(tabPages.length == tablist.length);
 
   final PageController pageController;
@@ -25,6 +26,7 @@ class GtTab extends StatelessWidget {
   final TextStyle selectedTextStyle;
   final TextStyle unselectedTextStyle;
   final ScrollController tabcontroller;
+  final bool isTophighlighted;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,9 @@ class GtTab extends StatelessWidget {
                           unselectedColor: unselectedColor,
                           selectedTextStyle: selectedTextStyle,
                           unselectedTextStyle: unselectedTextStyle,
+                          isTophighlighted: isTophighlighted,
+
+
                         ),
                       ),
                 ],

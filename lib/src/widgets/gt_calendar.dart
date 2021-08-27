@@ -56,8 +56,8 @@ class GtCalendar extends StatelessWidget {
         // Use `CalendarStyle` to customize the UI
         outsideDaysVisible: false,
         isTodayHighlighted: true,
-        selectedDecoration: const BoxDecoration(
-          color: const Color(0xFF5C6BC0),
+        selectedDecoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
           shape: BoxShape.circle,
         ),
       ),

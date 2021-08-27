@@ -4,7 +4,7 @@ import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 class GtAvatar extends StatelessWidget {
   GtAvatar({
     this.radius = 15,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor,
     this.childWidget,
     this.backGroundImage,
     this.isMultiple = false,

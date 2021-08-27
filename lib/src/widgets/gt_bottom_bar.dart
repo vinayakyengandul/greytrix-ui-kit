@@ -37,12 +37,10 @@ class GtBottomBar extends StatelessWidget {
     return !kIsWeb
         ? Platform.isIOS
             ? CupertinoTabBar(
-                activeColor: selectedItemColor ?? Colors.blueAccent,
-                backgroundColor: backgroundColor == null
-                    ? Color(0xfff1f1f1)
-                    : backgroundColor,
+                activeColor: selectedItemColor ?? Theme.of(context).primaryColor,
+                backgroundColor: backgroundColor,
                 items: bottombarItems,
-                inactiveColor: unselectedItemColor ?? Colors.white,
+                inactiveColor: unselectedItemColor ?? Theme.of(context).backgroundColor,
                 onTap: onTaphandler == null ? (value) => {} : onTaphandler,
                 iconSize: iconsSize ?? 30.0,
               )
@@ -52,22 +50,20 @@ class GtBottomBar extends StatelessWidget {
                 type: bartype,
                 showSelectedLabels: showSelectedLabels,
                 showUnselectedLabels: showUnselectedLabels,
-                backgroundColor: backgroundColor == null
-                    ? Color(0xfff1f1f1)
-                    : backgroundColor,
+                backgroundColor: backgroundColor,
                 unselectedIconTheme: unselectedIconThemedata == null
                     ? IconThemeData(
-                        color: Color(0xff5a5278),
+                        color: Theme.of(context).iconTheme.color,
                       )
                     : unselectedIconThemedata,
                 selectedIconTheme: unselectedIconThemedata == null
                     ? IconThemeData(
-                        color: Color(0xff5a5278),
+                        color: Theme.of(context).iconTheme.color,
                       )
                     : selectedIconThemedata,
                 items: bottombarItems,
-                unselectedItemColor: unselectedItemColor ?? Colors.white,
-                selectedItemColor: selectedItemColor ?? Colors.blueAccent,
+                unselectedItemColor: unselectedItemColor ?? Theme.of(context).backgroundColor,
+                selectedItemColor: selectedItemColor ?? Theme.of(context).primaryColor,
               )
         : BottomNavigationBar(
             elevation: elevation == null ? 8.0 : elevation,
@@ -75,21 +71,20 @@ class GtBottomBar extends StatelessWidget {
             type: bartype,
             showSelectedLabels: showSelectedLabels,
             showUnselectedLabels: showUnselectedLabels,
-            backgroundColor:
-                backgroundColor == null ? Color(0xfff1f1f1) : backgroundColor,
+            backgroundColor:  backgroundColor,
             unselectedIconTheme: unselectedIconThemedata == null
                 ? IconThemeData(
-                    color: Color(0xff5a5278),
+                    color: Theme.of(context).iconTheme.color,
                   )
                 : unselectedIconThemedata,
             selectedIconTheme: unselectedIconThemedata == null
                 ? IconThemeData(
-                    color: Color(0xff5a5278),
+                    color:Theme.of(context).iconTheme.color,
                   )
                 : selectedIconThemedata,
             items: bottombarItems,
-            unselectedItemColor: unselectedItemColor ?? Colors.white,
-            selectedItemColor: selectedItemColor ?? Colors.blueAccent,
+            unselectedItemColor: unselectedItemColor ?? Theme.of(context).backgroundColor,
+            selectedItemColor: selectedItemColor ?? Theme.of(context).primaryColor,
           );
   }
 }

@@ -22,6 +22,8 @@ dependencies:
   universal_html: ^2.0.8
   table_calendar: ^3.0.0
   easy_web_view: ^1.5.0
+  get: '4.1.4'
+  flex_color_scheme: ^3.0.1
   
   # palette_generator: ^0.3.0
   # avatar_glow: ^2.0.1

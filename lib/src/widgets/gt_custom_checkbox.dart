@@ -20,7 +20,7 @@ class GtCustomCheckbox extends StatelessWidget {
         duration: Duration(milliseconds: 50),
         curve: Curves.fastLinearToSlowEaseIn,
         decoration: BoxDecoration(
-          color: isChecked ? selectedColor ?? Colors.blue : Colors.transparent,
+          color: isChecked ? selectedColor ?? Theme.of(context).toggleableActiveColor : Colors.transparent,
           borderRadius: BorderRadius.circular(5.0),
           border: isChecked ? null : Border.all(
             color: Colors.grey,
@@ -31,7 +31,7 @@ class GtCustomCheckbox extends StatelessWidget {
         height: size ?? 30,
         child: isChecked ? Icon(
           Icons.check,
-          color: selectedIconColor ?? Colors.white,
+          color: selectedIconColor,
           size: iconSize ?? 12,
         ) : null,
       ),

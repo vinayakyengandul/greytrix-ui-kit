@@ -38,3 +38,5 @@ export 'gt_dialog.dart';
 export 'package:table_calendar/table_calendar.dart';
 export 'gt_dynamic_form.dart';
 export 'survey_widget.dart';
+export 'marquee.dart';
+export 'gt_app_button.dart';

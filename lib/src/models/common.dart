@@ -642,13 +642,7 @@ class Common {
         );
         Widget btnWidget = value != "" && value != false
             ? GtButton(
-                buttonStyle: gtTileField.buttonStyle != null
-                    ? gtTileField.buttonStyle
-                    : ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white)),
+                buttonStyle: gtTileField.buttonStyle,
                 // Button Value is true than show KEY value
                 text: value == true ? '$key' : value.toString(),
                 onPressed: () {

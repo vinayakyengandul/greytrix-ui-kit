@@ -24,8 +24,8 @@ class GtListView extends StatelessWidget {
     this.decrementHandler,
     this.isleadingIconPosition = true,
     this.listViewTableType = GTListViewTableType.Normal,
-    this.selectedRowColor = Colors.grey,
-    this.rowColors = Colors.white,
+    this.selectedRowColor,
+    this.rowColors,
     this.isLeadingShow = true,
     this.swipeToOption,
     this.swipeIcon = Icons.delete,
@@ -44,6 +44,7 @@ class GtListView extends StatelessWidget {
         this.itemDatawidget,
         this.isCustomItemWidget = false,
         this.swipeSnackBartextWidget,
+        this.mainCardMargin = const EdgeInsets.all(8.0),
   })  : assert(listItems != null),
         assert(rowsCount != null),
          assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -101,6 +102,8 @@ class GtListView extends StatelessWidget {
   ///Record Item data Widget from User
   final Function(int index,dynamic obj) itemDatawidget;
   final bool isCustomItemWidget;
+  // MAIN CARD MARGIN
+  final EdgeInsets mainCardMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -359,7 +362,7 @@ class GtListView extends StatelessWidget {
         isleadingIconPosition: isleadingIconPosition,
         rowColor: color,
         listViewTableType: listViewTableType,
-        selectedRowColor: selectedRowColor,
+        selectedRowColor: selectedRowColor ?? Theme.of(context).selectedRowColor,
         cardMarginEdgeInsets: cardMarginEdgeInsets,
         horizinalScrollable: horizinalScrollable,
         listItemPadding: listItemPadding,
@@ -411,8 +414,7 @@ class GtListView extends StatelessWidget {
 
     return !horizinalScrollable
         ? ListView.builder(
-            padding: EdgeInsets.all(
-                listViewTableType == GTListViewTableType.Normal ? 0.0 : 20),
+            padding: listViewTableType == GTListViewTableType.Normal ? EdgeInsets.all(0.0) : mainCardMargin,
             itemCount: listItems.length,
             itemBuilder: (context, index) {
               return returnTile(index);

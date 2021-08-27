@@ -21,13 +21,13 @@ class GtProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return circularProgress
         ? CircularProgressIndicator(
-            backgroundColor: Colors.blue,
+            backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
             value: value ?? 10,
             valueColor: AlwaysStoppedAnimation(Colors.green),
             strokeWidth: strokeWidth ?? 10,
           )
         : LinearProgressIndicator(
-            backgroundColor: Colors.blue,
+            backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
             value: value,
             minHeight: minHeight,
             valueColor: AlwaysStoppedAnimation(Colors.grey),

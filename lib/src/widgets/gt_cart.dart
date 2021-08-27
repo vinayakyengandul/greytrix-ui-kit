@@ -51,7 +51,7 @@ class GtCartDetails extends StatelessWidget {
             child: Text(
               cartTitle ?? 'Cart',
               style: TextStyle(
-                  color: Colors.black,
+                  // color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -78,7 +78,7 @@ class GtCartDetails extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(5.00),
             child: Card(
-              color: Color(0xff5a5278),
+              color:  Theme.of(context).primaryColor,
               elevation: 8.0,
               margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
               shape: RoundedRectangleBorder(
@@ -96,7 +96,7 @@ class GtCartDetails extends StatelessWidget {
                               GtText(
                                 text: footertitle ?? 'Cart Total',
                                 textStyle: TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18),
                               ),
@@ -115,7 +115,7 @@ class GtCartDetails extends StatelessWidget {
                                     ? '\$$footerAmount'
                                     : '\$0',
                                 textStyle: TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18),
                               ),

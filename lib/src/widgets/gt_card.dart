@@ -49,8 +49,8 @@ class GtCard extends StatelessWidget {
         borderOnForeground: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         margin: EdgeInsets.all(2.0),
-        shadowColor: shadowColor ?? Colors.white,
-        color: cardColor ?? Colors.white,
+        shadowColor: shadowColor  ?? Theme.of(context).shadowColor,
+        color: cardColor ?? Theme.of(context).cardColor,
         shape: shape ??
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(cardRadius ?? 5.0)),
