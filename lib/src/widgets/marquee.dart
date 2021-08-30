@@ -18,7 +18,7 @@ class GtMarquee extends StatelessWidget {
     this.textList = const [],
     this.textSpanList = const [],
     this.fontSize = 14.0,
-    this.textColor = Colors.black,
+    this.textColor,
     this.scrollDuration = const Duration(seconds: 1),
     this.stopDuration = const Duration(seconds: 3),
     this.tapToNext = false,
@@ -35,22 +35,21 @@ class GtMarquee extends StatelessWidget {
       textList: textList,
       textSpanList: textSpanList,
     ));
-    if (textList.length == 1) {
+    if (controller.textList.length == 1) {
       return Center(
-        child: Text(
-          textList[0],
-          style: TextStyle(
+        child: GtText(
+          text: controller.textList[0],
+          textStyle: TextStyle(
             fontSize: fontSize,
             color: textColor,
           ),
         ),
       );
     }
-
-    if (textSpanList.length == 1) {
+    if (controller.textSpanList.length == 1) {
       return Center(
         child: Text.rich(
-          textSpanList[0],
+          controller.textSpanList[0],
           style: TextStyle(
             fontSize: fontSize,
             color: textColor,
@@ -62,7 +61,7 @@ class GtMarquee extends StatelessWidget {
       child:  CustomPaint(
         child: Container(),
         painter: _MarqueePainter(
-          textList,
+          controller.textList,
           textSpanList: textSpanList,
           fontSize: fontSize,
           textColor: textColor,
@@ -79,7 +78,6 @@ class GtMarquee extends StatelessWidget {
         child: _widget,
       );
     }
-
     return _widget;
   }
 }
@@ -140,8 +138,6 @@ class _MarqueePainter extends CustomPainter {
 
     textPainter.layout(maxWidth: size.width);
     textPainter.paint(canvas, _getTextOffset(textPainter, size));
-    print(_paintCurrent);
-    print(textPainter.text);
   }
 
   _paintNext(Size size, Canvas canvas) {
@@ -152,8 +148,6 @@ class _MarqueePainter extends CustomPainter {
 
     textPainter.layout(maxWidth: size.width);
     textPainter.paint(canvas, _getTextOffset(textPainter, size, isNext: true));
-    print("_paintNext");
-    print(textPainter.text);
   }
 
   Offset _getTextOffset(
