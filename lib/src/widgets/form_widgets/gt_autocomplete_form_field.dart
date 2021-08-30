@@ -27,6 +27,7 @@ class GtTagTextField extends StatelessWidget {
     this.textColor,
     this.addButtonOption = false,
     this.customWidgetPanel,
+    this.valueTextStyle,
   });
 
   final String fieldLabel;
@@ -57,6 +58,8 @@ class GtTagTextField extends StatelessWidget {
   final bool addButtonOption;
   //Custom Widget for panel item
   final Function(dynamic obj) customWidgetPanel;
+  // FILED TEXT VALUE STYLE
+  final TextStyle valueTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +83,7 @@ class GtTagTextField extends StatelessWidget {
         ///SUGGESTION FIELD
         TypeAheadFormField(
           textFieldConfiguration: TextFieldConfiguration(
+            style: valueTextStyle,
             focusNode: focusNode,
             decoration: InputDecoration(
               ///LABEL INSIDE INPUT
@@ -88,7 +92,7 @@ class GtTagTextField extends StatelessWidget {
                   : null,
               labelStyle: displayInFieldLabel && fieldLabel != null
                   ? TextStyle(
-                      color: Colors.grey,
+                      color: textColor,
                       fontSize: labelfontsize,
                     )
                   : null,
