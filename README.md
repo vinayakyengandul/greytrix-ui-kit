@@ -35,6 +35,7 @@
  - [GtRadioButtonFormField Widget](#gtradiobuttonformfield-widget)
  - [GtSwitchButtonFormField Widget](#gtswitchbuttonformfield-widget)
  - [GtSurveyKit Widget](#gtsurveykit-widget)
+ - [GtMarquee Widget](#gtmarquee-widget)
  
  
  
@@ -55,7 +56,9 @@
                      this.iconData,
                      this.iconSize,
                      this.iconColor,
-                     this.position = GtPosition.PREFIX,});
+                     this.position = GtPosition.PREFIX,
+                     this.textAlign = TextAlign.start,
+                     this.maxLines,});
            
    - Input Parameters of GtText Widget
       - text - String - This is required parameter, it well show text.
@@ -66,10 +69,12 @@
       - iconSize - double - Provide a size for the Icon.
       - iconColor - Color - Provide  a color for the Icon.
       - position - GtPosition - Provide aposition for the icon to be displayed before or after the text.
+      - textAlign - TextAlign - This is used for Align the text, Default value is TextAlign.start.
+      - maxLines - int - Text Field define maxline if null its showing default.
       
    - Example
     
-      - Step 1 : Import core in files that it will be used:
+      - Step 1 : Import UI KIT in files that it will be used:
 
       ```dart
          import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -151,12 +156,27 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
     - Best suited to used in the leading parameter fo Listtile Widget.
     
   - Constructors: 
-    - [GtIconCheckbox](components.md#gticoncheckbox-widget){@required this.icon, this.selected = false, @required this.onchanged});
+    - [GtIconCheckbox](components.md#gticoncheckbox-widget){
+       @required this.icon, 
+       this.selected = false,
+      @required this.onchanged,
+      @required this.backgroundColor,
+      this.checkboxcheckColor,
+      this.checkboxactiveColor,
+      this.checkboxfocusColor,
+      this.iconcolor,
+      this.iconfocuscolor,});
     
   - Input Parameters of GtIconCheckbox Widget
     - icon - Icondata - Expects the Icons data which is used to displayed.
     - selected - bool - Bool value to flip between the checkbox and Icon widget
     - onchanged - Function - Function to that handles the On changed event of both the widgets.
+    - backgroundColor - Color - This is required parameter this define background color of checkbox.
+    - checkboxcheckColor - Color - This is check box check color.
+    - checkboxactiveColor - Color - This is check box active color.
+    - checkboxfocusColor - Color - This is focus color of check box.
+    - iconcolor - Color - This is Color of icon.
+    - iconfocuscolor - Color - This is Color of icon focus color.
     Note : The function passed above it is completely handled in the Controller of the widget and it should be the void return type.
 
  - Example
@@ -185,6 +205,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                           icon: Icons.account_circle,
                           selected: isSelected,
                           onchanged: (value) => checkitem(value),
+                          backgroundColor: Colors.white,
                         ),
                         trailing: GtIcon(
                           icondata: Icons.arrow_forward_ios_rounded,
@@ -203,12 +224,6 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
         ![image](https://user-images.githubusercontent.com/64594463/103772299-4e3a1580-504f-11eb-940d-2e116862f956.png)
    
    
-   
-   
-   
-   
-   
-   
 # GtTextFormField Widget
   
  The gttextformfield widget is used represent the text form field on the Screen with responsive sizing handle by the core package.
@@ -220,7 +235,12 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - [GtTextFormField](components.md#gttextformfield-widget)({@required this.fieldLabel, this.maxLength = 1000, this.maxLines = 1, this.minLines = 1,
             this.isReadOnly = false, this.textEditingController, this.textInputType = TextInputType.text,
             this.isRequired = false, this.onChangeHandler, this.padding = const EdgeInsets.all(0.0),
-            this.obscureText = false, this.onSaveHandler});
+            this.obscureText = false, this.onSaveHandler,
+            this.chips,
+            this.prefixIcon,
+            this.labeltextStyle,
+            this.textStyle,
+            this.onTapHandler});
              
    - Input Parameters of GtTextFormField Widget
       - fieldLabel - String - This is required parameter, it well show field label name.
@@ -235,6 +255,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - obscureText - bool - Whether to hide the text being edited (e.g., for passwords). Defaults to false.
       - onChangeHandler - Function(dynamic val) - Signature for callbacks that report that an underlying value has changed.
       - onSaveHandler - Function(dynamic val) - An optional method to call with the final value when the form is saved.
+      - chips - Widget - This used for suffixIcons in FormText Field.
+      - prefixIcon - Icon - This is prefix for TextForm Field.
+      - labeltextStyle - TextStyle - This is InputDecoration label TextStyle.
+      - textStyle - TextStyle - This is text style of formField.
+      - onTapHandler - Function - This is ontap handler used for formField click.
       
    - Example
     
@@ -302,7 +327,9 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
    - Input Parameters of GTChip Widget
        - label - String - The primary content of the GTChip. It shows text in chip.
        - backgroundColor - Color - It will use in background color in GtChip widget.
-       - textFormatType - TextformatType - GTChip widget text format is taking from TextformatType and its default value is TextformatType.subtitle2. 
+       - textStyle - TextStyle - This is text style for chip Text.
+       - avatar - Widget - This is chip widget avatar.
+       - shapeBorder - ShapeBorder - Chip Widget shape Border Define.
       
    - Example
     
@@ -470,7 +497,26 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
     
    - Constructors:
       - [GtNavigationRails](components.md#gtnavigationrails-widget)({this.nrdlist,
-          this.selectedindex, this.setindex, this.isShowLable = true, this.trailing});
+          this.selectedindex, this.setindex, this.isShowLable = true, this.trailing, this.navigationBackGroundColor,
+         this.selectedRowColor,
+         this.selectedRowDarkColor,
+         this.iconColor,
+         this.onHoverHandler,
+         this.onHover,
+         this.selectedTitle = "",
+         this.selectedTitleColor,
+         this.selectedTitleChange,
+         this.selectedTitleOnTap,
+         this.drawerWidth = 200,
+         this.railIconSize = 16,
+         this.svgheight = 23,
+         this.svgwidth = 23,
+         this.imageSize = 20,
+         this.isExpandedNavigation = false,
+         this.userProfileLink,
+         this.listExpandedItems,
+         this.onTapExpanded,
+         this.titleTextStyle,});
               
    - Input Parameters of GtNavigationRails Widget   
       - nrdlist - List<Rails> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
@@ -478,6 +524,26 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - setindex - Function - Called when one of the destinations is selected.
       - isShowLable - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
       - trailingWidget - List<Widget> - The trailing List of widget is placed bottom of the rails last NavigationRailDestination. It's location is affected by groupAlignment.
+      - navigationBackGroundColor - Color - Navigation Drawer background color.
+      - selectedRowColor - Color - This is selected row color defines.
+      - selectedRowDarkColor - Color - This is selected dark color Defines.
+      - iconColor - Color - This Defines the Icon Color in rails.
+      - onHoverHandler - Function - Rails on hover function.
+      - onHover - int - Index of hover in rails.
+      - selectedTitle - String - This is selected rails String value.
+      - selectedTitleColor - Color - Selected Tile Color defines.
+      - selectedTitleChange - Widget - Selected tile on change Function in rails.
+      - selectedTitleOnTap - Function - on Tap function of Tile Selected.
+      - drawerWidth - double - This is drawer widgth defines, defualt is 200.
+      - railIconSize - double - This defines the icon size of rails.
+      - svgheight - double - This is height of svg.
+      - svgwidth - double -  This is width of svg.
+      - imageSize - double - This is size of Image.
+      - isExpandedNavigation - bool - This is defines type of rails.
+      - userProfileLink - String - Profile link as string.
+      - listExpandedItems - List<dynamic> - This is List of Expanded Rails.
+      - onTapExpanded - Function - On Tap expanded Item Function.
+      - titleTextStyle - TextStyle - TextStyle of title field.
       
    - Example
     
@@ -556,7 +622,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - dialogTitle - String - This contains dialog title text.                
       - searchBox - bool - This is option for search box is given or not by bool. default is false.                 
       - searchOnChangeHandler - Function - This function is when we search any key in search box that items list is filter by searchOnChangeHandler funation.                  
-      - dialogHeight - double - This will define dialog height. Default height is 350.               
+      - dialogHeight - double - This defines the dialog height. Default height is 350.               
                            
    - Example
     
@@ -619,7 +685,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       
    - Constructors: 
       - [GtAppBar](components.md#gtappbar-widget)({Key key,this.primary = true,this.leading,
-            this.automaticallyImplyLeading = true,this.title,this.actions,this.bottom,});
+            this.automaticallyImplyLeading = true,this.title,this.actions,this.bottom,
+            this.elevation: 0.0,
+            this.backgroundColor,
+            this.flexibleSpace,});
              
    - Input Parameters of GtAppBar Widget
       - key - Key - A new widget will only be used to update an existing element if its key is the same as the key of the current widget associated with the element.
@@ -629,6 +698,9 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - title - Widget - The primary widget displayed in the app bar.
       - actions - List<Widget> - Widgets to display in a row after the title widget.
       - bottom - PreferredSizeWidget - A size whose height is the sum of toolbarHeight and the bottom widget's preferred height. Scaffold uses this size to set its app bar's height.
+      - elevation - double - This is app bar border elevation, default is 0.0.
+      - backgroundColor - Color - This is background color of app bar.
+      - flexibleSpace - Widget - This is used for gradiant color.
       
    - Example
     
@@ -701,7 +773,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - viewType - ViewType (Enum) - This is for how View is showing (both, list, card). If both is selected than we get both view. Default is ViewType.list.
       - leadingIcon - IconData - There is only we have to pass IconData that showing in ListView.
       - trailingIcon - IconData - There is only we have to pass IconData that showing in ListView.
-      - tag - String - This String value taken unique Key as define which View is showing.
+      - tag - String - This String value taken unique Key as defines which View is showing.
       - enablefilter - bool - It is used for the filter option, If true we get Filter option in ListView. Default value is false.
       - backNavigation - bool - This containes back navigation arrow button for listview, Default value is false.
       - pathNavigation - String - It used for navigate form listview record to given navigation path. if children path is "navigation/:id" this have to pass only "navigation/" this.
@@ -729,17 +801,17 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             - mobileFlex - int -  The mobileFlex factor to use for this child. This is for mobile.
             - textOverFlow- TextOverflow - Defaults to retrieving the value from the nearest DefaultTextStyle ancestor.
             - displayKey - bool - This is for Display field label name, If displaykey is true than field name is showing with value. Default is false.
-            - type - GtFieldType - Type of field is define like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
-            - webTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for web.
-            - mobileTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for mobile.
-            - keyTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for label.
+            - type - GtFieldType - Type of field is defines like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
+            - webTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for web.
+            - mobileTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for mobile.
+            - keyTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for label.
             - isCardTitle - bool - This contains field is showing in title or not in Card. Default false.
             - isCardSubTitle - bool - This contains field is showing in SubTitle or not in Card. Default false.
             - isBannerField - bool - This used for A banner displays a prominent message and related field. Default value is false. 
             - cardRow- int -  This is contains which row have to display this field in card. 
             - filterType - GtFilterType - This field is used for which type is filter like (  RADIO_BUTTON_FILTER,  CHECKBOX_BUTTON_FILTER,  RANGE_FILTER,  SORT_FILTER,)
             - filterItems - Map<String, dynamic> - This is Sort the List as per given sort fields. And also Display the fields in UI. 
-            - valuePath - String - This is define which is Field map with valuePath.
+            - valuePath - String - This defines the which is Field map with valuePath.
             - filterValue - String - This value is send to the API for this field.
             - filterLabel - String - It will show in UI in this filter field.    
             - rangeStart- String - This is Range Start field name.
@@ -961,10 +1033,14 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       {@required this.tabPages,
        @required this.tablist,
        @required this.pageController,
+       @required this.tabcontroller,
        this.selectedColor,
        this.unselectedColor,
        this.selectedTab,
        this.onPressed,
+       this.selectedTextStyle,
+      this.unselectedTextStyle,
+      this.isTophighlighted = false
   });
   
    - Input Parameters of GtTab Widget   
@@ -975,6 +1051,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - unselectedColor - Color - Provide a color to be displayed for unselected tab.
       - selectedTab - int - Provide a initial select default index which can used in handling the selection of page/tab.
       - onPressed - Function - Provide a function to perform some action on the click event of the tabs based on the above selectedTab parameter.
+      - tabcontroller - ScrollController - This controller used for scroll the tab automaticlly.
+      - selectedTextStyle - TextStyle - Selected Text Style.
+      - unselectedTextStyle - TextStyle - UnSelected Text Style.
+      - isTophighlighted - bool - This is selected highlighted color.
         
          
    - Example
@@ -1065,7 +1145,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             this.showUnselectedLabels = false,
             this.bartype = BottomNavigationBarType.fixed,
             this.onTaphandler,
-            this.elevation});
+            this.elevation,
+            this.selectedItemColor,
+            this.unselectedItemColor,
+            this.iconsSize,});
   
    - Input Parameters of GtBottomBar Widget   
      - bottombarItems - List<BottomNavigationBarItem> - Provide the list of widgets of BottomNavigationBarItem type.
@@ -1077,6 +1160,9 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
      - bartype - BottomNavigationBarType - Provide a BottomNavigationBarType for navigationbar type.
      - onTaphandler - Function(int)  - Provide a function to perform some action on the click event of the bottomnavigationbar.
      - elevation - double - Provide a double type value to set the elevation.
+     - selectedItemColor - Color - Color of selected item text.
+     - unselectedItemColor - Color - color of Unselected item text.
+     - iconsSize - double - Size of Icon.
         
          
    - Example
@@ -1252,20 +1338,22 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
    - Constructors: 
           - [GtImageCard](components.md#gtimagecard-widget)(
             {  this.boxFit = BoxFit.fill,
-               this.imgHeight,
                this.imageURL,
                this.backgroundcolor,
                this.height,
                this.width,
+               this.isNetworkImage = true,
+               this.isSvgImage = false
                    });
   
    - Input Parameters of GtImageCard Widget   
       - boxFit - BoxFit - Provide the list of widgets of BottomNavigationBarItem type.
-      - imgHeight - double - Provide height for the Image.
       - imageURL - String - Provide theme data for unselectedIcon to be displayed for the Icon.
       - backgroundcolor - Color -  Provide a color to be displayed for background of bottombar.
       - height - double - Provide a bool value to whether  displayed labels for selected icons.
       - width - double - Provide a bool value to whether  displayed labels for unselected icons.
+      - isNetworkImage - bool - This is define image link is local or network.
+      - isSvgImage - bool - This is define image is svg or not.
          
    - Example
     
@@ -1332,6 +1420,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.imageheight,
                this.boxFit,
                this.textStyle,
+               this.imagePosition = GtImagePosition.TOP,
+               this.imageBackgroundColor,
+               this.isNetworkImage,
+               this.cardRadius,
+               this.textPadding = 2.0,
                             });
   
    - Input Parameters of GtCard Widget   
@@ -1347,6 +1440,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - imageheight - double - Sets the height of the image.
       - boxFit - BoxFit - Sets filling type of the image i.e contains,fill,etc.
       - textStyle - TextStyle - Sets the textstyle for the label.
+      - imagePosition - GtImagePosition - This Defines the Position of the Image where it should be shown in the Card.
+      - imageBackgroundColor - Color - Image Background color.
+      - isNetworkImage - bool - Image from network or local define.
+      - cardRadius - double - Card Redius define.
+      - textPadding - double - padding of text.
          
    - Example
     
@@ -1409,6 +1507,21 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.timeTextEditingController,
                this.datePickerEntryMode = DatePickerEntryMode.calendar,
                this.initialEntryMode = DatePickerMode.day,
+               this.labeltextStyle,
+               this.themeData,
+               this.datefieldLabel = "",
+               this.timefieldLabel = "",
+               this.datetextStyle,
+               this.timetextStyle,
+               this.cancelText,
+               this.confirmText,
+               this.iconColor = Colors.black,
+               this.selectedTextStyle,
+               this.prefixTimeIcon,
+               this.suffixDateIcon,
+               this.suffixTimeIcon,
+               this.isReadOnly = false,
+               this.dateFormat = "yyyy-MM-dd"
                             });
   
    - Input Parameters of GtDate Widget   
@@ -1424,6 +1537,21 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - timeTextEditingController - TextEditingController - To handle the textfield for time.
       - datePickerEntryMode - DatePickerEntryMode - Sets datepickerentry mode i.e calendar or input.
       - initialEntryMode - DatePickerMode - Sets the DatePickerMode i.e year or month.
+      - labeltextStyle -TextStyle - This is TextStyle of label String.
+      - themeData - ThemeData - This is used for widget theme.
+      - datefieldLabel - String - Label of date field in widget.
+      - timefieldLabel - String - This is Field label of time.
+      - datetextStyle - TextStyle - This is used for date text style.
+      - timetextStyle - TextStyle - This is used for time text style.
+      - cancelText - String - This is used for cancel Text String.
+      - confirmText - String - This is used for confirmText.
+      - iconColor - Color - this is color of icons.
+      - selectedTextStyle - TextStyle - This is selected date TextStyle.
+      - prefixTimeIcon - Icon - This is Prefix icon for time.
+      - suffixDateIcon - Icon - This is suffix icon for date.
+      - suffixTimeIcon - Icon - This is suffix icon for time.
+      - isReadOnly - bool - Field is write or readable.
+      - dateFormat - String - Date format in string, default is "yyyy-MM-dd".
          
    - Example
     
@@ -1476,17 +1604,39 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       
    - Constructors: 
           - [GtCalendar](components.md#gtcalendar-widget)(
-            {  this.initialDate,
-               this.firstDate,
-               this.lastDate,
-               this.onDateChanged,
+            {   @required this.focusedDay,
+                  @required this.firstDate,
+                  @required this.lastDate,
+                  @required this.selectedDay,
+                  this.rangeEndDay,
+                  this.rangeStartDay,
+                  this.calendarFormat,
+                  this.rangeSelectionMode,
+                  this.eventLoader,
+                  this.calendarStyle,
+                  this.calendarBuilders,
+                  this.onDaySelected,
+                  this.onRangeSelected,
+                  this.onFormatChanged,
+                  this.onPageChanged,
                             });
   
    - Input Parameters of GtCalendar Widget   
-      - initialDate - DateTime - Sets the initial date before the widget to displayed when widget is opened.
+      - focusedDay - DateTime - Sets the initial date before the widget to displayed when widget is opened.
       - firstDate - DateTime - Sets the min date range of the calendar.
       - lastDate - DateTime -  Sets the max date range of the calendar.
-      - onDateChanged - Function(DateTime date) - Function to handle Onchange event of date..
+      - selectedDay - DateTime - Sets the selected Day.
+      - rangeEndDay - DateTime - Sets The range of end Day.
+      - rangeStartDay - DateTime - Sets The range of start Day.
+      - calendarFormat - CalendarFormat - This is calenderFormat define.
+      - rangeSelectionMode - RangeSelectionMode - this is Selected the range mode.
+      - eventLoader - List<CalendarEvent> Function(DateTime) - This is date events define in calender.
+      - calendarStyle - CalendarStyle - Style of calendar to display in UI.
+      - calendarBuilders - CalendarBuilders<CalendarEvent> - This is calender builder ised for build calender.
+      - onDaySelected - Function(DateTime, DateTime) - This is selection of onDay function.
+      - onRangeSelected - Function(DateTime, DateTime, DateTime) - This is range selected on calender.
+      - onFormatChanged - Function(CalendarFormat) - This is changed the formate of calender.
+      - onPageChanged - Function(DateTime) - This is function used for page on change.
          
    - Example
     
@@ -1616,7 +1766,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.imageheight,
                this.imageURL,
                this.imageonClick,
-               this.imagewidth
+               this.imagewidth,
+                this.borderRadius,
+               this.color,
+               this.disabledColor,
+               this.padding,
                             });
   
    - Input Parameters of GtButton Widget   
@@ -1640,7 +1794,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - imageonClick - Function - Function perform actions on Click event of the image button.
       - imageheight - double - Sets the height for the image container. 
       - imagewidth - double -  Sets the weight for the image container.
-
+      - borderRadius - BorderRadius - This is border redius for button.
+      - color - Color - Color of button define.
+      - disabledColor - Color - Disable color of button.
+      - padding - EdgeInsets - This is button padding.
 
          
    - Example
@@ -1909,7 +2066,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.gtTileRowMainAxisAlignment,
                this.toMapjson,
                this.rowsCount = 1,
-               this.headertextStyle
+               this.headertextStyle,
+               this.datatextStyle,
+               this.backgroundColor,
+               this.cardColor,
             });
   
    - Input Parameters of GtDynamicView Widget 
@@ -1921,6 +2081,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - title - String - To set the Title. 
       - headertextStyle - TextStyle - Sets the heardertextStyle which you want.
       - datatextStyle - TextStyle - Sets the datatextStyle which you want. 
+      - backgroundColor - Color - Sets background color which user wants to set.
+      - cardColor - Color - This is card color which you want to set.
 
    - Example
     
@@ -2068,7 +2230,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.backgroundColor = Colors.white54,
                this.signaturePadBackgroundColor = Colors.white70,
                this.sign,
-               this.signClearOnPressed,});
+               this.signClearOnPressed,
+               this.clearSignButtonColor,
+               this.saveSignButtonColor,
+               this.changeColor,
+               this.changeStrokeWidth});
    - Input Parameters of GtCurrency Widget   
       - color - Color - signature color.
       - strokeWidth - double - width of signature line. Default value is 2.0.
@@ -2110,6 +2276,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             sign1.clear();
          }
       ```
+      - clearSignButtonColor - Color - This is Clear Sign button color.
+      - saveSignButtonColor - Color - This is Save sign button color.
+      - changeColor - Color - It will change the color of ink.
+      - changeStrokeWidth - Color - Change the stoke widgth with color.
+
    - Example
       - Step 1 : Import UI kit in files that it will be used:
       ```dart
@@ -2156,7 +2327,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                this.buttonColor = Colors.blue,
                this.iconShow = true,
                this.fontSize = 20,
-               this.extensions,});
+               this.extensions,
+               this.allowMultiple = true,});
    - Input Parameters of GtFileUpload Widget   
       - backgroundColor - Color - Back Ground color of widget, Default color is White.
       - borderColor - Color - Widget border color, Default color is black.
@@ -2189,6 +2361,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - iconShow - bool - Icon is shown or not in UI, Default is true.
       - fontSize - double - Size of Fonts in UI, Default size is 20.
       - extensions - String - This is Allow to Which Files is Taken from Browse. Pass the extension in string like "pdf,jpg,doc".
+      - allowMultiple - bool - This is option for allow multiple files to upload, Default value is true.
+
    - Example
       - Step 1 : Import UI kit in files that it will be used:
       ```dart
@@ -2350,7 +2524,9 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
          this.swipeCancelButtontextWidget,this.cardMarginEdgeInsets =const EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 1),
          this.spaceBetweenKeyValue = false,this.horizinalScrollable = false,
                   this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
-                  this.itemDatawidget,this.isCustomItemWidget = false,});
+                  this.itemDatawidget,this.isCustomItemWidget = false,
+                  this.swipeSnackBartextWidget,
+                  this.mainCardMargin = const EdgeInsets.all(8),});
            
    - Input Parameters of GtListPage Widget
       - title - Widget - This is Listview Title widget.
@@ -2486,6 +2662,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - listItemPadding - EdgeInsets - This is item padding.
       - itemDatawidget - Function - This is Custom Widget of Each Item.
       - isCustomItemWidget - bool - This is Custom Widget define, Default is false.
+      - swipeSnackBartextWidget - Widget - This is used swipe delete option snackbar showing Widget.
+      - mainCardMargin - EdgeInsets - This is ListView Main Card margin, default mergin is EdgeInsets.all(8).
       
    - Example
     
@@ -2926,3 +3104,79 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
           ![GtSurveyKit1](https://user-images.githubusercontent.com/64594463/126281839-d8149d79-4947-4c80-bce8-c6c172ef3754.png)
 
           ![GtSurveyKit2](https://user-images.githubusercontent.com/64594463/126282052-ce846ff7-d602-437b-be36-957acd9f4cb6.png)
+
+# GtMarquee Widget
+  
+ The gtmarquee widget is used represent the array of list scrolling vertical on the Screen with ontap return array index.
+   - Benefits of GtMarquee Widget
+      - Handles the font size of the text in dynamic way based on the screen resolution when specified along with required text array.
+        
+   - Constructors: 
+      - [GtMarquee](components.md#gtmarquee-widget)({Key key,
+            this.textList = const [],
+            this.textSpanList = const [],
+            this.fontSize = 14.0,
+            this.textColor,
+            this.scrollDuration = const Duration(seconds: 1),
+            this.stopDuration = const Duration(seconds: 3),
+            this.tapToNext = false,
+            this.controllerMar,});
+           
+   - Input Parameters of GtMarquee Widget
+      - textList - List<String> - This is string list as scroll the texts.
+      - textSpanList - List<TextSpan> - It well show textSpan List in scrollig vertical. 
+      - fontSize - double - This is String List font size showing in UI, Default is 14.0.
+      - textColor - Color - Its Showing text color.
+      - scrollDuration - Duration - This is Scrolling duration for array of String list, Default is Duration(seconds: 1).
+      - stopDuration - Duration - This is Scrolling Stoped duration for array of String list, Default is Duration(seconds: 3).
+      - tapToNext - bool - Next scroll value is showing for it, Default is false.
+      - controllerMar - MarqueeModel - This is model class its return position index.
+      
+   - Example
+    
+      - Step 1 : Import core in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtMarquee widget.
+                
+      ```dart
+            class ScrollDemo extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                  var controller1 = MarqueeModel();
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Scrolling Marquee widget')),
+                     body: Column(
+                        children:[
+                           GestureDetector(
+                              child: Container(
+                                 height: 40.0,
+                                 color: Colors.lightBlueAccent.shade100,
+                                 child: GtMarquee(
+                                    textList: ["ROCK ", "SAM", "VIN", "JJJ"],
+                                    scrollDuration: Duration(seconds: 3), // every scroll 
+                                    stopDuration: Duration(milliseconds: 100), //every stop 
+                                    tapToNext: false, // tap to next
+                                    controllerMar: controller1, // the controller can get the 
+                                 ),
+                              ),
+                              onTap: (){
+                                 print(controller1.position);
+                              }
+                           ), 
+                        ]
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtMarquee](https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4)
+
