@@ -539,7 +539,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - svgheight - double - This is height of svg.
       - svgwidth - double -  This is width of svg.
       - imageSize - double - This is size of Image.
-      - isExpandedNavigation - bool - This is define type of rails.
+      - isExpandedNavigation - bool - This is defines type of rails.
       - userProfileLink - String - Profile link as string.
       - listExpandedItems - List<dynamic> - This is List of Expanded Rails.
       - onTapExpanded - Function - On Tap expanded Item Function.
@@ -1440,7 +1440,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - imageheight - double - Sets the height of the image.
       - boxFit - BoxFit - Sets filling type of the image i.e contains,fill,etc.
       - textStyle - TextStyle - Sets the textstyle for the label.
-      - imagePosition - GtImagePosition - This is define position to show image on card.
+      - imagePosition - GtImagePosition - This Defines the Position of the Image where it should be shown in the Card.
       - imageBackgroundColor - Color - Image Background color.
       - isNetworkImage - bool - Image from network or local define.
       - cardRadius - double - Card Redius define.
