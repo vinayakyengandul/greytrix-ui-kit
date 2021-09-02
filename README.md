@@ -525,17 +525,17 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - isShowLable - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
       - trailingWidget - List<Widget> - The trailing List of widget is placed bottom of the rails last NavigationRailDestination. It's location is affected by groupAlignment.
       - navigationBackGroundColor - Color - Navigation Drawer background color.
-      - selectedRowColor - Color - This is selected row color define.
-      - selectedRowDarkColor - Color - This is selected dark color Define.
-      - iconColor - Color - this is Define Icon Color in rails.
+      - selectedRowColor - Color - This is selected row color defines.
+      - selectedRowDarkColor - Color - This is selected dark color Defines.
+      - iconColor - Color - This Defines the Icon Color in rails.
       - onHoverHandler - Function - Rails on hover function.
       - onHover - int - Index of hover in rails.
       - selectedTitle - String - This is selected rails String value.
-      - selectedTitleColor - Color - Selected Tile Color define.
+      - selectedTitleColor - Color - Selected Tile Color defines.
       - selectedTitleChange - Widget - Selected tile on change Function in rails.
       - selectedTitleOnTap - Function - on Tap function of Tile Selected.
-      - drawerWidth - double - This is drawer widgth define, defualt is 200.
-      - railIconSize - double - This is define icon size of rails.
+      - drawerWidth - double - This is drawer widgth defines, defualt is 200.
+      - railIconSize - double - This defines the icon size of rails.
       - svgheight - double - This is height of svg.
       - svgwidth - double -  This is width of svg.
       - imageSize - double - This is size of Image.
@@ -622,7 +622,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - dialogTitle - String - This contains dialog title text.                
       - searchBox - bool - This is option for search box is given or not by bool. default is false.                 
       - searchOnChangeHandler - Function - This function is when we search any key in search box that items list is filter by searchOnChangeHandler funation.                  
-      - dialogHeight - double - This will define dialog height. Default height is 350.               
+      - dialogHeight - double - This defines the dialog height. Default height is 350.               
                            
    - Example
     
@@ -773,7 +773,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - viewType - ViewType (Enum) - This is for how View is showing (both, list, card). If both is selected than we get both view. Default is ViewType.list.
       - leadingIcon - IconData - There is only we have to pass IconData that showing in ListView.
       - trailingIcon - IconData - There is only we have to pass IconData that showing in ListView.
-      - tag - String - This String value taken unique Key as define which View is showing.
+      - tag - String - This String value taken unique Key as defines which View is showing.
       - enablefilter - bool - It is used for the filter option, If true we get Filter option in ListView. Default value is false.
       - backNavigation - bool - This containes back navigation arrow button for listview, Default value is false.
       - pathNavigation - String - It used for navigate form listview record to given navigation path. if children path is "navigation/:id" this have to pass only "navigation/" this.
@@ -801,17 +801,17 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             - mobileFlex - int -  The mobileFlex factor to use for this child. This is for mobile.
             - textOverFlow- TextOverflow - Defaults to retrieving the value from the nearest DefaultTextStyle ancestor.
             - displayKey - bool - This is for Display field label name, If displaykey is true than field name is showing with value. Default is false.
-            - type - GtFieldType - Type of field is define like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
-            - webTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for web.
-            - mobileTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for mobile.
-            - keyTextFormatType - TextformatType - This will define which text format is taken. Default is TextformatType.caption for label.
+            - type - GtFieldType - Type of field is defines like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
+            - webTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for web.
+            - mobileTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for mobile.
+            - keyTextFormatType - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for label.
             - isCardTitle - bool - This contains field is showing in title or not in Card. Default false.
             - isCardSubTitle - bool - This contains field is showing in SubTitle or not in Card. Default false.
             - isBannerField - bool - This used for A banner displays a prominent message and related field. Default value is false. 
             - cardRow- int -  This is contains which row have to display this field in card. 
             - filterType - GtFilterType - This field is used for which type is filter like (  RADIO_BUTTON_FILTER,  CHECKBOX_BUTTON_FILTER,  RANGE_FILTER,  SORT_FILTER,)
             - filterItems - Map<String, dynamic> - This is Sort the List as per given sort fields. And also Display the fields in UI. 
-            - valuePath - String - This is define which is Field map with valuePath.
+            - valuePath - String - This defines the which is Field map with valuePath.
             - filterValue - String - This value is send to the API for this field.
             - filterLabel - String - It will show in UI in this filter field.    
             - rangeStart- String - This is Range Start field name.
