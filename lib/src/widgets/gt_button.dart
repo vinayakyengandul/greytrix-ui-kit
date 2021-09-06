@@ -92,7 +92,7 @@ class GtButton extends StatelessWidget {
                     ),
                     onPressed:()=> onPressed(),
                     color: color,
-                    disabledColor: disabledColor,
+                    disabledColor: disabledColor ?? Theme.of(context).disabledColor,
                     padding: padding ?? EdgeInsets.all(16.0),
                     borderRadius:
                         borderRadius ?? BorderRadius.all(Radius.circular(8.0)),
