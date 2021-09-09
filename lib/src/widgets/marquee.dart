@@ -105,6 +105,7 @@ class _MarqueePainter extends CustomPainter {
     this.percent = 0.0,
     this.current,
     this.nextPostion,
+    this.textLine,
   });
 
   TextPainter textPainter = TextPainter(
