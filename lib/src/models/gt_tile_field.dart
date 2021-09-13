@@ -66,6 +66,7 @@ class GtTileField {
     this.valueTextAlign = TextAlign.start,
     this.keyValueBetween = " : ",
     this.buttonElevation = 5.0,
+    this.buttonColor,
   });
   final dynamic value;
   final GtFieldType type;
@@ -132,4 +133,6 @@ class GtTileField {
   final String keyValueBetween;
   ///Button elevation 
   final double buttonElevation;
+  /// BUTTON COLOR IOS PLATFORM
+  final Color buttonColor;
 }
