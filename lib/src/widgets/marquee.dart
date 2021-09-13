@@ -12,6 +12,7 @@ class GtMarquee extends StatelessWidget {
   final Duration stopDuration;
   final bool tapToNext;
   final MarqueeModel controllerMar;
+  final int textLine;
   
   GtMarquee({
     Key key,
@@ -23,6 +24,7 @@ class GtMarquee extends StatelessWidget {
     this.stopDuration = const Duration(seconds: 3),
     this.tapToNext = false,
     this.controllerMar,
+    this.textLine = 1,
   }) : assert(!(textList.isNotEmpty && textSpanList.isNotEmpty),
         "textList and textSpanList cannot have elements at the same time.",), super(key: key);
 
@@ -69,6 +71,7 @@ class GtMarquee extends StatelessWidget {
           percent: controller.percent.value,
           current: controller.current.value,
           nextPostion: controller.nextPosition,
+          textLine: textLine,
         ),
       ),
     ));
@@ -88,7 +91,7 @@ class _MarqueePainter extends CustomPainter {
   double fontSize;
   Color textColor;
   int nextPostion;
-
+  int textLine;
   int current = 0;
 
   double percent = 0.0;
@@ -102,6 +105,7 @@ class _MarqueePainter extends CustomPainter {
     this.percent = 0.0,
     this.current,
     this.nextPostion,
+    this.textLine,
   });
 
   TextPainter textPainter = TextPainter(
@@ -133,7 +137,7 @@ class _MarqueePainter extends CustomPainter {
   void _paintCurrent(Size size, Canvas canvas) {
     textPainter.text = getTextSpan(current);
     textPainter.textAlign = TextAlign.center;
-    textPainter.maxLines = 1;
+    textPainter.maxLines = textLine;
     textPainter.ellipsis = "...";
 
     textPainter.layout(maxWidth: size.width);
@@ -143,7 +147,7 @@ class _MarqueePainter extends CustomPainter {
   _paintNext(Size size, Canvas canvas) {
     textPainter.text = getTextSpan(nextPostion);
     textPainter.textAlign = TextAlign.center;
-    textPainter.maxLines = 1;
+    textPainter.maxLines = textLine;
     textPainter.ellipsis = "...";
 
     textPainter.layout(maxWidth: size.width);
