@@ -19,6 +19,7 @@ class GtSurveyKit extends StatelessWidget {
         src: '''<!DOCTYPE html>
               <html lang="en">
               <head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
                   <title>The Survey Page </title>
                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                   <link href="https://unpkg.com/survey-jquery@1.8.56/modern.css" type="text/css" rel="stylesheet" />
@@ -59,7 +60,6 @@ class GtSurveyKit extends StatelessWidget {
               }),
         ] ,
         onLoaded: (){
-          print("Loaded");
         }
     );
   }
