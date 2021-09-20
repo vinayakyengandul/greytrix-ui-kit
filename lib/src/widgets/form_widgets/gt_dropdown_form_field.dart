@@ -45,6 +45,7 @@ class GtDropdownFormField extends StatelessWidget {
           DropdownButtonFormField(
             value: dropdownValue,
             dropdownColor: dropDownBackGround,
+            isExpanded: true,
             icon: GtIcon(icondata: iconData),
             iconSize: 24,
             elevation: 16,
