@@ -24,7 +24,7 @@ dependencies:
   easy_web_view: ^1.5.0
   get: '4.1.4'
   flex_color_scheme: ^3.0.1
-  
+  dialog_flowtter: '0.3.1'
   # palette_generator: ^0.3.0
   # avatar_glow: ^2.0.1
   

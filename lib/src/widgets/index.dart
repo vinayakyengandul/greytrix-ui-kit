@@ -39,4 +39,6 @@ export 'package:table_calendar/table_calendar.dart';
 export 'gt_dynamic_form.dart';
 export 'survey_widget.dart';
 export 'marquee.dart';
+export './chatbot/chatbot.dart';
+export 'gt_search_dialog.dart';
 export 'gt_app_button.dart';
