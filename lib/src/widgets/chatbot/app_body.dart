@@ -85,13 +85,9 @@ class _MessageContainer extends StatelessWidget {
               var urllink = "";
               bool isEndChat = false;
               var endchat = '';
-              // print(' app body message.payload');
-              // print(message.payload['messages']);
               List<dynamic> suggestionList = message.payload['messages'];
 
               suggestionList.forEach((values) {
-                print('suggestionList values');
-                print(values);
                 if (values['suggestions'] != null) {
                   List<dynamic> sugest = values['suggestions'];
                   sugest.forEach((element) {
@@ -193,7 +189,6 @@ class _MessageContainer extends StatelessWidget {
                                     label: Text('$e'),
                                     selected: value,
                                     onSelected: (bool selected) {
-                                      print(selected);
                                       onselected(e);
                                       value = selected;
                                     },
@@ -209,7 +204,6 @@ class _MessageContainer extends StatelessWidget {
                                       label: Text('$e'),
                                       selected: value,
                                       onSelected: (bool selected) {
-                                        print(selected);
                                         onselected(e);
                                         value = selected;
 

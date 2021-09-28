@@ -102,7 +102,6 @@ class ThinUnderlineBorder extends InputBorder {
     double gapPercentage = 0.0,
     TextDirection textDirection,
   }) {
-    print("Width: ${borderSide.width}");
     if (borderRadius.bottomLeft != Radius.zero ||
         borderRadius.bottomRight != Radius.zero)
       canvas.clipPath(getOuterPath(rect, textDirection: textDirection));

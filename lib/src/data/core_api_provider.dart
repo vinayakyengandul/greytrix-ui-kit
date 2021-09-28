@@ -52,8 +52,6 @@ class CoreProvider implements ICoreProvider {
       String entityname,
       Map<String, dynamic> headers}) async {
     try {
-      print('variables');
-      print(variables);
       List<dynamic> _coreList = List<dynamic>.empty(growable: true);
       // final QueryResult result = await Get.find<CoreService>().graphClientQuery(
       var result = await graphqlQueryRequest(
@@ -66,7 +64,6 @@ class CoreProvider implements ICoreProvider {
           if (variables != null) ...variables
         },
       );
-      print('APIResponse:');
       //if (result.hasException) {
       if (result.body == null) {
         return Future.error(result.statusText);
@@ -88,8 +85,6 @@ class CoreProvider implements ICoreProvider {
       //Get.find<CoreService>().getHttpGet(uri: uri, headers: headers);
 
       if (result != null) {
-        // print('http result');
-        // print(result);
         return result;
       }
     } catch (e) {

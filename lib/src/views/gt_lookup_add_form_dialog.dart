@@ -150,7 +150,6 @@ class GtLookupAddFormView extends GetResponsiveView<CoreController> {
               child: RaisedButton(
                 child: Text('Cancel'),
                 onPressed: () {
-                  print('In cancel');
                   Get.back();
                 },
               ),

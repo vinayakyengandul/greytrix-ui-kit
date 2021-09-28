@@ -440,8 +440,6 @@ class GtListFilter extends StatelessWidget {
                         textEditingController: value.textEditingController,
                         taglist: lookupData[value.nodeKey],
                         onDeleted: (val) => {
-                          print('deleted val'),
-                          print(val),
 
                           /// DELETES FROM THE FORMFIED TEXT FIELDS AND ADDS BACK TO SUGGESTION LIST
                           onDeleteHandler(

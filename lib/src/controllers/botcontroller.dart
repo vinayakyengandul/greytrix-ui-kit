@@ -47,8 +47,6 @@ class BotController extends GetxController {
           Message(text: DialogText(text: [text])),
           true,
         );
-
-      //print(text);
       DetectIntentResponse response = await dialogFlowtter.detectIntent(
         queryInput: QueryInput(text: TextInput(text: text)),
       );
@@ -61,16 +59,13 @@ class BotController extends GetxController {
         //list.forEach((values) async {
         for (var values in list) {
           if (values['ApiURL'] != null) {
-            print(values['ApiURL']);
             String url = await apiRequest(values['ApiURL']);
             values['DownloadLink'] = url;
           }
           if (values['NavigationURL'] != null) {
-            print(values['NavigationURL']);
             Get.offNamed(values['NavigationURL']);
           }
         }
-        print(response.message?.payload);
         addMessage(data);
       } else {
         addMessage(response.message);
@@ -100,28 +95,4 @@ class BotController extends GetxController {
   void onSelected(String text) async {
     sendMessage(text);
   }
-
-  // Future<String> apiRequestCall(dynamic url) async {
-  //   String downloadableURL = "";
-  //   try {
-  //     print('apiRequestCall For provided URL');
-  //     final uri = '$url';
-  //     final response = await getHttpGet(
-  //       uri: url,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization':
-  //             'Bearer ${Get.find<CoreService>().shellStorage.read('access_token')}'
-  //       },
-  //     );
-
-  //     if (response != null) downloadableURL = response.body;
-  //   } catch (e) {
-  //     return downloadableURL;
-  //   }
-  //   print(downloadableURL);
-  //   return downloadableURL;
-  // }
-
-  //methods for dialogflow widget - E
 }

@@ -134,8 +134,6 @@ class CoreController extends SuperController {
   void onInit() {
     super.onInit();
     print('core controller oninit');
-    // print('toMapfilterjson');
-    // print(toMapfilterjson);
     coreRepository = CoreRepository(provider: Get.find());
     selectedLookUpFilterData.value = {};
     arguments = Get.arguments as Map<String, dynamic>;
@@ -203,8 +201,6 @@ class CoreController extends SuperController {
   RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
   
   errorMessageUpdate(String message) {
-    print("errorMessageUpdate");
-    print(message);
     errormessage.value = message;
   }
     /// METHOD FOR BOTTOM SHEET HANDLER
@@ -233,8 +229,6 @@ class CoreController extends SuperController {
     if (resetArguments == true && arguments != null) {
       arguments.remove(key);
     }
-    // print('setFilterField');
-    // print(filtersData);
   }
 
   ///IT SETS THE SELECTED LOOKUPS FILTER DATA
@@ -342,8 +336,6 @@ class CoreController extends SuperController {
   }
 
   void lookupfieldClearButton(dynamic value) {
-    print(lookupfieldClearButton);
-    print(value);
     //  filtersData.remove(value.filterValue);
     //  if (arguments != null) arguments.remove(value.filterValue);
     //  selectedLookUpFilterData.value = {};
@@ -357,11 +349,6 @@ class CoreController extends SuperController {
   }
 
   void filterClearButton() {
-    print('defaultfilterData');
-    print(defaultfilterData);
-
-    print('before clearing the Filter data');
-    print(filtersData);
     selectedLookUpFilterData.value = {};
     // filtersData = defaultfilterData;
 
@@ -369,16 +356,9 @@ class CoreController extends SuperController {
       filtersData[key] = value;
     });
 
-    print('After clearing the Filter data');
-    print(filtersData);
-    print('selectedlookupData');
-
     selectedlookupData.forEach((key, value) {
-      print('value');
-      print(value);
       value.value = [];
     });
-    print(selectedlookupData);
     fetchdata(filterData: filtersData, fromFilter: true);
   }
 
@@ -507,9 +487,6 @@ class CoreController extends SuperController {
   }) async {
     Map<String, dynamic> _variables = {};
 
-    print('inside Fetch data ');
-    print(inputType);
-
     switch (inputType) {
       case GtListInputType.STATIC:
         var _list;
@@ -528,8 +505,6 @@ class CoreController extends SuperController {
         /// TO FILTER THE DATA FROM EXISTING PROVIDED LIST FROM BINDING WITH FILTER DATA PROVIDED
         if (filterData != null && filterData.isNotEmpty) {
           _variables = filterData;
-          print('filterData');
-          print(filterData);
           _list = inputData;
           toMapfilterjson.forEach((key, gttilefield) {
             /// APPLY THE FILTER BASED ON SEQUENCE OF FILTERS APPLIED BY THE USER
@@ -547,8 +522,6 @@ class CoreController extends SuperController {
                 break;
               // ///SORT FILTER WIDGET
               case GtFilterType.SORT_FILTER:
-                print(' Case SORT_FILTER ');
-                print(filterData[gttilefield.filterValue]);
                 sortfield = filterData[gttilefield.filterValue];
                 sortOrder = filterData['sort'];
                 // if (value == 'DESC') {
@@ -570,11 +543,6 @@ class CoreController extends SuperController {
 
               ///CHECKBOX FILTER WIDGET
               case GtFilterType.CHECKBOX_BUTTON_FILTER:
-                print(' Case CHECKBOX_BUTTON_FILTER ');
-                print('key');
-                print(key);
-                print('value');
-                print(value);
                 break;
               // LOOKUP FILTER
               case GtFilterType.LOOK_UP_FILTER:
@@ -603,8 +571,6 @@ class CoreController extends SuperController {
           //   print('aftr sort list');
           //   print(_list);
           // }
-          print('_list');
-          print(_list);
           tasks = _list;
         } else {
           /// WHEN THE LIST IS INITIALLY LOADED
@@ -656,8 +622,6 @@ class CoreController extends SuperController {
                     apiResponse = apiresp,
                     if (valuePath != null)
                       {
-                        print('valuePath'),
-                        print(valuePath),
                         isdataRemaining = false,
                         _list = Common.getValue(apiresp, valuePath),
                         //_list = apiresp["customers"][0][entityname],
@@ -746,7 +710,6 @@ class CoreController extends SuperController {
                 headers: headers,
               )
               .then((apiresp) => {
-                    print(apiresp.body),
                     apiResponse = jsonDecode(apiresp.body),
                     _list = apiResponse.toList(),
                     if (_list.length > 0)
@@ -756,7 +719,6 @@ class CoreController extends SuperController {
                           element['IsHovered'] = false;
                         }),
                       },
-                    print('before initial loading'),
                     if (isinitialloading)
                       {
                         dataList.value = _list,
@@ -767,11 +729,9 @@ class CoreController extends SuperController {
                           val.addAll(_list);
                         }),
                       },
-                    print('After initial loading'),
                     tasks = dataList.value,
                     isprocessingRequest = false,
                     currentPage++,
-                    print('before initial filter'),
                     if (fromOnInit) {setinitialFilterData()},
 
                     ///CHANGING THE CONTROLLER STATUS AND SETTING THE TASKS LIST DATA
@@ -895,7 +855,6 @@ class CoreController extends SuperController {
     Map<String, RangeValues> filterlimits = {};
     switch (inputType) {
       case GtListInputType.STATIC:
-        print('GtListInputType.STATIC');
         if (filterRangePath != null) {
           filterRangePath.forEach((k, v) {
             // print('filterRangePath[k]["RangeStartValue"]');
@@ -919,7 +878,6 @@ class CoreController extends SuperController {
         }
         break;
       default:
-        print('default');
         if (filterRangePath != null) {
           filterRangePath.forEach((k, v) => filterlimits[k] = RangeValues(
               double.parse(Common.getValue(
@@ -1038,18 +996,10 @@ class CoreController extends SuperController {
   ///IT FIRST VALIDATE THEN TRIGGERS THE FORM SAVE EVENT FOR GETTING THE FORM FIELDS
   ///API INPUTS ON THE SAVE EVENT
   void formSubmitHandler() async {
-    print('Inside formSubmitHandler');
-
-    print('apiInputs Before Submit ');
-    print(apiInputs);
-
     if (addFormGQL != null && formKey.currentState.validate()) {
-      print('Form is validated ');
 
       ///FORM.SAVE COMMETED AS IT WAS GIVING ERROR FOR THE POPUP FORM
       formKey.currentState.save();
-      print('apiInputs');
-      print(apiInputs);
 
       /// API for Creation
       //final QueryResult result = await Get.find<ApiService>()
@@ -1059,8 +1009,6 @@ class CoreController extends SuperController {
       if (result.hasException) {
         return Future.error(result.exception);
       } else {
-        print('REsponse for Add task');
-        print(result.data);
         // var labelslist = result.data["labels"] as List;
         // //return Future.value(_returnData);
         // result.data.forEach((k, v) => {setLookupDataValues(k, v)});
@@ -1069,7 +1017,6 @@ class CoreController extends SuperController {
         formResetHandler();
       }
     } else {
-      print('Form is Invalid ');
     }
   }
 
@@ -1079,19 +1026,10 @@ class CoreController extends SuperController {
     addLookupApiInputs = {};
     formKey.currentState.reset();
 
-    print('fieldValues BEFORE  reset: ');
-    print(fieldValues);
-
-    print('defaultFormFieldsData INSIDE reset: ');
-    print(defaultFormFieldsData);
-
     /// RESETTING ALL THE FIELD VALUES
     defaultFormFieldsData.forEach((_key, _value) {
       fieldValues.update(_key, (value) => _value);
     });
-
-    print('fieldValues After reset: ');
-    print(fieldValues);
 
     /// RESETTING ALL LOOKUP SELECTED VALUES
     selectedlookupData.forEach((key, value) {
@@ -1353,9 +1291,6 @@ class CoreController extends SuperController {
         addLookupDataGQL[lookupAddNodeKey] != null) {
       lookupFormKey.currentState.save();
 
-      print('addLookupApiInputs');
-      print(addLookupApiInputs);
-
       /// API for Creation
       //  final QueryResult result =
       var result = await graphqlQueryMutation(
@@ -1367,8 +1302,6 @@ class CoreController extends SuperController {
       if (result.hasException) {
         return Future.error(result.exception);
       } else {
-        print('REsponse for $lookupAddNodeKey');
-        print(result.data);
         if (result.data[lookupAddNodeKey] != null) {
           lookupData[nodeKey].add(result.data[lookupAddNodeKey]);
           setselectedLookupDataValues(

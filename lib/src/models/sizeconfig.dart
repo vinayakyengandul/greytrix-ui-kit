@@ -40,7 +40,5 @@ class SizeConfig {
     imageSizeMultiplier = _blockSizeHorizontal;
     heightMultiplier = _blockSizeVertical;
     widthMultiplier = _blockSizeHorizontal;
-
-    print(screenWidth);
   }
 }
