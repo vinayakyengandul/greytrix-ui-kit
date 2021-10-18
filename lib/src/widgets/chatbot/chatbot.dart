@@ -84,10 +84,19 @@ class GtChatbot extends StatelessWidget {
                     } else {
                       greet = "Good evening ! ";
                     }
-
                     controller.sendMessage('$greet  $username ');
                     if (GetPlatform.isMobile)
-                      Get.bottomSheet(Container(
+                      Get.bottomSheet(
+                        WillPopScope(
+                          onWillPop: (){
+                            controller.isbot.value = false;
+                          controller.messages.clear();
+                          if (GetPlatform.isMobile)
+                            navigator.pop(Get.context);
+                            controller.textcontroller.clear();
+                          },
+                          child:
+                        Container(
                         height: chatbotHeight ?? 500,
                         decoration: BoxDecoration(
                             color: chatboxbackgroundColor ??
@@ -141,6 +150,7 @@ class GtChatbot extends StatelessWidget {
                                                   controller.messages.clear();
                                                   if (GetPlatform.isMobile)
                                                     navigator.pop(Get.context);
+                                                    controller.textcontroller.clear();
                                                 },
                                               ),
                                             )
@@ -208,7 +218,8 @@ class GtChatbot extends StatelessWidget {
                                 )
                             //),
                             ),
-                      ));
+                      ))
+                      );
                   },
                   backgroundColor: botfloatingbackgroundColor ??
                       context.theme.backgroundColor,

@@ -19,7 +19,9 @@ class GtTextFormField extends StatelessWidget {
       this.prefixIcon,
       this.labeltextStyle,
       this.textStyle,
-      this.onTapHandler});
+      this.onTapHandler,
+      this.inputDecoration,
+      this.boxDecoration});
   final int maxLength;
   final int maxLines;
   final int minLines;
@@ -37,10 +39,13 @@ class GtTextFormField extends StatelessWidget {
   final TextStyle labeltextStyle;
   final Widget chips;
   final TextStyle textStyle;
+  final InputDecoration inputDecoration;
+  final BoxDecoration boxDecoration;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: boxDecoration,
       padding: padding,
       child: TextFormField(
         obscureText: obscureText,
@@ -54,7 +59,7 @@ class GtTextFormField extends StatelessWidget {
         inputFormatters: TextInputType.number == textInputType ? [
           FilteringTextInputFormatter.digitsOnly
         ] : [],
-        decoration: InputDecoration(
+        decoration: inputDecoration ?? InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(5, 20, 5, 10),
           labelText: '$fieldLabel',
           labelStyle: labeltextStyle,

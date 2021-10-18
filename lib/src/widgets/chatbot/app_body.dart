@@ -36,6 +36,8 @@ class AppBody extends StatelessWidget {
               message: message,
               isUserMessage: isUserMessage,
               onselected: onselected,
+              botChatcolor: botChatcolor,
+              userChatcolor: userChatcolor,
             ),
           ],
         );
