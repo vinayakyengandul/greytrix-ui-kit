@@ -897,6 +897,8 @@ class Common {
           child: Container(
             padding: _formFieldPadding,
             child: GtTextFormField(
+              boxDecoration: gtFormField.boxDecoration,
+              inputDecoration: gtFormField.inputDecoration,
               textInputType: gtFormField.textInputType,
               labeltextStyle: textStyle,
               textStyle: valueTextStyle,
@@ -929,6 +931,7 @@ class Common {
               child:
                   // Obx(() =>
                   GtDropdownFormField(
+                    inputDecoration: gtFormField.inputDecoration,
                 dropdownValue: getFieldValues(
                   gtFormField.fieldKey,
                   forLookupForm: forLookupForm,
@@ -1062,6 +1065,8 @@ class Common {
             child: Container(
               padding: _formFieldPadding,
               child: GtDate(
+                boxDecoration: gtFormField.boxDecoration,
+                inputDecoration: gtFormField.inputDecoration,
                 iconColor: textStyle.color,
                 selectedTextStyle: textStyle,
                 labeltextStyle: textStyle,

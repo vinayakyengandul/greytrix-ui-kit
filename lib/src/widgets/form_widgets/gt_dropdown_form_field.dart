@@ -14,6 +14,7 @@ class GtDropdownFormField extends StatelessWidget {
     this.dropDownBackGround,
     this.valueTextStyle,
     this.isReadOnly = false,
+    this.inputDecoration,
   });
 
   final IconData iconData;
@@ -27,7 +28,7 @@ class GtDropdownFormField extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Color dropDownBackGround;
   final bool isReadOnly;
-
+  final InputDecoration inputDecoration;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,6 +44,7 @@ class GtDropdownFormField extends StatelessWidget {
                 )
               : SizedBox(),
           DropdownButtonFormField(
+            decoration: inputDecoration,
             value: dropdownValue,
             dropdownColor: dropDownBackGround,
             isExpanded: true,

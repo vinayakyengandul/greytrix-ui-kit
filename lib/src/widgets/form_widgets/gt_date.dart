@@ -35,6 +35,8 @@ class GtDate extends StatelessWidget {
   final Icon suffixTimeIcon;
   final bool isReadOnly;
   final String dateFormat;
+  final BoxDecoration boxDecoration;
+  final InputDecoration inputDecoration;
   GtDate(
       {this.type = GtDateTimeType.BOTH,
       @required this.label,
@@ -63,7 +65,9 @@ class GtDate extends StatelessWidget {
       this.suffixDateIcon,
       this.suffixTimeIcon,
       this.isReadOnly = false,
-      this.dateFormat = "yyyy-MM-dd"});
+      this.dateFormat = "yyyy-MM-dd",
+      this.boxDecoration,
+      this.inputDecoration});
 
   ///HANDLES THE DATE PICKER DIALOG
   Future<Null> _selectDate(BuildContext context) async {
@@ -144,6 +148,8 @@ class GtDate extends StatelessWidget {
                   onTap: () => !isReadOnly ? _selectDate(context) : null,
                   child: AbsorbPointer(
                     child: GtTextFormField(
+                      boxDecoration: boxDecoration,
+                      inputDecoration: inputDecoration, 
                       fieldLabel: datefieldLabel,
                       labeltextStyle: datetextStyle ?? TextStyle(),
                       isReadOnly: true,
@@ -173,6 +179,8 @@ class GtDate extends StatelessWidget {
                   onTap: () => !isReadOnly ? _selectTime(context) : null,
                   child: AbsorbPointer(
                     child: GtTextFormField(
+                      boxDecoration: boxDecoration,
+                      inputDecoration: inputDecoration, 
                       fieldLabel: timefieldLabel,
                       labeltextStyle: timetextStyle ?? TextStyle(),
                       isReadOnly: true,

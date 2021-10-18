@@ -43,6 +43,8 @@ class GtFormField {
     this.textInputType = TextInputType.text,
     this.dropDownBackgroundColor = Colors.grey,
     this.dateFormat = "yyyy-MM-dd",
+    this.inputDecoration,
+    this.boxDecoration
   });
 
   final Map<String, String> lookupFields;
@@ -85,4 +87,6 @@ class GtFormField {
   final TextInputType textInputType;
   final Color dropDownBackgroundColor;
   final String dateFormat;
+  final InputDecoration inputDecoration;
+  final BoxDecoration boxDecoration;
 }

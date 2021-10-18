@@ -21,6 +21,12 @@ class GtFileUpload extends StatelessWidget {
     this.fontSize = 20,
     this.extensions = "pdf",
     this.allowMultiple = true,
+    this.isDropZone = true,
+    this.iconData,
+    this.buttonIconColor,
+    this.buttonIconSize,
+    this.buttonText = "",
+    this.buttonStyle,
   });
   final Color backgroundColor;
   final Color borderColor;
@@ -35,6 +41,12 @@ class GtFileUpload extends StatelessWidget {
   final double fontSize;
   final String extensions;
   final bool allowMultiple;
+  final bool isDropZone;
+  final IconData iconData;
+  final Color buttonIconColor;
+  final double buttonIconSize;
+  final String buttonText;
+  final ButtonStyle buttonStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +62,8 @@ class GtFileUpload extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           fileNameShow && selectedFiles != null ? GtText(text: selectedFiles) : Container(),
-          iconShow ? Icon(iconUpload,color: iconColor,size: iconSize,) : Container(),
-          kIsWeb ?
+          iconShow && isDropZone ? Icon(iconUpload,color: iconColor,size: iconSize,) : Container(),
+          kIsWeb && isDropZone ?
           DropZone(
             onDragEnter: () {
                
@@ -65,10 +77,13 @@ class GtFileUpload extends StatelessWidget {
             },
             child: GtText(text: "Drag and Drop here",textStyle: TextStyle(color: buttonColor,fontSize: fontSize),)
           ): Container(),
-          kIsWeb ? GtText(text: "Or",textStyle: TextStyle(fontSize: fontSize),): Container(),
+          kIsWeb && isDropZone ? GtText(text: "Or",textStyle: TextStyle(fontSize: fontSize),): Container(),
            GtButton(
-            text: "Browse",
-            buttonStyle: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonColor),textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12))),
+            icondata: iconData,
+            iconColor: buttonIconColor,
+            iconSize: buttonIconSize,
+            text: iconData == null ? "Browse" : buttonText,
+            buttonStyle: buttonStyle ?? ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonColor),textStyle: MaterialStateProperty.all(TextStyle(fontSize: 12))),
             onPressed: () async {
               // ignore: unnecessary_statements
             FilePickerResult result  = (await FilePicker.platform.pickFiles(
