@@ -14,8 +14,8 @@ class GtText extends StatelessWidget {
     this.position = GtPosition.PREFIX,
     this.textAlign = TextAlign.start,
     this.maxLines,
-    this.rowMainAxisAlignment = MainAxisAlignment.center,
-    this.rowCrossAxisAlignment = CrossAxisAlignment.center,
+    this.iconTextMainAxisAlignment = MainAxisAlignment.center,
+    this.iconTextCrossAxisAlignment = CrossAxisAlignment.center,
   });
 
   final String text;
@@ -28,8 +28,10 @@ class GtText extends StatelessWidget {
   final GtPosition position;
   final TextAlign textAlign;
   final int maxLines;
-  final MainAxisAlignment rowMainAxisAlignment;
-  final CrossAxisAlignment rowCrossAxisAlignment;
+  // TEXT WITH ICON ALIGNMENT FOR ROW MAIN
+  final MainAxisAlignment iconTextMainAxisAlignment;
+  // TEXT WITH ICON ALIGNMENT FOR ROW CROSS
+  final CrossAxisAlignment iconTextCrossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,8 @@ class GtText extends StatelessWidget {
         ? Container(
             padding: EdgeInsets.all(2.0),
             child: Row(
-              mainAxisAlignment: rowMainAxisAlignment,
-              crossAxisAlignment: rowCrossAxisAlignment,
+              mainAxisAlignment: iconTextMainAxisAlignment,
+              crossAxisAlignment: iconTextCrossAxisAlignment,
               children: [
                 if (position == GtPosition.PREFIX && iconData != null)
                   Padding(
