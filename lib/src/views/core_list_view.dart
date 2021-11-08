@@ -25,6 +25,7 @@ class CoreListView extends GetResponsiveView<CoreController> {
     this.isleadingIconPos = true,
     this.listViewTableType = GTListViewTableType.Normal,
     this.jsonHeader,
+    this.cardElevation = 1.0,
   });
 
   @override
@@ -47,6 +48,7 @@ class CoreListView extends GetResponsiveView<CoreController> {
   final bool isleadingIconPos;
   final GTListViewTableType listViewTableType;
   final List<dynamic> jsonHeader;
+  final double cardElevation;
 
   
   @override
@@ -136,6 +138,7 @@ class CoreListView extends GetResponsiveView<CoreController> {
                     filterBottomSheet: modelBottomSheet,
                     cardColor:
                         Get.context.theme.buttonTheme.colorScheme.surface,
+                    cardElevation: cardElevation,
                   )),
                   if (enablefilter &&
                       !screen.isPhone &&

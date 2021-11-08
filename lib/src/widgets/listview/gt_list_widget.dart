@@ -76,6 +76,7 @@ class GtListPage extends StatelessWidget {
         this.isCustomItemWidget = false,
         this.swipeSnackBartextWidget,
         this.mainCardMargin = const EdgeInsets.all(8),
+        this.cardElevation = 1.0,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -177,6 +178,8 @@ class GtListPage extends StatelessWidget {
   final Function(int index,dynamic obj) itemDatawidget;
   final bool isCustomItemWidget;
   final EdgeInsets mainCardMargin;
+  /// Card Elevation 
+  final double cardElevation;
 
 
   
@@ -740,6 +743,7 @@ class GtListPage extends StatelessWidget {
                   flex: 4,
                   child: Container(
                     child: Card(
+                        elevation: cardElevation,
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
