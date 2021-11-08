@@ -77,6 +77,7 @@ class GtListPage extends StatelessWidget {
         this.swipeSnackBartextWidget,
         this.mainCardMargin = const EdgeInsets.all(8),
         this.cardElevation = 1.0,
+        this.noListFoundText = "No Records Found",
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
@@ -180,6 +181,8 @@ class GtListPage extends StatelessWidget {
   final EdgeInsets mainCardMargin;
   /// Card Elevation 
   final double cardElevation;
+  /// NO LIST FOUND TEXT
+  final String noListFoundText;
 
 
   
@@ -565,7 +568,9 @@ class GtListPage extends StatelessWidget {
               : Container(),
           Expanded(
               child: listItems.length == 0
-                  ? GtNoListFound()
+                  ? GtNoListFound(
+                    text: noListFoundText,
+                  )
                   : horizinalScrollable
                       ? Container(
                           child: SingleChildScrollView(
