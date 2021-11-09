@@ -104,9 +104,9 @@ class AppFlexTheme {
           scheme: scheme,
           visualDensity: FlexColorScheme.comfortablePlatformDensity,
         ).toTheme.copyWith(navigationRailTheme: NavigationRailThemeData(
-          selectedIconTheme: IconThemeData(color: FlexColorScheme.light(scheme: scheme).toTheme.colorScheme.primary),
+          selectedIconTheme: IconThemeData(color: FlexColorScheme.dark(scheme: scheme).toTheme.colorScheme.primary),
           backgroundColor: Color(0xFF161719),
-          unselectedIconTheme: IconThemeData(color: FlexColorScheme.light(scheme: scheme).toTheme.unselectedWidgetColor )
+          unselectedIconTheme: IconThemeData(color: FlexColorScheme.dark(scheme: scheme).toTheme.unselectedWidgetColor )
         ),);
     }
   }

@@ -28,9 +28,9 @@ class ThemeFlexController extends GetxController {
   }
   Future<void> changeThemeMode(ThemeMode themeModechange){
     _themeMode = themeModechange;
-     Get.changeTheme(_darkMode ? _themeDataDark : _themeData);
-     update();
-    // Get.changeThemeMode(themeModechange);
-    // update();
+      Get.changeThemeMode(themeModechange);
+      update();
+    //  Get.changeTheme(_darkMode ? _themeDataDark : _themeData);
+    //  update();
   }
 }

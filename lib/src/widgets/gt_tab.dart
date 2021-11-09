@@ -13,7 +13,9 @@ class GtTab extends StatelessWidget {
     this.onPressed,
     this.selectedTextStyle,
     this.unselectedTextStyle,
-    this.isTophighlighted = false
+    this.isTophighlighted = false,
+    this.tabMainAxisAlignment = MainAxisAlignment.start,
+    this.tabCrossAxisAlignment =  CrossAxisAlignment.start,
   }) : assert(tabPages.length == tablist.length);
 
   final PageController pageController;
@@ -27,12 +29,15 @@ class GtTab extends StatelessWidget {
   final TextStyle unselectedTextStyle;
   final ScrollController tabcontroller;
   final bool isTophighlighted;
+  final MainAxisAlignment tabMainAxisAlignment;
+  final CrossAxisAlignment tabCrossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: tabMainAxisAlignment,
+        crossAxisAlignment: tabCrossAxisAlignment,
       children: [
         Container(
           child: SingleChildScrollView(
