@@ -78,9 +78,12 @@ class GtListPage extends StatelessWidget {
         this.mainCardMargin = const EdgeInsets.all(8),
         this.cardElevation = 1.0,
         this.noListFoundText = "No Records Found",
+        this.customGridviewItemBuilder,
+        this.isCustomItemGridView = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
+        assert((isCustomItemGridView && customGridviewItemBuilder != null) ||(!isCustomItemGridView && toMapjson != null)),
         super(key: key);
 
   final Map<String, dynamic> filtersData;
@@ -183,6 +186,10 @@ class GtListPage extends StatelessWidget {
   final double cardElevation;
   /// NO LIST FOUND TEXT
   final String noListFoundText;
+  /// GRID VIEW CUSTOM ITEM BUILDER
+  final Function(int index,dynamic obj) customGridviewItemBuilder;
+  /// GRID VIEW CUSTOM OPTION
+  final bool isCustomItemGridView;
 
 
   
@@ -424,6 +431,8 @@ class GtListPage extends StatelessWidget {
                 getLeadingWidget: getLeadingWidget,
                 onHoverHandler: onHoverHandler,
                 pathNavigation: pathNavigation,
+                customGridviewItemBuilder: customGridviewItemBuilder,
+                isCustomItemGridView: isCustomItemGridView,
               ),
         onNotification: (ScrollNotification scrollInfo) {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
