@@ -71,6 +71,7 @@ class GtTileField {
   final dynamic value;
   final GtFieldType type;
   final IconData iconData;
+  ///-TODO : remove below 2 inputs 
   final TextformatType webTextFormatType;
   final TextformatType mobileTextFormatType;
   final TextformatType keyTextFormatType;

@@ -31,6 +31,8 @@ dependencies:
   dialog_flowtter: '0.3.1'
   # palette_generator: ^0.3.0
   # avatar_glow: ^2.0.1
+  pdf: '3.6.1'
+  printing: '5.6.0'
   
   
 dependency_overrides:
