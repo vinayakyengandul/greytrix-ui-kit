@@ -11,6 +11,9 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
   final Color activeColor;
   final TextStyle textStyle;
   final bool validationMessage;
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
+  
 
   GtCheckboxFormField(
       {@required this.displayMapFields,
@@ -21,13 +24,14 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
       this.isRequired = false,
       this.textStyle,
       this.validationMessage = true,
-      this.activeColor})
+      this.activeColor,
+      this.validationHandler})
       : super(
           initialValue: selectedCheckboxValues,
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(selectedCheckboxValues);
           },
-          validator: (val) {
+          validator: validationHandler != null ? validationHandler :  (val) {
             if (isRequired && selectedCheckboxValues.length < 1) {
               return 'Select the Value for the $label';
             }

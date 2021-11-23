@@ -21,7 +21,8 @@ class GtTextFormField extends StatelessWidget {
       this.textStyle,
       this.onTapHandler,
       this.inputDecoration,
-      this.boxDecoration});
+      this.boxDecoration,
+      this.validationHandler});
   final int maxLength;
   final int maxLines;
   final int minLines;
@@ -41,7 +42,9 @@ class GtTextFormField extends StatelessWidget {
   final TextStyle textStyle;
   final InputDecoration inputDecoration;
   final BoxDecoration boxDecoration;
-
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,9 +74,9 @@ class GtTextFormField extends StatelessWidget {
         onSaved: (value) => {
           if (onSaveHandler != null) {onSaveHandler(value)}
         },
-        validator: (value) {
+        validator: validationHandler != null ? validationHandler : (value) {
           if (isRequired) {
-            if (value.isEmpty) {
+            if (value == null || value.isEmpty) {
               return 'Enter the value for $fieldLabel field';
             }
             try {
