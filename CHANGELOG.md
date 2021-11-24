@@ -1,7 +1,13 @@
+## [0.0.7]
+#### Nov 23, 2021
+
+- New Widget - GtPdfWidget Added.
+- All Form Fields Validation function expose.
+- Searchable Dropdown Widget added.
+
 ## [0.0.6]
 #### Nov 9, 2021
-
-- Update CHANGELOG
+#### COMMIT NO : 64289a3
 
 ## [0.0.5]
 #### Nov 9, 2021

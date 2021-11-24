@@ -14,6 +14,8 @@ class GtSwitchButtonFormField extends FormField<bool> {
   final TextStyle textStyle;
   final bool validationMessage;
   final CrossAxisAlignment crossAxisAlignment;
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
 
   GtSwitchButtonFormField({
     @required this.label,
@@ -25,11 +27,12 @@ class GtSwitchButtonFormField extends FormField<bool> {
     this.textStyle,
     this.validationMessage = true,
     this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.validationHandler
   }) : super(
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(savedVal);
           },
-          validator: (val) {
+          validator: validationHandler != null ? validationHandler :  (val) {
             if (isRequired && val == null) {
               return 'Select at least one value for $label';
             }

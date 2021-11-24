@@ -15,6 +15,7 @@ class GtDropdownFormField extends StatelessWidget {
     this.valueTextStyle,
     this.isReadOnly = false,
     this.inputDecoration,
+    this.validationHandler,
   });
 
   final IconData iconData;
@@ -29,6 +30,9 @@ class GtDropdownFormField extends StatelessWidget {
   final Color dropDownBackGround;
   final bool isReadOnly;
   final InputDecoration inputDecoration;
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,7 +69,7 @@ class GtDropdownFormField extends StatelessWidget {
                 )
                 .toList(),
             onSaved: onSavehandler,
-            validator: (dynamic value) {
+            validator: validationHandler != null ? validationHandler :  (value) {
               if (isRequired == true && (value == null || value.isEmpty)) {
                 return 'Please select atleast one option';
               } else {}

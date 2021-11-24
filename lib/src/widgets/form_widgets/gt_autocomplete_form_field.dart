@@ -28,6 +28,7 @@ class GtTagTextField extends StatelessWidget {
     this.addButtonOption = false,
     this.customWidgetPanel,
     this.valueTextStyle,
+    this.validationHandler,
   });
 
   final String fieldLabel;
@@ -60,6 +61,8 @@ class GtTagTextField extends StatelessWidget {
   final Function(dynamic obj) customWidgetPanel;
   // FILED TEXT VALUE STYLE
   final TextStyle valueTextStyle;
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +136,7 @@ class GtTagTextField extends StatelessWidget {
           onSaved: (onSavedVal) {
             if (onSavedHander != null) onSavedHander(onSavedVal);
           },
-          validator: (val) {
+          validator:  validationHandler != null ? validationHandler :  (val) {
             if (isRequired == true && (val == null || val.isEmpty)) {
               return 'Please select the value from ${fieldLabel != null ? fieldLabel : ""} suggestions';
             }

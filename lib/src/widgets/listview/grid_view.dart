@@ -15,7 +15,9 @@ class GtGridView extends StatelessWidget {
       this.onDetailsNavigateHandler,
       this.onHoverHandler,
       this.pathNavigation,
-      this.getLeadingWidget})
+      this.getLeadingWidget,
+      this.customGridviewItemBuilder,
+      this.isCustomItemGridView = false})
       : assert(listItems != null);
 
   final Function(bool isSelected, dynamic item) onSelectionHandler;
@@ -30,6 +32,8 @@ class GtGridView extends StatelessWidget {
   final Function(int index, bool isImage, String valuePath) getLeadingWidget;
   final Function(bool isSelected, dynamic item) onHoverHandler;
   final String pathNavigation;
+  final bool isCustomItemGridView;
+  final Function(int index,dynamic obj) customGridviewItemBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,9 @@ class GtGridView extends StatelessWidget {
         ),
         itemCount: listItems.length,
         itemBuilder: (context, index) {
-          return buildSingleCard(
+          return isCustomItemGridView && customGridviewItemBuilder != null ? 
+            customGridviewItemBuilder(index, listItems[index])
+          : buildSingleCard(
             listItems[index],
             fromGridViewBuilder: true,
           );

@@ -11,6 +11,8 @@ class GtRadioButtonFormField extends FormField<dynamic> {
   final Color activeColor;
   final TextStyle textStyle;
   final bool validationMessage;
+  /// Validation function Handler
+  final Function(dynamic) validationHandler;
 
   GtRadioButtonFormField(
       {@required this.displayMapFields,
@@ -21,12 +23,13 @@ class GtRadioButtonFormField extends FormField<dynamic> {
       this.isRequired = false,
       this.textStyle,
       this.validationMessage = true,
-      this.activeColor})
+      this.activeColor,
+      this.validationHandler})
       : super(
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(selectedRadioButtonVal);
           },
-          validator: (val) {
+          validator: validationHandler != null ? validationHandler :  (val) {
             if (isRequired && selectedRadioButtonVal == null) {
               return 'Select the Value for the $label';
             }

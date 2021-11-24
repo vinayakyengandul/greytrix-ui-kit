@@ -36,6 +36,7 @@
  - [GtSwitchButtonFormField Widget](#gtswitchbuttonformfield-widget)
  - [GtSurveyKit Widget](#gtsurveykit-widget)
  - [GtMarquee Widget](#gtmarquee-widget)
+ - [GtPdfWidget Widget](#gtpdfwidget-widget)
  
  
  
@@ -3179,4 +3180,403 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 3 : Result :
       
           ![GtMarquee](https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4)
+
+
+# GtPdfWidget Widget
+  
+ The gtpdfwidget widget It can create a full multi-pages document with graphics, images, and text using TrueType fonts. With the ease of use you.
+   - a low-level Pdf creation library that takes care of the pdf bits generation.
+   - a Widgets system similar to Flutter's, for easy high-level Pdf creation.
+        
+   - Constructors: 
+      - [GtPdfWidget](components.md#gtpdfwidget-widget)({
+                     this.maxPageWidth,
+                     @required this.pdfData,
+                     this.onShared,
+                     this.actions,
+                     this.useActions = true,
+                     this.allowPrinting = true,
+                     this.allowSharing = true,
+                     this.canChangeOrientation = true,
+                     this.canChangePageFormat = true,
+                     this.canDebug = true,
+                     this.loadingWidget,
+                     this.pdfPreviewPageDecoration,
+                     this.pdfFileName,
+                     this.pages,
+                     this.padding,
+                     this.scrollViewDecoration,
+                     this.previewPageMargin,
+                     this.onError,
+                     this.onPrintError,
+                     this.onPrinted,
+                     this.dynamicLayout = true,
+                     this.shouldRepaint = false,
+                     this.initialPageFormat,
+                     this.pageFormats = _defaultPageFormats,
+                     this.shareActionExtraBody,
+                     this.shareActionExtraSubject,
+                     this.shareActionExtraEmails,});
+           
+   - Input Parameters of GtPdfWidget Widget
+      - maxPageWidth - maxPageWidth - This is Maximum width of the pdf document on screen.
+      - pdfData - PdfData - This is class For Preparing PDf Preview in data.
+         - PdfData Constructors: 
+            - [PdfData]()({
+               @required this.baseColor,
+               @required this.accentColor,
+               this.pdfHeader,
+               this.pdfFooter,
+               @required this.data,
+               @required this.pdfBody,
+               this.pageMargin});
+               - baseColor - PdfColor - This is color of pdf base color and this is required parameter.
+               - accentColor - PdfColor - This is color of pdf accent color and This also required parameter.
+               - pdfHeader - pdfHeader - This is class of pdfHeader for represent the header section ToMapJson.
+               - pdfFooter - pdfFooter - This is class of pdfFooter for represent the footer section ToMapJson.
+               - data - dynamic - This is required parameter for showing tomapJson fields from data.
+               - pdfBody - pdfBody - This is class of pdfBody for represent the body section ToMapJson.
+               - pageMargin - pw.EdgeInsets - This is for page padding and margin on screen.
+      - onShared - Function(BuildContext, PdfData) - Called if the user shares the pdf document.
+      - actions - List<PdfPreviewAction> - Additionnal actions to add to the widget.   
+      - useActions - bool - This is Allow disable actions, and this is default true. 
+      - allowPrinting - bool - Add a button to print the pdf document, and this is default true. 
+      - allowSharing - bool - Add a button to print the pdf document, and this is default true. 
+      - canChangeOrientation - bool - Add a switch to change the page orientation, and this is default true.
+      - canChangePageFormat - bool - Add a drop-down menu to choose the page format, and this is default true.
+      - canDebug - bool - Add a switch to show debug view, and this is default true.
+      - loadingWidget - Widget - Custom loading widget to use that is shown while PDF is being generated. If null, a [CircularProgressIndicator] is used instead.
+      - pdfPreviewPageDecoration - Decoration - Decoration of PdfPreviewPage,
+      - pdfFileName - String - Name of the PDF when sharing. It must include the extension.
+      - pages - List<int> - Pages to display. Default will display all the pages.
+      - padding - EdgeInsets - padding for the pdf_preview widget.
+      - scrollViewDecoration - Decoration - Decoration of scrollView.
+      - previewPageMargin - EdgeInsets - margin for the document preview page.
+      - onError - Widget Function(BuildContext, Object) - Widget to display if the PDF document cannot be displayed.
+      - onPrintError - Function(BuildContext, dynamic) - Called if an error creating the Pdf occured.
+      - onPrinted - Function(BuildContext) - Called if the user prints the pdf document.
+      - dynamicLayout - bool - Request page re-layout to match the printer paper and margins. Mitigate an issue with iOS and macOS print dialog that prevent any channel message while opened.
+      - shouldRepaint - bool - Force repainting the PDF document.
+      - initialPageFormat - PdfPageFormat - Pdf page format asked for the first display.
+      - pageFormats - Map<String, PdfPageFormat> - List of page formats the user can choose.
+      - shareActionExtraBody - String - extra text to share with Pdf document.
+      - shareActionExtraSubject - String - email subject when email application is selected from the share dialog.
+      - shareActionExtraEmails - List<String> - list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform. 
+      
+   - Example
+    
+      - Step 1 : Import UI KIT in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+         import 'package:pdf/pdf.dart';
+         import 'package:printing/printing.dart';
+         import 'package:pdf/widgets.dart' as pw;
+      ```
+      - Step 2 : Binding
+
+      ```dart
+         class PdfBinding extends Bindings {
+            @override
+            void dependencies() {
+               Get.put(PdfViewController());
+            }
+         }
+      ```
+      
+      - Step 3 : PdfViewController.
+
+      ```dart
+         import 'package:flutter/material.dart';
+         import 'package:get/get.dart';
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+         import 'package:pdf/widgets.dart' as pw;
+
+         class PdfViewController  extends GetxController with StateMixin<PdfData> {
+
+         PdfViewController();
+         late PdfData pdfData;
+         late PdfHeader pdfHeader;
+         @override
+         void onInit() {
+            fetchData();
+            super.onInit();
+         }
+
+
+         fetchData() async {
+            var data = {
+                     "FOOTER1" : "PLEASE RETURN PALLET TO US.",
+                     "Logo" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU",
+                     "Logo1" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkIqTOPtGnf2bb2ZUnFIx9umgPhUM4qaYqog&usqp=CAU",
+                     "Status" : "CHECKING ACCOUNT STATEMENT",
+                     "Title" : "MY FIRST BANK LTD",
+                     "Address": "WEI-CHUAN U.S.A., INC 955 Norcross Industrial Ct STE A Norcross, GA 30071 TEL: (770) 840-668",
+                     "Name": "Rahul K.",
+                     "billto" : "ASIAN MARKET \nASHEVILLE 22 NEW LEICESTER HWY Asheville, NC  28806 TEL: (828) 785-1653 FAX:",
+                     "tableHeaderDatabank" : [{
+                     "statementperiod" : "2003-10-19 to 2003-11-08",
+                     "accountno" : 1234566665654654,
+                     }],
+                  "tableBodyDatabank" : [{
+                     "date" : "2003-10-08",
+                     "desc" : "Prevoius balance",
+                     "ref" : "",
+                     "with" : "",
+                     "dep" : "",
+                     "bal" : "0.55",
+                     },{
+                     "date" : "2003-10-14",
+                     "desc" : "Payroll Deposit - HOTEL",
+                     "ref" : "",
+                     "with" : "",
+                     "dep" : "694.30",
+                     "bal" : "694.85",
+                     },{
+                     "date" : "2003-10-14",
+                     "desc" : "Payroll Deposit - HOTEL",
+                     "ref" : "",
+                     "with" : "",
+                     "dep" : "694.30",
+                     "bal" : "694.85",
+                     },{
+                     "date" : "2003-10-14",
+                     "desc" : "Payroll Deposit - HOTEL",
+                     "ref" : "",
+                     "with" : "",
+                     "dep" : "694.30",
+                     "bal" : "694.85",
+                     },{
+                     "date" : "2003-10-14",
+                     "desc" : "Payroll Deposit - HOTEL",
+                     "ref" : "",
+                     "with" : "",
+                     "dep" : "694.30",
+                     "bal" : "694.85",
+                     },
+                     ],
+                  };
+
+               pdfHeader = PdfHeader(
+                     maxColumn: 2,
+                     maxRow: 4,
+                     pdfHeaderFields: [
+                     PdfHeaderField(
+                        column: 2,
+                        row: 1,
+                        defaultValue: "",
+                        valuePath: "Title",
+                        alignment: pw.Alignment.centerLeft,
+                     ),
+                     PdfHeaderField(
+                        column: 1,
+                        row: 2,
+                        defaultValue: "",
+                        valuePath: "Address",
+                        fieldType: GTHeaderFieldType.SUBTITLE,
+                        padding: const pw.EdgeInsets.only(right: 40),
+                        alignment: pw.Alignment.centerLeft,
+                        valueTextStyle: const pw.TextStyle(color: PdfColors.black, fontSize: 10,)
+                     ),
+                     PdfHeaderField(
+                        column: 2,
+                        row: 2,
+                        defaultValue: "",
+                        valuePath: "Status",
+                        fieldType: GTHeaderFieldType.SUBTITLE,
+                        alignment: pw.Alignment.centerRight,
+                        valueTextStyle: const pw.TextStyle(color: PdfColors.black, fontSize: 10)
+                     ),
+                     PdfHeaderField(
+                        column: 1,
+                        row: 3,
+                        defaultValue: "",
+                        valuePath: "billto",
+                        height: 100,
+                        fieldType: GTHeaderFieldType.SUBTITLE,
+                        padding: const pw.EdgeInsets.only(right: 70,top: 20,bottom: 20),
+                        alignment: pw.Alignment.centerLeft,
+                        keyTextStyle: const pw.TextStyle(color: PdfColors.red300, fontSize: 12),
+                        valueTextStyle: const pw.TextStyle(color: PdfColors.black, fontSize: 12)
+                     ),
+                     PdfHeaderField(
+                        column: 2,
+                        row: 3,
+                        defaultValue: "",
+                        tableHeaderDecoration: const pw.BoxDecoration(
+                           borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+                           color:  PdfColors.blueGrey200
+                        ),
+                        valuePath: "tableHeaderDatabank",
+                        fieldType: GTHeaderFieldType.TABLE,
+                        height: 100,
+                        pdfTable: {
+                           "Statement period" : PdfTable(
+                           valuePath: "statementperiod",
+                           ),
+                           "Account No" : PdfTable(
+                           valuePath: "accountno",
+                           ),
+                        }
+                     ),
+                     PdfHeaderField(
+                        column: 1,
+                        row: 1,
+                        defaultValue: "",
+                        valuePath: "Logo",
+                        height: 50,
+                        alignment: pw.Alignment.topRight,
+                        fieldType: GTHeaderFieldType.IMAGE,
+                     ),
+                        PdfHeaderField(
+                        column: 2,
+                        row: 4,
+                        defaultValue: "",
+                        valuePath: "Logo1",
+                        height: 50,
+                        alignment: pw.Alignment.centerLeft,
+                        fieldType: GTHeaderFieldType.IMAGE,
+                     ),
+                     ]
+                  );
+
+               pdfHeader.pdfHeaderFields.forEach((element) async {
+               if(element.fieldType  == GTHeaderFieldType.IMAGE){
+                  var value = Common.getValue(data,element.valuePath);
+                  element.imageProvider = await getImage(value);
+               }
+               });    
+
+               pdfData = PdfData(
+                  pageMargin: const pw.EdgeInsets.only(left: 60, right: 60,top: 20,bottom: 20),
+                  baseColor: PdfColors.black,
+                  accentColor: PdfColors.blueGrey900,
+                  data: data,
+                  pdfFooter: PdfFooter(
+                     maxColumn: 1,
+                     maxRow: 7,
+                     pdfFooterFields: [
+                        PdfFooterField(
+                        column: 1,
+                        row: 1,
+                        defaultValue: "",
+                        valuePath: "FOOTER1",
+                        height: 12,
+                        valueTextStyle: pw.TextStyle(fontSize: 8,color: PdfColors.black, fontWeight: pw.FontWeight.bold ),
+                        alignment: pw.Alignment.centerLeft,
+                        // fieldType: GTHeaderFieldType.IMAGE,
+                     ),
+                     ]
+                  ),
+                  pdfBody: PdfBody(
+                     maxColumn: 1,
+                     maxRow: 3,
+                     pdfBodyFields: [
+                     PdfBodyField(
+                        column: 1,
+                        row: 1,
+                        defaultValue: "",
+                        valuePath: "tableBodyDatabank",
+                        fieldType: GTBodyFieldType.TABLE,
+                        tableBodyDecoration: const pw.BoxDecoration(
+                           borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+                           color:  PdfColors.blueGrey200
+                        ),
+                        pdfTable: {
+                           "Date" : PdfTable(
+                           valuePath: "date",
+                           ),
+                           "Description" : PdfTable(
+                           valuePath: "desc",
+                           ),
+                           "Ref." : PdfTable(
+                           valuePath: "ref",
+                           ),
+                           "Withdrawals" : PdfTable(
+                           valuePath: "with",
+                           ),
+                           "Deposits" : PdfTable(
+                           valuePath: "dep",
+                           ),
+                           "Balance" : PdfTable(
+                           valuePath: "bal",
+                           )
+                        }
+                     ),
+                     PdfBodyField(
+                        column: 1,
+                        row: 1,
+                        defaultValue: "",
+                        valuePath: "billto",
+                        fieldType: GTBodyFieldType.SUBTITLE,
+                        padding: pw.EdgeInsets.all(20)
+                        
+                     ),
+                     ]
+                  ),
+                  pdfHeader: pdfHeader
+               );
+               change(pdfData, status: RxStatus.success());
+         }
+         Future<pw.ImageProvider> getImage(String value) async{
+            return await flutterImageProvider(NetworkImage(value));
+         }
+         }
+      ```
+
+      - Step 4 : Used GtPdfWidget widget and specify the PdfPreviewPage to be displayed.
+                
+      ```dart
+            import 'dart:convert';
+            import 'package:flutter/material.dart';
+            import 'package:get/get.dart';
+            import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+            import 'package:pdf_widget_creator/pdf_controller.dart';
+            import 'package:pdf/widgets.dart' as pw;
+            import 'package:pdf/src/pdf/page_format.dart';
+
+            class PdfPage extends GetView<PdfViewController> {
+            
+            @override
+            Widget build(BuildContext context) {
+               return Scaffold(
+                  appBar: AppBar(title: Text('PDF')),
+                  body: Container(
+                  child: controller.obx(
+                     (state) => GtPdfWidget(
+                  initialPageFormat: PdfPageFormat.a4,
+                  maxPageWidth: 900,
+                  canChangeOrientation: false,
+                  pdfFileName: "samplePDF.pdf",
+                  actions: [
+                     PdfPreviewAction(
+                        icon: Icon(Icons.mail),
+                        onPressed: (context, build, page) async {
+                        final bytes = await build(page);
+                        final Encoded = base64.encode(bytes); // returns base64 string
+                        }
+                     )
+                  ],
+                  pdfData: state,
+                  ),
+                     onLoading: Center(child: CircularProgressIndicator()),
+                     onError: (ss) => Center(
+                        child: Text(
+                        'Erro ao consultar os Estados do Brasil',
+                        style: TextStyle(fontSize: 18),
+                        textAlign: TextAlign.center,
+                        ),
+                     ),
+                  ),
+                  ),
+               );
+            }
+         }
+
+     ```
+   
+
+      - Step 5 : Result :
+      
+          ![GtPdfWidget](https://user-images.githubusercontent.com/64594463/141726456-02b2e3cf-d152-4a76-816d-ed396cb12918.png)
 
