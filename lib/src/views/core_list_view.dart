@@ -125,7 +125,6 @@ class CoreListView extends GetResponsiveView<CoreController> {
                     backNavigation: backNavigation,
                     pathNavigation: pathNavigation,
                     isSpaceInRecords: isSpaceInRecords,
-                    isListView: true,
                     onHoverHandler: controller.onHoverHandler,
                     isleadingIconPosition: isleadingIconPos,
                     size: size,

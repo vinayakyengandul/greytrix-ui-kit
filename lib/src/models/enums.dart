@@ -125,3 +125,9 @@ enum GtImagePosition { LEFT, RIGHT, TOP, BOTTOM }
 
 // FOR ICONS/IMAGE TYPE IN RAILS
 enum GtIconType { IMAGE, SVG, ICON }
+
+/// Custom Widget 
+enum GtListCustomWidgetType { LIST, GRID, NONE }
+
+/// Selected list type for gtListPage
+enum GtCurrentListViewType { LIST, GRID }

@@ -36,7 +36,6 @@ class GtListPage extends StatelessWidget {
     this.filtersData,
     this.onHoverHandler,
     this.toggleListGridView,
-    this.isListView = true,
     this.backgroundcolor,
     this.onDeleteHandler,
     this.quantityInitialValue,
@@ -73,21 +72,19 @@ class GtListPage extends StatelessWidget {
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
         this.itemDatawidget,
-        this.isCustomItemWidget = false,
         this.swipeSnackBartextWidget,
         this.mainCardMargin = const EdgeInsets.all(8),
         this.cardElevation = 1.0,
         this.noListFoundText = "No Records Found",
         this.customGridviewItemBuilder,
-        this.isCustomItemGridView = false,
+        this.listCustomWidgetType  = GtListCustomWidgetType.NONE,
+        this.currentListViewType = GtCurrentListViewType.LIST,
   })  : assert(listItems != null),
         assert(rowsCount != null),
-        assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
-        assert((isCustomItemGridView && customGridviewItemBuilder != null) ||(!isCustomItemGridView && toMapjson != null)),
+        assert((listCustomWidgetType == GtListCustomWidgetType.NONE && toMapjson != null) || (listCustomWidgetType == GtListCustomWidgetType.LIST && itemDatawidget != null ) || (listCustomWidgetType == GtListCustomWidgetType.GRID && customGridviewItemBuilder != null)),
         super(key: key);
 
   final Map<String, dynamic> filtersData;
-  final bool isListView;
   final String tag;
   final Widget title;
   final List<dynamic> listItems;
@@ -180,7 +177,6 @@ class GtListPage extends StatelessWidget {
   final EdgeInsets listItemPadding;
   ///Record Item data Widget from User
   final Function(int index,dynamic obj) itemDatawidget;
-  final bool isCustomItemWidget;
   final EdgeInsets mainCardMargin;
   /// Card Elevation 
   final double cardElevation;
@@ -188,8 +184,10 @@ class GtListPage extends StatelessWidget {
   final String noListFoundText;
   /// GRID VIEW CUSTOM ITEM BUILDER
   final Function(int index,dynamic obj) customGridviewItemBuilder;
-  /// GRID VIEW CUSTOM OPTION
-  final bool isCustomItemGridView;
+  /// CUSTOM ITEM WIDGET
+  final GtListCustomWidgetType listCustomWidgetType;
+  /// Selected list type for gtListPage
+  final GtCurrentListViewType currentListViewType;
 
 
   
@@ -378,7 +376,7 @@ class GtListPage extends StatelessWidget {
     }
     Widget returnNastedScroll() {
       return NotificationListener<ScrollNotification>(
-        child: isListView == true
+        child: currentListViewType == GtCurrentListViewType.LIST 
             ? GtListView(
                 listItems: listItems,
                 gtTileRowCrossAxisAlignment: gtTileRowCrossAxisAlignment,
@@ -415,7 +413,7 @@ class GtListPage extends StatelessWidget {
                 horizinalScrollable: horizinalScrollable,
                 listItemPadding: listItemPadding,
                 itemDatawidget: itemDatawidget,
-                isCustomItemWidget: isCustomItemWidget,
+                isCustomItemWidget: listCustomWidgetType == GtListCustomWidgetType.LIST,
                 swipeSnackBartextWidget: swipeSnackBartextWidget,
                 mainCardMargin: mainCardMargin,
               )
@@ -432,7 +430,7 @@ class GtListPage extends StatelessWidget {
                 onHoverHandler: onHoverHandler,
                 pathNavigation: pathNavigation,
                 customGridviewItemBuilder: customGridviewItemBuilder,
-                isCustomItemGridView: isCustomItemGridView,
+                isCustomItemGridView: listCustomWidgetType == GtListCustomWidgetType.GRID,
               ),
         onNotification: (ScrollNotification scrollInfo) {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
@@ -531,7 +529,7 @@ class GtListPage extends StatelessWidget {
                                     if (viewtype == ViewType.both)
                                       PopupMenuItem(
                                         child: ListTile(
-                                          leading: isListView == true
+                                          leading: currentListViewType == GtCurrentListViewType.LIST
                                               ? Icon(
                                                   Icons.dashboard,
                                                 )
@@ -539,7 +537,7 @@ class GtListPage extends StatelessWidget {
                                                   Icons.list,
                                                 ),
                                           title: GtText(
-                                            text: isListView == true
+                                            text: currentListViewType == GtCurrentListViewType.LIST
                                                 ? 'Card'
                                                 : 'List',
                                             // texttype: TextformatType.bodyText1,
@@ -561,7 +559,7 @@ class GtListPage extends StatelessWidget {
                           : Row(children: [
                               if (viewtype == ViewType.both)
                                 IconButton(
-                                    icon: isListView
+                                    icon: currentListViewType == GtCurrentListViewType.LIST
                                         ? Icon(
                                             Icons.dashboard,
                                           )
@@ -706,7 +704,7 @@ class GtListPage extends StatelessWidget {
                                         if (viewtype == ViewType.both)
                                           PopupMenuItem(
                                             child: ListTile(
-                                              leading: isListView == true
+                                              leading: currentListViewType == GtCurrentListViewType.LIST
                                                   ? Icon(
                                                       Icons.dashboard,
                                                     )
@@ -714,7 +712,7 @@ class GtListPage extends StatelessWidget {
                                                       Icons.list,
                                                     ),
                                               title: GtText(
-                                                text: isListView == true
+                                                text: currentListViewType == GtCurrentListViewType.LIST
                                                     ? 'Card'
                                                     : 'List',
                                                 // texttype: TextformatType.bodyText1,
@@ -736,7 +734,7 @@ class GtListPage extends StatelessWidget {
                               : Row(children: [
                                   if (viewtype == ViewType.both)
                                     IconButton(
-                                        icon: isListView
+                                        icon: currentListViewType == GtCurrentListViewType.LIST
                                             ? Icon(
                                                 Icons.dashboard,
                                               )

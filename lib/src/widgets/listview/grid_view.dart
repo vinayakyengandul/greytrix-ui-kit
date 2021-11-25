@@ -16,9 +16,12 @@ class GtGridView extends StatelessWidget {
       this.onHoverHandler,
       this.pathNavigation,
       this.getLeadingWidget,
+      this.spaceBetweenKeyValue = false,
+      this.horizinalScrollable = false,
       this.customGridviewItemBuilder,
       this.isCustomItemGridView = false})
-      : assert(listItems != null);
+      : assert(listItems != null),
+      assert((isCustomItemGridView && customGridviewItemBuilder != null) ||(!isCustomItemGridView && toMapjson != null));
 
   final Function(bool isSelected, dynamic item) onSelectionHandler;
   final List<dynamic> listItems;
@@ -34,6 +37,10 @@ class GtGridView extends StatelessWidget {
   final String pathNavigation;
   final bool isCustomItemGridView;
   final Function(int index,dynamic obj) customGridviewItemBuilder;
+  /// Record Key and Value SpaceBetween
+  final bool spaceBetweenKeyValue;
+  // HORIZONTAL SCROLLABLE
+  final bool horizinalScrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class GtGridView extends StatelessWidget {
         ),
         itemCount: listItems.length,
         itemBuilder: (context, index) {
-          return isCustomItemGridView && customGridviewItemBuilder != null ? 
+          return isCustomItemGridView == true ? 
             customGridviewItemBuilder(index, listItems[index])
           : buildSingleCard(
             listItems[index],
@@ -127,6 +134,9 @@ class GtGridView extends StatelessWidget {
                     }
                 },
                 gtValueType: value.valueType,
+                spaceBetweenKeyValue: spaceBetweenKeyValue,
+                horizinalScrollable: horizinalScrollable
+                
               );
             break;
           case "SUB_TITLE":
@@ -146,6 +156,8 @@ class GtGridView extends StatelessWidget {
                         }
                     },
                     gtValueType: value.valueType,
+                    spaceBetweenKeyValue: spaceBetweenKeyValue,
+                    horizinalScrollable: horizinalScrollable
                   ),
                 ],
               ));
@@ -180,6 +192,8 @@ class GtGridView extends StatelessWidget {
                       }
                   },
                   gtValueType: value.valueType,
+                  spaceBetweenKeyValue: spaceBetweenKeyValue,
+                    horizinalScrollable: horizinalScrollable
                 ),
               );
             }
