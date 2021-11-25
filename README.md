@@ -37,6 +37,7 @@
  - [GtSurveyKit Widget](#gtsurveykit-widget)
  - [GtMarquee Widget](#gtmarquee-widget)
  - [GtPdfWidget Widget](#gtpdfwidget-widget)
+ - [GtDropdownSearch Widget](#gtdropdownsearch-widget)
  
  
  
@@ -2662,9 +2663,13 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - horizinalScrollable - bool - This is horizinal Scrollable, default is false.
       - listItemPadding - EdgeInsets - This is item padding.
       - itemDatawidget - Function - This is Custom Widget of Each Item.
-      - isCustomItemWidget - bool - This is Custom Widget define, Default is false.
       - swipeSnackBartextWidget - Widget - This is used swipe delete option snackbar showing Widget.
       - mainCardMargin - EdgeInsets - This is ListView Main Card margin, default mergin is EdgeInsets.all(8).
+      - cardElevation - double - FrameLayout with rounded corners and shadow based on its cardElevation.
+      - noListFoundText - String - This is text for record length is 0 than it message will display.
+      - customGridviewItemBuilder - Function(int index,dynamic obj) - This is custom widget for Grid View each item.
+      - listCustomWidgetType - GtListCustomWidgetType (enum) - It is custom widget type for show custom builder, options enum GtListCustomWidgetType { LIST, GRID, NONE }. Default is GtListCustomWidgetType.NONE 
+      - currentListViewType - GtCurrentListViewType - This shows current listview type, Selected list type for gtListPage. option enum  { LIST, GRID }, Default is  GtCurrentListViewType.LIST. 
       
    - Example
     
@@ -2738,7 +2743,6 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                            gtTileRowMainAxisAlignment: MainAxisAlignment.center,
                            gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
                            isSpaceInRecords: true,
-                           isListView: true,
                            isleadingIconPosition: false,
                            size: Get.size,
                            listViewTableType: GTListViewTableType.Normal,
@@ -3579,4 +3583,74 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - Step 5 : Result :
       
           ![GtPdfWidget](https://user-images.githubusercontent.com/64594463/141726456-02b2e3cf-d152-4a76-816d-ed396cb12918.png)
+
+# GtDropdownSearch Widget
+  
+ The gtdropdownsearch widget is used represent the searchable dropdown array of list on the Screen with ontap.
+   - Benefits of GtDropdownSearch Widget
+        
+   - Constructors: 
+      - [GtDropdownSearch](components.md#gtdropdownsearch-widget)({
+         @required this.textEditingController,
+         this.inputDecoration,
+         this.onChangeHandler,
+         this.suffixIcon,
+         this.suffixOnPressed,
+         this.itemDatawidget,
+         this.itemOnTapHandler,
+         this.dropDownResult,
+         this.fieldLabel = "",
+         this.textFieldOnTapHandler,});
+           
+   - Input Parameters of GtDropdownSearch Widget
+      - textEditingController - TextEditingController - This is text form field controller to search the text.
+      - inputDecoration - InputDecoration - It well show decoration for search dropdown widget. 
+      - onChangeHandler - Function(dynamic) - This is on change function for search text.
+      - suffixIcon - Widget  - Its Showing suffix widget for dropdown.
+      - suffixOnPressed - Function(dynamic) - This is suffix widget on Pressed function.
+      - itemDatawidget - Function(int, dynamic) - This is custom builder for each item for dropdown item.
+      - itemOnTapHandler - Function(int) - This is dropdown item on tap handler.
+      - dropDownResult - List<dynamic> - This is dropdown list.
+      - fieldLabel - String - field label name for showing dropdown label.
+      - textFieldOnTapHandler - Function - text field on tap handler for searchable dropdown field.
+
+      
+   - Example
+    
+      - Step 1 : Import UI KIT in files that it will be used:
+
+      ```dart
+         import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+      ```
+
+      - Step 2 : Used GtDropdownSearch widget.
+                
+      ```dart
+            class DropDownSearchable extends StatelessWidget {
+               @override
+               Widget build(BuildContext context) {
+                  var controller1 = MarqueeModel();
+                 return Scaffold(
+                     appBar: GtAppBar(
+                         backgroundColor: Color(0xff5a5278),
+                         title: GtText(text: 'Scrolling Marquee widget')),
+                     body: Column(
+                        children:[
+                           GtDropdownSearch(
+                              textEditingController: TextEditingController(),
+                              dropDownResult: ["fsdshbdc", "sachadgbc", "advcsadf"],
+                              itemOnTapHandler: (i){},
+                              suffixOnPressed: (data){},
+                              textFieldOnTapHandler: (){},
+                           ),
+                        ]
+                     ));
+               }
+            }
+
+     ```
+     
+      - Step 3 : Result :
+      
+          ![GtDropdownSearch](https://user-images.githubusercontent.com/64594463/143400038-15a46064-4d03-4a53-8331-d94668d74629.png)
 

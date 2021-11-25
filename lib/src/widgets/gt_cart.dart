@@ -66,7 +66,6 @@ class GtCartDetails extends StatelessWidget {
                       listItems: items,
                       title: GtText(text: 'Cart'),
                       viewtype: ViewType.list,
-                      isListView: true,
                       quantityInitialValue: quantityInitialValue,
                       incrementHandler: incrementHandler,
                       decrementHandler: decrementHandler,
