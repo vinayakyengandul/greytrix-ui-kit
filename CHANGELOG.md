@@ -1,5 +1,11 @@
+## [0.0.8]
+#### Nov 25, 2021
+
+- GtListPage Widget custom builder changes
+
 ## [0.0.7]
 #### Nov 23, 2021
+#### COMMIT NO : 8c9e6fa
 
 - New Widget - GtPdfWidget Added.
 - All Form Fields Validation function expose.
