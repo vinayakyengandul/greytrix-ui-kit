@@ -35,16 +35,16 @@ class BodyListFields{
       rowsData.forEach(
         (k, v) => {
           // if(pdfData.pdfBody.pdfBodyFields.length == 1 ){
-          v.forEach((Shape) => {
-            widgets.add(Shape)
-          }),
+          // v.forEach((Shape) => {
+          //   widgets.add(Shape)
+          // }),
           // }else{
-          // widgets.add(pw.Row(
-          //         // crossAxisAlignment: pw.CrossAxisAlignment.start,
-          //         mainAxisSize: pw.MainAxisSize.min,
-          //       children: v
-          //     )
-          // )
+          widgets.add(pw.Row(
+                  // crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  mainAxisSize: pw.MainAxisSize.min,
+                children: v
+              )
+          )
           // }
         });
       }
@@ -70,6 +70,7 @@ class BodyListFields{
           
         case GTBodyFieldType.TITLE:
           return  pw.Container(
+              decoration: element.decoration,
               height: element.height,
               padding: element.padding,
               alignment: element.alignment,
@@ -84,18 +85,10 @@ class BodyListFields{
             );
             break;
         case GTBodyFieldType.SUBTITLE:
-          return  pw.Container(
-              height: element.height,
-              padding: element.padding,
-              alignment: element.alignment,
-              child: 
-              pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                if(element.displayKey == true)
+        List<pw.Widget> arryList = [
+          if(element.displayKey == true)
               pw.Text(
-                element.valuePath.toUpperCase(),
+                element.key,
                 style: element.keyTextStyle ?? pw.TextStyle(
                   color: pdfData.baseColor,
                   fontSize: 15,
@@ -106,7 +99,20 @@ class BodyListFields{
                   color: pdfData.baseColor,
                   fontSize: 15,
                 ),
-              ),])
+              ),];
+          return  pw.Container(
+              decoration: element.decoration,
+              height: element.height,
+              padding: element.padding,
+              alignment: element.alignment,
+              child: element.bodyFieldKeyValueFormat == GtBodyFieldKeyValueFormat.COLUMN ?
+              pw.Column(
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: arryList) : pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: arryList)
             );
             break;
 
@@ -143,13 +149,13 @@ class BodyListFields{
           break;
 
         case GTBodyFieldType.LINE: 
-          return  pw.Container(
+          return pw.Expanded(
+            child:  pw.Container(
               height: element.height,
               padding: element.padding,
               alignment: element.alignment,
-              //  decoration: element.lineDecoration,
-              child: pw.Text("dd")
-          );
+               decoration: element.lineDecoration,
+          ));
           break;
         default:
       }

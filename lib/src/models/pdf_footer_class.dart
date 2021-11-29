@@ -58,6 +58,8 @@ class PdfFooterField{
                   border: pw.Border(top: pw.BorderSide(
                     )),
                 ),
+    this.key = "",
+    this.footerFieldKeyValueFormat = GtFooterFieldKeyValueFormat.COLUMN,
   });
 
   final int row;
@@ -82,6 +84,10 @@ class PdfFooterField{
   final pw.TextStyle tableCellStyle;
   final pw.BoxDecoration tableRowDecoration;
   final pw.BoxDecoration lineDecoration;
+  final String key;
+  final GtFooterFieldKeyValueFormat footerFieldKeyValueFormat;
 }
 
 enum GTFooterFieldType { TITLE, SUBTITLE, TABLE, LINE }
+
+enum GtFooterFieldKeyValueFormat {ROW, COLUMN}

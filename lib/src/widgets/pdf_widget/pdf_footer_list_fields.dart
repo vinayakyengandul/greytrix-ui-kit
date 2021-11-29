@@ -72,18 +72,10 @@ class FooterListFields{
             ));
             break;
         case GTFooterFieldType.SUBTITLE:
-          return pw.Expanded(child:  pw.Container(
-              height: element.height,
-              padding: element.padding,
-              alignment: element.alignment,
-              child: 
-              pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                if(element.displayKey == true)
+          List<pw.Widget> arryList = [
+          if(element.displayKey == true)
               pw.Text(
-                element.valuePath.toUpperCase(),
+                element.key,
                 style: element.keyTextStyle ?? pw.TextStyle(
                   color: pdfData.baseColor,
                   fontSize: 15,
@@ -94,7 +86,19 @@ class FooterListFields{
                   color: pdfData.baseColor,
                   fontSize: 15,
                 ),
-              ),])
+              ),];
+          return pw.Expanded(child:  pw.Container(
+              height: element.height,
+              padding: element.padding,
+              alignment: element.alignment,
+              child: element.footerFieldKeyValueFormat == GtFooterFieldKeyValueFormat.COLUMN ?
+              pw.Column(
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: arryList) : pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: arryList)
             ));
             break;
 

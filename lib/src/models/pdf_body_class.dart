@@ -57,6 +57,9 @@ class PdfBodyField{
             )),
         ),
         this.cellDecoration,
+        this.key,
+        this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
+        this.decoration,
   });
 
   final int row;
@@ -82,5 +85,10 @@ class PdfBodyField{
   final pw.BoxDecoration tableRowDecoration;
   final pw.BoxDecoration lineDecoration;
   final OnCellDecoration cellDecoration;
+  final String key;
+  final GtBodyFieldKeyValueFormat bodyFieldKeyValueFormat;
+  final pw.BoxDecoration decoration;
 }
 enum GTBodyFieldType { ICON, TITLE, SUBTITLE, TABLE, LINE }
+
+enum GtBodyFieldKeyValueFormat {ROW, COLUMN}

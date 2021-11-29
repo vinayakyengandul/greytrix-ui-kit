@@ -56,6 +56,8 @@ class PdfHeaderField{
             )),
         ),
     this.imageProvider,
+    this.key = "",
+    this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
   });
 
   final int row;
@@ -80,6 +82,10 @@ class PdfHeaderField{
   final pw.TextStyle tableCellStyle;
   final pw.BoxDecoration tableRowDecoration;
   final pw.BoxDecoration lineDecoration;
+  final String key;
+  final GtHeaderFieldKeyValueFormat headerFieldKeyValueFormat;
   pw.ImageProvider imageProvider;
 }
 enum GTHeaderFieldType { ICON, IMAGE, TITLE, SUBTITLE, TABLE, LINE }
+
+enum GtHeaderFieldKeyValueFormat {ROW, COLUMN}

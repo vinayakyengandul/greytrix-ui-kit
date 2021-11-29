@@ -1,5 +1,11 @@
+## [0.0.9]
+#### Nov 29, 2021
+
+- GtPdfWidget new changes.
+
 ## [0.0.8]
 #### Nov 25, 2021
+#### COMMIT NO : cf88a38
 
 - GtListPage Widget custom builder changes
 
