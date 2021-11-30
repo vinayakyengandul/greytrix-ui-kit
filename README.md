@@ -3300,6 +3300,21 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                               - height - double - This is represented a field height.
                               - alignment - Alignment - This represented to align the field as field spacing.
                               - pdfTable - Map<String, PdfTable> - This toMapJson for table field as display field.
+                                 - pdfTable Constructors:
+                                    - [PdfTable]()({
+                                       this.valuePath,
+                                       this.padding,
+                                       this.height,
+                                       this.alignment,
+                                       this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+                                       this.defualtCurrency = "",
+                                    });
+                                       - valuePath - String - This is define which is Field map with valuePath.
+                                       - padding - EdgeInsets - This is margin for field.
+                                       - height - double - This define table height.
+                                       - alignment - Alignment - This is represent to table alignment.
+                                       - pdfTableColumnType - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+                                       -  defualtCurrency - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
                               - valueTextStyle - TextStyle - This is style for field value.
                               - keyTextStyle - TextStyle - This is style for field key.
                               - displayKey - bool - This is displayed field key when passed displayKey is true and default value is false.
@@ -3378,6 +3393,21 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                               - height - double - This is represented a field height.
                               - alignment - Alignment - This represented to align the field as field spacing.
                               - pdfTable - Map<String, PdfTable> - This toMapJson for table field as display field.
+                                 - pdfTable Constructors:
+                                    - [PdfTable]()({
+                                       this.valuePath,
+                                       this.padding,
+                                       this.height,
+                                       this.alignment,
+                                       this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+                                       this.defualtCurrency = "",
+                                    });
+                                       - valuePath - String - This is define which is Field map with valuePath.
+                                       - padding - EdgeInsets - This is margin for field.
+                                       - height - double - This define table height.
+                                       - alignment - Alignment - This is represent to table alignment.
+                                       - pdfTableColumnType - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+                                       -  defualtCurrency - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
                               - valueTextStyle - TextStyle - This is style for field value.
                               - keyTextStyle - TextStyle - This is style for field key.
                               - displayKey - bool - This is displayed field key when passed displayKey is true and default value is false.
@@ -3458,6 +3488,21 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                               - height - double - This is represented a field height.
                               - alignment - Alignment - This represented to align the field as field spacing.
                               - pdfTable - Map<String, PdfTable> - This toMapJson for table field as display field.
+                                 - pdfTable Constructors:
+                                    - [PdfTable]()({
+                                       this.valuePath,
+                                       this.padding,
+                                       this.height,
+                                       this.alignment,
+                                       this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+                                       this.defualtCurrency = "",
+                                    });
+                                       - valuePath - String - This is define which is Field map with valuePath.
+                                       - padding - EdgeInsets - This is margin for field.
+                                       - height - double - This define table height.
+                                       - alignment - Alignment - This is represent to table alignment.
+                                       - pdfTableColumnType - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+                                       -  defualtCurrency - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
                               - valueTextStyle - TextStyle - This is style for field value.
                               - keyTextStyle - TextStyle - This is style for field key.
                               - displayKey - bool - This is displayed field key when passed displayKey is true and default value is false.

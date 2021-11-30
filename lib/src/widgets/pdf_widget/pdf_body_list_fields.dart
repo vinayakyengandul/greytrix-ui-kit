@@ -137,7 +137,12 @@ class BodyListFields{
                   element.pdfTable.keys.length,
                   (col) {
                     String keyreturn = element.pdfTable[element.pdfTable.keys.elementAt(col)].valuePath.toString();
-                     return value[row][keyreturn].toString();
+                      if(element.pdfTable[element.pdfTable.keys.elementAt(col)].pdfTableColumnType == GtPdfTableColumnType.CURRENCY){
+                        return element.pdfTable[element.pdfTable.keys.elementAt(col)].defualtCurrency + value[row][keyreturn].toString();
+                      }
+                      else{
+                        return value[row][keyreturn].toString();
+                      }
                   },
                 ),
               ),
