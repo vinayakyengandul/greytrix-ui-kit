@@ -69,9 +69,9 @@ class HeaderListFields{
               height: element.height,
               padding: element.padding,
               alignment: element.alignment,
-            child: value.toString().contains("http") && element.imageProvider != null ?
+            child: element.imageProvider != null ?
                 pw.Image(element.imageProvider)
-              :  _logo != null ? pw.SvgImage(svg: _logo) : pw.PdfLogo(),
+              :  pw.PdfLogo(),
           ));
           break;
           
