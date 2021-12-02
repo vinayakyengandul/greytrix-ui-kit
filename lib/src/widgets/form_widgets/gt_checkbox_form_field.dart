@@ -40,6 +40,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
           builder: (FormFieldState<List<dynamic>> state) {
             List<Widget> _widgets = displayMapFields.entries
                 .map((e) => Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Checkbox(
                           activeColor: activeColor,

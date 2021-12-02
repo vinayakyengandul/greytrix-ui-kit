@@ -131,3 +131,6 @@ enum GtListCustomWidgetType { LIST, GRID, NONE }
 
 /// Selected list type for gtListPage
 enum GtCurrentListViewType { LIST, GRID }
+
+/// Is Custom or not DropDown Search.
+enum GtDropDownSearchIsCustom { DEFAULT, CUSTOM }
