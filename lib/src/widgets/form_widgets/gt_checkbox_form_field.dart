@@ -52,7 +52,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
                           onChanged: (onChangedVal) {
                             state.didChange([onChangedVal]);
                             if (onChangedHandler != null)
-                              onChangedHandler(onChangedVal, e.value);
+                              onChangedHandler(onChangedVal, e.key);
                           },
                         ),
                         GtText(
