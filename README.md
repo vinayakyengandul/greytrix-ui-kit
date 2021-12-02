@@ -3878,7 +3878,16 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
          this.itemOnTapHandler,
          this.dropDownResult,
          this.fieldLabel = "",
-         this.textFieldOnTapHandler,});
+         this.textFieldOnTapHandler,
+         this.dropdownWidth = 100,
+         this.dropdownheight = 200,
+         @required this.keyLabel,
+         this.dropdownElevation = 1.0,
+         this.dropDownBackgroundColor,
+         this.dropDownShapeBorder,
+         this.looupKeyVisibile = false,
+         @required this.lookupFields,
+         this.type = GtDropDownSearchIsCustom.DEFAULT,});
            
    - Input Parameters of GtDropdownSearch Widget
       - textEditingController - TextEditingController - This is text form field controller to search the text.
@@ -3891,6 +3900,15 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - dropDownResult - List<dynamic> - This is dropdown list.
       - fieldLabel - String - field label name for showing dropdown label.
       - textFieldOnTapHandler - Function - text field on tap handler for searchable dropdown field.
+      - dropdownWidth - double - This is width of drop dwon showing in below.
+      - dropdownheight - double - This is height of drop dwon showing in below.
+      - keyLabel - String - This is key for each widget have diffrenet and unique key.
+      - dropdownElevation - double - This is elevation for dropdown.
+      - dropDownBackgroundColor - Color - This is background color for dropdown.
+      - dropDownShapeBorder - ShapeBorder - This is Shape border for UI design.
+      - looupKeyVisibile - bool - This is Lookup key define to display key for field.
+      - lookupFields - Map<String, String> - This is for which field have to display in dropdown.
+      - type - GtDropDownSearchIsCustom - This is type to show dropdown content is CUSTOM or Default.
 
       
    - Example
