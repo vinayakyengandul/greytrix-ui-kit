@@ -142,6 +142,9 @@ class GtDropdownSearch extends StatelessWidget {
                     } else {
                       controller.openOverLay(overlayEntryBuilder(), context);
                     }
+                    if(dropDownResult.value.length == 0){
+                      controller.closeOverLay();
+                    }
               },
               fieldLabel: fieldLabel,
               textEditingController: textEditingController,
@@ -156,6 +159,9 @@ class GtDropdownSearch extends StatelessWidget {
                       controller.openOverLay(overlayEntryBuilder(), context);
                     }
                     if(suffixOnPressed != null) suffixOnPressed(textEditingController.text);
+                    if(dropDownResult.value.length == 0){
+                      controller.closeOverLay();
+                    }
                   },
                   ),
                 border: OutlineInputBorder(
