@@ -134,6 +134,7 @@ class GtDropdownSearch extends StatelessWidget {
           Container(
             key: controller.key,
             child: GtTextFormField(
+              focusNode: controller.focusNode,
               onTapHandler: (){
                 if(textFieldOnTapHandler != null) textFieldOnTapHandler();
                 if (controller.isOpen.value) {

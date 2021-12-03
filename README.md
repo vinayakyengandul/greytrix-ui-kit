@@ -234,15 +234,28 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - GtTextFormField theme handles the ThemeData we don`t have to provide theme in GtTextFromField.
       
    - Constructors: 
-      - [GtTextFormField](components.md#gttextformfield-widget)({@required this.fieldLabel, this.maxLength = 1000, this.maxLines = 1, this.minLines = 1,
-            this.isReadOnly = false, this.textEditingController, this.textInputType = TextInputType.text,
-            this.isRequired = false, this.onChangeHandler, this.padding = const EdgeInsets.all(0.0),
-            this.obscureText = false, this.onSaveHandler,
+      - [GtTextFormField](components.md#gttextformfield-widget)({
+            @required this.fieldLabel, 
+            this.maxLength = 1000, 
+            this.maxLines = 1, 
+            this.minLines = 1,
+            this.isReadOnly = false, 
+            this.textEditingController, 
+            this.textInputType = TextInputType.text,
+            this.isRequired = false, 
+            this.onChangeHandler, 
+            this.padding = const EdgeInsets.all(0.0),
+            this.obscureText = false, 
+            this.onSaveHandler,
             this.chips,
             this.prefixIcon,
             this.labeltextStyle,
             this.textStyle,
-            this.onTapHandler});
+            this.onTapHandler,
+            this.inputDecoration,
+            this.boxDecoration,
+            this.validationHandler,
+            this.focusNode});
              
    - Input Parameters of GtTextFormField Widget
       - fieldLabel - String - This is required parameter, it well show field label name.
@@ -262,6 +275,10 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - labeltextStyle - TextStyle - This is InputDecoration label TextStyle.
       - textStyle - TextStyle - This is text style of formField.
       - onTapHandler - Function - This is ontap handler used for formField click.
+      - inputDecoration - InputDecoration - The border, labels, icons, and styles used to decorate a Material Design text field.
+      - boxDecoration - BoxDecoration - The box has a [border], a body, and may cast a [boxShadow]. The [shape] of the box can be a circle or a rectangle. If it is a rectangle, then the [borderRadius] property controls the roundness of the corners.
+      - validationHandler - Function(dynamic) - When a [controller] is specified, [initialValue] must be null (the default). If [controller] is null, then a [TextEditingController] will be constructed automatically and its text will be initialized to [initialValue] or the empty string.
+      - focusNode - FocusNode - To receive key events that focuses on this node, pass a listener to `onKeyEvent`. The `onKey` is a legacy API based on [RawKeyEvent] and will be deprecatedin the future..
       
    - Example
     
