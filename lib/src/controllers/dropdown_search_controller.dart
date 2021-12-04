@@ -17,9 +17,8 @@ class DropDownSearchController extends GetxController {
     key = LabeledGlobalKey(keyLabel);
     /// Focus node add Listener for focus and unfocus conditions
     focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        
-      } else {
+      if (focusNode.hasFocus) {} 
+      else {
         if(isOpen.value)
         closeOverLay();
       }
@@ -40,7 +39,7 @@ class DropDownSearchController extends GetxController {
     dropLeft.value = position.dx;
     overlayEntry.value = data;
     BuildContext buildContext = Get.context ?? context;
-    Overlay.of(Get.context).insert(overlayEntry.value);
+    Overlay.of(buildContext).insert(overlayEntry.value);
     isOpen.value = !isOpen.value;
   }
   closeOverLay(){
