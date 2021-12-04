@@ -26,6 +26,15 @@ class GtDropdownSearch extends StatelessWidget {
      this.looupKeyVisibile = false,
      @required this.lookupFields,
      this.type = GtDropDownSearchIsCustom.DEFAULT,
+     this.contentPadding,
+     this.helperText,
+     this.helperStyle,
+     this.constraints,
+     this.labelText,
+     this.labelStyle,
+     this.fillColor,
+     this.border,
+    
   }) : assert((type == GtDropDownSearchIsCustom.CUSTOM && itemDatawidget != null) || (type == GtDropDownSearchIsCustom.DEFAULT && lookupFields != null));
 
   final TextEditingController textEditingController;
@@ -56,6 +65,14 @@ class GtDropdownSearch extends StatelessWidget {
   final Map<String, String> lookupFields;
   final bool looupKeyVisibile;
   final GtDropDownSearchIsCustom type;
+  final EdgeInsets contentPadding;
+  final String helperText;
+  final TextStyle helperStyle;
+  final BoxConstraints constraints;
+  final String labelText;
+  final TextStyle labelStyle;
+  final Color fillColor;
+  final InputBorder border;
 
   @override
   Widget build(BuildContext context){
@@ -150,6 +167,13 @@ class GtDropdownSearch extends StatelessWidget {
               fieldLabel: fieldLabel,
               textEditingController: textEditingController,
               inputDecoration: inputDecoration == null ? InputDecoration(
+                contentPadding: contentPadding,
+                helperText: helperText,
+                helperStyle: helperStyle,
+                constraints: constraints,
+                labelText: labelText,
+                labelStyle: labelStyle,
+                fillColor: fillColor,
                 suffixIcon: IconButton(
                   icon: suffixIcon != null ? suffixIcon : Icon(Icons.search),
                   onPressed: (){
@@ -165,10 +189,7 @@ class GtDropdownSearch extends StatelessWidget {
                     }
                   },
                   ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.5),
-                  borderRadius: BorderRadius.circular(21),
-                ),
+                border: border,
               ) : inputDecoration,
               
               onChangeHandler: (value){
