@@ -106,7 +106,7 @@ class GtTileField {
   final String lookupAddNodeKey;
   final String lookupAddVariableKey;
   final FocusNode focusNode;
-  final TextEditingController textEditingController;
+  TextEditingController textEditingController;
   final Map<String, String> lookupFields;
   final bool looupKeyVisibile;
   final bool isRequired;

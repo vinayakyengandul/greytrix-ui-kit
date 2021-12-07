@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:backdrop/backdrop.dart';
 import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+import 'package:greytrix_ui_kit/src/models/advance_filter_class.dart';
+import 'advance_add_filter.dart';
 
 class GtListFilter extends StatelessWidget {
   GtListFilter({
@@ -20,7 +22,29 @@ class GtListFilter extends StatelessWidget {
     this.onDeleteHandler,
     this.getSuggestions,
     this.setselectedLookupDataValues,
-  }) : assert(listItems != null);
+    this.isBackDrop = false,
+    this.controller,
+    this.checkRedioFilter,
+    this.changeBackDrop,
+    this.isBackDropController = false,
+    this.onAdd,
+    this.selectedFields,
+    this.advanceFilterFields,
+    this.onTap,
+    this.onDelete,
+    this.quickFilterFields,
+    this.selectedfiltersOperations,
+    this.addfilters,
+    this.onFilterDelete,
+    this.selectedOperators,
+    this.isAdvanceFilterEnable = false,
+    this.advanceFilterTitle = "Advanced Filter",
+    this.addButtonText = "Add",
+    this.quickFilterTitle = "Quick Filter",
+    this.filterTitle = "Filter",
+    this.applyButtonText = "Apply",
+    this.clearButtonText = "Clear All",
+  }) : assert(listItems != null), assert((isAdvanceFilterEnable == true && advanceFilterFields != null && advanceFilterFields != []) || (isAdvanceFilterEnable == false));
 
   @override
   Map<String, Rx<List<dynamic>>> selectedlookupData =
@@ -62,7 +86,7 @@ class GtListFilter extends StatelessWidget {
     bool fromFilter,
   }) filterHandler;
   final Function(String key, dynamic value,
-      {bool fromOnChanged, bool resetArguments}) setFilterField;
+      {bool fromOnChanged, bool resetArguments, GtFilterType filterType}) setFilterField;
 
   // String key, dynamic value,
   //   {bool fromOnChanged = false, bool resetArguments = false}
@@ -71,10 +95,35 @@ class GtListFilter extends StatelessWidget {
   final Map<String, dynamic> toMapjson;
   final bool isFilterProcessing;
   final List<dynamic> listItems;
+  final bool isBackDrop;
+  final ScrollController controller;
+  final Map<String, dynamic> checkRedioFilter;
+  final Function(bool) changeBackDrop;
+  final bool isBackDropController;
+  final Function onAdd;
+  final List<Map<String, dynamic>> selectedFields;
+  final List<GtAdvanceFilterField> advanceFilterFields;
+  final List<dynamic> quickFilterFields;
+  final List<Map<String, dynamic>> selectedfiltersOperations;
+  final Function(dynamic value, int index) onTap;
+  final Function(int index) addfilters;
+  final Function(int index) onDelete;
+  final Function(int index) onFilterDelete;
+  final List<GtAdvanceFilterOperator> selectedOperators;
+  final bool isAdvanceFilterEnable;
+  final String advanceFilterTitle;
+  final String addButtonText;
+  final String quickFilterTitle;
+  final String filterTitle;
+  final String clearButtonText;
+  final String applyButtonText;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgets = List<Widget>.empty(growable: true);
+
+    List<Widget> _textWidgets = List<Widget>.empty(growable: true);
+
     Widget _dividerWidget = Container(
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))),
@@ -98,53 +147,99 @@ class GtListFilter extends StatelessWidget {
                                 alignment: Alignment.bottomLeft,
                                 child: GtText(
                                   text: '${value.filterLabel}',
-                                  textStyle: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 13,
-                                      color: Get.context.theme.primaryColor),
+                                  textStyle: Theme.of(context).textTheme.subtitle1
+                                        .copyWith(fontSize: 18,fontWeight: FontWeight.w500),
                                 ),
                               )),
-                          ...value.filterItems.entries.map(
-                            (e) => Padding(
-                              padding: EdgeInsets.all(3.0),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(
-                                  children: [
-                                    Checkbox(
-                                      activeColor: _activeColor,
-                                      value: filtersData[value.filterValue] ==
-                                          e.value,
-                                      onChanged: (val) {
-                                        // val?'${val}':'${val}'
-                                        setFilterField(
-                                            '${value.filterValue}', e.value,
-                                            fromOnChanged: true);
-                                      },
-                                    ),
-                                    GtText(
-                                      text: '${e.key}',
-                                      // texttype: filtersData[value.filterValue] ==
-                                      //         e.value
-                                      //     ? TextformatType.textwithbold
-                                      //     : TextformatType.bodyText2,
-                                      textStyle: TextStyle(
-                                          fontWeight:
-                                              filtersData[value.filterValue] ==
+                          if (isBackDrop)
+                          Card(
+                          child: Row(children: [
+                            ...value.filterItems.entries.map(
+                              (e) => Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.all(3.0),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Row(
+                                      children: [
+                                        Obx(() => Checkbox(
+                                          activeColor: _activeColor,
+                                          value: checkRedioFilter[
+                                                  value.filterValue] ==
+                                              e.value,
+                                          onChanged: (val) {
+                                            // val?'${val}':'${val}'
+                                            setFilterField(
+                                                '${value.filterValue}',
+                                                e.value,
+                                                fromOnChanged: true,
+                                                filterType: value.filterType);
+                                          },
+                                        )),
+                                        GtText(
+                                          text: '${e.key}',
+                                          // texttype: filtersData[value.filterValue] ==
+                                          //         e.value
+                                          //     ? TextformatType.textwithbold
+                                          //     : TextformatType.bodyText2,
+                                          textStyle: TextStyle(
+                                              fontWeight: filtersData[value
+                                                          .filterValue] ==
                                                       e.value
                                                   ? FontWeight.bold
                                                   : FontWeight.w100,
-                                          color:
-                                              Get.context.theme.primaryColor),
+                                              color: Get.context.theme
+                                                  .primaryColor),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
+                            )
+                          ]),
+                        )
+                      else
+                      ...value.filterItems.entries.map((e) => Padding(
+                            padding: EdgeInsets.all(3.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    activeColor: _activeColor,
+                                    value: checkRedioFilter[value.filterValue] == e.value,
+                                    onChanged: (val) {
+                                      // val?'${val}':'${val}'
+                                      setFilterField(
+                                          '${value.filterValue}',
+                                          e.value,
+                                          fromOnChanged: true,
+                                          filterType: value.filterType);
+                                    },
+                                  ),
+                                  GtText(
+                                    text: '${e.key}',
+                                    // texttype: filtersData[value.filterValue] ==
+                                    //         e.value
+                                    //     ? TextformatType.textwithbold
+                                    //     : TextformatType.bodyText2,
+                                    textStyle: TextStyle(
+                                        fontWeight: filtersData[value
+                                                    .filterValue] ==
+                                                e.value
+                                            ? FontWeight.bold
+                                            : FontWeight.w100,
+                                        color: Get.context.theme
+                                            .primaryColor),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          )),
                           _dividerWidget,
                         ],
-                      )));
+                    )));
                 }
                 break;
 
@@ -168,6 +263,47 @@ class GtListFilter extends StatelessWidget {
                               ),
                             ),
                           ),
+                          if (isBackDrop)
+                            Row(
+                              children: [
+                                ...value.filterItems.entries.map(
+                                  (e) => Padding(
+                                    padding: EdgeInsets.all(3.0),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Row(children: [
+                                        Checkbox(
+                                          activeColor: _activeColor,
+                                          value:
+                                              filtersData[value.filterValue] ==
+                                                  e.value,
+                                          onChanged: (val) {
+                                            setFilterField(
+                                                '${value.filterValue}', e.value,
+                                                fromOnChanged: true);
+                                          },
+                                        ),
+                                        GtText(
+                                          text: '${e.key}',
+                                          // texttype:
+                                          //     filtersData[value.filterValue] == e.value
+                                          //         ? TextformatType.textwithbold
+                                          //         : TextformatType.bodyText2,
+                                          textStyle: TextStyle(
+                                              fontWeight: filtersData[
+                                                          value.filterValue] ==
+                                                      e.value
+                                                  ? FontWeight.bold
+                                                  : FontWeight.w100,
+                                              color: Get.context.theme.primaryColor),
+                                        ),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
                           ...value.filterItems.entries.map(
                             (e) => Padding(
                               padding: EdgeInsets.all(3.0),
@@ -355,6 +491,41 @@ class GtListFilter extends StatelessWidget {
                                     fontSize: 13,
                                     color: Get.context.theme.primaryColor),
                               )),
+                              if (isBackDrop)
+                            ...value.filterItems.entries.map(
+                              (e) => CheckboxListTile(
+                                dense: true,
+                                activeColor: _activeColor,
+                                value: (filtersData['${value.filterValue}'])
+                                    .contains('${e.value}'),
+                                title: GtText(
+                                  text: '${e.key}',
+                                  // texttype:
+                                  //     filtersData[value.filterValue] == e.value
+                                  //         ? TextformatType.textwithbold
+                                  //         : TextformatType.bodyText2,
+                                  textStyle: TextStyle(
+                                      fontWeight: filtersData['sort'] == "DESC"
+                                          ? FontWeight.bold
+                                          : FontWeight.w100,
+                                      color: Get.context.theme.primaryColor),
+                                ),
+                                onChanged: (isChecked) {
+                                  List<dynamic> _options =
+                                      filtersData['${value.filterValue}'];
+                                  if (isChecked)
+                                    _options.add('${e.value}');
+                                  else
+                                    _options.remove('${e.value}');
+                                  setFilterField(
+                                      '${value.filterValue}', _options,
+                                      fromOnChanged: true);
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                              ),
+                            )
+                          else
                           ...value.filterItems.entries.map(
                             (e) => CheckboxListTile(
                               dense: true,
@@ -464,6 +635,51 @@ class GtListFilter extends StatelessWidget {
                   ),
                 );
                 break;
+
+                case GtFilterType.TEXT_FILTER:
+                _textWidgets.add(
+                  Container(
+                    width: MediaQuery.of(Get.context).size.width / 4,
+                      child: Card(
+                    child: GtTextFormField(
+                      inputDecoration: InputDecoration(
+                          filled: true,
+                          fillColor: value.isRequired
+                              ? Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.2)
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0),
+                          constraints: BoxConstraints(
+                            maxHeight: 35,
+                          ),
+                          labelText: ' ${value.filterLabel}',
+                          labelStyle: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(
+                                  backgroundColor:
+                                      Theme.of(context).cardColor),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).hintColor),
+                              borderRadius: BorderRadius.circular(5))),
+                      fieldLabel: '${value.filterLabel}',
+                      textEditingController: value.textEditingController,
+                      onChangeHandler: (_val) {
+                        setFilterField(
+                          '${value.filterValue}',
+                          _val,
+                          fromOnChanged: true,
+                        );
+                      },
+                    ),
+                  )),
+                );
+                break;
               default:
                 break;
             }
@@ -484,52 +700,228 @@ class GtListFilter extends StatelessWidget {
                 child: Container(
                   child: Column(
                     children: [
+                      Card(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GtText(
+                                  text: filterTitle,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          if(onFilterClearHandler != null){
+                                            onFilterClearHandler();
+                                          }
+                                          if(isBackDrop){
+                                            Backdrop.of(context).fling();
+                                          }
+                                        },
+                                        child: GtText(
+                                          text: clearButtonText,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          if(changeBackDrop != null) {
+                                            changeBackDrop(!isBackDropController);
+                                          }
+                                          filterHandler(
+                                            filterData: filtersData,
+                                            fromFilter: true,
+                                          );
+                                          if(isBackDrop){
+                                            Backdrop.of(context).fling();
+                                          }
+                                        },
+                                        child: GtText(
+                                          text: applyButtonText,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ]),
+                      ),
+                      SingleChildScrollView(
+                        controller: controller,
+                        child: Column(
+                          children: [
+                            ..._widgets,
+                            if (_textWidgets.length > 0)
+                              Wrap(children: [
+                                Card(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                    Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: GtText(
+                                            text: quickFilterTitle,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1.copyWith(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                          ),
+                                        )),
+                                    Card(
+                                        child: Wrap(
+                                      children: _textWidgets,
+                                    ))
+                                  ]),
+                                )
+                              ])
+                          ],
+                        ),
+                      ),
+                      if(isAdvanceFilterEnable)
                       Expanded(
-                          child: ListView(
-                        children: [
-                          ..._widgets,
-                        ],
-                      )),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: FloatingActionButton.extended(
-                                backgroundColor: Get.context.theme.buttonTheme
-                                    .colorScheme.onPrimary,
-                                onPressed: () {
-                                  if (filterHandler != null)
-                                    filterHandler(
-                                      filterData: filtersData,
-                                      fromFilter: true,
-                                    );
-                                  // Add your onPressed code here!
-                                },
-                                label: GtText(
-                                    text: "Apply",
-                                    textStyle: TextStyle(
-                                        color: Get.context.theme.buttonTheme
-                                            .colorScheme.primary,
-                                        fontWeight: FontWeight.bold)),
-                              )),
-                          Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: FloatingActionButton.extended(
-                              backgroundColor: Get.context.theme.buttonTheme
-                                  .colorScheme.onPrimary,
-                              onPressed: () {
-                                onFilterClearHandler();
-                              },
-                              label: GtText(
-                                  text: "Clear",
-                                  textStyle: TextStyle(
-                                      color: Get.context.theme.buttonTheme
-                                          .colorScheme.primary,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          )
-                        ],
-                      )
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GtText(
+                                      text: advanceFilterTitle,
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1.copyWith(
+                                              fontSize: 18, fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              if(onAdd != null) {
+                                                onAdd();
+                                              }
+                                            },
+                                            child: GtText(
+                                              text: addButtonText,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Visibility(
+                                visible: selectedFields.length > 0,
+                                child: Container(
+                                    child: Wrap(children: [
+                                  ...selectedFields.map((e) =>
+                                      //GtText(text: 'tegs')
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Chip(
+                                          label: Wrap(
+                                            children: [
+                                              GtText(
+                                                  text: e['fieldName']
+                                                      .toString(),
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1.copyWith(
+                                                          fontWeight: FontWeight.bold)),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 6.0, right: 6.0),
+                                                child: GtText(
+                                                    text: e['operator']
+                                                        .toString()),
+                                              ),
+                                              GtText(
+                                                  text: e['fieldValue'],
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1.copyWith(
+                                                          fontWeight: FontWeight.bold)),
+                                            ],
+                                          ),
+
+                                          // labelStyle: TextStyle(
+                                          //     color: Colors.black, fontWeight: FontWeight.bold),
+                                          labelPadding: EdgeInsets.all(4),
+                                          elevation: 16,
+                                          shadowColor: Colors.amberAccent,
+                                          deleteIcon: Icon(
+                                            Icons.cancel,
+                                          ),
+                                          onDeleted: () {
+                                            if(onDelete != null) {
+                                            onDelete(selectedFields.indexOf(e));
+                                            }
+                                          },
+                                          deleteIconColor: Colors.redAccent,
+                                          deleteButtonTooltipMessage: 'Remove filter',
+                                          shape: BeveledRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                                ])),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  child:
+                                      ListView.builder(
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: [
+                                          Visibility(
+                                              visible: selectedfiltersOperations[index]
+                                                  ['added'],
+                                              child: AddAdvanceFilter(
+                                                addfilters: addfilters,
+                                                //hideFilter: hideFilter,
+                                                fields: advanceFilterFields,
+                                                onDelete: onFilterDelete,
+                                                onTap: onTap,
+                                                filter: selectedfiltersOperations[index],
+                                                filterindex: index,
+                                                valueTextController:
+                                                    selectedfiltersOperations[index]
+                                                        ['controller'],
+                                                    selectedOperators: selectedOperators,
+                                              ))
+                                        ],
+                                      );
+                                    },
+                                    itemCount: selectedfiltersOperations.length,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ))));

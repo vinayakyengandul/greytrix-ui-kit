@@ -71,6 +71,7 @@ enum GtFilterType {
   RANGE_FILTER,
   SORT_FILTER,
   LOOK_UP_FILTER,
+  TEXT_FILTER,
 }
 
 enum GtFormFieldType {

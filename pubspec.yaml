@@ -33,6 +33,7 @@ dependencies:
   # avatar_glow: ^2.0.1
   pdf: '3.6.1'
   printing: '5.6.0'
+  backdrop: '0.6.2'
   
   
 dependency_overrides:
