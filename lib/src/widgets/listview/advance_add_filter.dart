@@ -6,7 +6,6 @@ import 'advance_filter_control.dart';
 class AddAdvanceFilter extends StatelessWidget {
   final List<dynamic> fields;
   final TextEditingController valueTextController;
-
   final dynamic filter;
   final Function(int index) onDelete;
   final Function(dynamic value, int index) onTap;
