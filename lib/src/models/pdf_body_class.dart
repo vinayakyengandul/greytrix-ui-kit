@@ -60,6 +60,8 @@ class PdfBodyField{
         this.key,
         this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
         this.decoration,
+        this.mainAxisAlignment = pw.MainAxisAlignment.start,
+        this.crossAxisAlignment = pw.CrossAxisAlignment.start,
   });
 
   final int row;
@@ -88,6 +90,8 @@ class PdfBodyField{
   final String key;
   final GtBodyFieldKeyValueFormat bodyFieldKeyValueFormat;
   final pw.BoxDecoration decoration;
+  final pw.MainAxisAlignment mainAxisAlignment;
+  final pw.CrossAxisAlignment crossAxisAlignment;
 }
 enum GTBodyFieldType { ICON, TITLE, SUBTITLE, TABLE, LINE }
 

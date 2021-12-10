@@ -58,6 +58,8 @@ class PdfHeaderField{
     this.imageProvider,
     this.key = "",
     this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
+    this.mainAxisAlignment = pw.MainAxisAlignment.start,
+    this.crossAxisAlignment = pw.CrossAxisAlignment.start,
   });
 
   final int row;
@@ -85,6 +87,8 @@ class PdfHeaderField{
   final String key;
   final GtHeaderFieldKeyValueFormat headerFieldKeyValueFormat;
   pw.ImageProvider imageProvider;
+  final pw.MainAxisAlignment mainAxisAlignment;
+  final pw.CrossAxisAlignment crossAxisAlignment;
 }
 enum GTHeaderFieldType { ICON, IMAGE, TITLE, SUBTITLE, TABLE, LINE }
 

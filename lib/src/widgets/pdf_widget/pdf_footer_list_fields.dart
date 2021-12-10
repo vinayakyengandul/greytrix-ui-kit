@@ -93,11 +93,11 @@ class FooterListFields{
               alignment: element.alignment,
               child: element.footerFieldKeyValueFormat == GtFooterFieldKeyValueFormat.COLUMN ?
               pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList) : pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList)
             ));
             break;

@@ -113,11 +113,11 @@ class HeaderListFields{
               alignment: element.alignment,
               child: element.headerFieldKeyValueFormat == GtHeaderFieldKeyValueFormat.COLUMN ?
               pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList) : pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList)
             ));
             break;

@@ -107,11 +107,11 @@ class BodyListFields{
               alignment: element.alignment,
               child: element.bodyFieldKeyValueFormat == GtBodyFieldKeyValueFormat.COLUMN ?
               pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList) : pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: element.mainAxisAlignment,
+                crossAxisAlignment: element.crossAxisAlignment,
                 children: arryList)
             );
             break;
@@ -147,9 +147,9 @@ class BodyListFields{
                 ),
               ),
             );
-          return pdfData.pdfBody.pdfBodyFields.length == 2 ? 
-            tableData
-          : pw.Expanded(child: tableData );
+          return pw.Expanded(child: tableData );
+          //   tableData
+          // : pw.Expanded(child: tableData );
 
           break;
 
