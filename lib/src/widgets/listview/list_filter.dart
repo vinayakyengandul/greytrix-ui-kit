@@ -78,24 +78,43 @@ class GtListFilter extends StatelessWidget {
   //   {bool fromOnChanged = false, bool resetArguments = false}
   final Map<String, RangeValues> rangeFilterLimits;
   final int rangeFilterDivisions;
+  /// QUICK FILTER TO MAPJSON
   final Map<String, dynamic> toMapjson;
+  /// FLAHG FOR IS FILTER IS PROCESS
   final bool isFilterProcessing;
+  /// LIST DATA FOR SHOW IF LISTDATA LENGTH MORE THAN 1.
   final List<dynamic> listItems;
+  /// SCTROLL CONTROLLER FOR LISTVIEW 
   final ScrollController scrollController;
+  /// BOOL VALUE FOR IS BACKDROP CONTROLLER
   final bool isBackDropController;
+  /// ADVANCE FILTER FILEDS TO DISPLAY IN DROPDOWN
   final List<GtAdvanceFilterField> advanceFilterFields;
+  /// ADVANCE FILTER IS ENABLE OR NOT DEFAULT IS FALSE
   final bool isAdvanceFilterEnable;
+  /// ADVANCE FILTER TITLE TEXT
   final String advanceFilterTitle;
+  /// CHANGE BOOL VALUE FOR BACKDROP IS ON OR OFF
   final Function(bool) changeBackDrop;
+  /// ADD BUTTON TEXT
   final String addButtonText;
+  /// QUICK FILTER TITLE TEXT
   final String quickFilterTitle;
+  /// FILTER TITLE TEXT
   final String filterTitle;
+  /// CLEAR BUTTON TEXT
   final String clearButtonText;
+  /// APPLY BUTTON TEXT
   final String applyButtonText;
+  /// STRING OPERATORS LIST
   final List<GtAdvanceFilterOperator> operatorString;
+  /// NUMERIC OPERATORS LIST
   final List<GtAdvanceFilterOperator> operatorNumeric;
+  /// COMMON OPERATORS LIST
   final List<GtAdvanceFilterOperator> operatorCommon;
+  /// THIS IS KEY FOR EACH WIDGET UNIQUE KEY
   final String keyLabel;
+  /// FLAG FOR IS BACKDROP WIDGET OR NORAML
   final bool isBackDrop;
 
   @override

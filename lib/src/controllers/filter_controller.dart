@@ -20,11 +20,16 @@ class FilterController extends GetxController {
   final Map<String, GtTileField> toMapQuickfilterjson;
 
   GlobalKey key;
+  /// FILTERS DATA SAVED ALL FILTERS IN THIS VARIABLE
   RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+  /// REDIO FILTER TYPE FIELDS VALUE
   RxMap<String, dynamic> checkRedioFilter = RxMap<String, dynamic>();
+  /// QUICK FILTERS TOMAPJSON
   Rx<Map<String, GtTileField>> toMapfilterjson = Rx<Map<String, GtTileField>>({});
+  /// SELECTED OPERATORS VARIABLES
   Rx<List<GtAdvanceFilterOperator>> selectedOperators = new Rx<List<GtAdvanceFilterOperator>>([]);
   Map<String, dynamic> sortFieldFilter = new Map<String, dynamic>();
+  /// SELECTED ADVANCE FILTES FIELD WITH VALUES
   Rx<List<Map<String, dynamic>>> selectedfilters = Rx<List<Map<String, dynamic>>>([]);
   Rx<List<Map<String, dynamic>>> selectedfiltersOperations = Rx<List<Map<String, dynamic>>>([]);
   List<dynamic> headerList = new List<dynamic>.empty(growable: true);
@@ -35,6 +40,8 @@ class FilterController extends GetxController {
   void onInit() {
     key = LabeledGlobalKey(keyLabel);    
     toMapfilterjson.value = toMapQuickfilterjson;
+
+    /// DEFAULT ONE ADVANCE FILTER IS OPEN 
     selectedOperators.update((val){
         val.addAll(operatorCommon);
         val.addAll(
@@ -46,7 +53,7 @@ class FilterController extends GetxController {
           'fieldValue': advanceFilterFields.first.options != null
               ? advanceFilterFields.first.options[0].values.elementAt(0)
               : '',
-          'operator': [{"EQUAL": "_eq"},{"NEQ": "_neq"},{"LIKE": "_like"},{"ILIKE": "_ilike"},],
+          'operator': selectedOperators,
           'selectedOperator' : selectedOperators.value.first.value,
           'index': 0,
           'added': true,
@@ -56,6 +63,7 @@ class FilterController extends GetxController {
     filtersData.value = {};
     super.onInit();
   }
+  /// ON CHANGE FILTER SET FIELD VALUES 
   void setFilterField(String key, dynamic value,
       {bool fromOnChanged = false, bool resetArguments = false, GtFilterType filterType}) {
     if (filtersData["$key"] == null) {
@@ -87,10 +95,12 @@ class FilterController extends GetxController {
       switch (filterType) {
         case GtFilterType.RADIO_BUTTON_FILTER:
           checkRedioFilter["$key"] = value;
-         break;
+        break;
+        default:
+        break;
       } 
   }
-
+  /// CLEAR ALL FILTER FUNCTION
   void filterClearButton() {
     toMapfilterjson.value.forEach((key, value) {
       if (value.type == GtFieldType.FILTER) {
@@ -100,7 +110,8 @@ class FilterController extends GetxController {
             break;
             case GtFilterType.RADIO_BUTTON_FILTER:
               checkRedioFilter["${value.filterLabel}"] = null;
-
+            break;
+            default:
             break;
           }
       }
@@ -110,6 +121,7 @@ class FilterController extends GetxController {
     sortFieldFilter = {};
   }
 
+  /// ADD ADVANCE FILTER BUTTON FUNCTION
   void addFilter() {
     try {
       selectedOperators.value = [];
@@ -140,6 +152,8 @@ class FilterController extends GetxController {
       print(e);
     }
   }
+
+  /// AFTER SELECTED FILED AND OPERATOR WITH VALUE ADD FUNCTION
   void addfilters(int index) {
     try {
       if (index != -1) {
@@ -173,7 +187,9 @@ class FilterController extends GetxController {
       print(e);
     }
   }
-    void removeFilter(int index) {
+
+  /// REMOVE SELECTED FILTER IN ADVANCE FILTER
+  void removeFilter(int index) {
     try {
       selectedfilters.update((val) {
         val.removeAt(index);
@@ -183,6 +199,8 @@ class FilterController extends GetxController {
       print(e);
     }
   }
+
+  /// SET SELECTED FILTER ON CHANGE 
   void setfilterSelectedValues(dynamic filterValues, int index) {
     try {
       
@@ -212,7 +230,9 @@ class FilterController extends GetxController {
       print(e);
     }
   }
-    void removenewFilter(int index) {
+
+  /// AFTER ADD FILTER CLOSE BUTTON OPTION FOR THIS REMOVE FUNCTION
+  void removenewFilter(int index) {
     try {
       selectedfiltersOperations.update((val) {
         val.removeAt(index);
