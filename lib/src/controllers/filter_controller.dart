@@ -53,7 +53,7 @@ class FilterController extends GetxController {
           'fieldValue': advanceFilterFields.first.options != null
               ? advanceFilterFields.first.options[0].values.elementAt(0)
               : '',
-          'operator': selectedOperators,
+          'operator': selectedOperators.value,
           'selectedOperator' : selectedOperators.value.first.value,
           'index': 0,
           'added': true,
