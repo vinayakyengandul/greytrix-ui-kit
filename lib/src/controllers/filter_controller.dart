@@ -41,6 +41,7 @@ class FilterController extends GetxController {
     key = LabeledGlobalKey(keyLabel);    
     toMapfilterjson.value = toMapQuickfilterjson;
 
+    if(this.advanceFilterFields != null && this.advanceFilterFields.length > 0){
     /// DEFAULT ONE ADVANCE FILTER IS OPEN 
     selectedOperators.update((val){
         val.addAll(operatorCommon);
@@ -59,6 +60,7 @@ class FilterController extends GetxController {
           'added': true,
           'controller': new TextEditingController(text: '')
         }];
+    }
     defaultfilterData.value = {};
     filtersData.value = {};
     super.onInit();

@@ -133,7 +133,7 @@ class GtListFilter extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))),
     );
-    Color _activeColor = Get.context.theme.buttonTheme.colorScheme.primary;
+    Color _activeColor = Theme.of(context).buttonTheme.colorScheme.primary;
 
     if (listItems != null) {
       try {
