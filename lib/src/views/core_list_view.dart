@@ -61,7 +61,6 @@ class CoreListView extends GetResponsiveView<CoreController> {
     Get.bottomSheet(GtListFilter(
       filterHandler: controller.fetchDataCoreList,
       isFilterProcessing: controller.isprocessingRequest,
-      listItems: controller.state,
       rangeFilterDivisions: 10,
       rangeFilterLimits: controller.setRangefilterlimits(),
       toMapjson: controller.toMapfilterjson,
@@ -158,7 +157,6 @@ class CoreListView extends GetResponsiveView<CoreController> {
                                 filterHandler: controller.fetchDataCoreList,
                                 isFilterProcessing:
                                     controller.isprocessingRequest,
-                                listItems: state,
                                 rangeFilterDivisions: 10,
                                 rangeFilterLimits:
                                     controller.setRangefilterlimits(),

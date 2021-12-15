@@ -13,7 +13,6 @@ class GtListFilter extends StatelessWidget {
     this.rangeFilterDivisions = 10,
     this.rangeFilterLimits,
     this.toMapjson,
-    this.listItems,
     this.onFilterClearHandler,
     this.selectedlookupData,
     this.lookupData,
@@ -37,8 +36,7 @@ class GtListFilter extends StatelessWidget {
     @required this.keyLabel,
     this.isBackDrop = false,
     this.filterData,
-  })  : assert(listItems != null),
-        assert((isAdvanceFilterEnable == true &&
+  }) : assert((isAdvanceFilterEnable == true &&
                 advanceFilterFields != null &&
                 advanceFilterFields != []) ||
             (isAdvanceFilterEnable == false));
@@ -90,9 +88,6 @@ class GtListFilter extends StatelessWidget {
 
   /// FLAHG FOR IS FILTER IS PROCESS
   final bool isFilterProcessing;
-
-  /// LIST DATA FOR SHOW IF LISTDATA LENGTH MORE THAN 1.
-  final List<dynamic> listItems;
 
   /// SCTROLL CONTROLLER FOR LISTVIEW
   final ScrollController scrollController;
@@ -165,429 +160,362 @@ class GtListFilter extends StatelessWidget {
           border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))),
     );
     Color _activeColor = Theme.of(context).buttonTheme.colorScheme.primary;
+    try {
+      controller.toMapfilterjson.value.forEach((key, value) {
+        if (value.type == GtFieldType.FILTER) {
+          switch (value.filterType) {
 
-    if (listItems != null) {
-      try {
-        controller.toMapfilterjson.value.forEach((key, value) {
-          if (value.type == GtFieldType.FILTER) {
-            switch (value.filterType) {
-
-              ///RADIO_BUTTON_FILTER_WIDGET
-              case GtFilterType.RADIO_BUTTON_FILTER:
-                if (value.filterItems != null && value.filterItems.length > 0) {
-                  _widgets.add(Obx(() => Column(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: GtText(
-                                  text: '${value.filterLabel}',
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .copyWith(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
-                                ),
-                              )),
-                          if (isBackDrop)
-                            Card(
-                              child: Row(children: [
-                                ...value.filterItems.entries.map(
-                                  (e) => Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(3.0),
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Row(
-                                          children: [
-                                            Obx(() => Checkbox(
-                                                  activeColor: _activeColor,
-                                                  value: controller
-                                                              .checkRedioFilter[
-                                                          value.filterValue] ==
-                                                      e.value,
-                                                  onChanged: (val) {
-                                                    // val?'${val}':'${val}'
-                                                    controller.setFilterField(
-                                                        '${value.filterValue}',
-                                                        e.value,
-                                                        fromOnChanged: true,
-                                                        filterType:
-                                                            value.filterType);
-                                                  },
-                                                )),
-                                            GtText(
-                                              text: '${e.key}',
-                                              textStyle: TextStyle(
-                                                  fontWeight: controller
-                                                                  .filtersData[
-                                                              value
-                                                                  .filterValue] ==
-                                                          e.value
-                                                      ? FontWeight.bold
-                                                      : FontWeight.w100,
-                                                  color: Get.context.theme
-                                                      .primaryColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                            )
-                          else
-                            ...value.filterItems.entries.map((e) => Padding(
-                                  padding: EdgeInsets.all(3.0),
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Row(
-                                      children: [
-                                        Checkbox(
-                                          activeColor: _activeColor,
-                                          value: controller.checkRedioFilter[
-                                                  value.filterValue] ==
-                                              e.value,
-                                          onChanged: (val) {
-                                            // val?'${val}':'${val}'
-                                            controller.setFilterField(
-                                                '${value.filterValue}', e.value,
-                                                fromOnChanged: true,
-                                                filterType: value.filterType);
-                                          },
-                                        ),
-                                        GtText(
-                                          text: '${e.key}',
-                                          textStyle: TextStyle(
-                                              fontWeight: controller
-                                                              .filtersData[
-                                                          value.filterValue] ==
-                                                      e.value
-                                                  ? FontWeight.bold
-                                                  : FontWeight.w100,
-                                              color: Get
-                                                  .context.theme.primaryColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )),
-                          _dividerWidget,
-                        ],
-                      )));
-                }
-                break;
-
-              // ///SORT FILTER WIDGET
-              case GtFilterType.SORT_FILTER:
-                if (value.filterItems != null && value.filterItems.length > 0) {
-                  _widgets.add(
-                    Obx(
-                      () => Column(
-                        children: [
-                          Padding(
+            ///RADIO_BUTTON_FILTER_WIDGET
+            case GtFilterType.RADIO_BUTTON_FILTER:
+              if (value.filterItems != null && value.filterItems.length > 0) {
+                _widgets.add(Obx(() => Column(
+                      children: [
+                        Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: GtText(
                                 text: '${value.filterLabel}',
-                                textStyle: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 13,
-                                    color: Get.context.theme.primaryColor),
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
                               ),
-                            ),
-                          ),
-                          ...value.filterItems.entries.map(
-                            (e) => Padding(
-                              padding: EdgeInsets.all(3.0),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(children: [
-                                  Checkbox(
-                                    activeColor: _activeColor,
-                                    value: controller
-                                            .filtersData[value.filterValue] ==
-                                        e.value,
-                                    onChanged: (val) {
-                                      controller.setFilterField(
-                                          '${value.filterValue}', e.value,
-                                          fromOnChanged: true,
-                                          filterType: GtFilterType.SORT_FILTER);
-                                    },
-                                  ),
-                                  GtText(
-                                    text: '${e.key}',
-                                    textStyle: TextStyle(
-                                        fontWeight: controller.filtersData[
-                                                    value.filterValue] ==
-                                                e.value
-                                            ? FontWeight.bold
-                                            : FontWeight.w100,
-                                        color: Get.context.theme.primaryColor),
-                                  ),
-                                ]),
-                              ),
-                            ),
-                          ),
-
-                          /// TODO: MULTI FIELDS SORT FILTER
-                          // if (isBackDrop)
-                          // ...value.filterItems.entries.map(
-                          //   (e) =>
-                          //   Row(children: [
-                          //     SizedBox(
-                          //         height: 30,
-                          //         child: Container(
-                          //           padding: EdgeInsets.all(3.0),
-                          //           decoration: BoxDecoration(
-                          //             color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                          //             borderRadius: new BorderRadius.circular(10.0),
-                          //           ),
-                          //           child: GtText(text: e.value)
-                          //         )),
-                          //         Row(
-                          //       children: [
-                          //         Checkbox(
-                          //           activeColor: _activeColor,
-                          //           value: filtersData[e.value] == "ASC",
-                          //           onChanged: (val) {
-                          //             setFilterField(value.filterValue,  {e.value : 'ASC'},
-                          //                 fromOnChanged: true,filterType: GtFilterType.SORT_FILTER);
-                          //           },
-                          //         ),
-                          //         GtText(
-                          //           text: 'ASC',
-                          //           textStyle: TextStyle(
-                          //               fontWeight:
-                          //                   filtersData[value.filterValue]== "ASC"
-                          //                       ? FontWeight.bold
-                          //                       : FontWeight.w100,
-                          //               color: Get
-                          //                   .context.theme.primaryColor),
-                          //         ),
-                          //         Checkbox(
-                          //           activeColor: _activeColor,
-                          //           value: filtersData[e.value] == "DESC",
-                          //           onChanged: (val) {
-                          //             setFilterField(value.filterValue, {e.value : 'DESC'},
-                          //                 fromOnChanged: true, filterType: GtFilterType.SORT_FILTER);
-                          //           },
-                          //         ),
-                          //         GtText(
-                          //           text: 'DESC',
-                          //           textStyle: TextStyle(
-                          //               fontWeight:
-                          //                   filtersData[value.filterValue] == "DESC"
-                          //                       ? FontWeight.bold
-                          //                       : FontWeight.w100,
-                          //               color: Get
-                          //                   .context.theme.primaryColor),
-                          //         ),
-                          //       ],
-                          //     )
-
-                          //       ])
-
-                          //     )
-                          // else
-                          // ...value.filterItems.entries.map(
-                          //   (e) => Padding(
-                          //     padding: EdgeInsets.all(3.0),
-                          //     child: Align(
-                          //       alignment: Alignment.bottomCenter,
-                          //       child: Row(children: [
-                          //         Checkbox(
-                          //           activeColor: _activeColor,
-                          //           value: filtersData[value.filterValue] ==
-                          //               e.value,
-                          //           onChanged: (val) {
-                          //             setFilterField(
-                          //                 '${value.filterValue}', e.value,
-                          //                 fromOnChanged: true);
-                          //           },
-                          //         ),
-                          //         GtText(
-                          //           text: '${e.key}',
-                          //           // texttype:
-                          //           //     filtersData[value.filterValue] == e.value
-                          //           //         ? TextformatType.textwithbold
-                          //           //         : TextformatType.bodyText2,
-                          //           textStyle: TextStyle(
-                          //               fontWeight:
-                          //                   filtersData[value.filterValue] ==
-                          //                           e.value
-                          //                       ? FontWeight.bold
-                          //                       : FontWeight.w100,
-                          //               color: Get.context.theme.primaryColor),
-                          //         ),
-                          //       ]),
-                          //     ),
-                          //   ),
-                          // ),
-                          Padding(
-                              padding: EdgeInsets.all(3.0),
-                              child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Column(children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: GtText(
-                                                text: 'Sort Type',
-                                                textStyle: TextStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 13,
-                                                    color: Get.context.theme
-                                                        .primaryColor),
+                            )),
+                        if (isBackDrop)
+                          Card(
+                            child: Row(children: [
+                              ...value.filterItems.entries.map(
+                                (e) => Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(3.0),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Row(
+                                        children: [
+                                          Obx(() => Checkbox(
+                                                activeColor: _activeColor,
+                                                value: controller
+                                                            .checkRedioFilter[
+                                                        value.filterValue] ==
+                                                    e.value,
+                                                onChanged: (val) {
+                                                  // val?'${val}':'${val}'
+                                                  controller.setFilterField(
+                                                      '${value.filterValue}',
+                                                      e.value,
+                                                      fromOnChanged: true,
+                                                      filterType:
+                                                          value.filterType);
+                                                },
                                               )),
-                                        ),
-                                      ],
+                                          GtText(
+                                            text: '${e.key}',
+                                            textStyle: TextStyle(
+                                                fontWeight:
+                                                    controller.filtersData[value
+                                                                .filterValue] ==
+                                                            e.value
+                                                        ? FontWeight.bold
+                                                        : FontWeight.w100,
+                                                color: Get.context.theme
+                                                    .primaryColor),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          activeColor: _activeColor,
-                                          value:
-                                              controller.filtersData['sort'] ==
-                                                  "ASC",
-                                          onChanged: controller.filtersData[
-                                                      value.filterValue] ==
-                                                  null
-                                              ? null
-                                              : (val) {
-                                                  controller.setFilterField(
-                                                      'sort', 'ASC',
-                                                      fromOnChanged: true,
-                                                      filterType: GtFilterType
-                                                          .SORT_FILTER);
-                                                },
-                                        ),
-                                        GtText(
-                                          text: 'ASC',
-                                          textStyle: TextStyle(
-                                              fontWeight:
-                                                  controller.filtersData[
-                                                              'sort'] ==
-                                                          "ASC"
-                                                      ? FontWeight.bold
-                                                      : FontWeight.w100,
-                                              color: Get
-                                                  .context.theme.primaryColor),
-                                        ),
-                                        Checkbox(
-                                          activeColor: _activeColor,
-                                          value:
-                                              controller.filtersData['sort'] ==
-                                                  "DESC",
-                                          onChanged: controller.filtersData[
-                                                      value.filterValue] ==
-                                                  null
-                                              ? null
-                                              : (val) {
-                                                  controller.setFilterField(
-                                                      'sort', 'DESC',
-                                                      fromOnChanged: true,
-                                                      filterType: GtFilterType
-                                                          .SORT_FILTER);
-                                                },
-                                        ),
-                                        GtText(
-                                          text: 'DESC',
-                                          textStyle: TextStyle(
-                                              fontWeight:
-                                                  controller.filtersData[
-                                                              'sort'] ==
-                                                          "DESC"
-                                                      ? FontWeight.bold
-                                                      : FontWeight.w100,
-                                              color: Get
-                                                  .context.theme.primaryColor),
-                                        ),
-                                      ],
-                                    )
-                                  ]))),
-                          _dividerWidget,
-                        ],
-                      ),
-                    ),
-                  );
-                }
-                break;
+                                  ),
+                                ),
+                              )
+                            ]),
+                          )
+                        else
+                          ...value.filterItems.entries.map((e) => Padding(
+                                padding: EdgeInsets.all(3.0),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Row(
+                                    children: [
+                                      Checkbox(
+                                        activeColor: _activeColor,
+                                        value: controller.checkRedioFilter[
+                                                value.filterValue] ==
+                                            e.value,
+                                        onChanged: (val) {
+                                          // val?'${val}':'${val}'
+                                          controller.setFilterField(
+                                              '${value.filterValue}', e.value,
+                                              fromOnChanged: true,
+                                              filterType: value.filterType);
+                                        },
+                                      ),
+                                      GtText(
+                                        text: '${e.key}',
+                                        textStyle: TextStyle(
+                                            fontWeight: controller.filtersData[
+                                                        value.filterValue] ==
+                                                    e.value
+                                                ? FontWeight.bold
+                                                : FontWeight.w100,
+                                            color:
+                                                Get.context.theme.primaryColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        _dividerWidget,
+                      ],
+                    )));
+              }
+              break;
 
-              // ///RANGE FILTER WIDGET
-              case GtFilterType.RANGE_FILTER:
-                if (rangeFilterLimits != null) {
-                  MapEntry _rangeLimits = rangeFilterLimits.entries.singleWhere(
-                    (element) => element.key == "${value.filterValue}",
-                    orElse: () => null,
-                  );
-                  if (_rangeLimits != null) {
-                    _widgets.add(
-                      Obx(
-                        () => Column(
-                          children: [
-                            ListTile(
-                                dense: true,
-                                title: GtText(
-                                  text: '${value.filterLabel}',
-                                  textStyle: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 13,
-                                      color: Get.context.theme.primaryColor),
-                                )),
-                            ListTile(
-                              dense: true,
-                              title: RangeSlider(
-                                activeColor: _activeColor,
-                                inactiveColor: Colors.grey,
-                                values: RangeValues(
-                                  double.parse(controller
-                                      .filtersData['${value.rangeStart}']
-                                      .toString()),
-                                  double.parse(controller
-                                      .filtersData['${value.rangeEnd}']
-                                      .toString()),
-                                ),
-                                min: (_rangeLimits.value).start,
-                                max: (_rangeLimits.value).end,
-                                divisions: rangeFilterDivisions,
-                                labels: RangeLabels(
-                                  (controller
-                                          .filtersData["${value.rangeStart}"])
-                                      .toString(),
-                                  (controller.filtersData["${value.rangeEnd}"])
-                                      .toString(),
-                                ),
-                                onChanged: (RangeValues changedValues) {
-                                  controller.setFilterField(
-                                      '${value.rangeStart}',
-                                      changedValues.start,
-                                      fromOnChanged: true);
-                                  controller.setFilterField(
-                                      '${value.rangeEnd}', changedValues.end,
-                                      fromOnChanged: true);
-                                },
-                              ),
+            // ///SORT FILTER WIDGET
+            case GtFilterType.SORT_FILTER:
+              if (value.filterItems != null && value.filterItems.length > 0) {
+                _widgets.add(
+                  Obx(
+                    () => Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: GtText(
+                              text: '${value.filterLabel}',
+                              textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: Get.context.theme.primaryColor),
                             ),
-                            _dividerWidget
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                }
-                break;
+                        ...value.filterItems.entries.map(
+                          (e) => Padding(
+                            padding: EdgeInsets.all(3.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(children: [
+                                Checkbox(
+                                  activeColor: _activeColor,
+                                  value: controller
+                                          .filtersData[value.filterValue] ==
+                                      e.value,
+                                  onChanged: (val) {
+                                    controller.setFilterField(
+                                        '${value.filterValue}', e.value,
+                                        fromOnChanged: true,
+                                        filterType: GtFilterType.SORT_FILTER);
+                                  },
+                                ),
+                                GtText(
+                                  text: '${e.key}',
+                                  textStyle: TextStyle(
+                                      fontWeight: controller.filtersData[
+                                                  value.filterValue] ==
+                                              e.value
+                                          ? FontWeight.bold
+                                          : FontWeight.w100,
+                                      color: Get.context.theme.primaryColor),
+                                ),
+                              ]),
+                            ),
+                          ),
+                        ),
 
-              // ///CHECKBOX FILTER WIDGET
-              case GtFilterType.CHECKBOX_BUTTON_FILTER:
-                if (value.filterItems != null && value.filterItems.length > 0) {
+                        /// TODO: MULTI FIELDS SORT FILTER
+                        // if (isBackDrop)
+                        // ...value.filterItems.entries.map(
+                        //   (e) =>
+                        //   Row(children: [
+                        //     SizedBox(
+                        //         height: 30,
+                        //         child: Container(
+                        //           padding: EdgeInsets.all(3.0),
+                        //           decoration: BoxDecoration(
+                        //             color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        //             borderRadius: new BorderRadius.circular(10.0),
+                        //           ),
+                        //           child: GtText(text: e.value)
+                        //         )),
+                        //         Row(
+                        //       children: [
+                        //         Checkbox(
+                        //           activeColor: _activeColor,
+                        //           value: filtersData[e.value] == "ASC",
+                        //           onChanged: (val) {
+                        //             setFilterField(value.filterValue,  {e.value : 'ASC'},
+                        //                 fromOnChanged: true,filterType: GtFilterType.SORT_FILTER);
+                        //           },
+                        //         ),
+                        //         GtText(
+                        //           text: 'ASC',
+                        //           textStyle: TextStyle(
+                        //               fontWeight:
+                        //                   filtersData[value.filterValue]== "ASC"
+                        //                       ? FontWeight.bold
+                        //                       : FontWeight.w100,
+                        //               color: Get
+                        //                   .context.theme.primaryColor),
+                        //         ),
+                        //         Checkbox(
+                        //           activeColor: _activeColor,
+                        //           value: filtersData[e.value] == "DESC",
+                        //           onChanged: (val) {
+                        //             setFilterField(value.filterValue, {e.value : 'DESC'},
+                        //                 fromOnChanged: true, filterType: GtFilterType.SORT_FILTER);
+                        //           },
+                        //         ),
+                        //         GtText(
+                        //           text: 'DESC',
+                        //           textStyle: TextStyle(
+                        //               fontWeight:
+                        //                   filtersData[value.filterValue] == "DESC"
+                        //                       ? FontWeight.bold
+                        //                       : FontWeight.w100,
+                        //               color: Get
+                        //                   .context.theme.primaryColor),
+                        //         ),
+                        //       ],
+                        //     )
+
+                        //       ])
+
+                        //     )
+                        // else
+                        // ...value.filterItems.entries.map(
+                        //   (e) => Padding(
+                        //     padding: EdgeInsets.all(3.0),
+                        //     child: Align(
+                        //       alignment: Alignment.bottomCenter,
+                        //       child: Row(children: [
+                        //         Checkbox(
+                        //           activeColor: _activeColor,
+                        //           value: filtersData[value.filterValue] ==
+                        //               e.value,
+                        //           onChanged: (val) {
+                        //             setFilterField(
+                        //                 '${value.filterValue}', e.value,
+                        //                 fromOnChanged: true);
+                        //           },
+                        //         ),
+                        //         GtText(
+                        //           text: '${e.key}',
+                        //           // texttype:
+                        //           //     filtersData[value.filterValue] == e.value
+                        //           //         ? TextformatType.textwithbold
+                        //           //         : TextformatType.bodyText2,
+                        //           textStyle: TextStyle(
+                        //               fontWeight:
+                        //                   filtersData[value.filterValue] ==
+                        //                           e.value
+                        //                       ? FontWeight.bold
+                        //                       : FontWeight.w100,
+                        //               color: Get.context.theme.primaryColor),
+                        //         ),
+                        //       ]),
+                        //     ),
+                        //   ),
+                        // ),
+                        Padding(
+                            padding: EdgeInsets.all(3.0),
+                            child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Column(children: [
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: GtText(
+                                              text: 'Sort Type',
+                                              textStyle: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 13,
+                                                  color: Get.context.theme
+                                                      .primaryColor),
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        activeColor: _activeColor,
+                                        value: controller.filtersData['sort'] ==
+                                            "ASC",
+                                        onChanged: controller.filtersData[
+                                                    value.filterValue] ==
+                                                null
+                                            ? null
+                                            : (val) {
+                                                controller.setFilterField(
+                                                    'sort', 'ASC',
+                                                    fromOnChanged: true,
+                                                    filterType: GtFilterType
+                                                        .SORT_FILTER);
+                                              },
+                                      ),
+                                      GtText(
+                                        text: 'ASC',
+                                        textStyle: TextStyle(
+                                            fontWeight: controller
+                                                        .filtersData['sort'] ==
+                                                    "ASC"
+                                                ? FontWeight.bold
+                                                : FontWeight.w100,
+                                            color:
+                                                Get.context.theme.primaryColor),
+                                      ),
+                                      Checkbox(
+                                        activeColor: _activeColor,
+                                        value: controller.filtersData['sort'] ==
+                                            "DESC",
+                                        onChanged: controller.filtersData[
+                                                    value.filterValue] ==
+                                                null
+                                            ? null
+                                            : (val) {
+                                                controller.setFilterField(
+                                                    'sort', 'DESC',
+                                                    fromOnChanged: true,
+                                                    filterType: GtFilterType
+                                                        .SORT_FILTER);
+                                              },
+                                      ),
+                                      GtText(
+                                        text: 'DESC',
+                                        textStyle: TextStyle(
+                                            fontWeight: controller
+                                                        .filtersData['sort'] ==
+                                                    "DESC"
+                                                ? FontWeight.bold
+                                                : FontWeight.w100,
+                                            color:
+                                                Get.context.theme.primaryColor),
+                                      ),
+                                    ],
+                                  )
+                                ]))),
+                        _dividerWidget,
+                      ],
+                    ),
+                  ),
+                );
+              }
+              break;
+
+            // ///RANGE FILTER WIDGET
+            case GtFilterType.RANGE_FILTER:
+              if (rangeFilterLimits != null) {
+                MapEntry _rangeLimits = rangeFilterLimits.entries.singleWhere(
+                  (element) => element.key == "${value.filterValue}",
+                  orElse: () => null,
+                );
+                if (_rangeLimits != null) {
                   _widgets.add(
                     Obx(
                       () => Column(
@@ -601,210 +529,261 @@ class GtListFilter extends StatelessWidget {
                                     fontSize: 13,
                                     color: Get.context.theme.primaryColor),
                               )),
-                          if (isBackDrop)
-                            ...value.filterItems.entries.map(
-                              (e) => CheckboxListTile(
-                                dense: true,
-                                activeColor: _activeColor,
-                                value: (controller
-                                        .filtersData['${value.filterValue}'])
-                                    .contains('${e.value}'),
-                                title: GtText(
-                                  text: '${e.key}',
-                                  // texttype:
-                                  //     filtersData[value.filterValue] == e.value
-                                  //         ? TextformatType.textwithbold
-                                  //         : TextformatType.bodyText2,
-                                  textStyle: TextStyle(
-                                      fontWeight:
-                                          controller.filtersData['sort'] ==
-                                                  "DESC"
-                                              ? FontWeight.bold
-                                              : FontWeight.w100,
-                                      color: Get.context.theme.primaryColor),
-                                ),
-                                onChanged: (isChecked) {
-                                  List<dynamic> _options = controller
-                                      .filtersData['${value.filterValue}'];
-                                  if (isChecked)
-                                    _options.add('${e.value}');
-                                  else
-                                    _options.remove('${e.value}');
-                                  controller.setFilterField(
-                                      '${value.filterValue}', _options,
-                                      fromOnChanged: true);
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
+                          ListTile(
+                            dense: true,
+                            title: RangeSlider(
+                              activeColor: _activeColor,
+                              inactiveColor: Colors.grey,
+                              values: RangeValues(
+                                double.parse(controller
+                                    .filtersData['${value.rangeStart}']
+                                    .toString()),
+                                double.parse(controller
+                                    .filtersData['${value.rangeEnd}']
+                                    .toString()),
                               ),
-                            )
-                          else
-                            ...value.filterItems.entries.map(
-                              (e) => CheckboxListTile(
-                                dense: true,
-                                activeColor: _activeColor,
-                                value: (controller
-                                        .filtersData['${value.filterValue}'])
-                                    .contains('${e.value}'),
-                                title: GtText(
-                                  text: '${e.key}',
-                                  // texttype:
-                                  //     filtersData[value.filterValue] == e.value
-                                  //         ? TextformatType.textwithbold
-                                  //         : TextformatType.bodyText2,
-                                  textStyle: TextStyle(
-                                      fontWeight:
-                                          controller.filtersData['sort'] ==
-                                                  "DESC"
-                                              ? FontWeight.bold
-                                              : FontWeight.w100,
-                                      color: Get.context.theme.primaryColor),
-                                ),
-                                onChanged: (isChecked) {
-                                  List<dynamic> _options = controller
-                                      .filtersData['${value.filterValue}'];
-                                  if (isChecked)
-                                    _options.add('${e.value}');
-                                  else
-                                    _options.remove('${e.value}');
-                                  controller.setFilterField(
-                                      '${value.filterValue}', _options,
-                                      fromOnChanged: true);
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
+                              min: (_rangeLimits.value).start,
+                              max: (_rangeLimits.value).end,
+                              divisions: rangeFilterDivisions,
+                              labels: RangeLabels(
+                                (controller.filtersData["${value.rangeStart}"])
+                                    .toString(),
+                                (controller.filtersData["${value.rangeEnd}"])
+                                    .toString(),
                               ),
+                              onChanged: (RangeValues changedValues) {
+                                controller.setFilterField(
+                                    '${value.rangeStart}', changedValues.start,
+                                    fromOnChanged: true);
+                                controller.setFilterField(
+                                    '${value.rangeEnd}', changedValues.end,
+                                    fromOnChanged: true);
+                              },
                             ),
-                          _dividerWidget,
+                          ),
+                          _dividerWidget
                         ],
                       ),
                     ),
                   );
                 }
-                break;
+              }
+              break;
 
-              // // LOOKUP FILTER
-
-              case GtFilterType.LOOK_UP_FILTER:
+            // ///CHECKBOX FILTER WIDGET
+            case GtFilterType.CHECKBOX_BUTTON_FILTER:
+              if (value.filterItems != null && value.filterItems.length > 0) {
                 _widgets.add(
-                  Container(
-                    child: Obx(
-                      () => GtTagTextField(
-                        textColor: Get.context.theme.primaryColor,
-                        fieldLabel: " " + key,
-                        isRequired: value.isRequired,
-                        //onSavedHander: (savedVal) {},
-                        allowMultiselection: value.isMultiselect,
-                        looupKeyVisibile: value.looupKeyVisibile,
-                        lookupFields: value.lookupFields,
-                        selectedTaglist:
-                            selectedlookupData[value.nodeKey].value,
-                        onSuggestionSelected: (_val, isMutli) {
-                          /// SETS THE SELECTED VALUES FOR THE LOOKUP WIDGETS IN SELECTED LOOKUP DATA LIST
-                          setselectedLookupDataValues(
-                            value.nodeKey,
-                            // gtFormField.nodeKey,
-
-                            _val,
-                            fromOnChanged: true,
-                            ismultiSelect: isMutli,
-                            fieldKey: value.fieldKey,
-                            valuePath: value.valuePath,
-                          );
-
-                          controller.setFilterField(
-                            '${value.filterValue}',
-                            _val[value.lookUpFilterNode],
-                            fromOnChanged: true,
-                            resetArguments: true,
-                          );
-                        },
-                        suggestionsCallback: (pattern) {
-                          return getSuggestions(
-                            pattern,
-                            value.nodeKey,
-                            value.lookupFields,
-                          );
-                        },
-                        textEditingController: value.textEditingController,
-                        taglist: lookupData[value.nodeKey],
-                        onDeleted: (val) => {
-                          /// DELETES FROM THE FORMFIED TEXT FIELDS AND ADDS BACK TO SUGGESTION LIST
-                          onDeleteHandler(
-                            value.nodeKey,
-                            val,
-                            ismultiSelect: false,
-                            fieldKey: value.fieldKey,
-                            valuePath: value.valuePath,
-                            focusNode: new FocusNode(),
+                  Obx(
+                    () => Column(
+                      children: [
+                        ListTile(
+                            dense: true,
+                            title: GtText(
+                              text: '${value.filterLabel}',
+                              textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: Get.context.theme.primaryColor),
+                            )),
+                        if (isBackDrop)
+                          ...value.filterItems.entries.map(
+                            (e) => CheckboxListTile(
+                              dense: true,
+                              activeColor: _activeColor,
+                              value: (controller
+                                      .filtersData['${value.filterValue}'])
+                                  .contains('${e.value}'),
+                              title: GtText(
+                                text: '${e.key}',
+                                // texttype:
+                                //     filtersData[value.filterValue] == e.value
+                                //         ? TextformatType.textwithbold
+                                //         : TextformatType.bodyText2,
+                                textStyle: TextStyle(
+                                    fontWeight:
+                                        controller.filtersData['sort'] == "DESC"
+                                            ? FontWeight.bold
+                                            : FontWeight.w100,
+                                    color: Get.context.theme.primaryColor),
+                              ),
+                              onChanged: (isChecked) {
+                                List<dynamic> _options = controller
+                                    .filtersData['${value.filterValue}'];
+                                if (isChecked)
+                                  _options.add('${e.value}');
+                                else
+                                  _options.remove('${e.value}');
+                                controller.setFilterField(
+                                    '${value.filterValue}', _options,
+                                    fromOnChanged: true);
+                              },
+                              controlAffinity: ListTileControlAffinity.leading,
+                            ),
+                          )
+                        else
+                          ...value.filterItems.entries.map(
+                            (e) => CheckboxListTile(
+                              dense: true,
+                              activeColor: _activeColor,
+                              value: (controller
+                                      .filtersData['${value.filterValue}'])
+                                  .contains('${e.value}'),
+                              title: GtText(
+                                text: '${e.key}',
+                                // texttype:
+                                //     filtersData[value.filterValue] == e.value
+                                //         ? TextformatType.textwithbold
+                                //         : TextformatType.bodyText2,
+                                textStyle: TextStyle(
+                                    fontWeight:
+                                        controller.filtersData['sort'] == "DESC"
+                                            ? FontWeight.bold
+                                            : FontWeight.w100,
+                                    color: Get.context.theme.primaryColor),
+                              ),
+                              onChanged: (isChecked) {
+                                List<dynamic> _options = controller
+                                    .filtersData['${value.filterValue}'];
+                                if (isChecked)
+                                  _options.add('${e.value}');
+                                else
+                                  _options.remove('${e.value}');
+                                controller.setFilterField(
+                                    '${value.filterValue}', _options,
+                                    fromOnChanged: true);
+                              },
+                              controlAffinity: ListTileControlAffinity.leading,
+                            ),
                           ),
-
-                          /// SETS THE API FILTER VARIABLES
-                          controller.setFilterField(
-                            '${value.filterValue}',
-                            null,
-                            fromOnChanged: true,
-                            resetArguments: true,
-                          ),
-                        },
-                      ),
+                        _dividerWidget,
+                      ],
                     ),
                   ),
                 );
-                break;
+              }
+              break;
 
-              case GtFilterType.TEXT_FILTER:
-                _textWidgets.add(
-                  Container(
-                      width: MediaQuery.of(Get.context).size.width / 4,
-                      child: Card(
-                        child: GtTextFormField(
-                          inputDecoration: InputDecoration(
-                              filled: true,
-                              fillColor: value.isRequired
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.2)
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0),
-                              constraints: BoxConstraints(
-                                maxHeight: 35,
-                              ),
-                              labelText: ' ${value.filterLabel}',
-                              labelStyle: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(
-                                      backgroundColor:
-                                          Theme.of(context).cardColor),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).hintColor),
-                                  borderRadius: BorderRadius.circular(5))),
-                          fieldLabel: '${value.filterLabel}',
-                          textEditingController: value.textEditingController,
-                          onChangeHandler: (_val) {
-                            controller.setFilterField(
-                              '${value.filterValue}',
-                              _val,
-                              fromOnChanged: true,
-                            );
-                          },
+            // // LOOKUP FILTER
+
+            case GtFilterType.LOOK_UP_FILTER:
+              _widgets.add(
+                Container(
+                  child: Obx(
+                    () => GtTagTextField(
+                      textColor: Get.context.theme.primaryColor,
+                      fieldLabel: " " + key,
+                      isRequired: value.isRequired,
+                      //onSavedHander: (savedVal) {},
+                      allowMultiselection: value.isMultiselect,
+                      looupKeyVisibile: value.looupKeyVisibile,
+                      lookupFields: value.lookupFields,
+                      selectedTaglist: selectedlookupData[value.nodeKey].value,
+                      onSuggestionSelected: (_val, isMutli) {
+                        /// SETS THE SELECTED VALUES FOR THE LOOKUP WIDGETS IN SELECTED LOOKUP DATA LIST
+                        setselectedLookupDataValues(
+                          value.nodeKey,
+                          // gtFormField.nodeKey,
+
+                          _val,
+                          fromOnChanged: true,
+                          ismultiSelect: isMutli,
+                          fieldKey: value.fieldKey,
+                          valuePath: value.valuePath,
+                        );
+
+                        controller.setFilterField(
+                          '${value.filterValue}',
+                          _val[value.lookUpFilterNode],
+                          fromOnChanged: true,
+                          resetArguments: true,
+                        );
+                      },
+                      suggestionsCallback: (pattern) {
+                        return getSuggestions(
+                          pattern,
+                          value.nodeKey,
+                          value.lookupFields,
+                        );
+                      },
+                      textEditingController: value.textEditingController,
+                      taglist: lookupData[value.nodeKey],
+                      onDeleted: (val) => {
+                        /// DELETES FROM THE FORMFIED TEXT FIELDS AND ADDS BACK TO SUGGESTION LIST
+                        onDeleteHandler(
+                          value.nodeKey,
+                          val,
+                          ismultiSelect: false,
+                          fieldKey: value.fieldKey,
+                          valuePath: value.valuePath,
+                          focusNode: new FocusNode(),
                         ),
-                      )),
-                );
-                break;
-              default:
-                break;
-            }
+
+                        /// SETS THE API FILTER VARIABLES
+                        controller.setFilterField(
+                          '${value.filterValue}',
+                          null,
+                          fromOnChanged: true,
+                          resetArguments: true,
+                        ),
+                      },
+                    ),
+                  ),
+                ),
+              );
+              break;
+
+            case GtFilterType.TEXT_FILTER:
+              _textWidgets.add(
+                Container(
+                    width: MediaQuery.of(Get.context).size.width / 4,
+                    child: Card(
+                      child: GtTextFormField(
+                        inputDecoration: InputDecoration(
+                            filled: true,
+                            fillColor: value.isRequired
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.2)
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0),
+                            constraints: BoxConstraints(
+                              maxHeight: 35,
+                            ),
+                            labelText: ' ${value.filterLabel}',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .caption
+                                .copyWith(
+                                    backgroundColor:
+                                        Theme.of(context).cardColor),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).hintColor),
+                                borderRadius: BorderRadius.circular(5))),
+                        fieldLabel: '${value.filterLabel}',
+                        textEditingController: value.textEditingController,
+                        onChangeHandler: (_val) {
+                          controller.setFilterField(
+                            '${value.filterValue}',
+                            _val,
+                            fromOnChanged: true,
+                          );
+                        },
+                      ),
+                    )),
+              );
+              break;
+            default:
+              break;
           }
-        });
-      } catch (e) {
-        print(e.toString());
-      }
+        }
+      });
+    } catch (e) {
+      print(e.toString());
     }
 
     return Container(

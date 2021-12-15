@@ -12,22 +12,6 @@ void main() {
         key: scaffoldKey,
         body: Container(
             child: GtListFilter(
-          listItems: [
-            {
-              "Id": 2093,
-              "CompanyId": 0,
-              "Code": "GT0521",
-              "FName": "DEMO USER",
-              "isActive": "true"
-            },
-            {
-              "Id": 20,
-              "CompanyId": 12,
-              "Code": "GT011",
-              "FName": "DEMO MANAGER",
-              "isActive": "true"
-            }
-          ],
           isBackDrop: true,
           isFilterProcessing: true,
           filterHandler: (data, filteadv) {},
@@ -114,22 +98,6 @@ void main() {
         key: scaffoldKey,
         body: Container(
             child: GtListFilter(
-          listItems: [
-            {
-              "Id": 2093,
-              "CompanyId": 0,
-              "Code": "GT0521",
-              "FName": "DEMO USER",
-              "isActive": "true"
-            },
-            {
-              "Id": 20,
-              "CompanyId": 12,
-              "Code": "GT011",
-              "FName": "DEMO MANAGER",
-              "isActive": "true"
-            }
-          ],
           isBackDrop: true,
           isFilterProcessing: true,
           filterHandler: (data, filteadv) {},
@@ -215,22 +183,6 @@ void main() {
         key: scaffoldKey,
         body: Container(
             child: GtListFilter(
-          listItems: [
-            {
-              "Id": 2093,
-              "CompanyId": 0,
-              "Code": "GT0521",
-              "FName": "DEMO USER",
-              "isActive": "true"
-            },
-            {
-              "Id": 20,
-              "CompanyId": 12,
-              "Code": "GT011",
-              "FName": "DEMO MANAGER",
-              "isActive": "true"
-            }
-          ],
           isBackDrop: true,
           isFilterProcessing: true,
           filterHandler: (data, filteadv) {},
