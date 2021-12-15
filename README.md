@@ -4179,7 +4179,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
          @required this.scaffoldKey,
          this.isBackDrop = false,
          this.changeBackDrop,
-         this.backdropAppBar,});
+         this.backdropAppBar,
+         this.isFilterApplied = false});
    ```
    - Input Parameters of GtBackDropListView Widget
       - **title** - String - This is backdrop AppBar Title text to display.
@@ -4192,6 +4193,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - **isBackDrop** - bool - This is backdrop backlay is on then it will true and frontlayer is displayed then it will changes as false.
       - **changeBackDrop** - Function(bool) - This is Change backlayer and FrontLayer function.
       - **backdropAppBar** - BackdropAppBar - See [Scaffold.appBar].
+      - **isFilterApplied** - bool - This is when filter is applied on any field it will be true and default value is false.
 
       
    - Example
@@ -4316,7 +4318,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
          this.operatorNumeric,
          this.changeBackDrop,
          @required this.keyLabel,
-         this.isBackDrop = false,});
+         this.isBackDrop = false,
+         this.filterData,});
    ```
    - Input Parameters of GtListFilter Widget
       - **filterHandler** - Function(Map<String, dynamic>, List<Map<String, dynamic>>) - This is handle the Listview response as changes quick filter and Advnace Filter data.
@@ -4347,6 +4350,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - **operatorCommon** - List<GtAdvanceFilterOperator> - This is for Common Fields operators.
       - **operatorNumeric** - List<GtAdvanceFilterOperator> - This is for Numeric Fields operators.
       - **keyLabel** - String - This is for Key label each Widget unique key for controller.
+      - **filterData** - Map<String, dynamic> - This will show default selected quick filter.
       
    - Example
     
@@ -4371,6 +4375,8 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
             List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
             RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
+            RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+            RxBool isFilterApplied = new RxBool(false);
             @override
             void onInit() {
                 operatorString = [
@@ -4466,13 +4472,27 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                         filterValue: 'order_by'
                      ),
                   };
+               filtersData.value = {"Code": {"_ilike": "%1%"}};
+
                super.onInit();
             }
             void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
+               if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
+                  isFilterApplied.value = false;
+               }
+               else{
+                  isFilterApplied.value = true;
+               }
                print(filterDataApply);
                print(selectedFilterAdvance);
             }
             void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
+               if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
+                  isFilterApplied.value = false;
+               }
+               else{
+                  isFilterApplied.value = true;
+               }
                print(filterDataApply);
                print(selectedFilterAdvance);
             }
@@ -4559,10 +4579,12 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                                  operatorNumeric: controller.operatorNumeric,
                                  operatorString: controller.operatorString,
                                  keyLabel: "CustomerFilter",
+                                 filterData: controller.filtersData.value,
                               )),
                               backdropAppBar: BackdropAppBar(
                                  title: GtText(text: "LISTVIEW"),
                               ),
+                              isFilterApplied: controller.isFilterApplied.value
                            )
                         ]
                      ));

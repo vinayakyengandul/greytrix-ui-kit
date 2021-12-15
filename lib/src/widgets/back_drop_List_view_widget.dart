@@ -1,6 +1,8 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+import 'package:greytrix_ui_kit/src/controllers/filter_controller.dart';
 
 class GtBackDropListView extends StatelessWidget {
   final Widget backLayer;
@@ -14,6 +16,7 @@ class GtBackDropListView extends StatelessWidget {
   final bool isBackDrop;
   final Function(bool) changeBackDrop;
   final BackdropAppBar backdropAppBar;
+  final bool isFilterApplied;
 
   GtBackDropListView({
     this.title = '',
@@ -27,6 +30,7 @@ class GtBackDropListView extends StatelessWidget {
     this.isBackDrop = false,
     this.changeBackDrop,
     this.backdropAppBar,
+    this.isFilterApplied = false,
   });
 
   @override
@@ -63,7 +67,7 @@ class GtBackDropListView extends StatelessWidget {
               },
               icon: GtIcon(
                 icondata: !isBackDrop ? Icons.filter_alt : Icons.close,
-                color: Theme.of(context).iconTheme.color,
+                color: isFilterApplied ? Theme.of(context).toggleableActiveColor : Theme.of(context).iconTheme.color,
               ))
         ],
       ),

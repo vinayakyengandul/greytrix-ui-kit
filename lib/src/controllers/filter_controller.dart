@@ -10,6 +10,7 @@ class FilterController extends GetxController {
       @required this.operatorCommon,
       @required this.advanceFilterFields,
       @required this.toMapQuickfilterjson,
+      this.filterData,
     });
   
   final String keyLabel;
@@ -18,6 +19,7 @@ class FilterController extends GetxController {
   final List<GtAdvanceFilterOperator> operatorCommon;
   final List<GtAdvanceFilterField> advanceFilterFields;
   final Map<String, GtTileField> toMapQuickfilterjson;
+  final Map<String, dynamic> filterData;
 
   GlobalKey key;
   /// FILTERS DATA SAVED ALL FILTERS IN THIS VARIABLE
@@ -40,7 +42,21 @@ class FilterController extends GetxController {
   void onInit() {
     key = LabeledGlobalKey(keyLabel);    
     toMapfilterjson.value = toMapQuickfilterjson;
-
+    if(filterData != null && !filterData.isEmpty){
+      filtersData.value = filterData;
+      toMapfilterjson.update((val) {
+        val.forEach((key, value) {
+          Map<String, dynamic> textControl = filtersData.value[value.valuePath];
+          if(filtersData.value[value.valuePath] != null)
+          {
+            value.textEditingController = TextEditingController(text: textControl["_ilike"].toString().replaceAll("%", ""));
+          }
+        });
+      });
+    }
+    else{
+      filtersData.value = {};
+    }
     if(this.advanceFilterFields != null && this.advanceFilterFields.length > 0){
     /// DEFAULT ONE ADVANCE FILTER IS OPEN 
     selectedOperators.update((val){
@@ -54,15 +70,17 @@ class FilterController extends GetxController {
           'fieldValue': advanceFilterFields.first.options != null
               ? advanceFilterFields.first.options[0].values.elementAt(0)
               : '',
-          'operator': selectedOperators.value,
-          'selectedOperator' : selectedOperators.value.first.value,
+          'operator': selectedOperators.value.map((e) => 
+              {e.label : e.value}
+            ).toList(),
+          'selectedOperator' : selectedOperators.value.isEmpty ? [] : selectedOperators.value.first.value,
           'index': 0,
           'added': true,
           'controller': new TextEditingController(text: '')
         }];
     }
     defaultfilterData.value = {};
-    filtersData.value = {};
+    // filtersData.value = {};
     super.onInit();
   }
   /// ON CHANGE FILTER SET FIELD VALUES 
@@ -203,9 +221,9 @@ class FilterController extends GetxController {
   }
 
   /// SET SELECTED FILTER ON CHANGE 
-  void setfilterSelectedValues(dynamic filterValues, int index) {
+  void setfilterSelectedValues(dynamic filterValues, int index, bool isField) {
     try {
-      
+      bool checkValue = false;
       advanceFilterFields.forEach((e) {
         if(filterValues["fieldName"] == e.value)
         {
@@ -218,7 +236,13 @@ class FilterController extends GetxController {
 
             });
         }
+        filterValues["operator"] = selectedOperators.value.map((e) => {e.label : e.value}).toList();
+        if(isField == true){
+          filterValues["selectedOperator"] = selectedOperators.value[0].value;
+        }
+        
       });
+      
       if (filterValues != null) {
         selectedfiltersOperations.update((val) {
           val[index] = filterValues;

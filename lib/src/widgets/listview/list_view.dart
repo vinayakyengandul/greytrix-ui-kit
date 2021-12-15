@@ -41,13 +41,14 @@ class GtListView extends StatelessWidget {
     this.horizinalScrollable = false,
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
-        this.itemDatawidget,
-        this.isCustomItemWidget = false,
-        this.swipeSnackBartextWidget,
-        this.mainCardMargin = const EdgeInsets.all(8.0),
+    this.itemDatawidget,
+    this.isCustomItemWidget = false,
+    this.swipeSnackBartextWidget,
+    this.mainCardMargin = const EdgeInsets.all(8.0),
   })  : assert(listItems != null),
         assert(rowsCount != null),
-         assert((isCustomItemWidget && itemDatawidget != null) ||(!isCustomItemWidget && toMapjson != null)),
+        assert((isCustomItemWidget && itemDatawidget != null) ||
+            (!isCustomItemWidget && toMapjson != null)),
         super(key: key);
 
   final int rowsCount;
@@ -99,8 +100,9 @@ class GtListView extends StatelessWidget {
 
   /// List Item Padding
   final EdgeInsets listItemPadding;
+
   ///Record Item data Widget from User
-  final Function(int index,dynamic obj) itemDatawidget;
+  final Function(int index, dynamic obj) itemDatawidget;
   final bool isCustomItemWidget;
   // MAIN CARD MARGIN
   final EdgeInsets mainCardMargin;
@@ -110,263 +112,268 @@ class GtListView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     Widget returnTile(int index) {
       Widget listTile;
-      if(isCustomItemWidget == false){
-      Color color = listViewTableType == GTListViewTableType.Normal
-          ? rowColors
-          : index.isOdd
-              ? rowColors
-              : rowColors.withOpacity(0.5);
+      if (isCustomItemWidget == false) {
+        Color color = listViewTableType == GTListViewTableType.Normal
+            ? rowColors
+            : index.isOdd
+                ? rowColors
+                : rowColors.withOpacity(0.5);
 
-      ///HOLDS THE MOBILE_PORTRAIT VIEW IDENTIFICATION
-      bool isMobilePortrait = size.width < 450 ? true : false;
-      String bannerText;
-      String chipcheck = "";
+        ///HOLDS THE MOBILE_PORTRAIT VIEW IDENTIFICATION
+        bool isMobilePortrait = size.width < 450 ? true : false;
+        String bannerText;
+        String chipcheck = "";
 
-      ///HOLDS THE ROWS DATA WIDGETS LIST AS PROVIDED IN THE GT_FIELD
-      dynamic rowsData = {};
-      for (var i = 0; i < rowsCount; i++) {
-        rowsData[i + 1] = List<Widget>.empty(growable: true);
-      }
-      bool isImage = false;
-      String valuePath = "";
-      bool statusType = false;
-      toMapjson.forEach((key, value) {
-        if (value.type == GtFieldType.IMAGE) {
-          isImage = true;
-          valuePath = value.valuePath;
+        ///HOLDS THE ROWS DATA WIDGETS LIST AS PROVIDED IN THE GT_FIELD
+        dynamic rowsData = {};
+        for (var i = 0; i < rowsCount; i++) {
+          rowsData[i + 1] = List<Widget>.empty(growable: true);
         }
-      });
-
-      /// PREPARES THE LEADING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
-      Widget leadingWidget = getLeadingWidget(index, isImage, valuePath);
-
-      /// PREPARES THE TRAILING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
-      Widget trailingWidget =
-          trailingIcon != null ? getTrailingWidget(index) : null;
-
-      //HERE PREPARING THE SINGLE GT_FIELD_WIDGET FOR THE SINGLE ITEM FIELD WHICH NEEDS TO BE DISPLAYED
-      toMapjson.forEach((key, value) {
-        if (value.valuePath != null) {
-          int row = isMobilePortrait ? value.mobileRow : value.row;
-          if (value.type == GtFieldType.CHIP) chipcheck = (row + 1).toString();
-          dynamic nodeValue =
-              Common.getValue(listItems[index], value.valuePath);
-          if (rowsData[row] == null && value.isActiveInactiveField == false) {
-            rowsData[row] = List<Widget>.empty(growable: true);
-          } else if (value.valueType != GtValueType.LIST &&
-              value.isActiveInactiveField == true &&
-              nodeValue != null) {
-            statusType = true;
-            bannerText = value.activeInactiveItems.keys.firstWhere(
-                (k) => value.activeInactiveItems[k] == nodeValue,
-                orElse: () => '');
-
-            // bannerText = '$nodeValue';
+        bool isImage = false;
+        String valuePath = "";
+        bool statusType = false;
+        toMapjson.forEach((key, value) {
+          if (value.type == GtFieldType.IMAGE) {
+            isImage = true;
+            valuePath = value.valuePath;
           }
+        });
 
-          ///IF ROW INFORMATION IS NOT PROVIDED THEN THAT FIELD WILL NOT BE DISPLAYED IN THE LIST_TILE
-          //if (row != null && nodeValue != null) {
-          if (row != null) {
-            if (nodeValue == null) {
-              rowsData[row].add(Expanded(
-                flex: isMobilePortrait ? value.mobileFlex : value.flex,
-                child: Container(),
-              ));
-            } else {
-              rowsData[row].add(
-                // Common.getGtText(value,key,nodeValue,textStyle: value.valueTextStyle,horizhontalScrollable: horizinalScrollable,isMobileScreen: isMobilePortrait,),
-                Common.getListWidget(
-                    value,
-                    key,
-                    nodeValue,
-                    () => {
-                          if (onDetailsNavigateHandler != null)
-                            {
-                              onDetailsNavigateHandler(
-                                  listItems[index], pathNavigation,
-                                  getTileField: value)
-                            }
-                        },
-                    gtValueType: value.valueType,
-                    isMobileScreen: isMobilePortrait,
-                    quantityInitialValue: quantityInitialValue,
-                    incrementHandler: () => incrementHandler(index),
-                    decrementHandler: () => decrementHandler(index),
-                    itemData: listItems[index],
-                    spaceBetweenKeyValue: spaceBetweenKeyValue,
-                    horizinalScrollable: horizinalScrollable),
-              );
+        /// PREPARES THE LEADING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
+        Widget leadingWidget = getLeadingWidget(index, isImage, valuePath);
+
+        /// PREPARES THE TRAILING ICON WITH EITHER SELECTION OR WITHOUT SELECTION
+        Widget trailingWidget =
+            trailingIcon != null ? getTrailingWidget(index) : null;
+
+        //HERE PREPARING THE SINGLE GT_FIELD_WIDGET FOR THE SINGLE ITEM FIELD WHICH NEEDS TO BE DISPLAYED
+        toMapjson.forEach((key, value) {
+          if (value.valuePath != null) {
+            int row = isMobilePortrait ? value.mobileRow : value.row;
+            if (value.type == GtFieldType.CHIP)
+              chipcheck = (row + 1).toString();
+            dynamic nodeValue =
+                Common.getValue(listItems[index], value.valuePath);
+            if (rowsData[row] == null && value.isActiveInactiveField == false) {
+              rowsData[row] = List<Widget>.empty(growable: true);
+            } else if (value.valueType != GtValueType.LIST &&
+                value.isActiveInactiveField == true &&
+                nodeValue != null) {
+              statusType = true;
+              bannerText = value.activeInactiveItems.keys.firstWhere(
+                  (k) => value.activeInactiveItems[k] == nodeValue,
+                  orElse: () => '');
+
+              // bannerText = '$nodeValue';
+            }
+
+            ///IF ROW INFORMATION IS NOT PROVIDED THEN THAT FIELD WILL NOT BE DISPLAYED IN THE LIST_TILE
+            //if (row != null && nodeValue != null) {
+            if (row != null) {
+              if (nodeValue == null) {
+                rowsData[row].add(Expanded(
+                  flex: isMobilePortrait ? value.mobileFlex : value.flex,
+                  child: Container(),
+                ));
+              } else {
+                rowsData[row].add(
+                  // Common.getGtText(value,key,nodeValue,textStyle: value.valueTextStyle,horizhontalScrollable: horizinalScrollable,isMobileScreen: isMobilePortrait,),
+                  Common.getListWidget(
+                      value,
+                      key,
+                      nodeValue,
+                      () => {
+                            if (onDetailsNavigateHandler != null)
+                              {
+                                onDetailsNavigateHandler(
+                                    listItems[index], pathNavigation,
+                                    getTileField: value)
+                              }
+                          },
+                      gtValueType: value.valueType,
+                      isMobileScreen: isMobilePortrait,
+                      quantityInitialValue: quantityInitialValue,
+                      incrementHandler: () => incrementHandler(index),
+                      decrementHandler: () => decrementHandler(index),
+                      itemData: listItems[index],
+                      spaceBetweenKeyValue: spaceBetweenKeyValue,
+                      horizinalScrollable: horizinalScrollable),
+                );
+              }
             }
           }
+        });
+
+        int currentCount = 0;
+        int rowMaxCount = 0;
+        if (!isMobilePortrait && !horizinalScrollable) {
+          rowsData.forEach((k, v) => {
+                if (v.length > rowMaxCount)
+                  {
+                    rowMaxCount = v.length,
+                  }
+              });
+          rowsData.forEach((k, v) => {
+                if (v.length < rowMaxCount && k != null)
+                  {
+                    currentCount = rowMaxCount - v.length,
+                    rowsData[k].addAll(
+                      List<Widget>.generate(
+                          currentCount,
+                          (i) => Expanded(
+                                child: Container(),
+                              )),
+                    ),
+                  }
+              });
         }
-      });
+        List<Widget> rowsWidgets = List<Widget>.empty(growable: true);
+        int rowIndex = 0;
+        EdgeInsets _rowPadding = EdgeInsets.only(
+            top: 0.0, bottom: spaceBetweenKeyValue ? 10.0 : 0.0);
 
-      int currentCount = 0;
-      int rowMaxCount = 0;
-      if (!isMobilePortrait && !horizinalScrollable) {
-        rowsData.forEach((k, v) => {
-              if (v.length > rowMaxCount)
-                {
-                  rowMaxCount = v.length,
-                }
-            });
-        rowsData.forEach((k, v) => {
-              if (v.length < rowMaxCount && k != null)
-                {
-                  currentCount = rowMaxCount - v.length,
-                  rowsData[k].addAll(
-                    List<Widget>.generate(
-                        currentCount,
-                        (i) => Expanded(
-                              child: Container(),
-                            )),
-                  ),
-                }
-            });
-      }
-      List<Widget> rowsWidgets = List<Widget>.empty(growable: true);
-      int rowIndex = 0;
-      EdgeInsets _rowPadding =
-          EdgeInsets.only(top: 0.0, bottom: spaceBetweenKeyValue ? 10.0 : 0.0);
-
-      ///HERE PREPARING THE EACH ROWS DATA WITH RESPECTIVE CHILDREN WIDGETS DATA
-      ///ALSO IF MOBILE VIEW IS PRESENT THEN ADDING THE LEADING ICON IN THE FIRST ROW
-      rowsData.forEach(
-        (k, v) => {
-          if ((isMobilePortrait == true) &&
-              rowIndex == 0 &&
-              leadingWidget != null &&
-              isLeadingShow)
-            {
-              rowsWidgets.add(
-                Padding(
-                  padding: chipcheck == (rowIndex + 1).toString()
-                      ? EdgeInsets.only(top: 0.0, bottom: 0.0)
-                      : _rowPadding,
-                  child: !horizinalScrollable
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (leadingWidget != null &&
-                                (isImage ||
-                                    listViewTableType ==
-                                        GTListViewTableType.STRIPED)) ...[
-                              listViewTableType == GTListViewTableType.STRIPED
-                                  ? Container(
-                                      child: leadingWidget,
-                                    )
-                                  : Expanded(
-                                      flex: 2,
-                                      child: leadingWidget,
+        ///HERE PREPARING THE EACH ROWS DATA WITH RESPECTIVE CHILDREN WIDGETS DATA
+        ///ALSO IF MOBILE VIEW IS PRESENT THEN ADDING THE LEADING ICON IN THE FIRST ROW
+        rowsData.forEach(
+          (k, v) => {
+            if ((isMobilePortrait == true) &&
+                rowIndex == 0 &&
+                leadingWidget != null &&
+                isLeadingShow)
+              {
+                rowsWidgets.add(
+                  Padding(
+                    padding: chipcheck == (rowIndex + 1).toString()
+                        ? EdgeInsets.only(top: 0.0, bottom: 0.0)
+                        : _rowPadding,
+                    child: !horizinalScrollable
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (leadingWidget != null &&
+                                  (isImage ||
+                                      listViewTableType ==
+                                          GTListViewTableType.STRIPED)) ...[
+                                listViewTableType == GTListViewTableType.STRIPED
+                                    ? Container(
+                                        child: leadingWidget,
+                                      )
+                                    : Expanded(
+                                        flex: 2,
+                                        child: leadingWidget,
+                                      ),
+                                SizedBox(
+                                  width: 10,
+                                )
+                              ],
+                              if (isImage) ...[
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    height: 100,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: v,
                                     ),
-                              SizedBox(
-                                width: 10,
-                              )
-                            ],
-                            if (isImage) ...[
-                              Expanded(
-                                flex: 3,
-                                child: SizedBox(
-                                  height: 100,
-                                  child: Column(
+                                  ),
+                                ),
+                              ] else ...[
+                                Expanded(
+                                  flex: 3,
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: v,
                                   ),
                                 ),
-                              ),
-                            ] else ...[
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: v,
-                                ),
-                              ),
+                              ],
+                              if (leadingWidget != null &&
+                                  !isImage &&
+                                  listViewTableType !=
+                                      GTListViewTableType.STRIPED) ...[
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      leadingWidget,
+                                      SizedBox(
+                                        width: 10,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ]
                             ],
-                            if (leadingWidget != null &&
-                                !isImage &&
-                                listViewTableType !=
-                                    GTListViewTableType.STRIPED) ...[
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    leadingWidget,
-                                    SizedBox(
-                                      width: 10,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ]
-                          ],
-                        )
-                      : Container(
-                          child: leadingWidget,
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                        ),
-                ),
-              ),
-            }
-          else
-            {
-              rowsWidgets.add(
-                Padding(
-                  padding: chipcheck == (rowIndex + 1).toString()
-                      ? EdgeInsets.only(top: 0.0, bottom: 0.0)
-                      : _rowPadding,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: v,
+                          )
+                        : Container(
+                            child: leadingWidget,
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                          ),
                   ),
                 ),
-              ),
-            },
-          rowIndex++,
-        },
-      );
-      listTile = GtListTile(
-        columnWidget: horizinalScrollable
-            ? Row(children: rowsWidgets)
-            : Column(children: rowsWidgets),
-        leadingWidget:
-            (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
-        isSelected:
-            selectAllcheckbox != null ? listItems[index]['IsSelected'] : false,
-        gtTileRowCrossAxisAlignment: gtTileRowCrossAxisAlignment,
-        gtTileRowMainAxisAlignment: gtTileRowMainAxisAlignment,
-        onTap: () {
-          if (onDetailsNavigateHandler != null) {
-            onDetailsNavigateHandler(listItems[index], pathNavigation);
-          }
-        },
-        bannerText: bannerText,
-        onHover: listItems[index]['IsHovered'] != null
-            ? listItems[index]['IsHovered']
-            : false,
-        onHoverHandler: (isHovered) {
-          if (onHoverHandler != null)
-            onHoverHandler(isHovered, listItems[index]);
-        },
-        isImage: isImage,
-        isSpaceInRecords: isSpaceInRecords,
-        statusType: statusType,
-        trailingWidget: trailingWidget,
-        isleadingIconPosition: isleadingIconPosition,
-        rowColor: color,
-        listViewTableType: listViewTableType,
-        selectedRowColor: selectedRowColor ?? Theme.of(context).selectedRowColor,
-        cardMarginEdgeInsets: cardMarginEdgeInsets,
-        horizinalScrollable: horizinalScrollable,
-        listItemPadding: listItemPadding,
-      );
+              }
+            else
+              {
+                rowsWidgets.add(
+                  Padding(
+                    padding: chipcheck == (rowIndex + 1).toString()
+                        ? EdgeInsets.only(top: 0.0, bottom: 0.0)
+                        : _rowPadding,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: v,
+                    ),
+                  ),
+                ),
+              },
+            rowIndex++,
+          },
+        );
+        listTile = GtListTile(
+          columnWidget: horizinalScrollable
+              ? Row(children: rowsWidgets)
+              : Column(children: rowsWidgets),
+          leadingWidget:
+              (isMobilePortrait || !isLeadingShow) ? null : leadingWidget,
+          isSelected: selectAllcheckbox != null
+              ? listItems[index]['IsSelected']
+              : false,
+          gtTileRowCrossAxisAlignment: gtTileRowCrossAxisAlignment,
+          gtTileRowMainAxisAlignment: gtTileRowMainAxisAlignment,
+          onTap: () {
+            if (onDetailsNavigateHandler != null) {
+              onDetailsNavigateHandler(listItems[index], pathNavigation);
+            }
+          },
+          bannerText: bannerText,
+          onHover: listItems[index]['IsHovered'] != null
+              ? listItems[index]['IsHovered']
+              : false,
+          onHoverHandler: (isHovered) {
+            if (onHoverHandler != null)
+              onHoverHandler(isHovered, listItems[index]);
+          },
+          isImage: isImage,
+          isSpaceInRecords: isSpaceInRecords,
+          statusType: statusType,
+          trailingWidget: trailingWidget,
+          isleadingIconPosition: isleadingIconPosition,
+          rowColor: color,
+          listViewTableType: listViewTableType,
+          selectedRowColor:
+              selectedRowColor ?? Theme.of(context).selectedRowColor,
+          cardMarginEdgeInsets: cardMarginEdgeInsets,
+          horizinalScrollable: horizinalScrollable,
+          listItemPadding: listItemPadding,
+        );
       }
       return swipeToOption != null
           ? Dismissible(
@@ -399,22 +406,26 @@ class GtListView extends StatelessWidget {
               onDismissed: (direction) {
                 if (swipeToOption != null) {
                   swipeToOption(listItems, index);
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: swipeSnackBartextWidget ?? Text('1 dismissed')));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: swipeSnackBartextWidget ?? Text('1 dismissed')));
                 }
               },
               secondaryBackground: swipeIconWidget("END"),
               background: swipeIconWidget("START"),
-              child: isCustomItemWidget ? itemDatawidget(index,listItems[index])
-              : listTile,
+              child: isCustomItemWidget
+                  ? itemDatawidget(index, listItems[index])
+                  : listTile,
             )
-          : isCustomItemWidget ? itemDatawidget(index,listItems[index])
+          : isCustomItemWidget
+              ? itemDatawidget(index, listItems[index])
               : listTile;
     }
 
     return !horizinalScrollable
         ? ListView.builder(
-            padding: listViewTableType == GTListViewTableType.Normal ? EdgeInsets.all(0.0) : mainCardMargin,
+            padding: listViewTableType == GTListViewTableType.Normal
+                ? EdgeInsets.all(0.0)
+                : mainCardMargin,
             itemCount: listItems.length,
             itemBuilder: (context, index) {
               return returnTile(index);

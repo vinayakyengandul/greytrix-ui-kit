@@ -8,7 +8,7 @@ class AddAdvanceFilter extends StatelessWidget {
   final TextEditingController valueTextController;
   final dynamic filter;
   final Function(int index) onDelete;
-  final Function(dynamic value, int index) onTap;
+  final Function(dynamic value, int index, bool isField) onTap;
   final Function(int index) addfilters;
   final int filterindex;
   final List<dynamic> selectedOperators;
@@ -23,38 +23,38 @@ class AddAdvanceFilter extends StatelessWidget {
     this.selectedOperators,
   });
 
-  List<DropdownMenuItem> builditems(dynamic list) {
+  @override
+  Widget build(BuildContext context) {
+
+    List<DropdownMenuItem> builditems(dynamic list) {
     List<DropdownMenuItem> items = [];
     var data = fields.firstWhere((k) => k.value == filter['fieldName'],
         orElse: () => null);
-
     list.forEach((element) {
       items.add(DropdownMenuItem(
           child: GtText(
-            text: '${element.label}',
+            text: '${element.keys.first}',
           ),
-          value: '${element.value}',
+          value: '${element.values.first}',
           onTap: () {
-            if(onTap != null)
-            onTap({
-              'fieldName': filter['fieldName'],
-              'fieldValue': data.options != null ? data.options[0].values.elementAt(0) : '',
-              'operator': '$element',
-              'selectedOperator' : '${element.value}',
-              'index': filterindex,
-              'added': true,
-              'controller': valueTextController
-            }, filterindex);
+            if (onTap != null)
+              onTap({
+                'fieldName': filter['fieldName'],
+                'fieldValue': data.options != null
+                    ? data.options[0].values.elementAt(0)
+                    : '',
+                'operator': list,
+                'selectedOperator': '${element.values.first}',
+                'index': filterindex,
+                'added': true,
+                'controller': valueTextController
+              }, filterindex, false);
           }));
     });
     return items;
   }
-  
 
-  @override
-  Widget build(BuildContext context) {
-    return
-        Container(
+    return Container(
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
@@ -67,8 +67,7 @@ class AddAdvanceFilter extends StatelessWidget {
         children: [
           (MediaQuery.of(context).size.width < 450)
               ? Container(
-                  width:
-                      MediaQuery.of(context).size.width - 150,
+                  width: MediaQuery.of(context).size.width - 150,
                   child: Wrap(
                     children: [
                       Row(
@@ -97,18 +96,20 @@ class AddAdvanceFilter extends StatelessWidget {
                                         ),
                                         value: e.value,
                                         onTap: () {
-                                          if(onTap != null)
-                                          onTap({
-                                            'fieldName': e.value,
-                                            'fieldValue': e.options != null
-                                                ? e.options[0].values.elementAt(0)
-                                                : '',
-                                            'operator': selectedOperators,
-                                            'selectedOperator': selectedOperators.first.value,
-                                            'index': filterindex,
-                                            'added': true,
-                                            'controller': valueTextController
-                                          }, filterindex);
+                                          if (onTap != null)
+                                            onTap({
+                                              'fieldName': e.value,
+                                              'fieldValue': e.options != null
+                                                  ? e.options[0].values
+                                                      .elementAt(0)
+                                                  : '',
+                                              'operator': filter["operator"],
+                                              'selectedOperator':
+                                                  filter["selectedOperator"],
+                                              'index': filterindex,
+                                              'added': true,
+                                              'controller': valueTextController
+                                            }, filterindex, true);
                                         },
                                       ),
                                     )
@@ -124,7 +125,6 @@ class AddAdvanceFilter extends StatelessWidget {
                           height: 30,
                           child: Container(
                               padding: EdgeInsets.all(3.0),
-
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -133,20 +133,19 @@ class AddAdvanceFilter extends StatelessWidget {
                                 borderRadius: new BorderRadius.circular(10.0),
                               ),
                               child: DropdownButton<dynamic>(
-                                  onChanged: (value) {
-                                  },
+                                  onChanged: (value) {},
                                   underline: SizedBox(),
                                   value: filter["selectedOperator"],
-                              items: builditems(selectedOperators)))),
+                                  items: builditems(filter["operator"])))),
                       SizedBox(
                         width: 10,
                       ),
-                      makeControl(
-                        filterOperetor: selectedOperators,
+                      AdvanceFilterMakeControl(
+                          filterOperetor: filter["operator"],
                           field: fields.firstWhere(
                               (k) => k.value == filter['fieldName'],
                               orElse: () => null),
-                          controlvalue: filter,
+                          controlValue: filter,
                           onControlValueChanged: onTap,
                           index: filterindex,
                           valuetextController: valueTextController,
@@ -183,18 +182,20 @@ class AddAdvanceFilter extends StatelessWidget {
                                         ),
                                         value: e.value,
                                         onTap: () {
-                                          if(onTap != null)
-                                          onTap({
-                                            'fieldName': e.value,
-                                            'fieldValue': e.options != null
-                                                ? e.options[0].values.elementAt(0)
-                                                : '',
-                                            'operator': selectedOperators,
-                                            'selectedOperator': selectedOperators.first.value,
-                                            'index': filterindex,
-                                            'added': true,
-                                            'controller': valueTextController
-                                          }, filterindex);
+                                          if (onTap != null)
+                                            onTap({
+                                              'fieldName': e.value,
+                                              'fieldValue': e.options != null
+                                                  ? e.options[0].values
+                                                      .elementAt(0)
+                                                  : '',
+                                              'operator': filter["operator"],
+                                              'selectedOperator':
+                                                  filter["selectedOperator"],
+                                              'index': filterindex,
+                                              'added': true,
+                                              'controller': valueTextController
+                                            }, filterindex, true);
                                         },
                                       ),
                                     )
@@ -219,21 +220,20 @@ class AddAdvanceFilter extends StatelessWidget {
                           ),
                           child: DropdownButton<dynamic>(
                               underline: SizedBox(),
-                              onChanged: (value) {
-                              },
+                              onChanged: (value) {},
                               value: filter["selectedOperator"],
-                              items: builditems(selectedOperators)),
+                              items: builditems(filter["operator"])),
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      makeControl(
-                        filterOperetor: selectedOperators,
+                      AdvanceFilterMakeControl(
+                          filterOperetor: filter["operator"],
                           field: fields.firstWhere(
                               (k) => k.value == filter['fieldName'],
                               orElse: () => null),
-                          controlvalue: filter,
+                          controlValue: filter,
                           onControlValueChanged: onTap,
                           index: filterindex,
                           valuetextController: valueTextController,
@@ -246,8 +246,7 @@ class AddAdvanceFilter extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () {
-                if(addfilters != null)
-                addfilters(filterindex);
+                if (addfilters != null) addfilters(filterindex);
               },
               child: GtIcon(icondata: Icons.done_outline_rounded, size: 16)),
           SizedBox(
@@ -255,8 +254,7 @@ class AddAdvanceFilter extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () {
-                if(onDelete != null)
-                onDelete(filterindex);
+                if (onDelete != null) onDelete(filterindex);
               },
               child: GtIcon(icondata: Icons.close_sharp, size: 16)),
         ],

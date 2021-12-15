@@ -21,7 +21,8 @@ class GtGridView extends StatelessWidget {
       this.customGridviewItemBuilder,
       this.isCustomItemGridView = false})
       : assert(listItems != null),
-      assert((isCustomItemGridView && customGridviewItemBuilder != null) ||(!isCustomItemGridView && toMapjson != null));
+        assert((isCustomItemGridView && customGridviewItemBuilder != null) ||
+            (!isCustomItemGridView && toMapjson != null));
 
   final Function(bool isSelected, dynamic item) onSelectionHandler;
   final List<dynamic> listItems;
@@ -36,7 +37,8 @@ class GtGridView extends StatelessWidget {
   final Function(bool isSelected, dynamic item) onHoverHandler;
   final String pathNavigation;
   final bool isCustomItemGridView;
-  final Function(int index,dynamic obj) customGridviewItemBuilder;
+  final Function(int index, dynamic obj) customGridviewItemBuilder;
+
   /// Record Key and Value SpaceBetween
   final bool spaceBetweenKeyValue;
   // HORIZONTAL SCROLLABLE
@@ -60,12 +62,12 @@ class GtGridView extends StatelessWidget {
         ),
         itemCount: listItems.length,
         itemBuilder: (context, index) {
-          return isCustomItemGridView == true ? 
-            customGridviewItemBuilder(index, listItems[index])
-          : buildSingleCard(
-            listItems[index],
-            fromGridViewBuilder: true,
-          );
+          return isCustomItemGridView == true
+              ? customGridviewItemBuilder(index, listItems[index])
+              : buildSingleCard(
+                  listItems[index],
+                  fromGridViewBuilder: true,
+                );
         },
       ),
     );
@@ -123,42 +125,40 @@ class GtGridView extends StatelessWidget {
           case "TITLE":
             if (nodeValue != null)
               _cardTitleWidget = Common.getListWidget(
-                value,
-                key,
-                nodeValue,
-                () => {
-                  if (onDetailsNavigateHandler != null)
-                    {
-                      onDetailsNavigateHandler(listItems[index], pathNavigation,
-                          getTileField: value)
-                    }
-                },
-                gtValueType: value.valueType,
-                spaceBetweenKeyValue: spaceBetweenKeyValue,
-                horizinalScrollable: horizinalScrollable
-                
-              );
+                  value,
+                  key,
+                  nodeValue,
+                  () => {
+                        if (onDetailsNavigateHandler != null)
+                          {
+                            onDetailsNavigateHandler(
+                                listItems[index], pathNavigation,
+                                getTileField: value)
+                          }
+                      },
+                  gtValueType: value.valueType,
+                  spaceBetweenKeyValue: spaceBetweenKeyValue,
+                  horizinalScrollable: horizinalScrollable);
             break;
           case "SUB_TITLE":
             if (nodeValue != null)
               _subTitleChildren.add(Row(
                 children: [
                   Common.getListWidget(
-                    value,
-                    key,
-                    nodeValue,
-                    () => {
-                      if (onDetailsNavigateHandler != null)
-                        {
-                          onDetailsNavigateHandler(
-                              listItems[index], pathNavigation,
-                              getTileField: value)
-                        }
-                    },
-                    gtValueType: value.valueType,
-                    spaceBetweenKeyValue: spaceBetweenKeyValue,
-                    horizinalScrollable: horizinalScrollable
-                  ),
+                      value,
+                      key,
+                      nodeValue,
+                      () => {
+                            if (onDetailsNavigateHandler != null)
+                              {
+                                onDetailsNavigateHandler(
+                                    listItems[index], pathNavigation,
+                                    getTileField: value)
+                              }
+                          },
+                      gtValueType: value.valueType,
+                      spaceBetweenKeyValue: spaceBetweenKeyValue,
+                      horizinalScrollable: horizinalScrollable),
                 ],
               ));
             break;
@@ -180,21 +180,20 @@ class GtGridView extends StatelessWidget {
             if (row != null && nodeValue != null) {
               rowsData[row].add(
                 Common.getListWidget(
-                  value,
-                  key,
-                  nodeValue,
-                  () => {
-                    if (onDetailsNavigateHandler != null)
-                      {
-                        onDetailsNavigateHandler(
-                            listItems[index], pathNavigation,
-                            getTileField: value)
-                      }
-                  },
-                  gtValueType: value.valueType,
-                  spaceBetweenKeyValue: spaceBetweenKeyValue,
-                    horizinalScrollable: horizinalScrollable
-                ),
+                    value,
+                    key,
+                    nodeValue,
+                    () => {
+                          if (onDetailsNavigateHandler != null)
+                            {
+                              onDetailsNavigateHandler(
+                                  listItems[index], pathNavigation,
+                                  getTileField: value)
+                            }
+                        },
+                    gtValueType: value.valueType,
+                    spaceBetweenKeyValue: spaceBetweenKeyValue,
+                    horizinalScrollable: horizinalScrollable),
               );
             }
             break;
