@@ -4351,6 +4351,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - **operatorNumeric** - List<GtAdvanceFilterOperator> - This is for Numeric Fields operators.
       - **keyLabel** - String - This is for Key label each Widget unique key for controller.
       - **filterData** - Map<String, dynamic> - This will show default selected quick filter.
+      - **advanceFilterBlankMessage** - String - This is Valid Fields or Operators not present message.
       
    - Example
     
@@ -4565,7 +4566,6 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
                                  backButtonColor: Colors.white,
                               ),
                               backLayer: Obx(() => GtListFilter(
-                                 listItems: controller.customerList.value,
                                  isBackDrop: true,
                                  isFilterProcessing: false,
                                  filterHandler: controller.filterHandlerFunction,

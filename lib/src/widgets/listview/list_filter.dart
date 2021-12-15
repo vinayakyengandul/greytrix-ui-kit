@@ -36,9 +36,13 @@ class GtListFilter extends StatelessWidget {
     @required this.keyLabel,
     this.isBackDrop = false,
     this.filterData,
+    this.advanceFilterBlankMessage =
+        "Valid Fields or Operators not present, Please contact administrator",
   }) : assert((isAdvanceFilterEnable == true &&
                 advanceFilterFields != null &&
-                advanceFilterFields != []) ||
+                operatorCommon != null &&
+                operatorNumeric != null &&
+                operatorString != null) ||
             (isAdvanceFilterEnable == false));
 
   @override
@@ -139,6 +143,10 @@ class GtListFilter extends StatelessWidget {
 
   /// QUICK FILTER SELECTED VALUES
   final Map<String, dynamic> filterData;
+
+  /// ADVANCE FILTER BLANK MESSAGE
+  final String advanceFilterBlankMessage;
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(
@@ -736,7 +744,7 @@ class GtListFilter extends StatelessWidget {
             case GtFilterType.TEXT_FILTER:
               _textWidgets.add(
                 Container(
-                    width: MediaQuery.of(Get.context).size.width / 4,
+                    width: MediaQuery.of(Get.context).size.width / 3,
                     child: Card(
                       child: GtTextFormField(
                         inputDecoration: InputDecoration(
@@ -901,170 +909,206 @@ class GtListFilter extends StatelessWidget {
                       ),
                       if (isAdvanceFilterEnable)
                         Card(
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                          child: Obx(() => Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GtText(
-                                      text: advanceFilterTitle,
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1
-                                          .copyWith(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              if (controller.addFilter !=
-                                                  null) {
-                                                controller.addFilter();
-                                              }
-                                            },
-                                            child: GtText(
-                                              text: addButtonText,
-                                            )),
+                                        child: GtText(
+                                          text: advanceFilterTitle,
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1
+                                              .copyWith(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500),
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Obx(() => Visibility(
-                                    visible: controller
-                                            .selectedfilters.value.length >
-                                        0,
-                                    child: Container(
-                                        child: Wrap(children: [
-                                      ...controller.selectedfilters.value
-                                          .map((e) =>
-                                              //GtText(text: 'tegs')
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: Chip(
-                                                  label: Wrap(
-                                                    children: [
-                                                      GtText(
-                                                          text: e['fieldName']
-                                                              .toString(),
-                                                          textStyle: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyText1
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 6.0,
-                                                                right: 6.0),
-                                                        child: GtText(
-                                                            text: e['operator']
-                                                                .toString()),
-                                                      ),
-                                                      GtText(
-                                                          text: e['fieldValue'],
-                                                          textStyle: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyText1
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                    ],
-                                                  ),
-
-                                                  // labelStyle: TextStyle(
-                                                  //     color: Colors.black, fontWeight: FontWeight.bold),
-                                                  labelPadding:
-                                                      EdgeInsets.all(4),
-                                                  elevation: 16,
-                                                  shadowColor:
-                                                      Colors.amberAccent,
-                                                  deleteIcon: Icon(
-                                                    Icons.cancel,
-                                                  ),
-                                                  onDeleted: () {
-                                                    if (controller
-                                                            .removeFilter !=
+                                      if (!controller.isAllOperatorsEmpty.value)
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ElevatedButton(
+                                                  onPressed: () {
+                                                    if (controller.addFilter !=
                                                         null) {
-                                                      controller.removeFilter(
-                                                          controller
-                                                              .selectedfilters
-                                                              .value
-                                                              .indexOf(e));
+                                                      controller.addFilter();
                                                     }
                                                   },
-                                                  deleteIconColor:
-                                                      Colors.redAccent,
-                                                  deleteButtonTooltipMessage:
-                                                      'Remove filter',
-                                                  shape: BeveledRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(8),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ))
-                                    ])),
-                                  )),
-                              Obx(() => Container(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: ListView.builder(
-                                      controller: ScrollController(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) {
-                                        return Column(
-                                          children: [
-                                            Visibility(
-                                                visible: controller
-                                                    .selectedfiltersOperations
-                                                    .value[index]['added'],
-                                                child: AddAdvanceFilter(
-                                                  addfilters:
-                                                      controller.addfilters,
-                                                  //hideFilter: hideFilter,
-                                                  fields: advanceFilterFields,
-                                                  onDelete: controller
-                                                      .removenewFilter,
-                                                  onTap: controller
-                                                      .setfilterSelectedValues,
-                                                  filter: controller
-                                                      .selectedfiltersOperations
-                                                      .value[index],
-                                                  filterindex: index,
-                                                  valueTextController: controller
-                                                      .selectedfiltersOperations
-                                                      .value[index]['controller'],
-                                                  selectedOperators: controller
-                                                      .selectedOperators.value,
-                                                ))
+                                                  child: GtText(
+                                                    text: addButtonText,
+                                                  )),
+                                            ),
                                           ],
-                                        );
-                                      },
-                                      itemCount: controller
-                                          .selectedfiltersOperations
-                                          .value
-                                          .length,
+                                        ),
+                                    ],
+                                  ),
+                                  if (controller.isAllOperatorsEmpty.value)
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5.0),
+                                                  child: GtText(
+                                                      text: "Note : " +
+                                                          advanceFilterBlankMessage,
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1),
+                                                ),
+                                              ])),
+                                        ),
+                                      ],
                                     ),
-                                  )),
-                            ],
-                          ),
+                                  Obx(() => Visibility(
+                                        visible: controller
+                                                .selectedfilters.value.length >
+                                            0,
+                                        child: Container(
+                                            child: Wrap(children: [
+                                          ...controller.selectedfilters.value
+                                              .map((e) =>
+                                                  //GtText(text: 'tegs')
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Chip(
+                                                      label: Wrap(
+                                                        children: [
+                                                          GtText(
+                                                              text: e['fieldName']
+                                                                  .toString(),
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 6.0,
+                                                                    right: 6.0),
+                                                            child: GtText(
+                                                                text: e['operator']
+                                                                    .toString()),
+                                                          ),
+                                                          GtText(
+                                                              text: e[
+                                                                  'fieldValue'],
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                        ],
+                                                      ),
+
+                                                      // labelStyle: TextStyle(
+                                                      //     color: Colors.black, fontWeight: FontWeight.bold),
+                                                      labelPadding:
+                                                          EdgeInsets.all(4),
+                                                      elevation: 16,
+                                                      shadowColor:
+                                                          Colors.amberAccent,
+                                                      deleteIcon: Icon(
+                                                        Icons.cancel,
+                                                      ),
+                                                      onDeleted: () {
+                                                        if (controller
+                                                                .removeFilter !=
+                                                            null) {
+                                                          controller.removeFilter(
+                                                              controller
+                                                                  .selectedfilters
+                                                                  .value
+                                                                  .indexOf(e));
+                                                        }
+                                                      },
+                                                      deleteIconColor:
+                                                          Colors.redAccent,
+                                                      deleteButtonTooltipMessage:
+                                                          'Remove filter',
+                                                      shape:
+                                                          BeveledRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(8),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ))
+                                        ])),
+                                      )),
+                                  Obx(() => Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: ListView.builder(
+                                          controller: ScrollController(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                Visibility(
+                                                    visible: controller
+                                                        .selectedfiltersOperations
+                                                        .value[index]['added'],
+                                                    child: AddAdvanceFilter(
+                                                      addfilters:
+                                                          controller.addfilters,
+                                                      //hideFilter: hideFilter,
+                                                      fields: controller
+                                                          .FilterFields.value,
+                                                      onDelete: controller
+                                                          .removenewFilter,
+                                                      onTap: controller
+                                                          .setfilterSelectedValues,
+                                                      filter: controller
+                                                          .selectedfiltersOperations
+                                                          .value[index],
+                                                      filterindex: index,
+                                                      valueTextController:
+                                                          controller
+                                                                  .selectedfiltersOperations
+                                                                  .value[index]
+                                                              ['controller'],
+                                                      selectedOperators:
+                                                          controller
+                                                              .selectedOperators
+                                                              .value,
+                                                    ))
+                                              ],
+                                            );
+                                          },
+                                          itemCount: controller
+                                              .selectedfiltersOperations
+                                              .value
+                                              .length,
+                                        ),
+                                      )),
+                                ],
+                              )),
                         ),
                     ],
                   ),

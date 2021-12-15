@@ -32,5 +32,5 @@ class GtAdvanceFilterOperator {
   }
 }
 
-enum GtAdvanceFilterFieldOperatorType {COMMON, STRING, NUMERIC, SELECT}
+enum GtAdvanceFilterFieldOperatorType {STRING, NUMERIC, SELECT}
 enum GtAdvanceFilterOperatorType {COMMON, STRING, NUMERIC}

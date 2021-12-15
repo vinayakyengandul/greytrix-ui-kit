@@ -204,7 +204,7 @@ void main() {
                 textEditingController: new TextEditingController()),
           } as Map<String, GtTileField>,
           changeBackDrop: (s) {},
-          isBackDropController: false,
+          isBackDropController: true,
           isAdvanceFilterEnable: false,
           operatorString: [
             GtAdvanceFilterOperator(
@@ -240,6 +240,130 @@ void main() {
         )),
       ),
     ));
+
+    await tester.pump();
+  });
+
+  testWidgets(
+      'GtListFilter Widget Advance Filter operators only passed Numeric type',
+      (WidgetTester tester) async {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    await tester.pumpWidget(
+      MaterialApp(
+          theme: AppFlexTheme.fromType(FlexScheme.bigStone).themeData,
+          home: GtListFilter(
+            isBackDrop: true,
+            isFilterProcessing: true,
+            filterHandler: (data, filteadv) {},
+            onFilterClearHandler: (data, filteadv) {},
+            toMapjson: {
+              "Code": GtTileField(
+                  valuePath: "Code",
+                  type: GtFieldType.FILTER,
+                  filterType: GtFilterType.TEXT_FILTER,
+                  filterValue: 'Code',
+                  filterLabel: 'Customer Code',
+                  textEditingController: new TextEditingController()),
+              "FName": GtTileField(
+                  valuePath: "FName",
+                  type: GtFieldType.FILTER,
+                  filterType: GtFilterType.TEXT_FILTER,
+                  filterValue: 'Name',
+                  filterLabel: 'Customer Name',
+                  textEditingController: new TextEditingController()),
+            } as Map<String, GtTileField>,
+            changeBackDrop: (s) {},
+            isBackDropController: true,
+            advanceFilterFields: [
+              GtAdvanceFilterField(
+                  label: "FName",
+                  value: "FName",
+                  type: GtAdvanceFilterFieldOperatorType.STRING),
+              GtAdvanceFilterField(
+                  label: "code",
+                  value: "Code",
+                  type: GtAdvanceFilterFieldOperatorType.STRING),
+              GtAdvanceFilterField(
+                  label: "Id",
+                  value: "Id",
+                  type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+            ],
+            isAdvanceFilterEnable: true,
+            operatorString: [],
+            operatorNumeric: [
+              GtAdvanceFilterOperator(
+                  label: "GTE",
+                  value: "_gte",
+                  type: GtAdvanceFilterOperatorType.NUMERIC),
+              GtAdvanceFilterOperator(
+                  label: "LTE",
+                  value: "_lte",
+                  type: GtAdvanceFilterOperatorType.NUMERIC)
+            ],
+            operatorCommon: [],
+            keyLabel: "CustomerFilter",
+          )),
+    );
+
+    await tester.pump();
+  });
+
+  testWidgets(
+      'GtListFilter Widget Advance Filter all operators is empty',
+      (WidgetTester tester) async {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    await tester.pumpWidget(
+      MaterialApp(
+          theme: AppFlexTheme.fromType(FlexScheme.bigStone).themeData,
+          home: Builder(
+            builder: (BuildContext context) {
+              return GtListFilter(
+                isBackDrop: true,
+                isFilterProcessing: true,
+                filterHandler: (data, filteadv) {},
+                onFilterClearHandler: (data, filteadv) {},
+                // ignore: unnecessary_cast
+                toMapjson: {
+                  "Code": GtTileField(
+                      valuePath: "Code",
+                      type: GtFieldType.FILTER,
+                      filterType: GtFilterType.TEXT_FILTER,
+                      filterValue: 'Code',
+                      filterLabel: 'Customer Code',
+                      textEditingController: new TextEditingController()),
+                  "FName": GtTileField(
+                      valuePath: "FName",
+                      type: GtFieldType.FILTER,
+                      filterType: GtFilterType.TEXT_FILTER,
+                      filterValue: 'Name',
+                      filterLabel: 'Customer Name',
+                      textEditingController: new TextEditingController()),
+                } as Map<String, GtTileField>,
+                changeBackDrop: (s) {},
+                isBackDropController: true,
+                advanceFilterFields: [
+                  GtAdvanceFilterField(
+                      label: "FName",
+                      value: "FName",
+                      type: GtAdvanceFilterFieldOperatorType.STRING),
+                  GtAdvanceFilterField(
+                      label: "code",
+                      value: "Code",
+                      type: GtAdvanceFilterFieldOperatorType.STRING),
+                  GtAdvanceFilterField(
+                      label: "Id",
+                      value: "Id",
+                      type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+                ],
+                isAdvanceFilterEnable: true,
+                operatorString: [],
+                operatorNumeric: [],
+                operatorCommon: [],
+                keyLabel: "CustomerFilter",
+              );
+            }
+          )),
+    );
 
     await tester.pump();
   });
