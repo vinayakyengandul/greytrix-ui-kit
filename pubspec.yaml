@@ -33,6 +33,7 @@ dependencies:
   # avatar_glow: ^2.0.1
   pdf: '3.6.1'
   printing: '5.6.0'
+  backdrop: '0.6.2'
   
   
 dependency_overrides:
@@ -49,6 +50,8 @@ dev_dependencies:
 flutter:
   assets:
     - lib/assets/images/
+
+  uses-material-design: true
 
   # To add assets to your package, add an assets section, like this:
   # assets:

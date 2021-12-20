@@ -15,3 +15,4 @@ export 'pdf_footer_class.dart';
 export 'pdf_data.dart';
 export 'pdf_table.dart';
 export 'pdf_body_class.dart';
+export 'advance_filter_class.dart';

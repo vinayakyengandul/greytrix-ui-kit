@@ -71,6 +71,7 @@ enum GtFilterType {
   RANGE_FILTER,
   SORT_FILTER,
   LOOK_UP_FILTER,
+  TEXT_FILTER,
 }
 
 enum GtFormFieldType {
@@ -131,3 +132,6 @@ enum GtListCustomWidgetType { LIST, GRID, NONE }
 
 /// Selected list type for gtListPage
 enum GtCurrentListViewType { LIST, GRID }
+
+/// Is Custom or not DropDown Search.
+enum GtDropDownSearchIsCustom { DEFAULT, CUSTOM }

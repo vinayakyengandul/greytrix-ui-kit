@@ -42,65 +42,91 @@ class GtPdfWidget extends StatelessWidget {
     this.shareActionExtraEmails,
   }) : super(key: key);
 
-    static const _defaultPageFormats = <String, PdfPageFormat>{
+  static const _defaultPageFormats = <String, PdfPageFormat>{
     'A4': PdfPageFormat.a4,
     'Letter': PdfPageFormat.letter,
   };
 
   /// Maximum width of the pdf document on screen
   final double maxPageWidth;
+
   /// For Preparing PDf Preview in data.
-  final PdfData pdfData; 
+  final PdfData pdfData;
+
   /// Called if the user shares the pdf document
   final Function(BuildContext, PdfData) onShared;
+
   /// Additionnal actions to add to the widget
   final List<PdfPreviewAction> actions;
+
   /// Allow disable actions
   final bool useActions;
+
   /// Add a button to print the pdf document
   final bool allowPrinting;
+
   /// Add a button to share the pdf document
   final bool allowSharing;
+
   /// Add a switch to change the page orientation
   final bool canChangeOrientation;
+
   /// Add a drop-down menu to choose the page format
   final bool canChangePageFormat;
+
   /// Add a switch to show debug view
   final bool canDebug;
+
   /// Custom loading widget to use that is shown while PDF is being generated.
   /// If null, a [CircularProgressIndicator] is used instead.
   final Widget loadingWidget;
+
   /// Decoration of _PdfPreviewPage
   final Decoration pdfPreviewPageDecoration;
+
   /// Name of the PDF when sharing. It must include the extension.
   final String pdfFileName;
+
   ///Pages to display. Default will display all the pages.
   final List<int> pages;
+
   /// padding for the pdf_preview widget
   final EdgeInsets padding;
+
   ///Decoration of scrollView
   final Decoration scrollViewDecoration;
+
   ///margin for the document preview page
   ///defaults to [EdgeInsets.only(left: 20, top: 8, right: 20, bottom: 12)],
   final EdgeInsets previewPageMargin;
+
   ///Widget to display if the PDF document cannot be displayed
   final Widget Function(BuildContext, Object) onError;
+
   ///Called if an error creating the Pdf occured
   final Function(BuildContext, dynamic) onPrintError;
+
   ///Called if the user prints the pdf document
   final Function(BuildContext) onPrinted;
+
   ///Request page re-layout to match the printer paper and margins. Mitigate an issue with iOS and macOS print dialog that prevent any channel message while opened.
   final bool dynamicLayout;
+
   ///Force repainting the PDF document
   final bool shouldRepaint;
+
   ///Pdf page format asked for the first display
   final PdfPageFormat initialPageFormat;
+
   ///List of page formats the user can choose
   final Map<String, PdfPageFormat> pageFormats;
+
   ///extra text to share with Pdf document
   final String shareActionExtraBody;
+
   ///email subject when email application is selected from the share dialog
   final String shareActionExtraSubject;
+
   ///list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
   final List<String> shareActionExtraEmails;
   @override
@@ -121,9 +147,8 @@ class GtPdfWidget extends StatelessWidget {
       scrollViewDecoration: scrollViewDecoration,
       padding: padding,
       onShared: (context) {
-        if(onShared != null)
-        onShared(context, pdfData);
-        },
+        if (onShared != null) onShared(context, pdfData);
+      },
       pdfFileName: pdfFileName,
       pages: pages,
       canDebug: canDebug,
@@ -134,14 +159,13 @@ class GtPdfWidget extends StatelessWidget {
       maxPageWidth: maxPageWidth,
       loadingWidget: loadingWidget,
       pdfPreviewPageDecoration: pdfPreviewPageDecoration,
-      build: (format) async { 
+      build: (format) async {
         return buildPdf(format);
       },
       useActions: useActions,
       actions: actions,
     );
   }
-  
 
   Future<Uint8List> buildPdf(PdfPageFormat pageFormat) async {
     // Create a PDF document.
@@ -150,23 +174,22 @@ class GtPdfWidget extends StatelessWidget {
     // Add page to the PDF
     doc.addPage(
       pw.MultiPage(
-        // theme: pw.ThemeData.withFont(
-        //   base: pw.Font.ttf(PdfGoogleFonts.robotoRegular())
-        // ),
-        pageTheme: _buildTheme(
-          pageFormat,
-          await PdfGoogleFonts.openSansRegular(),
-          await PdfGoogleFonts.openSansBold(),
-          await PdfGoogleFonts.openSansItalic(),
-        ),
-        
-        header: _buildHeader,
-        footer: _buildFooter,
-        build: (context) => BodyListFields().getListBodyField(pdfData)
-        // [ 
-        //   _buildBody(context)
-        // ],
-      ),
+          // theme: pw.ThemeData.withFont(
+          //   base: pw.Font.ttf(PdfGoogleFonts.robotoRegular())
+          // ),
+          pageTheme: _buildTheme(
+            pageFormat,
+            await PdfGoogleFonts.openSansRegular(),
+            await PdfGoogleFonts.openSansBold(),
+            await PdfGoogleFonts.openSansItalic(),
+          ),
+          header: _buildHeader,
+          footer: _buildFooter,
+          build: (context) => BodyListFields().getListBodyField(pdfData)
+          // [
+          //   _buildBody(context)
+          // ],
+          ),
     );
 
     // Return the PDF file content
@@ -177,31 +200,24 @@ class GtPdfWidget extends StatelessWidget {
 
   pw.Widget _buildHeader(pw.Context context) {
     return pw.Column(
-      children: [
-           ...HeaderListFields().getListHeaderField(pdfData)
-      ],
+      children: [...HeaderListFields().getListHeaderField(pdfData)],
     );
   }
 
   /// --- Build FOOTER
-  /// 
+  ///
   pw.Widget _buildFooter(pw.Context context) {
     return pw.Column(
-      children: [
-           ...FooterListFields().getListFooterField(pdfData)
-      ],
+      children: [...FooterListFields().getListFooterField(pdfData)],
     );
   }
+
   /// --- Build FOOTER
-  /// 
+  ///
   pw.Widget _buildBody(pw.Context context) {
-    return pw.Column(
-      children: 
-      [
-        ...BodyListFields().getListBodyField(pdfData)
-      ]
-    );
+    return pw.Column(children: [...BodyListFields().getListBodyField(pdfData)]);
   }
+
   /// --- Build THEME
   ///
   pw.PageTheme _buildTheme(

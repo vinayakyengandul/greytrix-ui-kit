@@ -59,15 +59,13 @@ class CoreListView extends GetResponsiveView<CoreController> {
     if (Get.isOverlaysOpen) Navigator.pop(Get.context);
     controller.changeBottomSheetName("FILTER");
     Get.bottomSheet(GtListFilter(
-      filterHandler: controller.fetchdata,
+      filterHandler: controller.fetchDataCoreList,
       isFilterProcessing: controller.isprocessingRequest,
-      listItems: controller.state,
       rangeFilterDivisions: 10,
       rangeFilterLimits: controller.setRangefilterlimits(),
-      tag: tag,
       toMapjson: controller.toMapfilterjson,
-      filtersData: controller.filtersData,
-      setFilterField: controller.setFilterField,
+      // filtersData: controller.filtersData,
+      // setFilterField: controller.setFilterField,
       selectedlookupData: controller.selectedlookupData,
       setselectedLookupDataValues: controller.setselectedLookupDataValues,
       onFilterClearHandler: controller.filterClearButton,
@@ -156,17 +154,15 @@ class CoreListView extends GetResponsiveView<CoreController> {
                               width: 250,
                               height: double.infinity,
                               child: GtListFilter(
-                                filterHandler: controller.fetchdata,
+                                filterHandler: controller.fetchDataCoreList,
                                 isFilterProcessing:
                                     controller.isprocessingRequest,
-                                listItems: state,
                                 rangeFilterDivisions: 10,
                                 rangeFilterLimits:
                                     controller.setRangefilterlimits(),
-                                tag: tag,
                                 toMapjson: controller.toMapfilterjson,
-                                filtersData: controller.filtersData,
-                                setFilterField: controller.setFilterField,
+                                // filtersData: controller.filtersData,
+                                // setFilterField: controller.setFilterField,
                                 selectedlookupData:
                                     controller.selectedlookupData,
                                 setselectedLookupDataValues:

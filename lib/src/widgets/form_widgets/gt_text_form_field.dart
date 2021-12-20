@@ -22,7 +22,8 @@ class GtTextFormField extends StatelessWidget {
       this.onTapHandler,
       this.inputDecoration,
       this.boxDecoration,
-      this.validationHandler});
+      this.validationHandler,
+      this.focusNode});
   final int maxLength;
   final int maxLines;
   final int minLines;
@@ -44,6 +45,7 @@ class GtTextFormField extends StatelessWidget {
   final BoxDecoration boxDecoration;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
+  final FocusNode focusNode;
   
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class GtTextFormField extends StatelessWidget {
       decoration: boxDecoration,
       padding: padding,
       child: TextFormField(
+        focusNode: focusNode,
         obscureText: obscureText,
         maxLength: maxLength,
         minLines: maxLines,

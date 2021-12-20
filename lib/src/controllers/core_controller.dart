@@ -348,7 +348,7 @@ class CoreController extends SuperController {
     fetchdata(filterData: filtersData, fromFilter: true);
   }
 
-  void filterClearButton() {
+  void filterClearButton(data,advanceData) {
     selectedLookUpFilterData.value = {};
     // filtersData = defaultfilterData;
 
@@ -359,7 +359,7 @@ class CoreController extends SuperController {
     selectedlookupData.forEach((key, value) {
       value.value = [];
     });
-    fetchdata(filterData: filtersData, fromFilter: true);
+    fetchdata(filterData: data, fromFilter: true);
   }
 
   dynamic getDefaultheaders() {
@@ -475,6 +475,12 @@ class CoreController extends SuperController {
   //             });
   //   }
   // }
+  void fetchDataCoreList(Map<String, dynamic> data, List<Map<String, dynamic>> advanceFilterData){
+    fetchdata(
+      filterData: data,
+      fromFilter: true
+    );
+  }
 
   /// LISTVIEW TO HANDLE STATIC DATA FOR LISTVIEW
 
