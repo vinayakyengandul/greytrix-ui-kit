@@ -23,6 +23,8 @@ class GtListTile extends StatelessWidget {
   final GTListViewTableType listViewTableType;
   final Color selectedRowColor;
   final bool horizinalScrollable;
+    /// Card Item banner postiton
+  final bool isBannerLeading;
 
   /// List Item Padding
   final EdgeInsets listItemPadding;
@@ -50,6 +52,7 @@ class GtListTile extends StatelessWidget {
     this.horizinalScrollable = false,
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
+    this.isBannerLeading = false,
   }) : assert(columnWidget != null);
   @override
   Widget build(BuildContext context) {
@@ -59,9 +62,10 @@ class GtListTile extends StatelessWidget {
         if (onHoverHandler != null) onHoverHandler(value);
       },
       child: Card(
+        elevation: cardElevation,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              listViewTableType == GTListViewTableType.Normal ? 10.0 : 0.0),
+          // borderRadius: BorderRadius.circular(
+          //     listViewTableType == GTListViewTableType.Normal ? 10.0 : 0.0),
           side: BorderSide(
               color: onHover
                   ? listViewTableType == GTListViewTableType.Normal
@@ -81,8 +85,8 @@ class GtListTile extends StatelessWidget {
                 : rowColor
             : rowColor,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(
-              listViewTableType == GTListViewTableType.Normal ? 10 : 0.0),
+          // borderRadius: BorderRadius.circular(
+          //     listViewTableType == GTListViewTableType.Normal ? 10 : 0.0),
           child: Container(
             decoration: BoxDecoration(
               color: isSelected
@@ -91,7 +95,13 @@ class GtListTile extends StatelessWidget {
                       : null
                   : null,
               border: statusType
-                  ? Border(
+                  ? isBannerLeading ? Border(
+                      left: BorderSide(
+                      width: 5,
+                      color: bannerText == "Active"
+                          ? Colors.green[300]
+                          : Colors.red[300],
+                    )) : Border(
                       right: BorderSide(
                       width: 5,
                       color: bannerText == "Active"

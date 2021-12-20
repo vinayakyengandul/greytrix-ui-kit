@@ -206,7 +206,7 @@ class GtListFilter extends StatelessWidget {
                                           Obx(() => Checkbox(
                                                 activeColor: _activeColor,
                                                 value: controller
-                                                            .checkRedioFilter[
+                                                            .checkRadioFilter[
                                                         value.filterValue] ==
                                                     e.value,
                                                 onChanged: (val) {
@@ -248,7 +248,7 @@ class GtListFilter extends StatelessWidget {
                                     children: [
                                       Checkbox(
                                         activeColor: _activeColor,
-                                        value: controller.checkRedioFilter[
+                                        value: controller.checkRadioFilter[
                                                 value.filterValue] ==
                                             e.value,
                                         onChanged: (val) {

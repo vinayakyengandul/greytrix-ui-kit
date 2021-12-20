@@ -27,7 +27,7 @@ class FilterController extends GetxController {
   RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
 
   /// REDIO FILTER TYPE FIELDS VALUE
-  RxMap<String, dynamic> checkRedioFilter = RxMap<String, dynamic>();
+  RxMap<String, dynamic> checkRadioFilter = RxMap<String, dynamic>();
 
   /// QUICK FILTERS TOMAPJSON
   Rx<Map<String, GtTileField>> toMapfilterjson =
@@ -160,7 +160,7 @@ class FilterController extends GetxController {
 
     switch (filterType) {
       case GtFilterType.RADIO_BUTTON_FILTER:
-        checkRedioFilter["$key"] = value;
+        checkRadioFilter["$key"] = value;
         break;
       default:
         break;
@@ -176,7 +176,7 @@ class FilterController extends GetxController {
             value.textEditingController = new TextEditingController();
             break;
           case GtFilterType.RADIO_BUTTON_FILTER:
-            checkRedioFilter["${value.filterLabel}"] = null;
+            checkRadioFilter["${value.filterLabel}"] = null;
             break;
           default:
             break;

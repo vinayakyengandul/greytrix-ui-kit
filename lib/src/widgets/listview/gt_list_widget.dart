@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import './list_view.dart';
 import './grid_view.dart';
 import 'dart:math' as math;
@@ -79,6 +80,8 @@ class GtListPage extends StatelessWidget {
     this.customGridviewItemBuilder,
     this.listCustomWidgetType = GtListCustomWidgetType.NONE,
     this.currentListViewType = GtCurrentListViewType.LIST,
+    this.cardItemElevation = 3.0,
+    this.isBannerLeading = false,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((listCustomWidgetType == GtListCustomWidgetType.NONE &&
@@ -199,6 +202,10 @@ class GtListPage extends StatelessWidget {
 
   /// Selected list type for gtListPage
   final GtCurrentListViewType currentListViewType;
+  /// Card Item Elevation
+  final double cardItemElevation;
+  /// Card Item banner postiton
+  final bool isBannerLeading;
 
   // GETS TRAILING WIDGET
   Widget getTrailingWidget(int index) {
@@ -365,7 +372,7 @@ class GtListPage extends StatelessWidget {
                   : leadingIcon != null
                       ? CircleAvatar(
                           child: leadingIcon,
-                          //backgroundColor: Get.context.theme.colorScheme.onPrimary,
+                          backgroundColor: Get.context.theme.colorScheme.onPrimary,
                         )
                       : Container(
                           width: 50.0,
@@ -429,6 +436,8 @@ class GtListPage extends StatelessWidget {
                     listCustomWidgetType == GtListCustomWidgetType.LIST,
                 swipeSnackBartextWidget: swipeSnackBartextWidget,
                 mainCardMargin: mainCardMargin,
+                cardItemElevation: cardItemElevation,
+                isBannerLeading: isBannerLeading,
               )
             : GtGridView(
                 cardAspectRatio: cardAspectRatio,
