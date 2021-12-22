@@ -67,6 +67,9 @@ class GtTileField {
     this.keyValueBetween = " : ",
     this.buttonElevation = 5.0,
     this.buttonColor,
+    this.prefixWidget,
+    this.suffixWidget,
+    this.isNastedFilter = false,
   });
   final dynamic value;
   final GtFieldType type;
@@ -136,4 +139,10 @@ class GtTileField {
   final double buttonElevation;
   /// BUTTON COLOR IOS PLATFORM
   final Color buttonColor;
+  /// FIELD PREFIX ICON
+  final Widget prefixWidget;
+    /// FIELD SUFFIX ICON
+  final Widget suffixWidget;
+  /// IS NASTED FILTER 
+  final bool isNastedFilter;
 }

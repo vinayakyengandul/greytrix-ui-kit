@@ -54,7 +54,8 @@ class FilterController extends GetxController {
   void onInit() {
     key = LabeledGlobalKey(keyLabel);
     toMapfilterjson.value = toMapQuickfilterjson;
-    if (this.advanceFilterFields != null && this.advanceFilterFields.length > 0) {
+    if (this.advanceFilterFields != null &&
+        this.advanceFilterFields.length > 0) {
       FilterFields.value = advanceFilterFields.where(
         (e) {
           switch (e.type) {
@@ -132,7 +133,8 @@ class FilterController extends GetxController {
   void setFilterField(String key, dynamic value,
       {bool fromOnChanged = false,
       bool resetArguments = false,
-      GtFilterType filterType}) {
+      GtFilterType filterType,
+      bool isNastedFilter = false}) {
     if (filtersData["$key"] == null) {
       if (filterType == GtFilterType.SORT_FILTER) {
         filtersData["$key"] = value;
@@ -140,11 +142,19 @@ class FilterController extends GetxController {
           filtersData["sort"] = "ASC";
         }
       } else {
-        filtersData["$key"] = {"_ilike": '%$value%'};
-        // filtersDataCheckBox["$key"] = value;
+        if (isNastedFilter) {
+          /// Get Nasted Filter MAP using Below Function
+          var data = setNastedFilterValue(key, {"_ilike": '%$value%'});
+          /// Add MAP Value using key 
+          filtersData[key.toString().split(".").first] = data[key.toString().split(".").first];
+              
+        } else {
+          filtersData["$key"] = {"_ilike": '%$value%'};
+          // filtersDataCheckBox["$key"] = value;
 
-        if (!defaultfilterData.containsKey('$key')) {
-          defaultfilterData["$key"] = {"_ilike": '%$value%'};
+          if (!defaultfilterData.containsKey('$key')) {
+            defaultfilterData["$key"] = {"_ilike": '%$value%'};
+          }
         }
       }
     } else if (fromOnChanged == true) {
@@ -154,7 +164,14 @@ class FilterController extends GetxController {
           filtersData["sort"] = "ASC";
         }
       } else {
-        filtersData["$key"] = {"_ilike": '%${value ?? ""}%'};
+        if (isNastedFilter) {
+           /// Get Nasted Filter MAP using Below Function
+          var data = setNastedFilterValue(key, {"_ilike": '%$value%'});
+          /// Add MAP Value using key 
+          filtersData[key.toString().split(".").first] = data[key.toString().split(".").first];
+        } else {
+          filtersData["$key"] = {"_ilike": '%${value ?? ""}%'};
+        }
       }
     }
 
@@ -324,5 +341,19 @@ class FilterController extends GetxController {
       print('Error in removenewFilter');
       print(e);
     }
+  }
+  setNastedFilterValue(String filterValue, dynamic jsonOperators) {
+    List<String> _l = filterValue.split(".");
+    Map<String, dynamic> _v2 = Map<String, dynamic>();
+    _l.reversed.forEach((e) {
+      if (_l.reversed.toList().indexOf(e) == 0) {
+        _v2[e] = jsonOperators;
+      } else {
+        var temp = Map<String, dynamic>();
+        temp[e] = _v2;
+        _v2 = temp;
+      }
+    });
+    return _v2;
   }
 }

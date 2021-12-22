@@ -3049,7 +3049,14 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
             this.textStyle,
             this.dropDownBackGround,
             this.valueTextStyle,
-            this.isReadOnly = false,});
+            this.isReadOnly = false,
+            this.inputDecoration,
+            this.validationHandler,
+            this.itemType = GtDropDownFormFieldItemType.MAP,
+            this.dropDownFormFieldIsCustom = GtDropDownFormFieldIsCustom.DEFAULT,
+            this.itemCustomWidget,
+            this.listLookupField,
+            this.looupKeyVisibile = false,});
    ```
    - Input Parameters of GtCheckboxFormField Widget
       - **iconData** - IconData - This is dropdown field icon.
@@ -3063,6 +3070,13 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
       - **dropDownBackGround** - Color - This is dropdown background color.
       - **valueTextStyle** - TextStyle - This is dropdown Text Style.
       - **isReadOnly** - bool - This is Field is Required or not.
+      - **inputDecoration** - InputDecoration - The border, labels, icons, and styles used to decorate a Material Design.
+      - **validationHandler** - Function(dynamic) - The user's input isn't valid the validate function condition for this widget  
+      - **itemType** - GtDropDownFormFieldItemType - This is dropdown Item data type enum to define DropDownMenuItem buildIn. Default type is GtDropDownFormFieldItemType.MAP.
+      - **dropDownFormFieldIsCustom** - GtDropDownFormFieldIsCustom - This is dropdown Field MenuItems is Custom or default enum type. Default type is GtDropDownFormFieldIsCustom.DEFAULT.
+      - **itemCustomWidget** - DropdownMenuItem<dynamic> Function(dynamic) - This is Custom widget return the DropDownMenuItem if GtDropDownFormFieldIsCustom.CUSTOM.
+      - **listLookupField** - Map<String, dynamic> - This is Map parameter type for ItemType is List then it will required for and display as value and key.
+      - **looupKeyVisibile** - bool - This is ItemType is List then listLookupField parameter map keys display when its true, default is false.
       
    - Example
     

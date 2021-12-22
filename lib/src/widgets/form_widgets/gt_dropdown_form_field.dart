@@ -16,10 +16,16 @@ class GtDropdownFormField extends StatelessWidget {
     this.isReadOnly = false,
     this.inputDecoration,
     this.validationHandler,
-  });
+    this.itemType = GtDropDownFormFieldItemType.MAP,
+    this.dropDownFormFieldIsCustom = GtDropDownFormFieldIsCustom.DEFAULT,
+    this.itemCustomWidget,
+    this.listLookupField,
+    this.looupKeyVisibile = false,
+  }) : assert((dropDownFormFieldIsCustom == GtDropDownFormFieldIsCustom.CUSTOM && itemCustomWidget != null) || dropDownFormFieldIsCustom == GtDropDownFormFieldIsCustom.DEFAULT),
+      assert((itemType == GtDropDownFormFieldItemType.MAP && items is Map<String, dynamic>) || (itemType == GtDropDownFormFieldItemType.LIST && items is List<dynamic> && listLookupField != null));
 
   final IconData iconData;
-  final Map<String, dynamic> items;
+  final dynamic items;
   final dynamic dropdownValue;
   final Function(dynamic newValue) onChangedhandler;
   final Function(dynamic newValue) onSavehandler;
@@ -32,9 +38,25 @@ class GtDropdownFormField extends StatelessWidget {
   final InputDecoration inputDecoration;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
-  
+  /// ITEMS DATA TYPE INPUT
+  final GtDropDownFormFieldItemType itemType;
+  /// IS CUSTOM OR DEFAULT DROPDOWNITEM
+  final GtDropDownFormFieldIsCustom dropDownFormFieldIsCustom;
+  /// CUSTOM DROPDOWN ITEM FUNCTION
+  final DropdownMenuItem Function(dynamic item) itemCustomWidget;
+  final Map<String, dynamic> listLookupField;
+  final bool looupKeyVisibile;
   @override
   Widget build(BuildContext context) {
+    /// Convert the Item data as per Type of Dropdown
+    Map<String, dynamic> mapItems = new Map<String, dynamic>();
+    List<Map<String, dynamic>> listItems = new List<Map<String, dynamic>>.empty(growable: true);
+    if(itemType == GtDropDownFormFieldItemType.MAP){
+      mapItems = items as Map<String, dynamic>;
+    }else if(itemType == GtDropDownFormFieldItemType.LIST){
+      listItems = List.from(items);
+    }
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -44,10 +66,10 @@ class GtDropdownFormField extends StatelessWidget {
               ? GtText(
                   text: label,
                   textStyle: textStyle,
-                  //texttype: TextformatType.bodyText2,
                 )
               : SizedBox(),
-          DropdownButtonFormField(
+          DropdownButtonHideUnderline(
+            child:DropdownButtonFormField(
             decoration: inputDecoration,
             value: dropdownValue,
             dropdownColor: dropDownBackGround,
@@ -56,18 +78,50 @@ class GtDropdownFormField extends StatelessWidget {
             iconSize: 24,
             elevation: 16,
             onChanged: onChangedhandler,
-            items: items.entries
+            items: GtDropDownFormFieldItemType.MAP == itemType ? mapItems.entries
                 .map(
-                  (e) => DropdownMenuItem<dynamic>(
+                  (e) => GtDropDownFormFieldIsCustom.CUSTOM == dropDownFormFieldIsCustom ? itemCustomWidget(e)
+                  : DropdownMenuItem<dynamic>(
                     value: e.value,
                     child: GtText(
                       text: e.key,
                       textStyle: valueTextStyle
-                      //texttype: TextformatType.bodyText2,
                     ),
                   ),
                 )
-                .toList(),
+                .toList()
+                 : listItems.map(
+                      (e) => GtDropDownFormFieldIsCustom.CUSTOM == dropDownFormFieldIsCustom ? itemCustomWidget(e)
+                : DropdownMenuItem<Map<String, dynamic>>(
+                    value: e,
+                    child: Column( 
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                      children: dropdownValue == e ?
+                        [
+                          GtText(
+                            text: e.entries.first.value,
+                            textStyle: valueTextStyle
+                          ),
+                        ]
+                       : listLookupField.entries.map((r) => 
+                          Row(
+                            children: [
+                              if(looupKeyVisibile)
+                              GtText(
+                                text: r.key,
+                                textStyle: valueTextStyle
+                              ),
+                              GtText(
+                                text: e[r.value],
+                                textStyle: valueTextStyle
+                              ),
+                            ],
+                          ),
+                      ).toList(),
+                    )
+                  ),
+                ).toList(),
             onSaved: onSavehandler,
             validator: validationHandler != null ? validationHandler :  (value) {
               if (isRequired == true && (value == null || value.isEmpty)) {
@@ -76,7 +130,7 @@ class GtDropdownFormField extends StatelessWidget {
 
               return null;
             },
-          )
+          ))
         ],
       ),
     );

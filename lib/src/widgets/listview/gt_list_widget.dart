@@ -67,7 +67,7 @@ class GtListPage extends StatelessWidget {
     this.swipeConfirmButtonTextWidget,
     this.swipeCancelButtontextWidget,
     this.cardMarginEdgeInsets =
-        const EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 1),
+        const EdgeInsets.all(5),
     this.spaceBetweenKeyValue = false,
     this.horizinalScrollable = false,
     this.listItemPadding =
@@ -81,7 +81,9 @@ class GtListPage extends StatelessWidget {
     this.listCustomWidgetType = GtListCustomWidgetType.NONE,
     this.currentListViewType = GtCurrentListViewType.LIST,
     this.cardItemElevation = 3.0,
-    this.isBannerLeading = false,
+    this.isActiveBorderColorLeading = false,
+    this.activeColor = Colors.green,
+    this.inActiveColor = Colors.red,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((listCustomWidgetType == GtListCustomWidgetType.NONE &&
@@ -205,7 +207,11 @@ class GtListPage extends StatelessWidget {
   /// Card Item Elevation
   final double cardItemElevation;
   /// Card Item banner postiton
-  final bool isBannerLeading;
+  final bool isActiveBorderColorLeading;
+  /// ACTIVE COLOR 
+  final Color activeColor;
+  /// INACTIVE COLOR
+  final Color inActiveColor;
 
   // GETS TRAILING WIDGET
   Widget getTrailingWidget(int index) {
@@ -437,7 +443,9 @@ class GtListPage extends StatelessWidget {
                 swipeSnackBartextWidget: swipeSnackBartextWidget,
                 mainCardMargin: mainCardMargin,
                 cardItemElevation: cardItemElevation,
-                isBannerLeading: isBannerLeading,
+                isActiveBorderColorLeading: isActiveBorderColorLeading,
+                activeColor: activeColor,
+                inActiveColor: inActiveColor,
               )
             : GtGridView(
                 cardAspectRatio: cardAspectRatio,

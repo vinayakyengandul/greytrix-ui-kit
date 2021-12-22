@@ -23,11 +23,15 @@ class GtListTile extends StatelessWidget {
   final GTListViewTableType listViewTableType;
   final Color selectedRowColor;
   final bool horizinalScrollable;
-    /// Card Item banner postiton
-  final bool isBannerLeading;
-
+  /// Card Item banner postiton
+  final bool isActiveBorderColorLeading;
   /// List Item Padding
   final EdgeInsets listItemPadding;
+  /// ACTIVE COLOR 
+  final Color activeColor;
+  /// INACTIVE COLOR
+  final Color inActiveColor;
+
   GtListTile({
     @required this.onTap,
     @required this.columnWidget,
@@ -52,7 +56,9 @@ class GtListTile extends StatelessWidget {
     this.horizinalScrollable = false,
     this.listItemPadding =
         const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
-    this.isBannerLeading = false,
+    this.isActiveBorderColorLeading = false,
+    this.activeColor = Colors.green,
+    this.inActiveColor = Colors.red,
   }) : assert(columnWidget != null);
   @override
   Widget build(BuildContext context) {
@@ -95,18 +101,18 @@ class GtListTile extends StatelessWidget {
                       : null
                   : null,
               border: statusType
-                  ? isBannerLeading ? Border(
+                  ? isActiveBorderColorLeading ? Border(
                       left: BorderSide(
                       width: 5,
                       color: bannerText == "Active"
-                          ? Colors.green[300]
-                          : Colors.red[300],
+                          ? activeColor
+                          : inActiveColor,
                     )) : Border(
                       right: BorderSide(
                       width: 5,
                       color: bannerText == "Active"
-                          ? Colors.green[300]
-                          : Colors.red[300],
+                          ? activeColor
+                          : inActiveColor,
                     ))
                   : null,
             ),

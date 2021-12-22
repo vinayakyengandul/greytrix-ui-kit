@@ -149,10 +149,17 @@ class Common {
         Widget _widgetContainer;
         List<Widget> _textWidgetList = List<Widget>.empty(growable: true);
         _textWidgetList = [];
+        List<Widget> _widgetList = List<Widget>.empty(growable: true);
+        _widgetList = [];
 
         ///PREPARING THE LIST OF WIDGETS FOR THE STRING AND LIST TYPE TO USE LIST FOR ROW OR A WRAP AS A CHILDRENS
-        List<Widget> _widgetList = [
-          if (gtTileField.displayKey == true)
+        if (gtTileField.prefixWidget != null && !spaceBetweenKeyValue) {
+          _widgetList.add(Padding(
+              padding: EdgeInsets.only(right: 5.0),
+              child: gtTileField.prefixWidget));
+        }
+        if (gtTileField.displayKey == true) {
+          _widgetList.add(
             spaceBetweenKeyValue
                 ? Expanded(
                     child: GtText(
@@ -167,7 +174,8 @@ class Common {
                     textAlign: gtTileField.keyTextAlign,
                     //texttype: gtTileField.keyTextFormatType,
                   ),
-        ];
+          );
+        }
 
         switch (gtValueType) {
           case GtValueType.LIST:
@@ -225,6 +233,9 @@ class Common {
             break;
           default:
             break;
+        }
+        if (gtTileField.suffixWidget != null && !spaceBetweenKeyValue) {
+          _widgetList.add(gtTileField.suffixWidget);
         }
 
         return !horizinalScrollable
@@ -327,11 +338,17 @@ class Common {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      if (gtTileField.prefixWidget != null &&
+                          !spaceBetweenKeyValue)
+                        gtTileField.prefixWidget,
                       GtCartQuantity(
                         initialValue: value,
                         decrementHandler: decrementHandler,
                         incrementHandler: incrementHandler,
-                      )
+                      ),
+                      if (gtTileField.suffixWidget != null &&
+                          !spaceBetweenKeyValue)
+                        gtTileField.suffixWidget,
                     ],
                   ),
                 ));
@@ -931,7 +948,7 @@ class Common {
               child:
                   // Obx(() =>
                   GtDropdownFormField(
-                    inputDecoration: gtFormField.inputDecoration,
+                inputDecoration: gtFormField.inputDecoration,
                 dropdownValue: getFieldValues(
                   gtFormField.fieldKey,
                   forLookupForm: forLookupForm,
