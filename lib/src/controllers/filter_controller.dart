@@ -105,6 +105,18 @@ class FilterController extends GetxController {
                 : []);
       });
 
+      // FilterFields.update((val) {
+      //   val.forEach((element) {
+      //     if(element.isNastedFilter){
+      //       /// Get Nasted Filter MAP using Below Function
+      //     var data = setNastedFilterValue(element.value, {"_ilike": '%$value%'});
+      //     /// Add MAP Value using key
+      //     element.value = data[element.value.toString().split(".").first];
+
+      //     }
+      //   });
+      // });
+
       /// DEFAULT ONE ADVANCE FILTER IS OPEN
       selectedfiltersOperations.value = [
         {
@@ -119,7 +131,12 @@ class FilterController extends GetxController {
               : selectedOperators.value.first.value,
           'index': 0,
           'added': true,
-          'controller': new TextEditingController(text: '')
+          'controller': new TextEditingController(text: ''),
+          'isNastedFilter': FilterFields.value.first.isNastedFilter,
+          'filterNasted': FilterFields.value.first.isNastedFilter
+              ? Common()
+                  .setNastedFilterValue(FilterFields.value.first.value, {})
+              : {}
         }
       ];
     } else {
@@ -144,10 +161,11 @@ class FilterController extends GetxController {
       } else {
         if (isNastedFilter) {
           /// Get Nasted Filter MAP using Below Function
-          var data = setNastedFilterValue(key, {"_ilike": '%$value%'});
-          /// Add MAP Value using key 
-          filtersData[key.toString().split(".").first] = data[key.toString().split(".").first];
-              
+          var data = Common().setNastedFilterValue(key, {"_ilike": '%$value%'});
+
+          /// Add MAP Value using key
+          filtersData[key.toString().split(".").first] =
+              data[key.toString().split(".").first];
         } else {
           filtersData["$key"] = {"_ilike": '%$value%'};
           // filtersDataCheckBox["$key"] = value;
@@ -165,10 +183,12 @@ class FilterController extends GetxController {
         }
       } else {
         if (isNastedFilter) {
-           /// Get Nasted Filter MAP using Below Function
-          var data = setNastedFilterValue(key, {"_ilike": '%$value%'});
-          /// Add MAP Value using key 
-          filtersData[key.toString().split(".").first] = data[key.toString().split(".").first];
+          /// Get Nasted Filter MAP using Below Function
+          var data = Common().setNastedFilterValue(key, {"_ilike": '%$value%'});
+
+          /// Add MAP Value using key
+          filtersData[key.toString().split(".").first] =
+              data[key.toString().split(".").first];
         } else {
           filtersData["$key"] = {"_ilike": '%${value ?? ""}%'};
         }
@@ -230,7 +250,12 @@ class FilterController extends GetxController {
           'selectedOperator': selectedOperators.value.first.value,
           'index': 0,
           'added': true,
-          'controller': new TextEditingController(text: '')
+          'controller': new TextEditingController(text: ''),
+          'isNastedFilter': FilterFields.value.first.isNastedFilter,
+          'filterNasted': FilterFields.value.first.isNastedFilter
+              ? Common()
+                  .setNastedFilterValue(FilterFields.value.first.value, {})
+              : {}
         });
       });
     } catch (e) {
@@ -245,28 +270,36 @@ class FilterController extends GetxController {
       if (index != -1) {
         selectedfilters.update((val) {
           //val[index] = filterValues;
-          var textvalue =
-              (selectedfiltersOperations.value[index]['controller']).text;
+          var textvalue = selectedfiltersOperations.value[index]
+                      ['fieldValue'] !=
+                  ''
+              ? selectedfiltersOperations.value[index]['selectedOperator']
+                      .toString()
+                      .toLowerCase()
+                      .contains('like')
+                  ? '%${selectedfiltersOperations.value[index]['fieldValue']}%'
+                  : selectedfiltersOperations.value[index]['fieldValue']
+              : selectedfiltersOperations.value[index]['selectedOperator']
+                      .toString()
+                      .toLowerCase()
+                      .contains('like')
+                  ? '%${(selectedfiltersOperations.value[index]['controller']).text}%'
+                  : (selectedfiltersOperations.value[index]['controller']).text;
           var filtervalue = {
             'fieldName': selectedfiltersOperations.value[index]['fieldName'],
-            'fieldValue': selectedfiltersOperations.value[index]
-                        ['fieldValue'] !=
-                    ''
-                ? selectedfiltersOperations.value[index]['selectedOperator']
-                        .toString()
-                        .toLowerCase()
-                        .contains('like')
-                    ? '%${selectedfiltersOperations.value[index]['fieldValue']}%'
-                    : selectedfiltersOperations.value[index]['fieldValue']
-                : selectedfiltersOperations.value[index]['selectedOperator']
-                        .toString()
-                        .toLowerCase()
-                        .contains('like')
-                    ? '%${(selectedfiltersOperations.value[index]['controller']).text}%'
-                    : (selectedfiltersOperations.value[index]['controller'])
-                        .text,
+            'fieldValue': textvalue,
             'operator': selectedfiltersOperations.value[index]
                 ['selectedOperator'],
+            'isNastedFilter': selectedfiltersOperations.value[index]
+                ['isNastedFilter'],
+            'filterNasted': selectedfiltersOperations.value[index]
+                    ['isNastedFilter']
+                ? Common().setNastedFilterValue(
+                    selectedfiltersOperations.value[index]['fieldName'], {
+                    selectedfiltersOperations.value[index]['selectedOperator']:
+                        textvalue
+                  })
+                : {},
             'index': index
           };
           val.add(filtervalue);
@@ -341,19 +374,5 @@ class FilterController extends GetxController {
       print('Error in removenewFilter');
       print(e);
     }
-  }
-  setNastedFilterValue(String filterValue, dynamic jsonOperators) {
-    List<String> _l = filterValue.split(".");
-    Map<String, dynamic> _v2 = Map<String, dynamic>();
-    _l.reversed.forEach((e) {
-      if (_l.reversed.toList().indexOf(e) == 0) {
-        _v2[e] = jsonOperators;
-      } else {
-        var temp = Map<String, dynamic>();
-        temp[e] = _v2;
-        _v2 = temp;
-      }
-    });
-    return _v2;
   }
 }

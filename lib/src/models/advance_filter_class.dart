@@ -6,11 +6,13 @@ class GtAdvanceFilterField {
     @required this.value,
     this.type = GtAdvanceFilterFieldOperatorType.STRING,
     this.options,
+    this.isNastedFilter = false,
   });
   final String label;
   final String value;
   final GtAdvanceFilterFieldOperatorType type;
   final List<Map<String,dynamic>> options;
+  final bool isNastedFilter;
 }
 
 class GtAdvanceFilterOperator {

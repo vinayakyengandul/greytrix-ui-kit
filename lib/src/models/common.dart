@@ -1232,4 +1232,18 @@ class Common {
         return Container();
     }
   }
+  setNastedFilterValue(String filterValue, dynamic jsonOperators) {
+    List<String> _l = filterValue.split(".");
+    Map<String, dynamic> _v2 = Map<String, dynamic>();
+    _l.reversed.forEach((e) {
+      if (_l.reversed.toList().indexOf(e) == 0) {
+        _v2[e] = jsonOperators;
+      } else {
+        var temp = Map<String, dynamic>();
+        temp[e] = _v2;
+        _v2 = temp;
+      }
+    });
+    return _v2;
+  }
 }
