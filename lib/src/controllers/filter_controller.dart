@@ -105,18 +105,6 @@ class FilterController extends GetxController {
                 : []);
       });
 
-      // FilterFields.update((val) {
-      //   val.forEach((element) {
-      //     if(element.isNastedFilter){
-      //       /// Get Nasted Filter MAP using Below Function
-      //     var data = setNastedFilterValue(element.value, {"_ilike": '%$value%'});
-      //     /// Add MAP Value using key
-      //     element.value = data[element.value.toString().split(".").first];
-
-      //     }
-      //   });
-      // });
-
       /// DEFAULT ONE ADVANCE FILTER IS OPEN
       selectedfiltersOperations.value = [
         {
@@ -136,7 +124,11 @@ class FilterController extends GetxController {
           'filterNasted': FilterFields.value.first.isNastedFilter
               ? Common()
                   .setNastedFilterValue(FilterFields.value.first.value, {})
-              : {}
+              : {},
+          'label': FilterFields.value.first.label,
+          'selectedOperatorName': selectedOperators.value.isEmpty
+              ? ""
+              : selectedOperators.value.first.label,
         }
       ];
     } else {
@@ -255,7 +247,9 @@ class FilterController extends GetxController {
           'filterNasted': FilterFields.value.first.isNastedFilter
               ? Common()
                   .setNastedFilterValue(FilterFields.value.first.value, {})
-              : {}
+              : {},
+          'label': FilterFields.value.first.label,
+          'selectedOperatorName': selectedOperators.value.first.label,
         });
       });
     } catch (e) {
@@ -300,6 +294,9 @@ class FilterController extends GetxController {
                         textvalue
                   })
                 : {},
+            'label': selectedfiltersOperations.value[index]['label'],
+            'selectedOperatorName': selectedfiltersOperations.value[index]
+                ['selectedOperatorName'],
             'index': index
           };
           val.add(filtervalue);

@@ -48,7 +48,9 @@ class AddAdvanceFilter extends StatelessWidget {
                   'added': true,
                   'controller': valueTextController,
                   'isNastedFilter': filter['isNastedFilter'],
-                  'filterNasted': filter['filterNasted']
+                  'filterNasted': filter['filterNasted'],
+                  'selectedOperatorName': '${element.keys.first}',
+                  'label': filter['label'],
                 }, filterindex, false);
             }));
       });
@@ -113,7 +115,9 @@ class AddAdvanceFilter extends StatelessWidget {
                                               'isNastedFilter':
                                                   e.isNastedFilter,
                                               'filterNasted':
-                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {}
+                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {},
+                                              'label': e.label,
+                                              'selectedOperatorName' : filter["selectedOperatorName"]
                                             }, filterindex, true);
                                         },
                                       ),
@@ -203,7 +207,9 @@ class AddAdvanceFilter extends StatelessWidget {
                                               'isNastedFilter':
                                                   e.isNastedFilter,
                                               'filterNasted':
-                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {}
+                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {},
+                                              'label': e.label,
+                                              'selectedOperatorName':  filter["selectedOperatorName"],
                                             }, filterindex, true);
                                         },
                                       ),

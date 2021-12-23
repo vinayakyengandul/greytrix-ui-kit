@@ -467,8 +467,8 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
          this.right});
 ```
 
-- Input Parameters of CustomPopup Widget  
-   - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. - **onTapHandler** - Function - It Called when the user taps this List tile. - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. - **top** - double - Used for CustomPopup Widget Positioned in top. - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. - **left** - double - Used for CustomPopup Widget Positioned in left. - **right** - double - Used for CustomPopup Widget Positioned in right.
+- Input Parameters of CustomPopup Widget
+  - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. - **onTapHandler** - Function - It Called when the user taps this List tile. - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. - **top** - double - Used for CustomPopup Widget Positioned in top. - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. - **left** - double - Used for CustomPopup Widget Positioned in left. - **right** - double - Used for CustomPopup Widget Positioned in right.
 - Example
 
   - Step 1 : Import core in files that it will be used:
@@ -644,6 +644,7 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
 ```
 
 - Input Parameters of SearchDialog Widget
+
   - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter.
   - **items** - Rx<List<dynamic>> - Used to List of dymanic to SearchDialog value. And its required parameter.
   - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter.
@@ -652,7 +653,7 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
   - **dialogTitle** - String - This contains dialog title text.
   - **searchBox** - bool - This is option for search box is given or not by bool. default is false.
   - **searchOnChangeHandler** - Function - This function is when we search any key in search box that items list is filter by searchOnChangeHandler funation.
-  - **dialogHeight** - double - This defines the dialog height. Default height is 350.  
+  - **dialogHeight** - double - This defines the dialog height. Default height is 350.
 
 - Example
 
@@ -809,6 +810,7 @@ The corelistview widget is used represent the List View on the Screen with respo
 ```
 
 - Input Parameters of CoreListView Widget
+
   - **title** - String - The contains ListView Title name.
   - **rowsCount** - int - Called to obtain the number of rows to tell the ListView or GridView. Default value is 2.
   - **cardAspectRatio** - double - The ratio of the cross-axis to the main-axis extent of each child. Default value is 1.
@@ -881,6 +883,7 @@ The corelistview widget is used represent the List View on the Screen with respo
       - **rangeStart**- String - This is Range Start field name.
       - **rangeEnd** - String - This is Range End field name.
       - **bannerItems** - Map<String, dynamic> - It will show banner Items.
+
 - Constructor of CoreBinding:
 
 ```
@@ -3225,9 +3228,11 @@ The GtSurveyKit widget is used represent the Survey.
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
+
   ```
 
   ```
+
 - IOS
 - Add following code in your <project-directory>/ios/Runner/Info.plist
   ```dart
@@ -3370,6 +3375,16 @@ The gtmarquee widget is used represent the array of list scrolling vertical on t
 # GtPdfWidget Widget
 
 The gtpdfwidget widget It can create a full multi-pages document with graphics, images, and text using TrueType fonts. With the ease of use you.
+
+- Add below Script paths Web/index.html file in your Project.
+
+  ```dart
+   <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+   <script type="text/javascript">
+         pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js";
+   </script>
+
+  ```
 
 - a low-level Pdf creation library that takes care of the pdf bits generation.
 - a Widgets system similar to Flutter's, for easy high-level Pdf creation.
@@ -4341,7 +4356,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
-  - Step 2 : ListviewFilterController.
+  - Step 2 : ListviewFilterController With Quick Filter and Advance Filter.
 
   ```dart
      import 'package:flutter/material.dart';
@@ -4460,6 +4475,10 @@ The GtListFilter widget is used represent the Filter field for the Listview.
            super.onInit();
         }
         void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
+           /// This variables pass to API 
+           Map<String, dynamic>? variables = {
+        "where": {"_and": []}
+      };
            var filterselected = [];
            if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
               isFilterApplied.value = false;
@@ -4480,6 +4499,227 @@ The GtListFilter widget is used represent the Filter field for the Listview.
               }
            });
            }
+           /// Quick Filter applied map and sort filter
+           if (filterDataApply != {} && fromOnInit == false) {
+            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+            toMapfilterjson.forEach((key, gttilefield) {
+              switch (gttilefield.filterType) {
+                case GtFilterType.SORT_FILTER:
+                  var sortfield = filterDataApply![gttilefield.filterValue];
+                  var sortOrder = filterDataApply['sort'];
+                  sortFieldFilter = {
+                    sortfield: sortOrder.toString().toLowerCase()
+                  };
+                  break;
+              }
+            });
+            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
+              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                return {};
+              } else {
+                return {"${mapEntry.key}": mapEntry.value};
+              }
+            }).toList();
+            print(quickFilter);
+            filterselected.addAll(quickFilter);
+          }
+          variables["where"]["_and"] = filterselected;
+        });
+        }
+        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
+           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
+              isFilterApplied.value = false;
+           }
+           else{
+              isFilterApplied.value = true;
+           }
+           print(filterDataApply);
+           print(selectedFilterAdvance);
+        }
+        void changeBackDrop(bool isback){
+           isBackDrop.value = isback;
+        }
+     }
+  ```
+   - Step 2 : ListviewFilterController With Quick Filter and Nasted Advance Filter.
+
+  ```dart
+     import 'package:flutter/material.dart';
+     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+     import 'package:core/core.dart';
+     class ListviewFilterController  extends GetxController with StateMixin {
+
+        ListviewFilterController();
+
+        Rx<List> customerList = Rx<List>([]);
+        RxBool isBackDrop =  new RxBool(false);
+        List<GtAdvanceFilterOperator> operatorString = new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorNumeric = new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
+        RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
+        RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+        RxBool isFilterApplied = new RxBool(false);
+        @override
+        void onInit() {
+            operatorString = [
+              GtAdvanceFilterOperator(
+                 label: "LIKE",
+                 value: "_like",
+                 type: GtAdvanceFilterOperatorType.STRING
+              ),
+              GtAdvanceFilterOperator(
+                 label: "ILIKE",
+                 value: "_ilike",
+                 type: GtAdvanceFilterOperatorType.STRING
+              )
+              ];
+              operatorNumeric = [
+              GtAdvanceFilterOperator(
+                 label: "GTE",
+                 value: "_gte",
+                 type: GtAdvanceFilterOperatorType.NUMERIC
+              ),
+              GtAdvanceFilterOperator(
+                 label: "LTE",
+                 value: "_lte",
+                 type: GtAdvanceFilterOperatorType.NUMERIC
+              )
+              ];
+              operatorCommon = [
+              GtAdvanceFilterOperator(
+                 label: "EQUAL",
+                 value: "_eq",
+                 type: GtAdvanceFilterOperatorType.COMMON
+              ),
+              GtAdvanceFilterOperator(
+                 label: "NEQ",
+                 value: "_neq",
+                 type: GtAdvanceFilterOperatorType.COMMON
+              )
+              ];
+              advanceFilterFields = [
+              GtAdvanceFilterField(
+                 label: "FName",
+                 value: "FName",
+                 type: GtAdvanceFilterFieldOperatorType.STRING
+              ),
+              /// This is nasted filter field
+              GtAdvanceFilterField(
+                 label: "City",
+                 isNastedFilter: true,
+                 value: "address.City",
+                 type: GtAdvanceFilterFieldOperatorType.STRING
+              ),
+              GtAdvanceFilterField(
+                 label: "Id",
+                 value: "Id",
+                 type: GtAdvanceFilterFieldOperatorType.NUMERIC
+              ),
+              GtAdvanceFilterField(
+                 label: "IsActive",
+                 value: "isActive",
+                 type: GtAdvanceFilterFieldOperatorType.SELECT,
+                 options: [{"TRUE":"true"}, { "FALSE" : "false"}]
+              ),
+              ];
+              toMapfilterjson.value = {
+                 "Code": GtTileField(
+                    valuePath: "Code",
+                    type: GtFieldType.FILTER,
+                    filterType: GtFilterType.TEXT_FILTER,
+                    filterValue: 'Code',
+                    filterLabel: 'Customer Code',
+                    textEditingController: new TextEditingController()),
+                 "FName": GtTileField(
+                    valuePath: "FName",
+                    type: GtFieldType.FILTER,
+                    filterType: GtFilterType.TEXT_FILTER,
+                    filterValue: 'Name',
+                    filterLabel: 'Customer Name',
+                    textEditingController: new TextEditingController()),
+                  /// This is nasted filter field 
+                  "City": GtTileField(
+                    valuePath: "City",
+                    type: GtFieldType.FILTER,
+                    filterType: GtFilterType.TEXT_FILTER,
+                    filterValue: 'address.City',
+                    filterLabel: 'City',
+                    isNastedFilter: true,
+                    textEditingController: new TextEditingController()),
+                 "IsActive" : GtTileField(
+                    valuePath: "isActive",
+                    type: GtFieldType.FILTER,
+                    filterType: GtFilterType.RADIO_BUTTON_FILTER,
+                    filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
+                    filterValue: 'isActive',
+                    filterLabel: 'isActive',
+                 ),
+                 "SortFilter" : GtTileField(
+                    filterLabel: "Sort By Field",
+                    type: GtFieldType.FILTER,
+                    filterType: GtFilterType.SORT_FILTER,
+                    filterItems: {
+                       'Code': 'Code',
+                       'FName': 'FName',
+                    },
+                    filterValue: 'order_by'
+                 ),
+              };
+           filtersData.value = {"Code": {"_ilike": "%1%"}};
+
+           super.onInit();
+        }
+        void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
+           /// This variables pass to API 
+           Map<String, dynamic>? variables = {
+        "where": {"_and": []}
+      };
+           var filterselected = [];
+           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
+              isFilterApplied.value = false;
+           }
+           else{
+              isFilterApplied.value = true;
+           }
+           print(filterDataApply);
+           print(selectedFilterAdvance);
+            /// Check here For Advance Nasted Filter
+           selectedFilterAdvance.forEach((data) {
+           if (data["isNastedFilter"] == true) {
+           filterselected.add(data["filterNasted"]);
+           } else {
+           filterselected.add({
+              "${data["fieldName"]}": {
+                 data["operator"]: data["fieldValue"],
+              }
+           });
+           }
+           /// Quick Filter applied map and sort filter
+           if (filterDataApply != {} && fromOnInit == false) {
+            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+            toMapfilterjson.forEach((key, gttilefield) {
+              switch (gttilefield.filterType) {
+                case GtFilterType.SORT_FILTER:
+                  var sortfield = filterDataApply![gttilefield.filterValue];
+                  var sortOrder = filterDataApply['sort'];
+                  sortFieldFilter = {
+                    sortfield: sortOrder.toString().toLowerCase()
+                  };
+                  break;
+              }
+            });
+            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
+              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                return {};
+              } else {
+                return {"${mapEntry.key}": mapEntry.value};
+              }
+            }).toList();
+            print(quickFilter);
+            filterselected.addAll(quickFilter);
+          }
+          variables["where"]["_and"] = filterselected;
         });
         }
         void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
@@ -4517,8 +4757,8 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                              icondata: Icons.account_circle_rounded,
                              ),
                              isLeadingShow: false,
-                             listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER",},
-                             {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER",}],
+                             listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER","address" : {"City": "Mumbai"}},
+                             {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER","address" : {"City": "Pune"}}],
                              viewtype: ViewType.list,
                              toMapjson: {
                              'Name': GtTileField(

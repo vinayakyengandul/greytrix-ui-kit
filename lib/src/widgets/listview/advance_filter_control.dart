@@ -43,7 +43,9 @@ class AdvanceFilterMakeControl extends StatelessWidget {
                 'added': true,
                 'controller': valuetextController,
                 'isNastedFilter': controlValue['isNastedFilter'],
-                'filterNasted' : controlValue['filterNasted']
+                'filterNasted' : controlValue['filterNasted'],
+                'label' : controlValue['label'],
+                'selectedOperatorName':  controlValue["selectedOperatorName"],
               }, index, false);
           }));
     });

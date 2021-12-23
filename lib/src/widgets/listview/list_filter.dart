@@ -999,7 +999,7 @@ class GtListFilter extends StatelessWidget {
                                                       label: Wrap(
                                                         children: [
                                                           GtText(
-                                                              text: e['fieldName']
+                                                              text: e['label']
                                                                   .toString(),
                                                               textStyle: Theme.of(
                                                                       context)
@@ -1016,7 +1016,7 @@ class GtListFilter extends StatelessWidget {
                                                                     left: 6.0,
                                                                     right: 6.0),
                                                             child: GtText(
-                                                                text: e['operator']
+                                                                text: e['selectedOperatorName']
                                                                     .toString()),
                                                           ),
                                                           GtText(
