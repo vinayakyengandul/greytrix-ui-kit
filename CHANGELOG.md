@@ -3,6 +3,7 @@
 - GtListFilter widget advance filter FieldName label changes
 - Filter Nasted changes and GtDropDownFormField changes
 - Navigation Rail widget Improved
+- AppShellView Widget expose
 
 ## [0.0.9]
 #### Dec 20, 2021

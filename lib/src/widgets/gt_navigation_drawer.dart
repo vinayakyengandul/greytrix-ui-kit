@@ -22,7 +22,7 @@ class GtNavigationRails extends StatelessWidget {
   });
 
   // LIST OF MENUS TO BE DISPLAYED
-  final List<Rail> nrdlist;
+  final List<GtRail> nrdlist;
 
   // INDEX OF THE SELECTED MENU
   final int selectedindex;

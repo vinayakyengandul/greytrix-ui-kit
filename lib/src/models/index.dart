@@ -1,7 +1,7 @@
 export 'enums.dart';
 export 'gt_tile_field.dart';
 export 'gt_form_field.dart';
-export 'rails.dart';
+export 'gt_rail.dart';
 export 'sizeconfig.dart';
 export 'common.dart';
 export 'gt_cart_field.dart';
@@ -16,3 +16,4 @@ export 'pdf_data.dart';
 export 'pdf_table.dart';
 export 'pdf_body_class.dart';
 export 'advance_filter_class.dart';
+export 'rails.dart';
