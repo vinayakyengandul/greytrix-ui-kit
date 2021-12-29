@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
-import 'package:universal_html/controller.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../greytrix_ui_kit.dart';
