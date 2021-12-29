@@ -1,6 +1,13 @@
+## [0.0.10]
+#### Dec 29, 2021
+- GtListFilter widget advance filter FieldName label changes
+- Filter Nasted changes and GtDropDownFormField changes
+- Navigation Rail widget Improved
+- AppShellView Widget expose
+
 ## [0.0.9]
 #### Dec 20, 2021
-
+#### COMMIT NO : 949a491
 - GtPdfWidget new changes.
 - GtListFilter Widget added Advance filter feature
 - GtDropDownSearch Widget for searchable drop down widget

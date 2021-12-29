@@ -25,34 +25,37 @@ class AddAdvanceFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<DropdownMenuItem> builditems(dynamic list) {
-    List<DropdownMenuItem> items = [];
-    var data = fields.firstWhere((k) => k.value == filter['fieldName'],
-        orElse: () => null);
-    list.forEach((element) {
-      items.add(DropdownMenuItem(
-          child: GtText(
-            text: '${element.keys.first}',
-          ),
-          value: '${element.values.first}',
-          onTap: () {
-            if (onTap != null)
-              onTap({
-                'fieldName': filter['fieldName'],
-                'fieldValue': data.options != null
-                    ? data.options[0].values.elementAt(0)
-                    : '',
-                'operator': list,
-                'selectedOperator': '${element.values.first}',
-                'index': filterindex,
-                'added': true,
-                'controller': valueTextController
-              }, filterindex, false);
-          }));
-    });
-    return items;
-  }
+      List<DropdownMenuItem> items = [];
+      var data = fields.firstWhere((k) => k.value == filter['fieldName'],
+          orElse: () => null);
+      list.forEach((element) {
+        items.add(DropdownMenuItem(
+            child: GtText(
+              text: '${element.keys.first}',
+            ),
+            value: '${element.values.first}',
+            onTap: () {
+              if (onTap != null)
+                onTap({
+                  'fieldName': filter['fieldName'],
+                  'fieldValue': data.options != null
+                      ? data.options[0].values.elementAt(0)
+                      : '',
+                  'operator': list,
+                  'selectedOperator': '${element.values.first}',
+                  'index': filterindex,
+                  'added': true,
+                  'controller': valueTextController,
+                  'isNastedFilter': filter['isNastedFilter'],
+                  'filterNasted': filter['filterNasted'],
+                  'selectedOperatorName': '${element.keys.first}',
+                  'label': filter['label'],
+                }, filterindex, false);
+            }));
+      });
+      return items;
+    }
 
     return Container(
       padding: EdgeInsets.all(8.0),
@@ -108,7 +111,13 @@ class AddAdvanceFilter extends StatelessWidget {
                                                   filter["selectedOperator"],
                                               'index': filterindex,
                                               'added': true,
-                                              'controller': valueTextController
+                                              'controller': valueTextController,
+                                              'isNastedFilter':
+                                                  e.isNastedFilter,
+                                              'filterNasted':
+                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {},
+                                              'label': e.label,
+                                              'selectedOperatorName' : filter["selectedOperatorName"]
                                             }, filterindex, true);
                                         },
                                       ),
@@ -194,7 +203,13 @@ class AddAdvanceFilter extends StatelessWidget {
                                                   filter["selectedOperator"],
                                               'index': filterindex,
                                               'added': true,
-                                              'controller': valueTextController
+                                              'controller': valueTextController,
+                                              'isNastedFilter':
+                                                  e.isNastedFilter,
+                                              'filterNasted':
+                                                  e.isNastedFilter ? Common().setNastedFilterValue(e.value, {}) : {},
+                                              'label': e.label,
+                                              'selectedOperatorName':  filter["selectedOperatorName"],
                                             }, filterindex, true);
                                         },
                                       ),

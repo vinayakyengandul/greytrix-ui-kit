@@ -135,3 +135,9 @@ enum GtCurrentListViewType { LIST, GRID }
 
 /// Is Custom or not DropDown Search.
 enum GtDropDownSearchIsCustom { DEFAULT, CUSTOM }
+
+/// GtDropDownFormField widget Items data type
+enum GtDropDownFormFieldItemType { MAP, LIST }
+
+/// Is Custom or not DropDown Field Form.
+enum GtDropDownFormFieldIsCustom { DEFAULT, CUSTOM }

@@ -206,7 +206,7 @@ class GtListFilter extends StatelessWidget {
                                           Obx(() => Checkbox(
                                                 activeColor: _activeColor,
                                                 value: controller
-                                                            .checkRedioFilter[
+                                                            .checkRadioFilter[
                                                         value.filterValue] ==
                                                     e.value,
                                                 onChanged: (val) {
@@ -216,7 +216,8 @@ class GtListFilter extends StatelessWidget {
                                                       e.value,
                                                       fromOnChanged: true,
                                                       filterType:
-                                                          value.filterType);
+                                                          value.filterType,
+                                                          isNastedFilter: value.isNastedFilter);
                                                 },
                                               )),
                                           GtText(
@@ -248,7 +249,7 @@ class GtListFilter extends StatelessWidget {
                                     children: [
                                       Checkbox(
                                         activeColor: _activeColor,
-                                        value: controller.checkRedioFilter[
+                                        value: controller.checkRadioFilter[
                                                 value.filterValue] ==
                                             e.value,
                                         onChanged: (val) {
@@ -256,7 +257,8 @@ class GtListFilter extends StatelessWidget {
                                           controller.setFilterField(
                                               '${value.filterValue}', e.value,
                                               fromOnChanged: true,
-                                              filterType: value.filterType);
+                                              filterType: value.filterType,
+                                              isNastedFilter: value.isNastedFilter);
                                         },
                                       ),
                                       GtText(
@@ -562,10 +564,12 @@ class GtListFilter extends StatelessWidget {
                               onChanged: (RangeValues changedValues) {
                                 controller.setFilterField(
                                     '${value.rangeStart}', changedValues.start,
-                                    fromOnChanged: true);
+                                    fromOnChanged: true,
+                                    isNastedFilter: value.isNastedFilter);
                                 controller.setFilterField(
                                     '${value.rangeEnd}', changedValues.end,
-                                    fromOnChanged: true);
+                                    fromOnChanged: true,
+                                    isNastedFilter: value.isNastedFilter);
                               },
                             ),
                           ),
@@ -624,7 +628,8 @@ class GtListFilter extends StatelessWidget {
                                   _options.remove('${e.value}');
                                 controller.setFilterField(
                                     '${value.filterValue}', _options,
-                                    fromOnChanged: true);
+                                    fromOnChanged: true,
+                                    isNastedFilter: value.isNastedFilter);
                               },
                               controlAffinity: ListTileControlAffinity.leading,
                             ),
@@ -659,7 +664,8 @@ class GtListFilter extends StatelessWidget {
                                   _options.remove('${e.value}');
                                 controller.setFilterField(
                                     '${value.filterValue}', _options,
-                                    fromOnChanged: true);
+                                    fromOnChanged: true,
+                                    isNastedFilter: value.isNastedFilter);
                               },
                               controlAffinity: ListTileControlAffinity.leading,
                             ),
@@ -705,6 +711,7 @@ class GtListFilter extends StatelessWidget {
                           _val[value.lookUpFilterNode],
                           fromOnChanged: true,
                           resetArguments: true,
+                          isNastedFilter: value.isNastedFilter
                         );
                       },
                       suggestionsCallback: (pattern) {
@@ -733,6 +740,7 @@ class GtListFilter extends StatelessWidget {
                           null,
                           fromOnChanged: true,
                           resetArguments: true,
+                          isNastedFilter: value.isNastedFilter
                         ),
                       },
                     ),
@@ -776,10 +784,9 @@ class GtListFilter extends StatelessWidget {
                         textEditingController: value.textEditingController,
                         onChangeHandler: (_val) {
                           controller.setFilterField(
-                            '${value.filterValue}',
-                            _val,
-                            fromOnChanged: true,
-                          );
+                              '${value.filterValue}', _val,
+                              fromOnChanged: true,
+                              isNastedFilter: value.isNastedFilter);
                         },
                       ),
                     )),
@@ -992,7 +999,7 @@ class GtListFilter extends StatelessWidget {
                                                       label: Wrap(
                                                         children: [
                                                           GtText(
-                                                              text: e['fieldName']
+                                                              text: e['label']
                                                                   .toString(),
                                                               textStyle: Theme.of(
                                                                       context)
@@ -1009,7 +1016,7 @@ class GtListFilter extends StatelessWidget {
                                                                     left: 6.0,
                                                                     right: 6.0),
                                                             child: GtText(
-                                                                text: e['operator']
+                                                                text: e['selectedOperatorName']
                                                                     .toString()),
                                                           ),
                                                           GtText(

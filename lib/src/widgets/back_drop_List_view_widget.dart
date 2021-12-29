@@ -5,17 +5,27 @@ import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 import 'package:greytrix_ui_kit/src/controllers/filter_controller.dart';
 
 class GtBackDropListView extends StatelessWidget {
+  /// Content that should be displayed on the back layer.
   final Widget backLayer;
+  ///The widget that is shown on the front layer.
   final Widget frontLayer;
+  /// See [Scaffold.primary]. Defaults to true.
   final bool isPrimary;
+  /// Indicates the front layer should minimize to the back layer's bottom edge. Otherwise, see [headerHeight] to specify this value. Defaults to false
   final bool stickyFrontLayer;
+  /// Title of BackBrop Widget
   final String title;
-  final double headerHeight;
+  /// See [AppBar.actions].
   final List<Widget> actionwidgets;
+  /// A key to use when building the [Scaffold].
   final GlobalKey<ScaffoldState> scaffoldKey;
+  /// is Back Layer is open or not 
   final bool isBackDrop;
+  /// Change the Back Layer and Front Layer Function 
   final Function(bool) changeBackDrop;
+  /// See [Scaffold.appBar].
   final BackdropAppBar backdropAppBar;
+  /// This Flag is indicate the filter applied or not.
   final bool isFilterApplied;
 
   GtBackDropListView({
@@ -24,7 +34,6 @@ class GtBackDropListView extends StatelessWidget {
     @required this.frontLayer,
     this.isPrimary = true,
     this.stickyFrontLayer = true,
-    this.headerHeight = 100.0,
     @required this.actionwidgets,
     @required this.scaffoldKey,
     this.isBackDrop = false,

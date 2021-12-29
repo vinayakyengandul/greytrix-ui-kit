@@ -9,3 +9,4 @@ export 'package:flex_color_scheme/flex_color_scheme.dart';
 export 'package:pdf/src/pdf/colors.dart';
 export 'package:printing/printing.dart';
 export 'package:backdrop/backdrop.dart';
+export './src/views/app_shell_view.dart';

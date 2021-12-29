@@ -27,7 +27,7 @@ class FilterController extends GetxController {
   RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
 
   /// REDIO FILTER TYPE FIELDS VALUE
-  RxMap<String, dynamic> checkRedioFilter = RxMap<String, dynamic>();
+  RxMap<String, dynamic> checkRadioFilter = RxMap<String, dynamic>();
 
   /// QUICK FILTERS TOMAPJSON
   Rx<Map<String, GtTileField>> toMapfilterjson =
@@ -54,7 +54,8 @@ class FilterController extends GetxController {
   void onInit() {
     key = LabeledGlobalKey(keyLabel);
     toMapfilterjson.value = toMapQuickfilterjson;
-    if (this.advanceFilterFields != null && this.advanceFilterFields.length > 0) {
+    if (this.advanceFilterFields != null &&
+        this.advanceFilterFields.length > 0) {
       FilterFields.value = advanceFilterFields.where(
         (e) {
           switch (e.type) {
@@ -118,7 +119,16 @@ class FilterController extends GetxController {
               : selectedOperators.value.first.value,
           'index': 0,
           'added': true,
-          'controller': new TextEditingController(text: '')
+          'controller': new TextEditingController(text: ''),
+          'isNastedFilter': FilterFields.value.first.isNastedFilter,
+          'filterNasted': FilterFields.value.first.isNastedFilter
+              ? Common()
+                  .setNastedFilterValue(FilterFields.value.first.value, {})
+              : {},
+          'label': FilterFields.value.first.label,
+          'selectedOperatorName': selectedOperators.value.isEmpty
+              ? ""
+              : selectedOperators.value.first.label,
         }
       ];
     } else {
@@ -132,7 +142,8 @@ class FilterController extends GetxController {
   void setFilterField(String key, dynamic value,
       {bool fromOnChanged = false,
       bool resetArguments = false,
-      GtFilterType filterType}) {
+      GtFilterType filterType,
+      bool isNastedFilter = false}) {
     if (filtersData["$key"] == null) {
       if (filterType == GtFilterType.SORT_FILTER) {
         filtersData["$key"] = value;
@@ -140,11 +151,20 @@ class FilterController extends GetxController {
           filtersData["sort"] = "ASC";
         }
       } else {
-        filtersData["$key"] = {"_ilike": '%$value%'};
-        // filtersDataCheckBox["$key"] = value;
+        if (isNastedFilter) {
+          /// Get Nasted Filter MAP using Below Function
+          var data = Common().setNastedFilterValue(key, {"_ilike": '%$value%'});
 
-        if (!defaultfilterData.containsKey('$key')) {
-          defaultfilterData["$key"] = {"_ilike": '%$value%'};
+          /// Add MAP Value using key
+          filtersData[key.toString().split(".").first] =
+              data[key.toString().split(".").first];
+        } else {
+          filtersData["$key"] = {"_ilike": '%$value%'};
+          // filtersDataCheckBox["$key"] = value;
+
+          if (!defaultfilterData.containsKey('$key')) {
+            defaultfilterData["$key"] = {"_ilike": '%$value%'};
+          }
         }
       }
     } else if (fromOnChanged == true) {
@@ -154,13 +174,22 @@ class FilterController extends GetxController {
           filtersData["sort"] = "ASC";
         }
       } else {
-        filtersData["$key"] = {"_ilike": '%${value ?? ""}%'};
+        if (isNastedFilter) {
+          /// Get Nasted Filter MAP using Below Function
+          var data = Common().setNastedFilterValue(key, {"_ilike": '%$value%'});
+
+          /// Add MAP Value using key
+          filtersData[key.toString().split(".").first] =
+              data[key.toString().split(".").first];
+        } else {
+          filtersData["$key"] = {"_ilike": '%${value ?? ""}%'};
+        }
       }
     }
 
     switch (filterType) {
       case GtFilterType.RADIO_BUTTON_FILTER:
-        checkRedioFilter["$key"] = value;
+        checkRadioFilter["$key"] = value;
         break;
       default:
         break;
@@ -176,7 +205,7 @@ class FilterController extends GetxController {
             value.textEditingController = new TextEditingController();
             break;
           case GtFilterType.RADIO_BUTTON_FILTER:
-            checkRedioFilter["${value.filterLabel}"] = null;
+            checkRadioFilter["${value.filterLabel}"] = null;
             break;
           default:
             break;
@@ -213,7 +242,14 @@ class FilterController extends GetxController {
           'selectedOperator': selectedOperators.value.first.value,
           'index': 0,
           'added': true,
-          'controller': new TextEditingController(text: '')
+          'controller': new TextEditingController(text: ''),
+          'isNastedFilter': FilterFields.value.first.isNastedFilter,
+          'filterNasted': FilterFields.value.first.isNastedFilter
+              ? Common()
+                  .setNastedFilterValue(FilterFields.value.first.value, {})
+              : {},
+          'label': FilterFields.value.first.label,
+          'selectedOperatorName': selectedOperators.value.first.label,
         });
       });
     } catch (e) {
@@ -228,28 +264,39 @@ class FilterController extends GetxController {
       if (index != -1) {
         selectedfilters.update((val) {
           //val[index] = filterValues;
-          var textvalue =
-              (selectedfiltersOperations.value[index]['controller']).text;
+          var textvalue = selectedfiltersOperations.value[index]
+                      ['fieldValue'] !=
+                  ''
+              ? selectedfiltersOperations.value[index]['selectedOperator']
+                      .toString()
+                      .toLowerCase()
+                      .contains('like')
+                  ? '%${selectedfiltersOperations.value[index]['fieldValue']}%'
+                  : selectedfiltersOperations.value[index]['fieldValue']
+              : selectedfiltersOperations.value[index]['selectedOperator']
+                      .toString()
+                      .toLowerCase()
+                      .contains('like')
+                  ? '%${(selectedfiltersOperations.value[index]['controller']).text}%'
+                  : (selectedfiltersOperations.value[index]['controller']).text;
           var filtervalue = {
             'fieldName': selectedfiltersOperations.value[index]['fieldName'],
-            'fieldValue': selectedfiltersOperations.value[index]
-                        ['fieldValue'] !=
-                    ''
-                ? selectedfiltersOperations.value[index]['selectedOperator']
-                        .toString()
-                        .toLowerCase()
-                        .contains('like')
-                    ? '%${selectedfiltersOperations.value[index]['fieldValue']}%'
-                    : selectedfiltersOperations.value[index]['fieldValue']
-                : selectedfiltersOperations.value[index]['selectedOperator']
-                        .toString()
-                        .toLowerCase()
-                        .contains('like')
-                    ? '%${(selectedfiltersOperations.value[index]['controller']).text}%'
-                    : (selectedfiltersOperations.value[index]['controller'])
-                        .text,
+            'fieldValue': textvalue,
             'operator': selectedfiltersOperations.value[index]
                 ['selectedOperator'],
+            'isNastedFilter': selectedfiltersOperations.value[index]
+                ['isNastedFilter'],
+            'filterNasted': selectedfiltersOperations.value[index]
+                    ['isNastedFilter']
+                ? Common().setNastedFilterValue(
+                    selectedfiltersOperations.value[index]['fieldName'], {
+                    selectedfiltersOperations.value[index]['selectedOperator']:
+                        textvalue
+                  })
+                : {},
+            'label': selectedfiltersOperations.value[index]['label'],
+            'selectedOperatorName': selectedfiltersOperations.value[index]
+                ['selectedOperatorName'],
             'index': index
           };
           val.add(filtervalue);

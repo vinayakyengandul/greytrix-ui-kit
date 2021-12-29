@@ -45,6 +45,10 @@ class GtListView extends StatelessWidget {
     this.isCustomItemWidget = false,
     this.swipeSnackBartextWidget,
     this.mainCardMargin = const EdgeInsets.all(8.0),
+    this.cardItemElevation = 1.0,
+    this.isActiveBorderColorLeading = false,
+    this.activeColor = Colors.green,
+    this.inActiveColor = Colors.red,
   })  : assert(listItems != null),
         assert(rowsCount != null),
         assert((isCustomItemWidget && itemDatawidget != null) ||
@@ -106,6 +110,14 @@ class GtListView extends StatelessWidget {
   final bool isCustomItemWidget;
   // MAIN CARD MARGIN
   final EdgeInsets mainCardMargin;
+  /// Card Elevation
+  final double cardItemElevation;
+  /// Card Item banner postiton
+  final bool isActiveBorderColorLeading;
+  /// ACTIVE COLOR 
+  final Color activeColor;
+  /// INACTIVE COLOR
+  final Color inActiveColor;
 
   @override
   Widget build(BuildContext context) {
@@ -373,6 +385,10 @@ class GtListView extends StatelessWidget {
           cardMarginEdgeInsets: cardMarginEdgeInsets,
           horizinalScrollable: horizinalScrollable,
           listItemPadding: listItemPadding,
+          cardElevation: cardItemElevation,
+          isActiveBorderColorLeading: isActiveBorderColorLeading,
+          activeColor: activeColor,
+          inActiveColor: inActiveColor,
         );
       }
       return swipeToOption != null
