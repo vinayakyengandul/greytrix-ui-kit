@@ -1,64 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../models/rails.dart';
-import '../models/enums.dart';
-import 'gt_icon.dart';
-import 'gt_text.dart';
+import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 
 class GtNavigationRails extends StatelessWidget {
   GtNavigationRails({
-    this.nrdlist,
+    @required this.nrdlist,
     this.selectedindex,
     this.setindex,
-    this.isShowLable = true,
     this.trailingWidget,
-    this.navigationBackGroundColor,
-    this.selectedRowColor,
-    this.selectedRowDarkColor,
-    this.iconColor,
     this.onHoverHandler,
     this.onHover,
-    this.selectedTitle = "",
-    this.selectedTitleColor,
-    this.selectedTitleChange,
-    this.selectedTitleOnTap,
-    this.drawerWidth = 200,
-    this.railIconSize = 16,
+    this.extendedWidth = 200,
     this.svgheight = 23,
     this.svgwidth = 23,
     this.imageSize = 20,
-    this.isExpandedNavigation = false,
-    this.userProfileLink,
-    this.listExpandedItems,
-    this.onTapExpanded,
-    this.titleTextStyle,
+    this.extended = false,
+    this.leadingWidget,
+    this.showLabel = false,
+    this.toolTipMessageField,
   });
-  final List<Rails> nrdlist;
+
+  // LIST OF MENUS TO BE DISPLAYED
+  final List<Rail> nrdlist;
+
+  // INDEX OF THE SELECTED MENU
   final int selectedindex;
+
+  // FUNCTION SET INDEX WHEN MENUS IS CHANGE
   final Function setindex;
-  final bool isShowLable;
+
+  // LEADING WIDGET BEFORE THE MENUS
+  final Widget leadingWidget;
+
+  // TRAILING WIDGET AFTER THE MENUS AT THE EXTREME BOTTOM
   final List<Widget> trailingWidget;
-  final Color navigationBackGroundColor;
-  final Color selectedRowColor;
-  final Color selectedRowDarkColor;
-  final Color iconColor;
+
+  // ON HOVER HANDLER FOR HANDLING
   final Function(bool isSelected, dynamic item) onHoverHandler;
+
+  // ON HOVER INDEX
   final int onHover;
-  final String selectedTitle;
-  final Color selectedTitleColor;
-  final Widget selectedTitleChange;
-  final Function selectedTitleOnTap;
-  final double drawerWidth;
-  final double railIconSize;
+
+  // TOOLTIP FOR LIST
+  final String Function(dynamic obj) toolTipMessageField;
+
+  // EXTENDED WIDTH
+  final double extendedWidth;
+
+  // SVG IMAGE WIDTH
   final double svgheight;
+
+  // SVG IMAGE WIDTH
   final double svgwidth;
+
+  //  IMAGE  SIZE FOR ICON IMAGE
   final double imageSize;
-  // Inputs for Expanded Navigation
-  final bool isExpandedNavigation;
-  final String userProfileLink;
-  final List<dynamic> listExpandedItems;
-  final Function(dynamic) onTapExpanded;
-  final TextStyle titleTextStyle;
+
+  // FOR RAILS EXTENDED
+  final bool extended;
+
+  //TO SHOW LABEL FOR ICONS
+  final bool showLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +70,17 @@ class GtNavigationRails extends StatelessWidget {
       switch (iconType) {
         case GtIconType.ICON:
           return GtIcon(
-            icondata: nrdlist[index].icon,
-            color: selectedindex == index ? selectedRowDarkColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color : Theme.of(context).navigationRailTheme.unselectedIconTheme.color,
-            size: railIconSize,
+            icondata: selectedindex == index
+                ? nrdlist[index].selectedIcon
+                : nrdlist[index].icon,
+            color: selectedindex == index
+                ? Theme.of(context).navigationRailTheme.selectedIconTheme?.color
+                : Theme.of(context)
+                    .navigationRailTheme
+                    .unselectedIconTheme
+                    ?.color,
+            size:
+                Theme.of(context).navigationRailTheme.unselectedIconTheme?.size,
           );
           break;
 
@@ -80,13 +88,17 @@ class GtNavigationRails extends StatelessWidget {
           return Padding(
               padding: EdgeInsets.only(left: 2.0),
               child: ImageIcon(
-                AssetImage(nrdlist[index].imageUrl),
+                AssetImage(nrdlist[index].imageUrl.toString()),
                 size: imageSize,
-                color:
-                    selectedindex == index ? selectedRowDarkColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color : iconColor,
+                color: selectedindex == index
+                    ? Theme.of(context)
+                        .navigationRailTheme
+                        .selectedIconTheme
+                        .color
+                    : Theme.of(context)
+                        .navigationRailTheme
+                        .unselectedIconTheme
+                        .color,
               ));
           break;
 
@@ -96,311 +108,210 @@ class GtNavigationRails extends StatelessWidget {
               height: svgheight,
               width: svgwidth,
               child: SvgPicture.asset(
-                nrdlist[index].iconPath,
+                nrdlist[index].iconPath.toString(),
               ));
           break;
         default:
+          return Container();
           break;
       }
     }
 
-    return !isExpandedNavigation
-        ? Container(
-            width: isShowLable ? drawerWidth : 0,
-            height: double.infinity,
-            color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
-            child: Column(
-              children: [
-                if (selectedTitle != "" && selectedTitle != null)
-                  Container(
-                      padding: EdgeInsets.only(top: 11, bottom: 15),
-                      child: ListTile(
-                        onTap: () {
-                          if (selectedTitleOnTap != null) selectedTitleOnTap();
-                        },
-                        title: GtText(
-                          text: selectedTitle,
-                          textStyle: TextStyle(
-                              color: selectedRowDarkColor ??  Theme.of(context)
+    return Container(
+        width: extended == true ? extendedWidth : 60.0,
+        height: double.infinity,
+        color: Theme.of(context).navigationRailTheme.backgroundColor,
+        child: Column(children: [
+          // LEADING WIDGET
+          if (leadingWidget != null)
+            Padding(
+              padding: EdgeInsets.only(top: 15, bottom: extended ? 8 : 12),
+              child: leadingWidget,
+            ),
+
+          // MENUS SECTION
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: nrdlist.length,
+                itemBuilder: (context, index) {
+                  return AnimatedContainer(
+                    decoration: BoxDecoration(
+                      gradient: selectedindex == index
+                          ? LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                  Theme.of(context)
                                       .navigationRailTheme
                                       .selectedIconTheme
-                                      .color,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900),
-                        ),
-                        trailing: selectedTitleChange != null
-                            ? selectedTitleChange
-                            : null,
-                      )),
-                Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: nrdlist.length,
-                      itemBuilder: (context, index) {
-                        return AnimatedContainer(
-                          duration: Duration(milliseconds: 100),
-                          // color: selectedindex == index
-                          //     ? selectedRowColor
-                          //     : navigationBackGroundColor,
-                          color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
+                                      .color
+                                      .withOpacity(0.2),
+                                  Theme.of(context)
+                                      .navigationRailTheme
+                                      .backgroundColor
+                                      .withOpacity(0.1),
+                                ])
+                          : LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                  Theme.of(context)
+                                      .navigationRailTheme
+                                      .backgroundColor,
+                                  Theme.of(context)
+                                      .navigationRailTheme
+                                      .backgroundColor
+                                ]),
+                      color:
+                          Theme.of(context).navigationRailTheme.backgroundColor,
+                    ),
+                    duration: Duration(milliseconds: 50),
+                    child: Container(
+                      decoration: extended
+                          ? BoxDecoration(
+                              border: Border(
                               right: BorderSide(
                                 color: onHover == index
-                                    ? selectedRowDarkColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color
+                                    ? Theme.of(context)
+                                        .navigationRailTheme
+                                        .selectedIconTheme
+                                        .color
                                     : selectedindex == index
-                                        ? selectedRowDarkColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color
-                                        : navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
+                                        ? Theme.of(context)
+                                            .navigationRailTheme
+                                            .selectedIconTheme
+                                            .color
+                                        : Theme.of(context)
+                                            .navigationRailTheme
+                                            .backgroundColor,
                                 width: 2.5,
                               ),
-                            )),
-                            child: InkWell(
-                              onTap: () =>
-                                  {if (setindex != null) setindex(index)},
-                              onHover: (value) {
-                                if (onHoverHandler != null)
-                                  onHoverHandler(value, index);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    left: 7, right: 7, top: 12, bottom: 12),
-                                child: Row(
-                                  children: <Widget>[
-                                    //nrdlist[index].imageUrl != ""
-                                    getrailsIcons(
-                                        nrdlist[index].iconType, index),
-
-                                    Expanded(
-                                        child: Padding(
-                                      padding: EdgeInsets.only(left: 15.0),
-                                      child: AnimatedDefaultTextStyle(
-                                        style: TextStyle(
-                                          color: selectedindex == index
-                                              ? selectedRowDarkColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color
-                                              : iconColor,
-                                          letterSpacing: onHover != null
-                                              ? onHover == index
-                                                  ? 1.50
-                                                  : 0.20
-                                              : 0.20,
-                                          fontWeight: selectedindex == index
-                                              ? FontWeight.w700
-                                              : null,
-                                        ),
-                                        duration: Duration(milliseconds: 100),
-                                        child: GtText(
-                                          text: nrdlist[index].label,
-                                          textStyle: TextStyle(),
-                                        ),
-                                      ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
-                if (trailingWidget != null) ...[
-                  Column(
-                    children: trailingWidget,
-                  )
-                ],
-              ],
-            ),
-          )
-        : Container(
-            width: drawerWidth,
-            height: double.infinity,
-            color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  height: 100.0,
-                  child: DrawerHeader(
-                    margin: EdgeInsets.all(0.0),
-                    padding: EdgeInsets.only(
-                        left: 20.0, top: 10.0, right: 10.0, bottom: 10.0),
-                    decoration: BoxDecoration(
-                      color: navigationBackGroundColor ?? Theme.of(context).navigationRailTheme.backgroundColor,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage:
-                              userProfileLink != null && userProfileLink != ""
-                                  ? NetworkImage(userProfileLink)
-                                  : AssetImage(
-                                      "lib/assets/images/amanda_minicucci.jpg",
-                                      package: 'greytrix_ui_kit',
-                                    ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: Align(
-                              alignment: FractionalOffset.centerLeft,
-                              child: GtText(
-                                text: selectedTitle,
-                                textStyle: titleTextStyle == null
-                                    ? TextStyle(
-                                        color: selectedTitleColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)
-                                    : titleTextStyle,
-                              ),
-                            ),
-                          ),
-                        ),
-                        selectedTitleChange,
-                      ],
-                    ),
-                  ),
-                ),
-                Flexible(
-                    child: ListView.builder(
-                  itemCount: listExpandedItems.length,
-                  itemBuilder: (context, index) {
-                    List<Widget> listWidget = [];
-                    if (listExpandedItems[index]["ChildMenu"] != null) {
-                      listWidget = List<Widget>.generate(
-                        listExpandedItems[index]["ChildMenu"].length,
-                        (i) => Ink(
-                          height: 40,
-                          color: selectedRowColor ??  Theme.of(context).navigationRailTheme.selectedIconTheme.color,
-                          child: ListTile(
-                            leading: GtIcon(
-                              icondata: listExpandedItems[index]["ChildMenu"][i]
-                                          ["IconData"] !=
-                                      null
-                                  ? listExpandedItems[index]["ChildMenu"][i]
-                                      ["IconData"]
-                                  : Icons.home,
-                              color: Theme.of(context).navigationRailTheme.unselectedIconTheme.color,
-                            ),
-                            dense: true,
-                            title: GtText(
-                              text: listExpandedItems[index]["ChildMenu"][i]
-                                          ["Menu"] !=
-                                      null
-                                  ? listExpandedItems[index]["ChildMenu"][i]
-                                      ["Menu"]
-                                  : "Home",
-                              textStyle: TextStyle(
-                                  color: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color, fontSize: 16),
-                            ),
-                            onTap: () {
-                              if (onTapExpanded != null)
-                                onTapExpanded(listExpandedItems[index]
-                                            ["ChildMenu"][i]["Route"] !=
-                                        null
-                                    ? {
-                                        "Name": listExpandedItems[index]
-                                                ["ChildMenu"][i]["Menu"]
-                                            .toString(),
-                                        "Route": listExpandedItems[index]
-                                                ["ChildMenu"][i]["Route"]
-                                            .toString()
-                                      }
-                                    : {"Name": "Home", "Route": "home"});
-                              Navigator.of(context).pop();
+                            ))
+                          : null,
+                      child: Tooltip(
+                        message:
+                            toolTipMessageField == null
+                                ? nrdlist[index].label
+                                : toolTipMessageField(nrdlist[index].label),
+                        child: Center(
+                          child: InkWell(
+                            onTap: () =>
+                                {if (setindex != null) setindex(index)},
+                            onHover: (value) {
+                              if (onHoverHandler != null)
+                                onHoverHandler(value, index);
                             },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 7, right: 7, top: 12, bottom: 12),
+                              child:
+
+                                  //  BASED ON THE EXTENDED PROPERTY CHANGED MENUS STYLE
+                                  extended
+                                      ? Row(children: <Widget>[
+                                          getrailsIcons(
+                                              nrdlist[index].iconType, index),
+                                          Expanded(
+                                              child: Padding(
+                                            padding:
+                                                EdgeInsets.only(left: 15.0),
+                                            child: AnimatedDefaultTextStyle(
+                                              style: TextStyle(
+                                                color: selectedindex == index
+                                                    ? Theme.of(context)
+                                                        .navigationRailTheme
+                                                        .selectedIconTheme
+                                                        .color
+                                                    : Theme.of(context)
+                                                        .navigationRailTheme
+                                                        .unselectedIconTheme
+                                                        .color,
+                                                letterSpacing: onHover != null
+                                                    ? onHover == index
+                                                        ? 1.50
+                                                        : 0.20
+                                                    : 0.20,
+                                                fontWeight:
+                                                    selectedindex == index
+                                                        ? FontWeight.w700
+                                                        : null,
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 100),
+                                              child: GtText(
+                                                text: nrdlist[index].label,
+                                                textStyle: selectedindex ==
+                                                        index
+                                                    ? Theme.of(context)
+                                                        .navigationRailTheme
+                                                        .selectedLabelTextStyle
+                                                    : Theme.of(context)
+                                                        .navigationRailTheme
+                                                        .unselectedLabelTextStyle,
+                                              ),
+                                            ),
+                                          ))
+                                        ])
+                                      : Column(children: [
+                                          Container(
+                                              child: getrailsIcons(
+                                                  nrdlist[index].iconType,
+                                                  index)),
+                                          showLabel
+                                              ? AnimatedDefaultTextStyle(
+                                                  style: TextStyle(
+                                                    color: selectedindex ==
+                                                            index
+                                                        ? Theme.of(context)
+                                                            .navigationRailTheme
+                                                            .selectedIconTheme
+                                                            .color
+                                                        : Theme.of(context)
+                                                            .navigationRailTheme
+                                                            .unselectedIconTheme
+                                                            .color,
+                                                    letterSpacing:
+                                                        onHover != null
+                                                            ? onHover == index
+                                                                ? 0.80
+                                                                : 0.20
+                                                            : 0.20,
+                                                    fontWeight:
+                                                        selectedindex == index
+                                                            ? FontWeight.w700
+                                                            : null,
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 100),
+                                                  child: GtText(
+                                                    text: nrdlist[index].label,
+                                                    textStyle: selectedindex ==
+                                                            index
+                                                        ? Theme.of(context)
+                                                            .navigationRailTheme
+                                                            .selectedLabelTextStyle
+                                                        : Theme.of(context)
+                                                            .navigationRailTheme
+                                                            .unselectedLabelTextStyle,
+                                                  ))
+                                              : Container(),
+                                        ]),
+                            ),
                           ),
                         ),
-                      ).toList();
-                    } else {
-                      listWidget = [
-                        ListTile(
-                          leading: GtIcon(
-                            icondata:
-                                listExpandedItems[index]["HeaderIcon"] != null
-                                    ? listExpandedItems[index]["HeaderIcon"]
-                                    : Icons.home,
-                            color: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color,
-                          ),
-                          dense: true,
-                          title: GtText(
-                            text: listExpandedItems[index]["HeaderMenu"] != null
-                                ? listExpandedItems[index]["HeaderMenu"]
-                                : "Home",
-                            textStyle: TextStyle(
-                                color: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color, fontSize: 16),
-                          ),
-                          onTap: () {
-                            if (onTapExpanded != null)
-                              onTapExpanded(
-                                  listExpandedItems[index]["Route"] != null
-                                      ? {
-                                          "Name": listExpandedItems[index]
-                                                  ["HeaderMenu"]
-                                              .toString(),
-                                          "Route": listExpandedItems[index]
-                                                  ["Route"]
-                                              .toString()
-                                        }
-                                      : {"Name": "Home", "Route": "home"});
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ];
-                    }
-                    return Theme(
-                        data: Theme.of(context)
-                            .copyWith(unselectedWidgetColor: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color),
-                        child: listExpandedItems[index]["ChildMenu"] != null
-                            ? ExpansionTile(
-                                childrenPadding: EdgeInsets.only(left: 30.0),
-                                leading: Icon(
-                                  listExpandedItems[index]["HeaderIcon"] != null
-                                      ? listExpandedItems[index]["HeaderIcon"]
-                                      : Icons.home,
-                                  color: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color,
-                                ),
-                                title: GtText(
-                                  text: listExpandedItems[index]
-                                              ["HeaderMenu"] !=
-                                          null
-                                      ? listExpandedItems[index]["HeaderMenu"]
-                                      : "Home",
-                                  textStyle: TextStyle(
-                                      color: selectedRowColor ??  Theme.of(context)
-                                      .navigationRailTheme
-                                      .selectedIconTheme
-                                      .color, fontSize: 16),
-                                ),
-                                children: <Widget>[...listWidget])
-                            : listWidget[0]);
-                  },
-                )),
-              ],
-            ),
-          );
+                      ),
+                    ),
+                  );
+                }),
+          ),
+
+          // TRAILING WIDGET
+          if (trailingWidget != null) ...[
+            Column(
+              children: trailingWidget,
+            )
+          ],
+        ]));
   }
 }

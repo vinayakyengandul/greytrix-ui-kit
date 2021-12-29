@@ -2,6 +2,7 @@
 #### Dec 29, 2021
 - GtListFilter widget advance filter FieldName label changes
 - Filter Nasted changes and GtDropDownFormField changes
+- Navigation Rail widget Improved
 
 ## [0.0.9]
 #### Dec 20, 2021

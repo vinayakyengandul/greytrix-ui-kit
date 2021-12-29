@@ -514,7 +514,7 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
 
 # GtNavigationRails Widget
 
-The gtnavigationrails widget is used represent the NavigationRail on the Screen with responsive sizing handle in the core package.
+The gtnavigationrails widget is used represent the NavigationRail on the Screen with responsive sizing handle in the UI Kit package.
 
 - Benefits of GtNavigationRails Widget
 
@@ -524,55 +524,40 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
 - Constructors:
 
 ```
-   - [GtNavigationRails](components.md#gtnavigationrails-widget)({this.nrdlist,
-       this.selectedindex, this.setindex, this.isShowLable = true, this.trailing, this.navigationBackGroundColor,
-      this.selectedRowColor,
-      this.selectedRowDarkColor,
-      this.iconColor,
+   - [GtNavigationRails](components.md#gtnavigationrails-widget)({
+      @required this.nrdlist,
+      this.selectedindex,
+      this.setindex,
+      this.trailingWidget,
       this.onHoverHandler,
       this.onHover,
-      this.selectedTitle = "",
-      this.selectedTitleColor,
-      this.selectedTitleChange,
-      this.selectedTitleOnTap,
-      this.drawerWidth = 200,
-      this.railIconSize = 16,
+      this.extendedWidth = 200,
       this.svgheight = 23,
       this.svgwidth = 23,
       this.imageSize = 20,
-      this.isExpandedNavigation = false,
-      this.userProfileLink,
-      this.listExpandedItems,
-      this.onTapExpanded,
-      this.titleTextStyle,});
+      this.extended = false,
+      this.leadingWidget,
+      this.showLabel = false,
+      this.toolTipMessageField,});
 ```
 
 - Input Parameters of GtNavigationRails Widget
+
   - **nrdlist** - List<Rails> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
-  - **selectedindex** - selectedindex - The index into destinations for the current selected NavigationRailDestination.
+  - **selectedindex** - int - The index into destinations for the current selected NavigationRailDestination.
   - **setindex** - Function - Called when one of the destinations is selected.
-  - **isShowLable** - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
+  - **showLabel** - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
   - **trailingWidget** - List<Widget> - The trailing List of widget is placed bottom of the rails last NavigationRailDestination. It's location is affected by groupAlignment.
-  - **navigationBackGroundColor** - Color - Navigation Drawer background color.
-  - **selectedRowColor** - Color - This is selected row color defines.
-  - **selectedRowDarkColor** - Color - This is selected dark color Defines.
-  - **iconColor** - Color - This Defines the Icon Color in rails.
   - **onHoverHandler** - Function - Rails on hover function.
   - **onHover** - int - Index of hover in rails.
-  - **selectedTitle** - String - This is selected rails String value.
-  - **selectedTitleColor** - Color - Selected Tile Color defines.
-  - **selectedTitleChange** - Widget - Selected tile on change Function in rails.
-  - **selectedTitleOnTap** - Function - on Tap function of Tile Selected.
-  - **drawerWidth** - double - This is drawer widgth defines, defualt is 200.
-  - **railIconSize** - double - This defines the icon size of rails.
+  - **extendedWidth** - double - This is drawer widgth defines, defualt is 200.
   - **svgheight** - double - This is height of svg.
   - **svgwidth** - double - This is width of svg.
   - **imageSize** - double - This is size of Image.
-  - **isExpandedNavigation** - bool - This is defines type of rails.
-  - **userProfileLink** - String - Profile link as string.
-  - **listExpandedItems** - List<dynamic> - This is List of Expanded Rails.
-  - **onTapExpanded** - Function - On Tap expanded Item Function.
-  - **titleTextStyle** - TextStyle - TextStyle of title field.
+  - **extended** - bool - This is defines type of rails.
+  - **leadingWidget** - Widget - The leading Widget is placed Top of the rails first NavigationRailDestination.
+  - **toolTipMessageField** - String Function(dynamic obj) - This function return String message for hover rail label.
+
 - Example
 
   - Step 1 : Import core in files that it will be used:
@@ -588,38 +573,95 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
             @override
            Widget build(BuildContext context) {
              var nrdrails = [
-                   Rails(Icons.folder_open, Icons.folder, "Document",
-                       "/documents/"), // Roles
-                   Rails(Icons.calendar_today_outlined, Icons.today, "Tasks",
-                       "/tasks/"),
-                   Rails(Icons.settings, Icons.settings, "Settings", "/settings/"),];
+                  Rail(
+                        icon: Icons.folder_open,
+                        selectedIcon: Icons.folder,
+                        label: 'Document',
+                        iconType: GtIconType.ICON,
+                        isHovered: false),
+                  Rail(
+                        icon: Icons.folder_open,
+                        selectedIcon: Icons.folder,
+                        label: 'Document',
+                        iconType: GtIconType.ICON,
+                        isHovered: false),];
            return Container(
            child:  GtNavigationRails(
-                 nrdlist: nrdrails,
-                 selectedindex: 1,
-                 isShowLable: true,
-                 trailingWidget: [
-                     IconButton(
-                       icon: Icon(
-                         Icons.logout,
-                         color: context.theme.iconTheme.color.withOpacity(0.64),
-                       ),
-                     ),
-                     Text('Log Out',
-                         style: TextStyle(
-                             color: Color(0xdd000000).withOpacity(0.64),
-                             fontSize: context.theme.textTheme.bodyText1.fontSize,
-                             fontFamily: AppTheme.defaultFontFamily))
-                   ],
-                 )
+                      showLabel: false,
+                      leadingWidget: Container(
+                          padding: EdgeInsets.fromLTRB(3.0, 0, 3.0, 0),
+                          child: Center(
+                            child: SizedBox(
+                              height: 30,
+                              width: 50,
+                              child: CircleAvatar(
+                                radius: 18.0,
+                                backgroundColor:
+                                    context.theme.colorScheme.primary,
+                              ),
+                            ),
+                          )),
+                      setindex: () => {},
+                      selectedindex: 0,
+                      nrdlist: [
+
+                      ],
+                      onHover: 0,
+                      onHoverHandler: (idt, dar1) => {},
+                      toolTipMessageField: (dat) {
+                        return dat;
+                      },
+                      trailingWidget: [
+                        Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: IconButton(
+                                icon: true
+                                    ? Icon(Icons.menu_open)
+                                    : Icon(Icons.menu),
+                                onPressed: () {
+                                  null;
+                                })),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: IconButton(
+                            icon: Icon(Icons.settings),
+                            onPressed: () {
+                              null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              null;
+                            },
+                            child: CircleAvatar(
+                              radius: 18.0,
+                              backgroundColor:
+                                  context.theme.colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: IconButton(
+                            icon: Icon(Icons.logout),
+                            onPressed: () {
+                              null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
            );
         }
      }
   ```
 
   - Step 3 : Result (Web/Mobile):
-    ![image](https://user-images.githubusercontent.com/64594463/104910165-ee2c6300-59ae-11eb-9283-84c6cac45bfa.png)
-    ![image](https://user-images.githubusercontent.com/64594463/104910316-27fd6980-59af-11eb-9936-c8ee69cc66b7.png)
+    ![image](https://user-images.githubusercontent.com/64594463/147633086-ff740f7c-663a-4fdb-a485-5c36e5b470bb.png)
+    ![image](https://user-images.githubusercontent.com/64594463/147633707-77228135-df63-43e5-98cf-8502609c56bb.png)
 
 # SearchDialog Widget
 
@@ -4475,7 +4517,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
            super.onInit();
         }
         void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API 
+           /// This variables pass to API
            Map<String, dynamic>? variables = {
         "where": {"_and": []}
       };
@@ -4541,7 +4583,8 @@ The GtListFilter widget is used represent the Filter field for the Listview.
         }
      }
   ```
-   - Step 2 : ListviewFilterController With Quick Filter and Nasted Advance Filter.
+
+  - Step 2 : ListviewFilterController With Quick Filter and Nasted Advance Filter.
 
   ```dart
      import 'package:flutter/material.dart';
@@ -4638,7 +4681,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                     filterValue: 'Name',
                     filterLabel: 'Customer Name',
                     textEditingController: new TextEditingController()),
-                  /// This is nasted filter field 
+                  /// This is nasted filter field
                   "City": GtTileField(
                     valuePath: "City",
                     type: GtFieldType.FILTER,
@@ -4671,7 +4714,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
            super.onInit();
         }
         void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API 
+           /// This variables pass to API
            Map<String, dynamic>? variables = {
         "where": {"_and": []}
       };

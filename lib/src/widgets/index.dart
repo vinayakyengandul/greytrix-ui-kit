@@ -1,6 +1,5 @@
 export 'gt_icon.dart';
 export 'gt_text.dart';
-export 'gt_navigation.dart';
 export 'gt_navigation_drawer.dart';
 export 'gt_chip.dart';
 export 'gt_iconcheckbox.dart';
