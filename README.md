@@ -2875,7 +2875,7 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
-  - Step 2 : Used GtListPage widget and specify the is to be displayed.
+  - Step 2 : Used GtListPage widget and specify the is to be displayed Default View.
 
   ```dart
         class TextDemo extends StatelessWidget {
@@ -2886,23 +2886,46 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                      backgroundColor: Color(0xff5a5278)),
                  body: Container(
                    child: GtListPage(
-                       rowsCount: 2,
-                       title: GtText(
-                       textStyle: TextStyle(
-                          color: Colors.black,
-                       ),
-                          text: "Task"
-                       ),
-                       leadingIcon: GtIcon(
-                       icondata: Icons.account_circle_rounded,
-                       ),
-                       isLeadingShow: false,
-                       listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER",},
-                       {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER",}],
-                       viewtype: ViewType.list,
-                       spaceBetweenKeyValue: false,
-                       toMapjson: {
-                       'Name': GtTileField(
+                      rowsCount: 2,
+                      title: GtText(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          text: "USER"),
+                      leadingIcon: GtIcon(
+                        icondata: Icons.account_circle_rounded,
+                      ),
+                      isLeadingShow: false,
+                      listItems: [
+                        {
+                          "Id": 2093,
+                          "CompanyId": 0,
+                          "Code": "GT0521",
+                          "FName": "DEMO USER",
+                        },
+                        {
+                          "Id": 2093,
+                          "CompanyId": 0,
+                          "Code": "GT011",
+                          "FName": "DEMO MANAGER",
+                        },
+                        {
+                          "Id": 2094,
+                          "CompanyId": 0,
+                          "Code": "GT012",
+                          "FName": "DEMO CLIENT",
+                        },
+                        {
+                          "Id": 2095,
+                          "CompanyId": 0,
+                          "Code": "GT013",
+                          "FName": "DEMO",
+                        }
+                      ],
+                      viewtype: ViewType.list,
+                      spaceBetweenKeyValue: false,
+                      toMapjson: {
+                        'Name': GtTileField(
                           valuePath: 'FName',
                           row: 1,
                           flex: 4,
@@ -2910,15 +2933,14 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                           mobileFlex: 3,
                           cardRow: 1,
                           type: GtFieldType.STRING,
-                          keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                          valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                          keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                          valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
                           keyTextAlign: TextAlign.start,
                           valueTextAlign: TextAlign.end,
                           displayKey: true,
                           keyValueBetween: " : ",
-                          webTextFormatType: TextformatType.textwithopacity,
-                       ),
-                       'Code': GtTileField(
+                        ),
+                        'Code': GtTileField(
                           valuePath: 'Code',
                           row: 1,
                           flex: 4,
@@ -2926,39 +2948,213 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                           mobileFlex: 3,
                           cardRow: 1,
                           type: GtFieldType.STRING,
-                          keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                          valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                          keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                          valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
                           keyTextAlign: TextAlign.start,
                           valueTextAlign: TextAlign.end,
                           displayKey: true,
                           keyValueBetween: " : ",
-                          webTextFormatType: TextformatType.textwithopacity,
-                       ),
-                       },
-                       tag: "Task",
-                       gtTileRowMainAxisAlignment: MainAxisAlignment.center,
-                       gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
-                       isSpaceInRecords: true,
-                       isleadingIconPosition: false,
-                       size: Get.size,
-                       listViewTableType: GTListViewTableType.Normal,
-                       cardColor: Colors.blueGrey[200],
-                       enablefilter: false,
-                       backgroundcolor: Colors.white10,
-                       cardMarginEdgeInsets: const EdgeInsets.all(5),
-                       listItemPadding: const EdgeInsets.only(left: 15,right: 30, top: 8,bottom: 8),
-                       backNavigation: true,
-                       horizinalScrollable: false,
-                   ),
+                        ),
+                      },
+                      tag: "Task",
+                      gtTileRowMainAxisAlignment: MainAxisAlignment.center,
+                      gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
+                      isSpaceInRecords: true,
+                      isleadingIconPosition: false,
+                      size: Get.size,
+                      listViewTableType: GTListViewTableType.Normal,
+                      cardColor: Colors.blueGrey[50],
+                      enablefilter: false,
+                      cardMarginEdgeInsets: const EdgeInsets.all(5),
+                      listItemPadding:
+                          const EdgeInsets.only(left: 15, right: 30, top: 8, bottom: 8),
+                      horizinalScrollable: false,
+                    ),
                  ));
            }
         }
 
   ```
+  - Step 3 : Used GtListPage widget and specify the is to be displayed CUSTOM View.
 
-  - Step 3 : Result :
+```dart
+        class TextDemo extends StatelessWidget {
+           @override
+           Widget build(BuildContext context) {
+             return Scaffold(
+                 appBar: GtAppBar(
+                     backgroundColor: Color(0xff5a5278)),
+                 body: Container(
+                   child: GtListPage(
+                          rowsCount: 2,
+                          title: GtText(
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                              ),
+                              text: "USER"),
+                          leadingIcon: GtIcon(
+                            icondata: Icons.account_circle_rounded,
+                          ),
+                          isLeadingShow: false,
+                          listItems: [
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT0521",
+                              "FName": "DEMO USER",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT011",
+                              "FName": "DEMO MANAGER",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2094,
+                              "CompanyId": 0,
+                              "Code": "GT012",
+                              "FName": "DEMO CLIENT",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2095,
+                              "CompanyId": 0,
+                              "Code": "GT013",
+                              "FName": "DEMO",
+                              "isActive": "false"
+                            }
+                          ],
+                          viewtype: ViewType.list,
+                          spaceBetweenKeyValue: false,
+                          toMapjson: {
+                            'Name': GtTileField(
+                              valuePath: 'FName',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 1,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                            'Code': GtTileField(
+                              valuePath: 'Code',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 2,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                          },
+                          tag: "Task",
+                          gtTileRowMainAxisAlignment: MainAxisAlignment.center,
+                          gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
+                          isSpaceInRecords: true,
+                          isleadingIconPosition: false,
+                          size: Get.size,
+                          listViewTableType: GTListViewTableType.Normal,
+                          cardColor: Colors.blueGrey[50],
+                          enablefilter: false,
+                          cardMarginEdgeInsets: const EdgeInsets.all(5),
+                          listItemPadding:
+                              const EdgeInsets.only(left: 15, right: 30, top: 8, bottom: 8),
+                          horizinalScrollable: false,
+                          listCustomWidgetType: GtListCustomWidgetType.LIST,
+                          currentListViewType: GtCurrentListViewType.LIST,
+                          itemDatawidget: (i, e) => customRow(i, e),
+                        ),
+                 ));
+           }
 
-    ![GtListPage](https://user-images.githubusercontent.com/64594463/124108984-51eda880-da84-11eb-9ad8-4da2f5880f38.png)
+           Widget customRow(int index, dynamic data) {
+            Color sideColor;
+            BuildContext? context = Get.context;
+            if (data['isActive'] == 'true')
+              sideColor = Theme.of(context!).toggleableActiveColor;
+            else
+              sideColor = Theme.of(context!).errorColor;
+            return customDetailsRow(index, data, context, sideColor);
+          }
+
+          Widget customDetailsRow(
+              int index, dynamic data, BuildContext context, Color statusColor) {
+            return InkWell(
+              onTap: () {},
+              child: Container(
+                child: Card(
+                  shadowColor: Theme.of(context).shadowColor,
+                  elevation: 3,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                        left: BorderSide(color: statusColor, width: 2),
+                      )),
+                      child: SizedBox(
+                        height: 50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Row(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.only(left: 12, right: 12),
+                                      child: GtIcon(
+                                        icondata: Icons.person,
+                                        color: statusColor,
+                                      )),
+                                  Expanded(
+                                    flex: 3,
+                                    child: GtText(
+                                      text: '${data['FName']}',
+                                      textStyle: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: GtText(
+                                      text: '${data['Code']}',
+                                      textStyle: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+              ),
+            );
+          }
+        }
+
+```
+
+  - **Result Default View:**
+
+    ![GtListPage Default ListView](https://user-images.githubusercontent.com/64594463/147745686-c59885c4-c6e7-4e1b-89d1-1f697f417d9f.png)
+
+  - **Result Custom View:**
+
+    ![GtListPage Custom ListView](https://user-images.githubusercontent.com/64594463/147746717-15fd924a-eb92-40b2-b8b8-4720c0cadf1b.png)
+
 
 # GtCheckboxFormField Widget
 
@@ -3465,314 +3661,16 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
 
 - Input Parameters of GtPdfWidget Widget
 
-  - maxPageWidth - maxPageWidth - This is Maximum width of the pdf document on screen.
-  - pdfData - PdfData - This is class For Preparing PDf Preview in data.
-
-    - PdfData Constructors:
-
-      - [PdfData]()({
-        @required this.baseColor,
-        @required this.accentColor,
-        this.pdfHeader,
-        this.pdfFooter,
-        @required this.data,
-        @required this.pdfBody,
-        this.pageMargin});
-
-        - **baseColor** - PdfColor - This is color of pdf base color and this is required parameter.
-        - **accentColor** - PdfColor - This is color of pdf accent color and This also required parameter.
-        - **pdfHeader** - pdfHeader - This is class of pdfHeader for represent the header section ToMapJson.
-          - PdfHeader Constructors:
-            - [PdfHeader]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfHeaderFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfHeaderFields** - PdfHeaderField - This is class of PdfHeaderField for represent header section toMapJson.
-                - [PdfHeaderField]()({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTHeaderFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.centerLeft,
-                  this.tableHeaderDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableHeaderHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.imageProvider,
-                  this.key = "",
-                  this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTHeaderFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **heigh**t - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **imageProvider** - ImageProvider - This is shows image to image Field type input.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **headerFieldKeyValueFormat** - GtHeaderFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **pdfFooter** - pdfFooter - This is class of pdfFooter for represent the footer section ToMapJson.
-          - pdfFooter Constructors:
-            - [pdfFooter]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfFooterFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfFooterFields** - PdfFooterField - This is class of PdfFooterField for represent header section toMapJson.
-                - [pdfFooterFields]()({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTFooterFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.centerLeft,
-                  this.tableHeaderDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableHeaderHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.key = "",
-                  this.footerFieldKeyValueFormat = GtFooterFieldKeyValueFormat.COLUMN,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTFooterFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **height** - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **footerFieldKeyValueFormat** - GtFooterFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **data** - dynamic - This is required parameter for showing tomapJson fields from data.
-        - **pdfBody** - pdfBody - This is class of pdfBody for represent the body section ToMapJson.
-          - pdfBody Constructors:
-            - [pdfBody]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfBodyFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
-                - PdfBodyField({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTBodyFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.center,
-                  this.tableBodyDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableBodyHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.cellDecoration,
-                  this.key,
-                  this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
-                  this.decoration,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTBodyFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **height** - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **decoration** - BoxDecoration - This is Field decoration to display.
-                  - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **pageMargin** - pw.EdgeInsets - This is for page padding and margin on screen.
-
+  - **maxPageWidth** - maxPageWidth - This is Maximum width of the pdf document on screen.
+  - **pdfData** - PdfData - This is class For Preparing PDf Preview in data.
   - **onShared** - Function(BuildContext, PdfData) - Called if the user shares the pdf document.
   - **actions** - List<PdfPreviewAction> - Additionnal actions to add to the widget.
-  - **useActions** - bool - This is Allow disable actions, and this is default true.
+  - **useActions** - bool - This is Allow disable actions, and this is default false.
   - **allowPrinting** - bool - Add a button to print the pdf document, and this is default true.
   - **allowSharing** - bool - Add a button to print the pdf document, and this is default true.
-  - **canChangeOrientation** - bool - Add a switch to change the page orientation, and this is default true.
-  - **canChangePageFormat** - bool - Add a drop-down menu to choose the page format, and this is default true.
-  - **canDebug** - bool - Add a switch to show debug view, and this is default true.
+  - **canChangeOrientation** - bool - Add a switch to change the page orientation, and this is default false.
+  - **canChangePageFormat** - bool - Add a drop-down menu to choose the page format, and this is default false.
+  - **canDebug** - bool - Add a switch to show debug view, and this is default false.
   - **loadingWidget** - Widget - Custom loading widget to use that is shown while PDF is being generated. If null, a [CircularProgressIndicator] is used instead.
   - **pdfPreviewPageDecoration** - Decoration - Decoration of PdfPreviewPage,
   - **pdfFileName** - String - Name of the PDF when sharing. It must include the extension.
@@ -3790,6 +3688,320 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
   - **shareActionExtraBody** - String - extra text to share with Pdf document.
   - **shareActionExtraSubject** - String - email subject when email application is selected from the share dialog.
   - **shareActionExtraEmails** - List<String> - list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
+
+  - **PdfData** Constructors:
+      ```
+    - [PdfData]()({
+      @required this.baseColor,
+      @required this.accentColor,
+      this.pdfHeader,
+      this.pdfFooter,
+      @required this.data,
+      @required this.pdfBody,
+      this.pageMargin});
+      ```
+  - **baseColor** - PdfColor - This is color of pdf base color and this is required parameter.
+  - **accentColor** - PdfColor - This is color of pdf accent color and This also required parameter.
+  - **pdfHeader** - pdfHeader - This is class of pdfHeader for represent the header section ToMapJson.
+  - **pdfFooter** - pdfFooter - This is class of pdfFooter for represent the footer section ToMapJson.
+  - **data** - dynamic - This is required parameter for showing tomapJson fields from data.
+  - **pdfBody** - pdfBody - This is class of pdfBody for represent the body section ToMapJson.
+  - **pageMargin** - pw.EdgeInsets - This is for page padding and margin on screen.
+
+- **PdfHeader** Constructors:
+    ```
+  - [PdfHeader]({
+    this.maxRow,
+    this.maxColumn,
+    this.pdfHeaderFields,
+    });
+    ```
+    - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+    - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+    - **pdfHeaderFields** - PdfHeaderField - This is class of PdfHeaderField for represent header section toMapJson.
+      ```
+      - [PdfHeaderField]()({
+          this.row,
+          this.column,
+          this.valuePath,
+          this.defaultValue,
+          this.fieldType = GTHeaderFieldType.TITLE,
+          this.padding,
+          this.height,
+          this.alignment,
+          this.pdfTable,
+          this.valueTextStyle,
+          this.keyTextStyle,
+          this.displayKey = false,
+          this.tableCellAlignment = pw.Alignment.centerLeft,
+          this.tableHeaderDecoration = const pw.BoxDecoration(
+          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+          color: PdfColors.teal
+          ),
+          this.tableHeaderHeight = 25,
+          this.tableCellHeight = 20,
+          this.tableCellAlignments = const {
+          0: pw.Alignment.center,
+          1: pw.Alignment.center,
+          2: pw.Alignment.center,
+          3: pw.Alignment.center,
+          4: pw.Alignment.center,
+          },
+          this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableRowDecoration = const pw.BoxDecoration(
+          border: pw.Border(
+          bottom: pw.BorderSide(
+          color: PdfColors.blueGrey900,
+          width: .5,),),),
+          this.lineDecoration = const pw.BoxDecoration(
+          border: pw.Border(top: pw.BorderSide(
+          )),),
+          this.imageProvider,
+          this.key = "",
+          this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
+        });
+        ```
+        - **row** - int - This is contains where row have to display this field.
+        - **column** - int - This is contains where column have to display this field.
+        - **valuePath** - String - This is define which is Field map with valuePath.
+        - **defaultValue** - String - This disply default value.
+        - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTHeaderFieldType.TITLE.
+        - **padding** - EdgeInsets - This is margin for field.
+        - **heigh**t - double - This is represented a field height.
+        - **alignment** - Alignment - This represented to align the field as field spacing.
+        - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+          - pdfTable Constructors:
+            ```
+            - [PdfTable]()({
+              this.valuePath,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+              this.defualtCurrency = "",
+              });
+              ```
+              - **valuePath** - String - This is define which is Field map with valuePath.
+              - **padding** - EdgeInsets - This is margin for field.
+              - **height** - double - This define table height.
+              - **alignment** - Alignment - This is represent to table alignment.
+              - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+              - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+        - **valueTextStyle** - TextStyle - This is style for field value.
+        - **keyTextStyle** - TextStyle - This is style for field key.
+        - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+        - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+        - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+        - **tableHeaderHeight** - double - This represent table header height.
+        - **tableCellHeight** - double - This represent table cell height.
+        - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+        - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+        - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+        - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+        - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+        - **imageProvider** - ImageProvider - This is shows image to image Field type input.
+        - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+        - **headerFieldKeyValueFormat** - GtHeaderFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+
+- **pdfFooter** Constructors:
+  ```
+  - [pdfFooter]({
+    this.maxRow,
+    this.maxColumn,
+    this.pdfFooterFields,
+    });
+    ```
+    - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+    - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+    - **pdfFooterFields** - PdfFooterField - This is class of PdfFooterField for represent header section toMapJson.
+      ```
+      - [pdfFooterFields]()({
+        this.row,
+        this.column,
+        this.valuePath,
+        this.defaultValue,
+        this.fieldType = GTFooterFieldType.TITLE,
+        this.padding,
+        this.height,
+        this.alignment,
+        this.pdfTable,
+        this.valueTextStyle,
+        this.keyTextStyle,
+        this.displayKey = false,
+        this.tableCellAlignment = pw.Alignment.centerLeft,
+        this.tableHeaderDecoration = const pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        color: PdfColors.teal
+        ),
+        this.tableHeaderHeight = 25,
+        this.tableCellHeight = 20,
+        this.tableCellAlignments = const {
+        0: pw.Alignment.center,
+        1: pw.Alignment.center,
+        2: pw.Alignment.center,
+        3: pw.Alignment.center,
+        4: pw.Alignment.center,
+        },
+        this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
+        this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+        this.tableRowDecoration = const pw.BoxDecoration(
+        border: pw.Border(
+        bottom: pw.BorderSide(
+        color: PdfColors.blueGrey900,
+        width: .5,
+        ),
+        ),
+        ),
+        this.lineDecoration = const pw.BoxDecoration(
+        border: pw.Border(top: pw.BorderSide(
+        )),
+        ),
+        this.key = "",
+        this.footerFieldKeyValueFormat = GtFooterFieldKeyValueFormat.COLUMN,
+        });
+        ```
+        - **row** - int - This is contains where row have to display this field.
+        - **column** - int - This is contains where column have to display this field.
+        - **valuePath** - String - This is define which is Field map with valuePath.
+        - **defaultValue** - String - This disply default value.
+        - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTFooterFieldType.TITLE.
+        - **padding** - EdgeInsets - This is margin for field.
+        - **height** - double - This is represented a field height.
+        - **alignment** - Alignment - This represented to align the field as field spacing.
+        - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+          - pdfTable Constructors:
+            ```
+            - [PdfTable]()({
+              this.valuePath,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+              this.defualtCurrency = "",
+              });
+              ```
+              - **valuePath** - String - This is define which is Field map with valuePath.
+              - **padding** - EdgeInsets - This is margin for field.
+              - **height** - double - This define table height.
+              - **alignment** - Alignment - This is represent to table alignment.
+              - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+              - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+        - **valueTextStyle** - TextStyle - This is style for field value.
+        - **keyTextStyle** - TextStyle - This is style for field key.
+        - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+        - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+        - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+        - **tableHeaderHeight** - double - This represent table header height.
+        - **tableCellHeight** - double - This represent table cell height.
+        - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+        - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+        - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+        - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+        - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+        - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+        - **footerFieldKeyValueFormat** - GtFooterFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+
+  - **pdfBody** Constructors:
+    ```
+    - [pdfBody]({
+      this.maxRow,
+      this.maxColumn,
+      this.pdfBodyFields,
+      });
+      ```
+      - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+      - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+      - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
+        ```
+        - PdfBodyField({
+          this.row,
+          this.column,
+          this.valuePath,
+          this.defaultValue,
+          this.fieldType = GTBodyFieldType.TITLE,
+          this.padding,
+          this.height,
+          this.alignment,
+          this.pdfTable,
+          this.valueTextStyle,
+          this.keyTextStyle,
+          this.displayKey = false,
+          this.tableCellAlignment = pw.Alignment.center,
+          this.tableBodyDecoration = const pw.BoxDecoration(
+          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+          color: PdfColors.teal
+          ),
+          this.tableBodyHeight = 25,
+          this.tableCellHeight = 20,
+          this.tableCellAlignments = const {
+          0: pw.Alignment.center,
+          1: pw.Alignment.center,
+          2: pw.Alignment.center,
+          3: pw.Alignment.center,
+          4: pw.Alignment.center,
+          },
+          this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableRowDecoration = const pw.BoxDecoration(
+          border: pw.Border(
+          bottom: pw.BorderSide(
+          color: PdfColors.blueGrey900,
+          width: .5,
+          ),
+          ),
+          ),
+          this.lineDecoration = const pw.BoxDecoration(
+          border: pw.Border(top: pw.BorderSide(
+          )),
+          ),
+          this.cellDecoration,
+          this.key,
+          this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
+          this.decoration,
+          });
+          ```
+          - **row** - int - This is contains where row have to display this field.
+          - **column** - int - This is contains where column have to display this field.
+          - **valuePath** - String - This is define which is Field map with valuePath.
+          - **defaultValue** - String - This disply default value.
+          - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTBodyFieldType.TITLE.
+          - **padding** - EdgeInsets - This is margin for field.
+          - **height** - double - This is represented a field height.
+          - **alignment** - Alignment - This represented to align the field as field spacing.
+          - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+            - pdfTable Constructors:
+              ```
+              - [PdfTable]()({
+                this.valuePath,
+                this.padding,
+                this.height,
+                this.alignment,
+                this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+                this.defualtCurrency = "",
+                });
+                ```
+                - **valuePath** - String - This is define which is Field map with valuePath.
+                - **padding** - EdgeInsets - This is margin for field.
+                - **height** - double - This define table height.
+                - **alignment** - Alignment - This is represent to table alignment.
+                - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+                - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+          - **valueTextStyle** - TextStyle - This is style for field value.
+          - **keyTextStyle** - TextStyle - This is style for field key.
+          - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+          - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+          - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+          - **tableHeaderHeight** - double - This represent table header height.
+          - **tableCellHeight** - double - This represent table cell height.
+          - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+          - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+          - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+          - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+          - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+          - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+          - **decoration** - BoxDecoration - This is Field decoration to display.
+          - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
 
 - Example
 

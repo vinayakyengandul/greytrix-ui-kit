@@ -8,7 +8,7 @@ class BodyListFields {
     List<pw.Widget> widgets;
     widgets = [];
     dynamic rowsData = {};
-    if (pdfData.pdfBody != null && pdfData.pdfBody.maxRow > 0) {
+    if (pdfData.pdfBody != null && pdfData.pdfBody.maxRow > 0 && pdfData.pdfBody.pdfBodyFields != null) {
       for (var i = 0; i < pdfData.pdfBody.maxRow; i++) {
         rowsData[i + 1] = List<pw.Widget>.empty(growable: true);
       }
@@ -34,6 +34,9 @@ class BodyListFields {
                 children: v))
             // }
           });
+    }
+    else{
+      return [pw.Container()];
     }
     return widgets;
   }
@@ -157,6 +160,7 @@ class BodyListFields {
         ));
         break;
       default:
+        return pw.Container();
     }
   }
 }

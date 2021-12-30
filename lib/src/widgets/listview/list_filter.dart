@@ -722,7 +722,6 @@ class GtListFilter extends StatelessWidget {
                         );
                       },
                       textEditingController: value.textEditingController,
-                      taglist: lookupData[value.nodeKey],
                       onDeleted: (val) => {
                         /// DELETES FROM THE FORMFIED TEXT FIELDS AND ADDS BACK TO SUGGESTION LIST
                         onDeleteHandler(
@@ -793,6 +792,7 @@ class GtListFilter extends StatelessWidget {
               );
               break;
             default:
+              _widgets.add(Container());
               break;
           }
         }
