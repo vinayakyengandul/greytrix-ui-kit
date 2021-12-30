@@ -1,5 +1,14 @@
+## [0.0.11]
+#### Dec 30, 2021
+#### COMMIT NO : 8c12489
+
+#### Big Update
+- Flutter Latest Version Updated (2.8.1)
+- Note: For using this UI KIT plugin version update flutter SDK version to 2.8.0, flutter SDK below version 2.8.0 will not work with this version.
+
 ## [0.0.10]
 #### Dec 29, 2021
+#### COMMIT NO : 8c12489
 - GtListFilter widget advance filter FieldName label changes
 - Filter Nasted changes and GtDropDownFormField changes
 - Navigation Rail widget Improved
