@@ -4,6 +4,7 @@
 
 #### Big Update
 - Flutter Latest Version Updated (2.8.1)
+- Note: For using this UI KIT plugin version update flutter SDK version to 2.8.0, flutter SDK below version 2.8.0 will not work with this version.
 
 ## [0.0.10]
 #### Dec 29, 2021
