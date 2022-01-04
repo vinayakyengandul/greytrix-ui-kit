@@ -2924,6 +2924,10 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                       ],
                       viewtype: ViewType.list,
                       spaceBetweenKeyValue: false,
+                      onDetailsNavigateHandler: (a,b, {getTileField = null}) {
+                        print(a);print(b);
+                        print(getTileField);
+                      },
                       toMapjson: {
                         'Name': GtTileField(
                           valuePath: 'FName',
