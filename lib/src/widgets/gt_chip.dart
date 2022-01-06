@@ -7,14 +7,12 @@ class GTChip extends StatelessWidget {
     this.label,
     this.backgroundColor,
     this.textStyle,
-    //this.textFormatType = TextformatType.subtitle2,
     this.avatar,
     this.shapeBorder,
   });
 
   final String label;
   final Color backgroundColor;
-  //final TextformatType textFormatType;
   final TextStyle textStyle;
   final Widget avatar;
 

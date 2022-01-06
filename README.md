@@ -2,12 +2,13 @@
 
 # Widgets
 
+- [greytrix_ui_kit](#greytrix_ui_kit)
+- [Widgets](#widgets)
 - [GtText Widget](#gttext-widget)
 - [GtIcon Widget](#gticon-widget)
 - [GtIconCheckbox Widget](#gticoncheckbox-widget)
 - [GtTextFormField Widget](#gttextformfield-widget)
 - [GTChip Widget](#gtchip-widget)
-- [GtHeader Widget](#gtheader-widget)
 - [CustomPopup Widget](#custompopup-widget)
 - [GtNavigationRails Widget](#gtnavigationrails-widget)
 - [SearchDialog Widget](#searchdialog-widget)
@@ -63,7 +64,9 @@ The gttext widget is used represent the text on the Screen with alng icons as op
                   this.iconColor,
                   this.position = GtPosition.PREFIX,
                   this.textAlign = TextAlign.start,
-                  this.maxLines,});
+                  this.maxLines,
+                  this.iconTextMainAxisAlignment = MainAxisAlignment.center,
+                  this.iconTextCrossAxisAlignment = CrossAxisAlignment.center,});
 ```
 
 - Input Parameters of GtText Widget
@@ -78,6 +81,8 @@ The gttext widget is used represent the text on the Screen with alng icons as op
   - **position** - GtPosition - Provide aposition for the icon to be displayed before or after the text.
   - **textAlign** - TextAlign - This is used for Align the text, Default value is TextAlign.start.
   - **maxLines** - int - Text Field define maxline if null its showing default.
+  - **iconTextMainAxisAlignment** - MainAxisAlignment - This is for main axis alignment between icon and Text, default is MainAxisAlignment.center.
+  - **iconTextCrossAxisAlignment** - CrossAxisAlignment - This is for Cross axis alignment between icon and Text, default is CrossAxisAlignment.center.
 
 - Example
 
@@ -93,26 +98,21 @@ The gttext widget is used represent the text on the Screen with alng icons as op
         class TextDemo extends StatelessWidget {
            @override
            Widget build(BuildContext context) {
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child: GtText(
-                     text: 'HR',
-                     textStyle: TextStyle(fontSize: 20, color: Colors.grey),
-                     iconData: Icons.people_alt_outlined,
-                     position: GtPosition.PREFIX,
-                   ),
-                 ));
-           }
-        }
+              return Scaffold(
+                appBar: GtAppBar(
+                  backgroundColor: const Color(0xff5a5278), title: GtText(text: 'GTTEXT',textStyle: const  TextStyle(fontSize: 20, color: Colors.white),
+                  iconData: Icons.people_alt_outlined,
+                  position: GtPosition.PREFIX,),),
+                body: GtComingSoon(),
+              );
+            }
+          }
 
   ```
 
   - Step 3 : Result :
 
-    ![Gtext](https://user-images.githubusercontent.com/47977097/115866662-9d1d8680-a457-11eb-8053-a57d97459961.png)
+    ![Gtext](https://user-images.githubusercontent.com/64594463/148159229-0aa0f7b7-b8d1-4c19-b22f-395f1c272aaa.png)
 
 # GtIcon Widget
 
@@ -145,23 +145,26 @@ The gticon widget is used represent the Icon on the Screen with responsive sizin
   - Step 2 : GtIcon widget can be used as shown in the below example where color and size are the optional Paramters if not specified the widget will handles it with its own creative way.
 
   ```dart
-     class WelcomePage extends StatelessWidget {
+     class GtIconPage extends StatelessWidget {
        @override
        Widget build(BuildContext context) {
-         return Container(
-                  child: GtIcon(
-                  icondata: Icons.mail_outline,
-                  color: Color(0xFF5785f3),
-                  size: 20.0,
+         return Scaffold(
+                  appBar: GtAppBar(
+                    backgroundColor: const Color(0xff5a5278), 
+                    title: GtIcon(
+                      icondata: Icons.mail_outline,
+                      size: 20.0,),
                     ),
-                 );
-               }
-         }
+                  body: GtComingSoon(),
+                );
+              }
+        }
   ```
+
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103771677-31511280-504e-11eb-94e4-4462565e69ca.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148160743-fd5b29f9-29ad-41b8-a969-c8e92fbf03a6.png)
 
 # GtIconCheckbox Widget
 
@@ -213,25 +216,27 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
            bool isSelected = false;
          @override
                Widget build(BuildContext context) {
-                  return Container(
-                       child: ListTile(
-                       title: GtText(
-                         text: 'Paul Walker',
-                         texttype: TextformatType.listitemkey,
-                         textOverflow: TextOverflow.ellipsis,
-                       ),
-                       subtitle:
-                           GtText(text: "USA", texttype: TextformatType.listitem),
-                       leading: GtIconCheckbox(
-                         icon: Icons.account_circle,
-                         selected: isSelected,
-                         onchanged: (value) => checkitem(value),
-                         backgroundColor: Colors.white,
-                       ),
-                       trailing: GtIcon(
-                         icondata: Icons.arrow_forward_ios_rounded,
-                       ),
-                     ));
+                  return Column(
+                          children: [
+                            ListTile(
+                              title: GtText(
+                                text: 'Paul Walker',
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                              subtitle:
+                                  GtText(text: "USA",),
+                              leading: GtIconCheckbox(
+                                icon: Icons.account_circle,
+                                selected: isSelected,
+                                onchanged: (value) => checkitem(value),
+                                backgroundColor: Colors.white,
+                              ),
+                              trailing: GtIcon(
+                                icondata: Icons.arrow_forward_ios_rounded,
+                              ),
+                            ),
+                          ],
+                        ),
                    }
               void checkitem(value) {
                   isSelected = value;
@@ -241,7 +246,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103772299-4e3a1580-504f-11eb-940d-2e116862f956.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148163177-e94290ff-eb49-481d-bfeb-9060ebb75504.png)
 
 # GtTextFormField Widget
 
@@ -311,17 +316,29 @@ The gttextformfield widget is used represent the text form field on the Screen w
 
   ```dart
          class WelcomePage extends StatelessWidget {
-         final TextEditingController usernameTextController = TextEditingController();
             @override
            Widget build(BuildContext context) {
-           return Container(
-              child: GtTextFormField(
-                  fieldLabel: 'Username'.tr,
-                  textEditingController: usernameTextController,
-                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                  isRequired: true,
-                  isReadOnly: true,
-               )
+           return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Column(
+                children: [
+                  GtTextFormField(
+                    fieldLabel: 'Username',
+                    textEditingController: TextEditingController(),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    isRequired: true,
+                  ),
+                  GtTextFormField(
+                    fieldLabel: 'Password',
+                    obscureText: true,
+                    textEditingController: TextEditingController(),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    isRequired: true,
+                  )
+                ],
+              ),
             );
         }
      }
@@ -329,7 +346,7 @@ The gttextformfield widget is used represent the text form field on the Screen w
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103736306-fb903780-5015-11eb-94ac-1b7ef800f33f.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148164537-d7adba17-e834-445c-91ff-fabc2487ea12.png)
 
 # GTChip Widget
 
@@ -357,7 +374,9 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
     - [GTChip](components.md#gtchip-widget)({
        this.label,
        this.backgroundColor,
-       this.textFormatType = TextformatType.subtitle2});
+       this.textStyle,
+       this.avatar,
+       this.shapeBorder,});
 ```
 
 - Input Parameters of GTChip Widget
@@ -380,69 +399,34 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
          class WelcomePage extends StatelessWidget {
             @override
            Widget build(BuildContext context) {
-           return Container(
-           child: GTChip(
-                label: 'Chip Demo',
-                textFormatType: TextformatType.bodytext),
-           );
+           return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Center(
+                child: Wrap(
+                  children: [
+                    GTChip(
+                      label: 'Chip One',
+                      textStyle: TextStyle(color: Colors.blueGrey,),
+                      avatar: GtIcon(icondata: Icons.person),
+                    ),
+                    GTChip(
+                      label: 'Chip Two',
+                      textStyle: TextStyle(color: Colors.blueGrey),
+                      avatar: GtIcon(icondata: Icons.person),
+                    ),
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103748865-bd514300-502a-11eb-9509-eb7827439137.png)
-
-# GtHeader Widget
-
-The gtheader widget is used represent the ListTile on the Screen with responsive sizing handle in the core package.
-
-- Benefits of GtHeader Widget
-
-  - Handles the font size of the text in dynamic way based on the screen resolution.
-
-- Constructors:
-
-```
-   - [GtHeaderWidget](components.md#gtheader-widget)({
-      this.listItemsheader,
-      this.enableCheckbox = false});
-```
-
-- Input Parameters of GtHeaderWidget Widget
-
-  - **listItemsheader** - List<Widget> - Is will contains List of widgets in GtHeaderWidget. Used in ListTile title.
-  - **enableCheckbox** - bool - If is true than it shows checkbox widget in ListTile Leading property. default value is false.
-
-- Example
-
-  - Step 1 : Import core in files that it will be used:
-
-  ```dart
-      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtHeader widget input is List of Widgets and Bool.
-
-  ```dart
-         class WelcomePage extends StatelessWidget {
-            @override
-           Widget build(BuildContext context) {
-           return Container(
-           child: GtHeaderWidget(
-                     listItemsheader: [
-                       GtText(text: "Header 1",),
-                       GtText(text: "Header 2")
-                     ],
-                     enableCheckbox: true,
-               )
-           );
-        }
-     }
-  ```
-
-  - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103750941-83ce0700-502d-11eb-9d6d-87e33fc7ea2d.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148165715-890cfe92-790c-4395-9156-aa7271b0b9ba.png)
 
 # CustomPopup Widget
 
@@ -464,11 +448,22 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
          this.top,
          this.bottom,
          this.left,
-         this.right});
+         this.right,
+         this.isCrossAxisAlignment = CrossAxisAlignment.center,});
 ```
 
 - Input Parameters of CustomPopup Widget
-  - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. - **onTapHandler** - Function - It Called when the user taps this List tile. - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. - **top** - double - Used for CustomPopup Widget Positioned in top. - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. - **left** - double - Used for CustomPopup Widget Positioned in left. - **right** - double - Used for CustomPopup Widget Positioned in right.
+  - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. 
+  - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. 
+  - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. 
+  - **onTapHandler** - Function - It Called when the user taps this List tile. 
+  - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. 
+  - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. 
+  - **top** - double - Used for CustomPopup Widget Positioned in top. 
+  - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. 
+  - **left** - double - Used for CustomPopup Widget Positioned in left. 
+  - **right** - double - Used for CustomPopup Widget Positioned in right.
+  - **isCrossAxisAlignment** - CrossAxisAlignment - Used for Cross Alignment column view.
 - Example
 
   - Step 1 : Import core in files that it will be used:
@@ -483,34 +478,40 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
          class WelcomePage extends StatelessWidget {
             @override
            Widget build(BuildContext context) {
-              var e = ["Popup 1" , "Popup 2", "Popup 3"];
-           return Container(
-           child: CustomPopup(
+              var e = ["Popup 1", "Popup 2", "Popup 3"];
+            return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Center(
+                child: Column(
+                  children: [
+                    GtIcon(icondata: Icons.open_in_new),
+                    CustomPopup(
                       top: 5.0,
                       left: 5.0,
-                      isItemSelected: (e) =>
-                      "Popup 1" == e,
+                      isItemSelected: (e) => "Popup 1" == e,
                       items: e,
                       showMoreOption: e.length > 3,
-                      getOptionText: (e) => '${e}'.tr,
+                      getOptionText: (e) => '${e}',
                       getAvatarWidgetContent: (e) => Text(
-                        '${e.toString().substring(0,1)}',
+                        '${e.toString().substring(0, 1)}',
                         style: TextStyle(
-                            color: "Popup 1" == e
-                                ? context.theme.colorScheme.onPrimary
-                                : context.theme.colorScheme.primary),
+                            color: "Popup 1" == e ? Colors.blue : Colors.white),
                       ),
                       onTapHandler: (e) => {},
-                      showMoreHandler: () => {
-                      },
+                      showMoreHandler: () => {},
                     ),
-           );
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103757929-7fa6e700-5037-11eb-947d-539203681cc4.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148168818-02028ad4-4217-4372-a48f-a6a2deffddb7.png)
 
 # GtNavigationRails Widget
 
@@ -573,20 +574,23 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
             @override
            Widget build(BuildContext context) {
              var nrdrails = [
-                  Rail(
+                  GtRail(
                         icon: Icons.folder_open,
                         selectedIcon: Icons.folder,
                         label: 'Document',
                         iconType: GtIconType.ICON,
                         isHovered: false),
-                  Rail(
+                  GtRail(
                         icon: Icons.folder_open,
                         selectedIcon: Icons.folder,
                         label: 'Document',
                         iconType: GtIconType.ICON,
                         isHovered: false),];
-           return Container(
-           child:  GtNavigationRails(
+           return Scaffold(
+              body: Center(
+                child: Row(
+                  children: [
+                    GtNavigationRails(
                       showLabel: false,
                       leadingWidget: Container(
                           padding: EdgeInsets.fromLTRB(3.0, 0, 3.0, 0),
@@ -596,16 +600,13 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                               width: 50,
                               child: CircleAvatar(
                                 radius: 18.0,
-                                backgroundColor:
-                                    context.theme.colorScheme.primary,
+                                backgroundColor: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                           )),
                       setindex: () => {},
                       selectedindex: 0,
-                      nrdlist: [
-
-                      ],
+                      nrdlist: [],
                       onHover: 0,
                       onHoverHandler: (idt, dar1) => {},
                       toolTipMessageField: (dat) {
@@ -615,9 +616,7 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                         Container(
                             padding: EdgeInsets.all(8.0),
                             child: IconButton(
-                                icon: true
-                                    ? Icon(Icons.menu_open)
-                                    : Icon(Icons.menu),
+                                icon: true ? Icon(Icons.menu_open) : Icon(Icons.menu),
                                 onPressed: () {
                                   null;
                                 })),
@@ -638,8 +637,7 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                             },
                             child: CircleAvatar(
                               radius: 18.0,
-                              backgroundColor:
-                                  context.theme.colorScheme.primary,
+                              backgroundColor: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ),
@@ -654,14 +652,18 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                         ),
                       ],
                     ),
-           );
+                    Expanded(child: GtComingSoon())
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result (Web/Mobile):
-    ![image](https://user-images.githubusercontent.com/64594463/147633086-ff740f7c-663a-4fdb-a485-5c36e5b470bb.png)
-    ![image](https://user-images.githubusercontent.com/64594463/147633707-77228135-df63-43e5-98cf-8502609c56bb.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148170235-737f18ee-41d7-4ed8-92b9-8c51f6bc80ec.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148170394-7bee3ebf-c742-4c57-9ead-13e6d9d1cbb3.png)
 
 # SearchDialog Widget
 
@@ -702,7 +704,7 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
   - Step 1 : Import core in files that it will be used:
 
   ```dart
-     import 'package:core/core.dart';
+     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used SearchDialog widget.
@@ -713,37 +715,41 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
             @override
            Widget build(BuildContext context) {
            e = ["Popup 1" , "Popup 2", "Popup 3", "Popup 4", "Popup 4"];
-           return Container(
-           child: IconButton(
-                  icon: Icon(Icons.more),
-                  onPressed: (){
-                    Get.dialog(
-                      SearchDialog(
-                        searchBox: true,
-                        dialogTitle: 'Select Organization'.tr,
-                        isItemSelected: (e) =>
-                        "Popup 1" == e,
-                        items: e,
-                        getOptionText: (e) => '${e}'.capitalizeFirst,
-                        getAvatarWidgetContent: (e) => Icon(
-                          Icons.supervised_user_circle,
-                          color: "Popup 1" == e
-                              ? context.theme.colorScheme.onPrimary
-                              : context.theme.primaryColor,
+           return Scaffold(
+              appBar: GtAppBar(
+                title: GtText(text: "SEARCH DIALOG"),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.more),
+                    onPressed: () {
+                      Get.dialog(
+                        SearchDialog(
+                          searchBox: true,
+                          dialogTitle: 'Select Organization'.tr,
+                          isItemSelected: (e) => "Popup 1" == e,
+                          items: e,
+                          getOptionText: (e) => '${e}'.capitalizeFirst,
+                          getAvatarWidgetContent: (e) => Icon(
+                            Icons.supervised_user_circle,
+                            color: "Popup 1" == e
+                                ? context.theme.colorScheme.onPrimary
+                                : context.theme.primaryColor,
+                          ),
+                          onTapHandler: (e) => {},
                         ),
-                        onTapHandler: (e) => {
-                        },
-                      ),
-                    );
-                  },
-                ),
-           );
+                      );
+                    },
+                  ),
+                ],
+              ),
+              body: Center(child: GtComingSoon()),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103763437-d9131400-503f-11eb-86e5-511d630b0f19.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148171269-5ccf7ea8-2cbe-4896-b615-eabd6e52744a.png)
 
 # GtAppBar Widget
 
@@ -788,30 +794,27 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
 
   ```dart
          class WelcomePage extends StatelessWidget {
-         final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
          final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
             @override
            Widget build(BuildContext context) {
            return Scaffold(
-                  backgroundColor: context.theme.backgroundColor,
-                  appBar: GtAppBar(
-                    title: const Text('AppBar Demo'),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.add_alert),
-                        tooltip: 'Show Snackbar',
-                        onPressed: () {
-                          scaffoldKey.currentState.showSnackBar(snackBar);
-                        },
-                      ),
-                    ],
+              appBar: GtAppBar(
+                title: GtText(text: "APP BAR WIDGET"),
+                leading: GtIcon(
+                  icondata: Icons.menu,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.add_alert),
+                    tooltip: 'Show Snackbar',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
                   ),
-                  body: const Center(
-                     child: Text(
-                       'This is the WelcomePage',
-                       style: TextStyle(fontSize: 24),
-                     ),
-                   ),
+                ],
+              ),
+              body: Center(child: GtComingSoon()),
             );
         }
      }
@@ -819,7 +822,7 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/104146642-69ab7480-53f1-11eb-8e90-b365ae4e944c.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148192983-9c3f60df-b145-47fa-a3e9-02ff5d018a5f.png)
 
 # CoreListView Widget
 
@@ -1118,27 +1121,27 @@ The GtUserMenuBar widget is used represent the user menu on the Appbar along wit
          @override
         Widget build(BuildContext context) {
            return Scaffold(
-              appBar: GtAppBar(
-                 backgroundColor: Color(0xff5a5278),
-                 title: GtUserMenuBar(
-                 userName: "Sara",
-                    userNameTextStyle: TextStyle(
-                 color: Color.fromRGBO(152, 156, 173, 1),
-              fontWeight: FontWeight.bold),
-              iconWidgets: [
-              IconButton(
-              icon: Icon(Icons.notifications_rounded), onPressed: () => {})
-              ],
-         ),
-      ),
-              body: Container()
-     );
+            appBar: GtAppBar(
+              backgroundColor: Color(0xff5a5278),
+              title: GtUserMenuBar(
+                userName: "Sara",
+                userNameTextStyle: TextStyle(
+                    color: Color.fromRGBO(152, 156, 173, 1),
+                    fontWeight: FontWeight.bold),
+                iconWidgets: [
+                  IconButton(
+                      icon: Icon(Icons.notifications_rounded), onPressed: () => {})
+                ],
+              ),
+            ),
+            body: Center(child: GtComingSoon()),
+          );
         }
        }
   ```
 
   - Step 3 : Result :
-    ![GtuserMenu](https://user-images.githubusercontent.com/47977097/115863898-c20ffa80-a453-11eb-9c32-c6b4935b105b.png)
+    ![GtuserMenu](https://user-images.githubusercontent.com/64594463/148193879-b8377637-3fd0-408c-b2b2-c9683f59b90b.png)
 
 # GtTab Widget
 
@@ -1208,7 +1211,7 @@ The GtTab widget is used represent the UI with Customs Tabs .
                   ],
                 ),
               ),
-              body: Container(
+              body: Center(
                 child: GtTab(
                   pageController: pageController,
                   selectedTab: selectedTab,
@@ -1220,31 +1223,26 @@ The GtTab widget is used represent the UI with Customs Tabs .
                   },
                   tabPages: [
                     Container(
-                      child: GtText(
-                        text: 'Page 1',
-                      ),
+                      child: GtComingSoon(),
                     ),
                     Container(
-                      child: GtText(
-                        text: 'Page 2',
-                      ),
+                      child: GtComingSoon(),
                     ),
                     Container(
-                      child: GtText(
-                        text: 'Page 3',
-                      ),
-                    )
+                      child: GtComingSoon(),
+                    ),
                   ],
                   tablist: ['Holidays', 'Leave', 'HR'],
                 ),
-              ));
+              ),
+            );
            }
         }
 
   ```
 
   - Step 3 : Result :
-    ![tabmenu](https://user-images.githubusercontent.com/47977097/115863830-a7d61c80-a453-11eb-9716-0c132d38858a.png)
+    ![tabmenu](https://user-images.githubusercontent.com/64594463/148210607-5e11cab1-4a46-41b7-93a3-3e12538354fb.png)
 
 # GtBottomBar Widget
 
@@ -1298,33 +1296,35 @@ The GtBottomBar widget is used represent the UI with bottom navigation bar with 
      @override
      Widget build(BuildContext context) {
        return Scaffold(
-           bottomNavigationBar: GtBottomBar(
-             bottombarItems: [
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.home_filled), label: "Home"),
-               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
-               BottomNavigationBarItem(
-                 icon: Icon(Icons.calendar_today),
-                 label: "Calendar",
-               ),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.format_align_right_sharp), label: ""),
-               //
-             ],
-           ),
-           appBar: GtAppBar(
-               backgroundColor: Color(0xff5a5278),
-               title: GtText(text: 'Bottom Bar Demo')),
-           body: Container());
+        bottomNavigationBar: GtBottomBar(
+          selectedItemColor: Colors.blue,
+          bottombarItems: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: "Calendar",
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.format_align_right_sharp), label: ""),
+            //
+          ],
+        ),
+        appBar: GtAppBar(
+            backgroundColor: Color(0xff5a5278),
+            title: GtText(text: 'Bottom Bar Demo')),
+        body: GtComingSoon()
+      );
      }
   }
 
   ```
 
   - Step 3 : Result :
-    ![bottombar](https://user-images.githubusercontent.com/47977097/115863804-9ab92d80-a453-11eb-9a15-b6eb705e75f8.png)
+    ![bottombar](https://user-images.githubusercontent.com/64594463/148211496-59e4ec90-1dc6-46af-bb17-f49c10cf2665.png)
 
 # GtComingSoon Widget
 
@@ -4619,7 +4619,6 @@ The GtListFilter widget is used represent the Filter field for the Listview.
   ```dart
      import 'package:flutter/material.dart';
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-     import 'package:core/core.dart';
      class ListviewFilterController  extends GetxController with StateMixin {
 
         ListviewFilterController();
@@ -5009,6 +5008,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                      title: GtText(text: '')),
                  body: Column(
                     children:[
+                      Expanded(child: 
                         GtBackDropListView(
                           frontLayer: GtListPage(
                              rowsCount: 2,
@@ -5078,7 +5078,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                              title: GtText(text: "LISTVIEW"),
                           ),
                           isFilterApplied: controller.isFilterApplied.value
-                       )
+                       ))
                     ]
                  ));
            }
