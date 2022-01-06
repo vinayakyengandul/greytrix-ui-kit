@@ -2,8 +2,6 @@
 
 # Widgets
 
-- [greytrix_ui_kit](#greytrix_ui_kit)
-- [Widgets](#widgets)
 - [GtText Widget](#gttext-widget)
 - [GtIcon Widget](#gticon-widget)
 - [GtIconCheckbox Widget](#gticoncheckbox-widget)
