@@ -11,8 +11,6 @@
 - [GtNavigationRails Widget](#gtnavigationrails-widget)
 - [SearchDialog Widget](#searchdialog-widget)
 - [GtAppBar Widget](#gtappbar-widget)
-- [CoreListView Widget](#corelistview-widget)
-- [GtUserMenuBar Widget](#gtusermenubar-widget)
 - [GtTab Widget](#gttab-widget)
 - [GtBottomBar Widget](#gtbottombar-widget)
 - [GtComingSoon Widget](#gtcomingsoon-widget)
@@ -133,7 +131,7 @@ The gticon widget is used represent the Icon on the Screen with responsive sizin
   - **color** - Color - The color to use when drawing the icon. Defaults to the current IconTheme color, if any.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -200,7 +198,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
 
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -211,29 +209,56 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
   ```dart
      class CustomerList extends StatelessWidget {
            bool isSelected = false;
+           bool isSelected1 = false;
          @override
                Widget build(BuildContext context) {
-                  return Column(
-                          children: [
-                            ListTile(
-                              title: GtText(
-                                text: 'Paul Walker',
-                                textOverflow: TextOverflow.ellipsis,
+                  return Scaffold(
+                          appBar: GtAppBar(
+                            title: GtText(text: "GtIconCheckBox WIDGET"),
+                          ),
+                          body: Column(
+                            children: [
+                              ListTile(
+                                title: GtText(
+                                  text: 'Paul Walker',
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle:
+                                    GtText(text: "USA",),
+                                leading: GtIconCheckbox(
+                                  icon: Icons.account_circle,
+                                  selected: isSelected1,
+                                  onchanged: (value) => checkitem(value),
+                                  backgroundColor: Colors.white,
+                                  iconcolor: Theme.of(context).colorScheme.primary,
+                                  checkboxactiveColor: Theme.of(context).colorScheme.primary,
+                                ),
+                                trailing: GtIcon(
+                                  icondata: Icons.arrow_forward_ios_rounded,
+                                ),
                               ),
-                              subtitle:
-                                  GtText(text: "USA",),
-                              leading: GtIconCheckbox(
-                                icon: Icons.account_circle,
-                                selected: isSelected,
-                                onchanged: (value) => checkitem(value),
-                                backgroundColor: Colors.white,
+                              ListTile(
+                                title: GtText(
+                                  text: 'Rock Walker',
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle:
+                                    GtText(text: "USA",),
+                                leading: GtIconCheckbox(
+                                  icon: Icons.account_circle,
+                                  selected: isSelected,
+                                  onchanged: (value) => checkitem(value),
+                                  backgroundColor: Colors.white,
+                                  iconcolor: Theme.of(context).colorScheme.primary,
+                                  checkboxactiveColor: Theme.of(context).colorScheme.primary,
+                                ),
+                                trailing: GtIcon(
+                                  icondata: Icons.arrow_forward_ios_rounded,
+                                ),
                               ),
-                              trailing: GtIcon(
-                                icondata: Icons.arrow_forward_ios_rounded,
-                              ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        );
                    }
               void checkitem(value) {
                   isSelected = value;
@@ -243,11 +268,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/148163177-e94290ff-eb49-481d-bfeb-9060ebb75504.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148747887-00dcbd28-c269-4244-9725-41467346853c.png)
 
 # GtTextFormField Widget
 
-The gttextformfield widget is used represent the text form field on the Screen with responsive sizing handle by the core package.
+The gttextformfield widget is used represent the text form field on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GtTextFormField Widget
   - Handles the font size of the text field in dynamic way based on the screen resolution.
@@ -303,7 +328,7 @@ The gttextformfield widget is used represent the text form field on the Screen w
   - **focusNode** - FocusNode - To receive key events that focuses on this node, pass a listener to `onKeyEvent`. The `onKey` is a legacy API based on [RawKeyEvent] and will be deprecatedin the future..
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -347,7 +372,7 @@ The gttextformfield widget is used represent the text form field on the Screen w
 
 # GTChip Widget
 
-The gtchip widget is used represent the text in chip on the Screen with responsive sizing handle by the core package.
+The gtchip widget is used represent the text in chip on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GTChip Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -384,7 +409,7 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
   - **shapeBorder** - ShapeBorder - Chip Widget shape Border Define.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -427,7 +452,7 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
 
 # CustomPopup Widget
 
-The custompopup widget is used represent the dialog on the Screen in the core package.
+The custompopup widget is used represent the dialog on the Screen in the greytrix_ui_kit package.
 
 - Benefits of CustomPopup Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -463,7 +488,7 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
   - **isCrossAxisAlignment** - CrossAxisAlignment - Used for Cross Alignment column view.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -541,7 +566,7 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
 
 - Input Parameters of GtNavigationRails Widget
 
-  - **nrdlist** - List<Rails> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
+  - **nrdlist** - List<GtRail> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
   - **selectedindex** - int - The index into destinations for the current selected NavigationRailDestination.
   - **setindex** - Function - Called when one of the destinations is selected.
   - **showLabel** - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
@@ -556,9 +581,38 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
   - **leadingWidget** - Widget - The leading Widget is placed Top of the rails first NavigationRailDestination.
   - **toolTipMessageField** - String Function(dynamic obj) - This function return String message for hover rail label.
 
+- GtRail Constructors:
+
+```
+   - [GtRail]({
+      this.label,
+      this.iconPath,
+      this.selectedIconPath,
+      this.iconType,
+      this.imageUrl,
+      this.isHovered,
+      this.icon,
+      this.selectedIcon,
+      this.path,
+      this.menus,});
+```
+
+- Input Parameters of GtRail model
+
+  - **label** - String - This is showing label name for each rail.
+  - **iconPath** - String - This String parameter indicate the icon path for showing Icon in rails.
+  - **selectedIconPath** - String - It will show Icon selected Path.
+  - **iconType** - GtIconType - This is enum type of input and its indicates which type of icon coming like (IMAGE, SVG, ICON )
+  - **imageUrl** - This is Image URL as String.
+  - **isHovered** - bool - This provide when rail menu hovered then it will come value as true.
+  - **icon** -  IconData - This will show icon in rails.
+  - **selectedIcon** - IconData - This is selected Icons will show on rails.
+  - **path** - String - It will redirection path for navigate the page.
+  - **menus** - List<GtRail> - It is child Rails for main navigation rails.
+
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -598,12 +652,14 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                               child: CircleAvatar(
                                 radius: 18.0,
                                 backgroundColor: Theme.of(context).colorScheme.primary,
+                                backgroundImage: NetworkImage(
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU"),
                               ),
                             ),
                           )),
                       setindex: () => {},
                       selectedindex: 0,
-                      nrdlist: [],
+                      nrdlist: nrdrails,
                       onHover: 0,
                       onHoverHandler: (idt, dar1) => {},
                       toolTipMessageField: (dat) {
@@ -635,6 +691,8 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                             child: CircleAvatar(
                               radius: 18.0,
                               backgroundColor: Theme.of(context).colorScheme.primary,
+                              backgroundImage: NetworkImage(
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU"),
                             ),
                           ),
                         ),
@@ -659,12 +717,12 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
   ```
 
   - Step 3 : Result (Web/Mobile):
-    ![image](https://user-images.githubusercontent.com/64594463/148170235-737f18ee-41d7-4ed8-92b9-8c51f6bc80ec.png)
-    ![image](https://user-images.githubusercontent.com/64594463/148170394-7bee3ebf-c742-4c57-9ead-13e6d9d1cbb3.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148755812-9632f142-8623-4cea-831c-c1bb9d0d4422.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148755979-3c47a2b0-2a4b-4831-b6a2-cdc4b4e7f02f.png)
 
 # SearchDialog Widget
 
-The searchdialog widget is used represent the SearchDialog for App and Oragnization when count is more than 3 on the Screen with responsive sizing handle in the core package.
+The searchdialog widget is used represent the SearchDialog for App and Oragnization when count is more than 3 on the Screen with responsive sizing handle in the greytrix_ui_kit package.
 
 - Benefits of SearchDialog Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -698,7 +756,7 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
 
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -750,7 +808,7 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
 
 # GtAppBar Widget
 
-The gtappbar widget is used represent the App Bar on the Screen with responsive sizing handle by the core package.
+The gtappbar widget is used represent the App Bar on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GtAppBar Widget
   - Handles the font size of the text field in dynamic way based on the screen resolution.
@@ -781,7 +839,7 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
   - **flexibleSpace** - Widget - This is used for gradiant color.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -821,332 +879,10 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
 
     ![image](https://user-images.githubusercontent.com/64594463/148192983-9c3f60df-b145-47fa-a3e9-02ff5d018a5f.png)
 
-# CoreListView Widget
-
-The corelistview widget is used represent the List View on the Screen with responsive sizing handle by the core package.
-
-- Benefits of CoreListView Widget
-  - Handles the font size of the text field in dynamic way based on the screen resolution.
-  - CoreListView theme handles the ThemeData we don`t have to provide theme in CoreListView.
-  - CoreListView Handle with Controller we also want to pass CoreBinding in CreatePage binding.
-- Constructors:
-
-```
-   - [CoreListView](components.md#/corelistview-widget)({
-      this.title,
-      this.toMapjson,
-      this.rowsCount = 2,
-      this.cardAspectRatio = 1,
-      this.viewType = ViewType.list,
-      this.leadingIcon,
-      this.trailingIcon,
-      this.tag,
-      this.enablefilter = false,
-      this.backNavigation = false,
-      this.pathNavigation = "",
-      this.isSpaceInRecords = false,
-      this.postfixtitleText,
-      this.prefixtitleText,
-      this.titletextValuePath,
-      this.selectAllcheckboxOption = true,});
-```
-
-- Input Parameters of CoreListView Widget
-
-  - **title** - String - The contains ListView Title name.
-  - **rowsCount** - int - Called to obtain the number of rows to tell the ListView or GridView. Default value is 2.
-  - **cardAspectRatio** - double - The ratio of the cross-axis to the main-axis extent of each child. Default value is 1.
-  - **viewType** - ViewType (Enum) - This is for how View is showing (both, list, card). If both is selected than we get both view. Default is ViewType.list.
-  - **leadingIcon** - IconData - There is only we have to pass IconData that showing in ListView.
-  - **trailingIcon** - IconData - There is only we have to pass IconData that showing in ListView.
-  - **tag** - String - This String value taken unique Key as defines which View is showing.
-  - **enablefilter** - bool - It is used for the filter option, If true we get Filter option in ListView. Default value is false.
-  - **backNavigation** - bool - This containes back navigation arrow button for listview, Default value is false.
-  - **pathNavigation** - String - It used for navigate form listview record to given navigation path. if children path is "navigation/:id" this have to pass only "navigation/" this.
-  - **isSpaceInRecords** - bool - Listview record between space indicate, Default is spacing value is false.
-  - **titletextValuePath** - String - When we have to take Listview title from Response, have to pass this value path.
-  - **selectAllcheckboxOption** - bool - This show Listview All Select checkBox, Default is true.
-  - **prefixtitleText** - String - It`s containe Listview title prefix text.
-  - **postfixtitleText** - String - It`s containe Listview title postfix text.
-  - **toMapjson** - Map<String, dynamic> - This contains which fields we have to show in ListView of each row. And we used GtTileField widget check below.
-
-    - Constructor of GtTileField
-
-    ```
-       - GtTileField({this.row,
-          this.mobileRow,
-          this.value,
-          this.iconData,
-          this.flex = 1,
-          this.mobileFlex = 1,
-          this.textOverFlow,
-          this.displayKey = false,
-          this.type = GtFieldType.STRING,
-          this.webTextFormatType = TextformatType.caption,
-          this.mobileTextFormatType = TextformatType.caption,
-          this.keyTextFormatType = TextformatType.caption,
-          this.isCardTitle = false,
-          this.isCardSubTitle = false,
-          this.isBannerField = false,
-          this.cardRow,
-          this.filterType,
-          this.filterItems,
-          this.valuePath,
-          this.filterValue,
-          this.filterLabel,
-          this.rangeStart,
-          this.rangeEnd,
-          this.bannerItems});
-    ```
-
-    - Input Parameters of GtTileField Widget
-
-      - **row** - int - This is contains which row have to display this field in web.
-      - **mobileRow** - int - This is contains which row have to display this field in mobile.
-      - **value** - dynamic - This contains value of the field.
-      - **iconData** - IconData - Showing Icon start of the field.
-      - **flex** - int - The flex factor to use for this child. This is for Web.
-      - **mobileFlex** - int - The mobileFlex factor to use for this child. This is for mobile.
-      - **textOverFlow** - TextOverflow - Defaults to retrieving the value from the nearest DefaultTextStyle ancestor.
-      - **displayKey** - bool - This is for Display field label name, If displaykey is true than field name is showing with value. Default is false.
-      - **type** - GtFieldType - Type of field is defines like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
-      - **webTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for web.
-      - **mobileTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for mobile.
-      - **keyTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for label.
-      - **isCardTitle** - bool - This contains field is showing in title or not in Card. Default false.
-      - **isCardSubTitle** - bool - This contains field is showing in SubTitle or not in Card. Default false.
-      - **isBannerField** - bool - This used for A banner displays a prominent message and related field. Default value is false.
-      - **cardRow** - int - This is contains which row have to display this field in card.
-      - **filterType** - GtFilterType - This field is used for which type is filter like ( RADIO_BUTTON_FILTER, CHECKBOX_BUTTON_FILTER, RANGE_FILTER, SORT_FILTER,)
-      - **filterItems** - Map<String, dynamic> - This is Sort the List as per given sort fields. And also Display the fields in UI.
-      - **valuePath** - String - This defines the which is Field map with valuePath.
-      - **filterValue** - String - This value is send to the API for this field.
-      - **filterLabel** - String - It will show in UI in this filter field.
-      - **rangeStart**- String - This is Range Start field name.
-      - **rangeEnd** - String - This is Range End field name.
-      - **bannerItems** - Map<String, dynamic> - It will show banner Items.
-
-- Constructor of CoreBinding:
-
-```
-      - [CoreBinding](components.md#/corelistview-widget)({
-         this.entityGQL,
-         this.nodeName,
-         this.isList = false,
-         this.headers,
-         this.setHeaders,
-         this.enableDefaultHeader = false,
-         this.tag,this.filterRangePath,
-         this.lookupGQL,
-         this.addLookupDataGQL,
-         this.controllerType = ControllerType.LIST,
-         this.addFormGQL,
-         this.toMapfilterjson,
-         this.valuePath,
-         this.inputType = GtListInputType.GRAPHQL,
-         this.inputData});
-```
-
-- Input Parameters of CoreBinding Widget
-
-  - **entityGQL** - String - This used for query for Listview data fetch from server, this field is mandatory.
-  - **nodeName** - String - It indicates unique key for Listview entityname.
-  - **headers** - Map<String, dynamic> - When we have to pass headers to API this will be used.
-  - **setHeaders** - Function - This will be function to set headers to API.
-  - **enableDefaultHeader** - bool - This is indicated for Headers taken or not, If value is true than DefaultHeader will taken. Default value is false.
-  - **tag** - String - It is used for when you want multiple different instance of a same Listview must be unique.
-  - **filterRangePath** - Map<String, Map<String, String>> - This is Filter used for RangeValues Filter have to pass Response Key will get data.
-  - **lookupGQL** - Map<String, String> - It is used for lookUp data have to pass Query in this lookupGQL.
-  - **addLookupDataGQL** - Map<String, String> - It is used for add lookUp data have to pass Query in this addLookupDataGQL.
-  - **controllerType** - enum {LIST,FORM} - This is indicate to show Listview or Form, Default is LIST.
-  - **addFormGQL** - String - This have to add form view pass GQL Query in this.
-  - **toMapfilterjson** - Map<String, GtTileField> - It will show Filter Fields In Filter.
-  - **valuePath** - String - This used for particular response data have to taken than pass Path of that response.
-
-- Example
-
-  - Step 1 : Import core in files that it will be used:
-
-  ```dart
-     import 'package:core/core.dart';
-  ```
-
-  - Step 2 : Used CoreListView widget in the Create Page, In CreatePage we have to pass CoreBinding. copy only createPage function.
-
-  ```dart
-         createPage("/demo",
-             CoreListView(
-                  tag: "Demo",
-                  title: "Demo",
-                  rowsCount: 3,
-                  leadingIcon: Icons.account_circle_rounded,
-                  trailingIcon: Icons.arrow_forward_ios_rounded,
-                  toMapjson: {
-                    'DocNo': GtTileField(
-                      valuePath: 'DocumentNo',
-                      row: 1,
-                      mobileRow: 1,
-                      cardRow: 1,
-                      mobileFlex: 2,
-                      isCardTitle: true,
-                      type: GtFieldType.STRING,
-                      webTextFormatType: TextformatType.headline6,
-                    ),
-                    'Name': GtTileField(
-                      valuePath: 'Customer/Name', // If return single object Customer take value of the object like this Customer/Name
-                      row: 2,
-                      mobileRow: 2,
-                      mobileFlex: 2,
-                      cardRow: 1,
-                      isCardSubTitle: true,
-                      type: GtFieldType.STRING,
-                      webTextFormatType: TextformatType.bodyText1,
-                    ),
-                    "Status": GtTileField(
-                                valuePath: "DeliveryStatus",
-                                bannerItems: {'Delivered': 'Delivered', 'NotDelivered': 'NotDelivered', 'PartiallyDelivered' : 'PartiallyDelivered'},
-                                isBannerField: true,
-                              ),
-                    "StatusFilter": GtTileField(
-                                valuePath: "Status",
-                                type: GtFieldType.FILTER,
-                                filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                                filterItems: {'All': null, 'Delivered': "Delivered", 'NotDelivered': "NotDelivered","PartiallyDelivered":"PartiallyDelivered"},
-                                filterValue: 'deliveryStatus',
-                                filterLabel: 'Status',
-                              ),
-                    "SortFilter": GtTileField(
-                        filterLabel: "Sort By Field",
-                        type: GtFieldType.FILTER,
-                        filterType: GtFilterType.SORT_FILTER,
-                        filterItems: {
-                          'DocumentNo': 'DocumentNo',
-                        },
-                        filterValue: 'sortField'
-                    ),
-                  },
-                  viewType: ViewType.both,
-                  enablefilter: true,
-                ),
-             binding: [
-                     CoreBinding(
-                         entityGQL: CustomerOrdersGQL.ORDER_GQL_QUERY, // Pass your GQL
-                         isList: true,
-                         nodeName: "demo",
-                         tag: "demo",
-                         enableDefaultHeader: true,),
-                   ]
-             )
-
-         class CustomerOrdersGQL {
-           static const ORDER_GQL_QUERY = '''
-                 query(
-                   \$limit: Int
-                   \$offset: Int
-                   \$sort: sortEnumType
-                   \$sortField: String
-                   \$deliveryStatus: OrderDeliveryStatusEnumType
-                 ) {
-                   orders: orders(
-                     limit: \$limit
-                     offset: \$offset
-                     sort: \$sort
-                     sortField: \$sortField
-                     deliveryStatus: \$deliveryStatus
-                   ) {
-                     DocumentNo
-                     DeliveryStatus
-                     Customer {
-                       Name
-                     }
-                   }
-                 }
-               ''';
-  }
-  ```
-
-  - Step 3 : Result :
-    - List View
-      ![image](https://user-images.githubusercontent.com/64594463/104177057-33d8b100-542e-11eb-9fd7-e2859a752da3.png)
-    - List View With Filter
-      ![image](https://user-images.githubusercontent.com/64594463/104183583-2e806400-5438-11eb-9b1e-16c703747d05.png)
-    - Card View With Filter
-      ![image](https://user-images.githubusercontent.com/64594463/104187331-a1400e00-543d-11eb-8a3b-049495a43509.png)
-
-# GtUserMenuBar Widget
-
-The GtUserMenuBar widget is used represent the user menu on the Appbar along with other icons options for actions and also used for user profile landing UI.
-
-- Benefits of GtUserMenuBar Widget
-  - Handles the handles both Asset and Network image support User Image.
-  - Allows to provide more options along woth user profile Avatar for actions.
-- Constructors:
-
-```
-       - [GtUserMenuBar](components.md#gtusermenubar-widget)(
-   {this.userImage,
-   this.greetingText,
-   this.greetingTextStyle,
-   @required this.userName,
-   this.userNameTextStyle,
-   this.iconWidgets,
-   this.leadingOnTap,
-   this.leadingAvatar = true});
-```
-
-- Input Parameters of GtUserMenuBar Widget
-  - **userImage** - dynamic - It is type of dynamic to support Asset and Network Image for User profile image.
-  - **greetingText** - String - Provide a greeting text to be displayed.
-  - **greetingTextStyle** - TextStyle - Provide a TextStyle for the Greeting Text.
-  - **userName** - String - Provide a userName text to be displayed.
-  - **userNameTextStyle** - TextStyle - This is use for text font which we have to take.
-  - **iconWidgets** - List<Widget> - Provide a List of Icons Widgets to displayed along with user details along with its on click handling.
-  - **leadingOnTap** - Function - Provide a function to perform some action on the click event of the UserImage.
-  - **leadingAvatar** - bool - To show the leading Avatar before the Username.
-- Example
-
-  - Step 1 : Import UI kit in files that it will be used:
-
-  ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtUserMenuBar widget and specify the color for the text which is to be displayed.
-
-  ```dart
-         class Menu extends StatelessWidget {
-         @override
-        Widget build(BuildContext context) {
-           return Scaffold(
-            appBar: GtAppBar(
-              backgroundColor: Color(0xff5a5278),
-              title: GtUserMenuBar(
-                userName: "Sara",
-                userNameTextStyle: TextStyle(
-                    color: Color.fromRGBO(152, 156, 173, 1),
-                    fontWeight: FontWeight.bold),
-                iconWidgets: [
-                  IconButton(
-                      icon: Icon(Icons.notifications_rounded), onPressed: () => {})
-                ],
-              ),
-            ),
-            body: Center(child: GtComingSoon()),
-          );
-        }
-       }
-  ```
-
-  - Step 3 : Result :
-    ![GtuserMenu](https://user-images.githubusercontent.com/64594463/148193879-b8377637-3fd0-408c-b2b2-c9683f59b90b.png)
-
 # GtTab Widget
 
 The GtTab widget is used represent the UI with Customs Tabs .
 
-- Benefits of GtTab Widget
-  - Handles the tabs using Page Controller.
-  - Provide the transition for the tab change event.
 - Constructors:
 
 ```
@@ -1401,8 +1137,7 @@ The GtPageNotFound widget is used represent the UI with Page not found widget fo
   ```
 
   - Step 3 : Result :
-
-           ![PageNotFound](https://user-images.githubusercontent.com/64594463/148717188-61821cbd-7aa6-4151-bb2e-f5df29263e82.png)
+    ![PageNotFound](https://user-images.githubusercontent.com/64594463/148717188-61821cbd-7aa6-4151-bb2e-f5df29263e82.png)
 
 # GtNoListFound Widget
 
@@ -1805,10 +1540,11 @@ The GtCurrency widget is used represent the values figure/amount related data.
 ```
 
 - Input Parameters of GtCurrency Widget
-  - **amount** - String - Sets the initial date before the widget to displayed when widget is opened.
-  - **currency** - String - Sets the min date range of the calendar.
-  - **labelTextStyle** - TextStyle - Sets the max date range of the calendar.
-  - **amountTextStyle** - TextStyle - Function to handle Onch-
+  - **amount** - String - This is amount as String to display.
+  - **label** - String -  This will display Field label.
+  - **currency** - String - This is currency text for before amount.
+  - **labelTextStyle** - TextStyle - This is text style for label text.
+  - **amountTextStyle** - TextStyle - This is text style for amount text.
   - **horizontalView** - bool - Decide the position of label.
 - Example
 
@@ -2483,6 +2219,8 @@ The gttagtextfield widget is used represent the Suggestions list when click on t
 
     ![GtTagTextField](https://user-images.githubusercontent.com/64594463/148723360-f68471e9-e5e0-4b6b-adbc-2c26b54e53a8.png)
 
+    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/148758755-fa0399cc-f2a4-40b1-89ac-ae4532a326e0.png)
+
 # GtListPage Widget
 
 The GtListPage widget is used represent the Listview on the Screen with alng as optional parameter.
@@ -2546,7 +2284,16 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
       this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
       this.itemDatawidget,this.isCustomItemWidget = false,
       this.swipeSnackBartextWidget,
-      this.mainCardMargin = const EdgeInsets.all(8),});
+      this.mainCardMargin = const EdgeInsets.all(8),
+      this.cardElevation = 1.0,
+      this.noListFoundText = "No Records Found",
+      this.customGridviewItemBuilder,
+      this.listCustomWidgetType = GtListCustomWidgetType.NONE,
+      this.currentListViewType = GtCurrentListViewType.LIST,
+      this.cardItemElevation = 3.0,
+      this.isActiveBorderColorLeading = false,
+      this.activeColor = Colors.green,
+      this.inActiveColor = Colors.red,});
 ```
 
 - Input Parameters of GtListPage Widget
@@ -2732,7 +2479,11 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
   - **noListFoundText** - String - This is text for record length is 0 than it message will display.
   - **customGridviewItemBuilder** - Function(int index,dynamic obj) - This is custom widget for Grid View each item.
   - **listCustomWidgetType** - GtListCustomWidgetType (enum) - It is custom widget type for show custom builder, options enum GtListCustomWidgetType { LIST, GRID, NONE }. Default is GtListCustomWidgetType.NONE
-  - **currentListViewTyp**e - GtCurrentListViewType - This shows current listview type, Selected list type for gtListPage. option enum { LIST, GRID }, Default is GtCurrentListViewType.LIST.
+  - **currentListViewType** - GtCurrentListViewType - This shows current listview type, Selected list type for gtListPage. option enum { LIST, GRID }, Default is GtCurrentListViewType.LIST.
+  - **cardItemElevation** - double - This is Elevation for card Item.
+  - **isActiveBorderColorLeading** - bool - This is for is avtive borader color showing in Leading or Trailing. default was leading.
+  - **activeColor** - Color - This is color for active records.
+  - **inActiveColor** - Color - This is color for Inactive records. 
 
 - Example
 
@@ -2762,31 +2513,38 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                       leadingIcon: GtIcon(
                         icondata: Icons.account_circle_rounded,
                       ),
-                      isLeadingShow: false,
                       listItems: [
                         {
                           "Id": 2093,
                           "CompanyId": 0,
                           "Code": "GT0521",
                           "FName": "DEMO USER",
+                          "isActive": "true",
+                          "IsSelected": false
                         },
                         {
                           "Id": 2093,
                           "CompanyId": 0,
                           "Code": "GT011",
                           "FName": "DEMO MANAGER",
+                          "isActive": "true",
+                          "IsSelected": true
                         },
                         {
                           "Id": 2094,
                           "CompanyId": 0,
                           "Code": "GT012",
                           "FName": "DEMO CLIENT",
+                          "isActive": "true",
+                          "IsSelected": false
                         },
                         {
                           "Id": 2095,
                           "CompanyId": 0,
                           "Code": "GT013",
                           "FName": "DEMO",
+                          "isActive": "false",
+                          "IsSelected": false
                         }
                       ],
                       viewtype: ViewType.list,
@@ -2826,6 +2584,11 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                           displayKey: true,
                           keyValueBetween: " : ",
                         ),
+                        "Status": GtTileField(
+                          valuePath: 'isActive',
+                          activeInactiveItems: {'Active': "true", 'InActive': "false"},
+                          isActiveInactiveField: true,
+                        )
                       },
                       tag: "Task",
                       gtTileRowMainAxisAlignment: MainAxisAlignment.center,
@@ -3020,7 +2783,7 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
 
   - **Result Default View:**
 
-    ![GtListPage Default ListView](https://user-images.githubusercontent.com/64594463/147745686-c59885c4-c6e7-4e1b-89d1-1f697f417d9f.png)
+    ![GtListPage Default ListView](https://user-images.githubusercontent.com/64594463/148762294-a8b477cc-03c1-4d0d-8b69-326c2ca16981.png)
 
   - **Result Custom View:**
 
@@ -3059,7 +2822,7 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
   - **activeColor** - Color - Color of active check box.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3122,7 +2885,7 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
          this.looupKeyVisibile = false,});
 ```
 
-- Input Parameters of GtCheckboxFormField Widget
+- Input Parameters of GtDropdownFormField Widget
   - **iconData** - IconData - This is dropdown field icon.
   - **items** - Map<String, dynamic> - It is display field list in drop down.
   - **dropdownValue** - dynamic - It is display selected value of dropdown.
@@ -3143,7 +2906,7 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
   - **looupKeyVisibile** - bool - This is ItemType is List then listLookupField parameter map keys display when its true, default is false.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3176,7 +2939,7 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
 
   - Step 3 : Result :
 
-    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148724246-17f3585a-f272-4256-99de-c6089a4b8a71.png)
+    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148763276-10157720-c0fc-4f48-a62c-b8504aeefe8c.png)
 
     ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148724599-1a2e81b0-ae19-444e-8c3a-c9c52232814e.png)
 
@@ -3213,7 +2976,7 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
   - **activeColor** - Color - Color of active redio button.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3248,7 +3011,7 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
 
 # GtSwitchButtonFormField Widget
 
-The GtSwitchButtonFormField widget is used represent the Form field Switch button on the Screen with alng optional parameter.
+The GtSwitchButtonFormField widget is used represent the Form field.
 
 - Benefits of GtSwitchButtonFormField Widget
   - Handles the font size of the switch button in dynamic way based on the screen resolution when specified.
@@ -3279,7 +3042,7 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
   - **crossAxisAlignment** - CrossAxisAlignment - This is alignment of cross axis alignment.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3333,11 +3096,11 @@ The GtSurveyKit widget is used represent the Survey.
   ```
 
 - Required Permissions are:
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-  ```
+  ```dart
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
 
   ```
 
@@ -3363,7 +3126,7 @@ The GtSurveyKit widget is used represent the Survey.
   - **submitData** - Function(dynamic) - This Function It will return survey result.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3434,7 +3197,7 @@ The gtmarquee widget is used represent the array of list scrolling vertical on t
   - **controllerMar** - MarqueeModel - This is model class its return position index.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3478,7 +3241,7 @@ The gtmarquee widget is used represent the array of list scrolling vertical on t
 
   - Step 3 : Result :
 
-    ![GtMarquee](https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4)
+    https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4
 
 # GtPdfWidget Widget
 
@@ -4507,6 +4270,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
+          /// Operators for Advance Filters 
           operatorString = [
             GtAdvanceFilterOperator(
                 label: "LIKE",
@@ -4535,6 +4299,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
             GtAdvanceFilterOperator(
                 label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
           ];
+          /// Advance filter fields
           advanceFilterFields = [
             GtAdvanceFilterField(
                 label: "FName",
@@ -4557,6 +4322,8 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                   {"FALSE": "false"}
                 ]),
           ];
+
+          /// ListView ToMapjson for display Listview
           toMapfilterjson.value = {
             "Code": GtTileField(
                 valuePath: "Code",
@@ -4596,7 +4363,8 @@ The GtListFilter widget is used represent the Filter field for the Listview.
 
           super.onInit();
         }
-
+        
+        /// On Filter Applied click this function will used
         void filterHandlerFunction(Map<String, dynamic> filterDataApply,
             List<Map<String, dynamic>> selectedFilterAdvance) {
           /// This variables pass to API
@@ -4649,7 +4417,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
             variables["where"]["_and"] = filterselected;
           });
         }
-
+        /// On Filter Clear button this function used
         void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
             List<Map<String, dynamic>> selectedFilterAdvance) {
           if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
@@ -4661,6 +4429,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
           print(selectedFilterAdvance);
         }
 
+        /// Backdrop value changed
         void changeBackDrop(bool isback) {
           isBackDrop.value = isback;
         }
@@ -4694,6 +4463,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
+          /// Operators for Advance Filters 
           operatorString = [
             GtAdvanceFilterOperator(
                 label: "LIKE",
@@ -4722,6 +4492,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
             GtAdvanceFilterOperator(
                 label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
           ];
+          ///Advance Filter fields
           advanceFilterFields = [
             GtAdvanceFilterField(
                 label: "FName",
@@ -4747,6 +4518,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
                   {"FALSE": "false"}
                 ]),
           ];
+          /// ToMapJson for Listview display
           toMapfilterjson.value = {
             "Code": GtTileField(
                 valuePath: "Code",
@@ -4796,7 +4568,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
 
           super.onInit();
         }
-
+        /// On Filter Applied this function will used
         void filterHandlerFunction(Map<String, dynamic> filterDataApply,
             List<Map<String, dynamic>> selectedFilterAdvance) {
           /// This variables pass to API
@@ -4849,7 +4621,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
             variables["where"]["_and"] = filterselected;
           });
         }
-
+         /// On Filter Clear button this function used
         void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
             List<Map<String, dynamic>> selectedFilterAdvance) {
           if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
@@ -4860,7 +4632,7 @@ The GtListFilter widget is used represent the Filter field for the Listview.
           print(filterDataApply);
           print(selectedFilterAdvance);
         }
-
+        /// backdrop value change 
         void changeBackDrop(bool isback) {
           isBackDrop.value = isback;
         }
