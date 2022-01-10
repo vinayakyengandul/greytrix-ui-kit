@@ -24,7 +24,6 @@
 - [GtCalendar Widget](#gtcalendar-widget)
 - [GtCurrency Widget](#gtcurrency-widget)
 - [GtButton Widget](#gtbutton-widget)
-- [GtAppSideBar Widget](#gtappsidebar-widget)
 - [GtDynamicView Widget](#gtdynamicview-widget)
 - [GtSignature Widget](#gtsignature-widget)
 - [GtFileUpload Widget](#gtfileupload-widget)
@@ -467,7 +466,7 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
   - Step 1 : Import core in files that it will be used:
 
   ```dart
-     import 'package:core/core.dart';
+     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used CustomPopup widget.
@@ -1347,18 +1346,21 @@ The GtComingSoon widget is used represent the UI with Coming Soon widget for upc
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: ' Dashboard')),
-              body: Container(
-                child: GtComingSoon(),
-              ));
+              title: GtText(text: "COMING SOON WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtComingSoon()),
+          );
         }
      }
 
   ```
 
   - Step 3 : Result :
-    ![gtComingSoon](https://user-images.githubusercontent.com/47977097/115863738-82491300-a453-11eb-9082-97eece67c0cb.png)
+    ![gtComingSoon](https://user-images.githubusercontent.com/64594463/148716529-de7782df-1be2-425d-a935-5ce9aa258c17.png)
 
 # GtPageNotFound Widget
 
@@ -1385,11 +1387,14 @@ The GtPageNotFound widget is used represent the UI with Page not found widget fo
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: 'Dashboard')),
-              body: Container(
-                child: GtPageNotFound(),
-              ));
+              title: GtText(text: "PAGE NOT FOUND WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtPageNotFound()),
+          );
         }
      }
 
@@ -1397,7 +1402,7 @@ The GtPageNotFound widget is used represent the UI with Page not found widget fo
 
   - Step 3 : Result :
 
-           ![PageNotFound](https://user-images.githubusercontent.com/47977097/115863634-5f1e6380-a453-11eb-83d7-1579f23c8877.png)
+           ![PageNotFound](https://user-images.githubusercontent.com/64594463/148717188-61821cbd-7aa6-4151-bb2e-f5df29263e82.png)
 
 # GtNoListFound Widget
 
@@ -1424,18 +1429,21 @@ The GtNoListFound widget is used represent the UI with not data found widget for
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: 'Customers')),
-              body: Container(
-                child: GtNoListFound(),
-              ));
+              title: GtText(text: "NO LIST FOUND WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtNoListFound()),
+          );
         }
      }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/47977097/115865008-5890eb80-a455-11eb-97a7-baa7b75d613d.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148717239-a89dad32-4c50-4d56-9509-084eae3f9bfc.png)
 
 # GtImageCard Widget
 
@@ -1481,33 +1489,24 @@ The GtImageCard widget is used represent the UI with card to display a image.
      @override
      Widget build(BuildContext context) {
        return Scaffold(
-           bottomNavigationBar: GtBottomBar(
-             bottombarItems: [
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.home_filled), label: "Home"),
-               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
-               BottomNavigationBarItem(
-                 icon: Icon(Icons.calendar_today),
-                 label: "Calendar",
-               ),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.format_align_right_sharp), label: ""),
-               //
-             ],
-           ),
-           appBar: GtAppBar(
-               backgroundColor: Color(0xff5a5278),
-               title: GtText(text: 'Bottom Bar Demo')),
-           body: Container());
+          appBar: GtAppBar(
+            title: GtText(text: "IMAGE CART WIDGET"),
+          ),
+          body: Center(
+            child: GtImageCard(
+              height: 200,
+              width: 200,
+              imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU",
+            ),
+          ),
+        );
      }
   }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103752016-276be700-502f-11eb-958b-e2515129cc34.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148718097-d33891c7-eac0-4871-b799-36574f31dc93.png)
 
 # GtCard Widget
 
@@ -1573,24 +1572,27 @@ The GtCard widget is used represent the UI with bottom navigation bar with mutip
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Card Demo')),
-                    body: Container(
-                        child: GtCard(
-                      cardheight: 150,
-                      cardwidth: 150,
-                      boxFit: BoxFit.fill,
-                      imageWidth: 90,
-                      imageheight: 100,
-                      label: 'Product',
-                    )));
+                      title: GtText(text: "CARD WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtCard(
+                        cardheight: 150,
+                        cardwidth: 150,
+                        boxFit: BoxFit.fill,
+                        imageWidth: 90,
+                        imageheight: 100,
+                        label: 'Logo',
+                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU",
+                      )
+                    ),
+                  );
               }
            }
 
   ```
 
   - Step 3 : Result :
-    ![gtcard](https://user-images.githubusercontent.com/47977097/115863522-31d1b580-a453-11eb-966c-77b83ef900cc.png)
+    ![gtcard](https://user-images.githubusercontent.com/64594463/148718539-b510faaa-354c-47c2-b052-b3ad9201774d.png)
 
 # GtDate Widget
 
@@ -1678,16 +1680,19 @@ The GtDate widget is used represent the UI with date and time widget.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Date Demo')),
+                        title: GtText(text: "DATE WIDGET"),),
                     body: Container(
                       child: GtDate(
-                        initialDate: DateTime.now(),
-                        type: GtDateTimeType.DATE,
-                        datePickerEntryMode: DatePickerEntryMode.calendar,
-                        firstDate: DateTime(1990),
-                        lastDate: DateTime(2100),
-                      ),
+                          label: "DATE",
+                          initialDate: DateTime.now(),
+                          type: GtDateTimeType.TIME,
+                          datePickerEntryMode: DatePickerEntryMode.calendar,
+                          firstDate: DateTime(1990),
+                          dateTextEditingController: TextEditingController(),
+                          lastDate: DateTime(2100),
+                          prefixDateIcon: Icon(Icons.date_range),
+                          prefixTimeIcon: Icon(Icons.timelapse),
+                        ),
                     ));
                  }
            }
@@ -1695,8 +1700,8 @@ The GtDate widget is used represent the UI with date and time widget.
   ```
 
   - Step 3 : Result :
-    ![gtdate](https://user-images.githubusercontent.com/47977097/115863275-dd2e3a80-a452-11eb-9980-a3ee1d82b1ca.png)
-    ![time](https://user-images.githubusercontent.com/47977097/115863484-22526c80-a453-11eb-860e-2e0d0bc61b2e.png)
+    ![gtdate](https://user-images.githubusercontent.com/64594463/148719153-8b092c19-125d-408b-a95a-0487e2fe76ce.png)
+    ![time](https://user-images.githubusercontent.com/64594463/148719194-9ecd4c6e-1065-4e2c-b5f5-d1c5923c200b.png)
 
 # GtCalendar Widget
 
@@ -1759,21 +1764,25 @@ The GtCalendar widget is used represent the UI with calendar widget.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Calendar Demo')),
+                        title:  GtText(text: "CALENDAR WIDGET"),),
                     body: Container(
                         child: GtCalendar(
-                      firstDate: DateTime(1900),
-                      initialDate: DateTime.now(),
-                      lastDate: DateTime(2100),
-                    )));
+                          eventLoader: (date) {
+                            return [];
+                          },
+                          onDaySelected: (date, date1) {},
+                          focusedDay: DateTime.now(),
+                          selectedDay: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                        )));
               }
            }
 
   ```
 
   - Step 3 : Result :
-    ![calendar](https://user-images.githubusercontent.com/47977097/115863209-c7207a00-a452-11eb-80e2-9d0a4ec664f7.png)
+    ![calendar](https://user-images.githubusercontent.com/64594463/148719724-3a0d0e9f-389a-40bd-b4c1-bf4c6347d9c0.png)
 
 # GtCurrency Widget
 
@@ -1817,24 +1826,25 @@ The GtCurrency widget is used represent the values figure/amount related data.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Calendar Demo')),
-                    body: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: GtCurrency(
-                        label: 'Balance',
-                        amount: '102,445.798',
-                        currency: '\$',
-                        horizontalView: true,
-                      ),
-                    ));
+                      title: GtText(text: "CURRENCY WIDGET"),
+                      actions: [
+                        GtCurrency(
+                          label: 'Balance : ',
+                          amount: '102,445.798',
+                          currency: '\$',
+                          horizontalView: true,
+                        ),
+                      ],
+                    ),
+                    body: Center(child: GtComingSoon()),
+                  );
                  }
            }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/47977097/115865502-09978600-a456-11eb-8be0-25218a464cab.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148720029-57a9a1f5-1ca8-46c3-9d4f-a50435a676eb.png)
 
 # GtButton Widget
 
@@ -1915,42 +1925,46 @@ The GtButton widget is used represent the button with multiple functionality of 
         Button
 
          class ButtonDemo extends StatelessWidget {
+            final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
               @override
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: GtButton(
-                          icondata: Icons.ac_unit,
-                          text: 'Click Me',
-                          iconPosition: GtPosition.PREFIX,
-                        )));
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtButton(
+                        icondata: Icons.ac_unit,
+                        text: 'Click Me',
+                        iconPosition: GtPosition.PREFIX,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
+                    ),
+                  );
               }
         }
 
         Radio  Button
 
-        enum SingingCharacter { lafayette, jefferson }
         class ButtonDemo extends StatelessWidget {
               @override
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: GtButton(
-                          buttonType: GtButtonType.RADIO,
-                          groupValue: SingingCharacter.lafayette,
-                          value: SingingCharacter.lafayette,
-                          title: GtText(text: 'lafayette'),
-                          selected: true,
-                          text: 'lafayette',
-                        )));
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtButton(
+                        buttonType: GtButtonType.RADIO,
+                        value: true,
+                        groupValue: true,
+                        onChanged: (d) {},
+                        text: 'redioButton',
+                      ),
+                    ),
+                  );
               }
            }
 
@@ -1961,19 +1975,18 @@ The GtButton widget is used represent the button with multiple functionality of 
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
                         child: GtButton(
-                          buttonType: GtButtonType.IMAGE,
-                           imageheight: 70,
-                           imagewidth: 80,
-                          imageURL:
-                              'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
-                          imageboxFit: BoxFit.fill,
-                          imageonClick: () => {print('clicked')},
-                        )));
+                      buttonType: GtButtonType.IMAGE,
+                      imageheight: 70,
+                      imagewidth: 80,
+                      imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU',
+                      imageboxFit: BoxFit.fill,
+                      imageonClick: () => {print('clicked')},
+                    )),
+                  );
                  }
            }
 
@@ -1982,164 +1995,12 @@ The GtButton widget is used represent the button with multiple functionality of 
 
   - Step 3 : Result :
 
-    ![bt1](https://user-images.githubusercontent.com/47977097/115862918-5b3e1180-a452-11eb-9c70-587b63074972.png)
+    ![bt1](https://user-images.githubusercontent.com/64594463/148721035-fc5bb1c1-6a20-468e-8b16-acd6afad186a.png)
 
-    ![rdbtn](https://user-images.githubusercontent.com/47977097/115862984-714bd200-a452-11eb-9038-7c5a744e58e8.png)
+    ![rdbtn](https://user-images.githubusercontent.com/64594463/148720960-014875e0-2325-4bbb-8e0c-f5043e1f792c.png)
 
-    ![imbtn](https://user-images.githubusercontent.com/47977097/115863019-7dd02a80-a452-11eb-92b1-4706b7b40855.png)
+    ![imbtn](https://user-images.githubusercontent.com/64594463/148720899-7e9462b6-6613-42b9-921d-65f594eef349.png)
 
-# GtAppSideBar Widget
-
-The GtAppSideBar widget are two primary options for navigation tabs and drawers when there is insufficient space to support tabs, drawers.
-
-- Benefits of GtAppSideBar Widget
-
-  - SideBar is design used in app secondary menu design.
-
-  - We can use vertical space of mobile screens optimally because most of the users in most cases use portraint mode of app orientation against landscape mode.
-
-  - SideBar can cover a number of navigation opetions campared to tiny main navigation bar situated either on the top or bottm of the app Even users cna scroll it further to access hidden buttons or content.
-
-  - SideBar can provide clear and clutter free desing.
-
-- Constructors:
-
-```
-       - [GtAppSideBar](components.md#gtbutton-widget)(
-         {  @required this.listApp,
-            @required this.isItemSelected,
-            @required this.toolTipMessageField,
-            @required this.getAvatarWidgeContent,
-            this.selectedindex,
-            this.onTapHandler,
-            this.trailingWidget,
-            this.navigationBackGround = Colors.white,
-            this.selectedRowColor = Colors.blueGrey,
-            this.selectedRowDarkColor = Colors.grey,
-            this.iconColor = Colors.black,
-            this.leadingWidget,
-            this.backGroundColor = Colors.white,
-            this.width = 60.0,
-            this.railTextWidget
-         });
-```
-
-- Input Parameters of GtAppSideBar Widget
-  - **listApps** - List<dynamic> - This is fine for short list but not for a long list.
-  - **trailingWidget** - List<Widget> - List are made up of multiple rows of items, which include text, buttons, toggles, icons, thumbnails, and many more.
-  - **selectedindex** - int - The index into destinations for the current selected
-  - **onTapHandler** - Function - Function to call ListApp onTapHandler.
-  - **navigationBackGroundColor** - Color - To set navigationBackGroundColor.
-  - **selectedRowColor** - Color - Provide Row color selected row.
-  - **selectedRowDarkColor** - Color - Set Row color dark selected row.
-  - **iconColor** - Color - To set the icon color.
-  - **isItemSelected** - Function(dynamic obj) - To call function which item selected.
-  - **getAvatarWidgetContent** - Function(dynamic obj) - To call getAvatarWidgetContent function.
-  - **toolTipMessageContent** - Function(dynamic obj) - To call toolTipMessageContent function.
-  - **leadingWidget** - Widget- A widget to display before the toolbar's title.
-  - **backGroundColor** - Color - To sets backgroundcolor.
-  - **width** - double - To set width in double data type.
-  - **railTextWidget** - Function(dynamic obj) - To call railTextWidget function.
-- Example
-
-  - Step 1 : Import UI kit in files that it will be used:
-
-  ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtAppSideBar widget as shown below example.
-
-  ```dart
-
-
-
-         class Home extends StatelessWidget {
-              @override
-              Widget build(BuildContext context) {
-                 return Scaffold(
-                    appBar: GtAppBar(
-                       title: GtText(
-                         text: 'AppBar',
-                        )
-                  ),
-                  drawer: Drawer(
-                    child: GtAppSideBar(
-                      isItemSelected: (obj) {},
-                      getAvatarWidgetContent: (obj) {},
-                      toolTipMessageField: (obj) {},
-                      listApps: [],
-                      trailingWidget: [
-                        Container(
-                           child: Column(
-                             children: <Widget>[
-                                 Container(
-                                   width: double.infinity,
-                                   padding: EdgeInsets.all(20),
-                                   color: Theme.of(context).primaryColor,
-                                   child: Center(
-                                       child: Column(children: <Widget>[
-                                          Container(
-                                             width: 100,
-                                             height: 100,
-                                             decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                               image: DecorationImage(
-                                                 image: AssetImage('assets/images/profile.jpg'),
-                                                 fit: BoxFit.fill)),
-                                                ),
-                                                Text(
-                                                  'Greytrix',
-                                                  style: TextStyle(fontSize: 20),
-                                                  ),
-                                                  GtText(text: 'greytrixindia@gmail.com')
-                                              ]
-                                         ),
-                                     ),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.file_present),
-                                    title: Text('My File'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.people),
-                                    title: GtText(text: 'Shared with me'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.star),
-                                    title: GtText(text: 'Starred')
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.credit_card_rounded),
-                                    title: GtText(text: 'Recent'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.offline_share),
-                                    title: GtText(text: 'Offline'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.upload_rounded),
-                                    title: GtText(text: 'Upload'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.cloud_download_outlined),
-                                    title: GtText(text: 'Backup'),
-                                   ),
-                                ],
-                             ),
-                           ),
-                         ]
-                      ),
-                    )
-                 );
-             }
-        }
-
-  ```
-
-  - Step 3 : Result :
-
-    ![AppSideBar](https://user-images.githubusercontent.com/82582302/119087922-78e8a180-ba25-11eb-88a9-5edc66af81c8.png)
 
 # GtDynamicView Widget
 
@@ -2199,107 +2060,108 @@ The GtDynamicView widget is used to write corresponding parsing engines on the c
            Widget build(BuildContext context) {
               return Scaffold(
                   appBar: GtAppBar(
-                     title: GtText(
-                         text: 'Dynamic View',
-                        ),
-                     ),
-                     body: GtDynamicView(
-                     rowsCount: 11,
-                     title: 'PERSONAL DETAILS',
-                     toMapjson: {
+                    title: GtText(text: "DYNAMIC VIEW WIDGET"),
+                  ),
+                  body: Center(
+                    child: GtDynamicView(
+                      backgroundColor: Colors.grey,
+                      rowsCount: 11,
+                      title: 'PERSONAL DETAILS',
+                      toMapjson: {
                         'Personal Email Id': GtTileField(
-                             displayKey: true,
-                             row: 1,
-                             valuePath: 'email',
-                             flex: 1,
-                             mobileRow: 1,
-                         ),
+                          displayKey: true,
+                          row: 1,
+                          valuePath: 'email',
+                          flex: 1,
+                          mobileRow: 1,
+                        ),
                         'Blood Group': GtTileField(
-                            displayKey: true,
-                            row: 1,
-                            valuePath: 'bloodgroup',
-                            flex: 1,
-                            mobileRow: 2,
-                         ),
+                          displayKey: true,
+                          row: 1,
+                          valuePath: 'bloodgroup',
+                          flex: 1,
+                          mobileRow: 2,
+                        ),
                         'Address1': GtTileField(
-                            displayKey: true,
-                            row: 2,
-                            valuePath: 'address1',
-                            flex: 1,
-                            mobileRow: 3,
-                         ),
+                          displayKey: true,
+                          row: 2,
+                          valuePath: 'address1',
+                          flex: 1,
+                          mobileRow: 3,
+                        ),
                         'Address2': GtTileField(
-                            displayKey: true,
-                            row: 2,
-                            valuePath: 'address2',
-                            flex: 1,
-                            mobileRow: 4,
-                         ),
+                          displayKey: true,
+                          row: 2,
+                          valuePath: 'address2',
+                          flex: 1,
+                          mobileRow: 4,
+                        ),
                         'Place ': GtTileField(
-                            displayKey: true,
-                            row: 3,
-                            valuePath: 'place',
-                            flex: 1,
-                            mobileRow: 5,
-                         ),
+                          displayKey: true,
+                          row: 3,
+                          valuePath: 'place',
+                          flex: 1,
+                          mobileRow: 5,
+                        ),
                         'City': GtTileField(
-                            displayKey: true,
-                            row: 3,
-                            valuePath: 'city',
-                            flex: 1,
-                            mobileRow: 6,
-                         ),
+                          displayKey: true,
+                          row: 3,
+                          valuePath: 'city',
+                          flex: 1,
+                          mobileRow: 6,
+                        ),
                         'Pin Code': GtTileField(
-                            displayKey: true,
-                            row: 4,
-                            valuePath: 'pincode',
-                            flex: 1,
-                            mobileRow: 7,
-                         ),
+                          displayKey: true,
+                          row: 4,
+                          valuePath: 'pincode',
+                          flex: 1,
+                          mobileRow: 7,
+                        ),
                         'Email Id': GtTileField(
-                            displayKey: true,
-                            row: 4,
-                            valuePath: 'emailid',
-                            flex: 1,
-                            mobileRow: 8,
-                         ),
+                          displayKey: true,
+                          row: 4,
+                          valuePath: 'emailid',
+                          flex: 1,
+                          mobileRow: 8,
+                        ),
                         'Bank Branch Code': GtTileField(
-                            displayKey: true,
-                            row: 5,
-                            valuePath: 'bankbranchcode',
-                            flex: 1,
-                            mobileRow: 9,
-                         ),
+                          displayKey: true,
+                          row: 5,
+                          valuePath: 'bankbranchcode',
+                          flex: 1,
+                          mobileRow: 9,
+                        ),
                         'Bank Name': GtTileField(
-                            displayKey: true,
-                            row: 5,
-                            valuePath: 'bankname',
-                            flex: 1,
-                            mobileRow: 10,
-                         ),
+                          displayKey: true,
+                          row: 5,
+                          valuePath: 'bankname',
+                          flex: 1,
+                          mobileRow: 10,
+                        ),
                         'Personal Mobile No': GtTileField(
-                            displayKey: false,
-                            row: 6,
-                            valuePath: 'mobileno',
-                            flex: 1,
-                            mobileRow: 10,
-                         ),
-                    },
-                    listItems: {
-                         'email': 'manish98@gmail.com',
-                         'bloodgroup': 'O+',
-                         'address1': 'Khamothe',
-                         'address2': 'Belpada',
-                         'place': '121212434',
-                         'city': 'KHARGHAR',
-                         'pincode': '410210',
-                         'emailid': 'manish98@gmail.com',
-                         'bankbranchcode': '000291',
-                         'bankname': 'HDFC Bank',
-                         'mobileno': '9082948703'
-                    },
-                ),
-             );
+                          displayKey: false,
+                          row: 6,
+                          valuePath: 'mobileno',
+                          flex: 1,
+                          mobileRow: 10,
+                        ),
+                      },
+                      listItems: const {
+                        'email': 'manish98@gmail.com',
+                        'bloodgroup': 'O+',
+                        'address1': 'Khamothe',
+                        'address2': 'Belpada',
+                        'place': '121212434',
+                        'city': 'KHARGHAR',
+                        'pincode': '410210',
+                        'emailid': 'manish98@gmail.com',
+                        'bankbranchcode': '000291',
+                        'bankname': 'HDFC Bank',
+                        'mobileno': '9082948703'
+                      },
+                    ),
+                  ),
+                );
           }
      }
 
@@ -2309,7 +2171,7 @@ The GtDynamicView widget is used to write corresponding parsing engines on the c
 
   - Step 3 : Result :
 
-  ![DynamicView](https://user-images.githubusercontent.com/82582302/119608692-fe989280-be13-11eb-962f-91d64ba5f646.png)
+  ![DynamicView](https://user-images.githubusercontent.com/64594463/148721362-d22e1065-ee2f-4576-a946-6b52c73bd374.png)
 
 # GtSignature Widget
 
@@ -2403,19 +2265,23 @@ The GtSignature widget is used represent to allow users to sign with finger and 
            @override
            Widget build(BuildContext context) {
               return Scaffold(
-                 body: Center(
-                 child: Container(
-                    width: 200,height: 100,
-                    child: GtSignature(
-                    color: Colors.black,
-                    signaturePadBackgroundColor: Colors.grey[200],
-                 ))),
+                appBar: GtAppBar(
+                  title: GtText(text: "SINGATURE VIEW WIDGET"),
+                ),
+                body: Center(
+                    child: Container(
+                        width: 200,
+                        height: 100,
+                        child: GtSignature(
+                          color: Colors.black,
+                          signaturePadBackgroundColor: Colors.grey[200],
+                        ))),
               );
            }
         }
   ```
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/118918621-a7e11380-b950-11eb-90d3-3aa4091eb835.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148721801-72b8d936-efaf-408c-a568-bf32eaf9158f.png)
 
 # GtFileUpload Widget
 
@@ -2491,22 +2357,23 @@ The GtFileUpload widget is used represent to allow users to file upload with Bro
            @override
            Widget build(BuildContext context) {
               return Scaffold(
-                 body: Center(
-                 child: Obx(() => Container(
+                appBar: GtAppBar(
+                  title: GtText(text: "FILE UPLOAD WIDGET"),
+                ),
+                body: Center(
                     child: GtFileUpload(
-                       backgroundColor: Colors.blue[100],
-                       onPressed: controller.openFileExplorer,
-                       selectedFiles: controller.selectedFilesName.value,
-                       extensions: "pdf,doc,jpg",
-                       )
-                    ))),
+                      backgroundColor: Colors.blue[100],
+                      onPressed: (data) {},
+                      selectedFiles: "",
+                      extensions: "pdf,doc,jpg",
+                    )),
               );
            }
         }
   ```
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/119605079-cd1cc880-be0d-11eb-9460-6fab0543abc7.png)
-    ![image](https://user-images.githubusercontent.com/64594463/119605260-13722780-be0e-11eb-857f-0a2d04af8848.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148722309-05bba357-af9e-4645-956c-d2d791089b4e.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148722901-4a3bc900-53be-44a5-8a4b-90dfdfd49014.png)
 
 # GtTagTextField Widget
 
@@ -2577,34 +2444,36 @@ The gttagtextfield widget is used represent the Suggestions list when click on t
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278)),
-                 body: Container(
-                   child: GtTagTextField(
-                       textColor: Colors.blue,
-                       fieldLabel: "Product",
-                       isRequired: false,
-                       allowMultiselection: false,
-                       looupKeyVisibile: false,
-                       displayInFieldLabel: false,
-                       textEditingController:  new TextEditingController(text: ' '),
-                       lookupFields: {'company': 'company'},
-                       selectedTaglist: [],
-                       taglist: [],
-                       onDeleted: (val) => {},
-                       onSuggestionSelected: (_val, isMutli) {},
-                       suggestionsCallback: (pattern) async {
-                          return [{
-                             "company": "Apple",
-                             "description": "job description",
+                appBar: GtAppBar(
+                  title: GtText(text: "TAG TEXT FIELD WIDGET"),
+                ),
+                body: Center(
+                  child: GtTagTextField(
+                      textColor: Colors.blue,
+                      fieldLabel: "Product",
+                      isRequired: false,
+                      allowMultiselection: false,
+                      looupKeyVisibile: false,
+                      displayInFieldLabel: false,
+                      textEditingController: new TextEditingController(text: ' '),
+                      lookupFields: {'company': 'company'},
+                      selectedTaglist: [],
+                      onDeleted: (val) => {},
+                      onSuggestionSelected: (_val, isMutli) {},
+                      suggestionsCallback: (pattern) async {
+                        return [
+                          {
+                            "company": "Apple",
+                            "description": "job description",
                           },
                           {
-                             "company": "Google",
-                             "description": "job description",
-                          },];
-                       }
-                   ),
-                 ));
+                            "company": "Google",
+                            "description": "job description",
+                          },
+                        ];
+                      }),
+                ),
+              );
            }
         }
 
@@ -2612,7 +2481,7 @@ The gttagtextfield widget is used represent the Suggestions list when click on t
 
   - Step 3 : Result :
 
-    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/124076547-09be8e00-da64-11eb-9b70-6f11232784e1.png)
+    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/148723360-f68471e9-e5e0-4b6b-adbc-2c26b54e53a8.png)
 
 # GtListPage Widget
 
@@ -3203,17 +3072,17 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtCheckboxFormField(
-                       displayMapFields: {"data" : "true","Data1": "false"},
-                       selectedCheckboxValues: ["true"],
-                       label: "Demo",
-                       onChangedHandler: (val,data) => {}
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtCheckboxFormField WIDGET"),
+                ),
+                body: Center(
+                  child: GtCheckboxFormField(
+                      displayMapFields: {"data": "true", "Data1": "false"},
+                      selectedCheckboxValues: ["true"],
+                      label: "Demo",
+                      onChangedHandler: (val, data) => {}),
+                ),
+              );
            }
         }
 
@@ -3221,7 +3090,7 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
 
   - Step 3 : Result :
 
-    ![GtCheckboxFormField](https://user-images.githubusercontent.com/64594463/124129481-72752d00-da9b-11eb-8959-cc51e11dfb65.png)
+    ![GtCheckboxFormField](https://user-images.githubusercontent.com/64594463/148724246-17f3585a-f272-4256-99de-c6089a4b8a71.png)
 
 # GtDropdownFormField Widget
 
@@ -3307,9 +3176,9 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
 
   - Step 3 : Result :
 
-    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448490-23334300-dda0-11eb-9779-11de6773df7f.png)
+    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148724246-17f3585a-f272-4256-99de-c6089a4b8a71.png)
 
-    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448563-39410380-dda0-11eb-9b61-4e9091bdac4d.png)
+    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148724599-1a2e81b0-ae19-444e-8c3a-c9c52232814e.png)
 
 # GtRadioButtonFormField Widget
 
@@ -3357,18 +3226,17 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtRadioButtonFormField(
-                       label: "Demo",
-                       isRequired: false,
-                       selectedRadioButtonVal: "User1",
-                       displayMapFields: {"User1" : "User1", "User2": "User2"},
-                       onChangedHandler: (chk, data) {}
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtRedioButtonFormField WIDGET"),
+                ),
+                body: Center(
+                    child: GtRadioButtonFormField(
+                        label: "Demo",
+                        isRequired: false,
+                        selectedRadioButtonVal: "User1",
+                        displayMapFields: {"User1": "User1", "User2": "User2"},
+                        onChangedHandler: (chk, data) {})),
+              );
            }
         }
 
@@ -3376,7 +3244,7 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
 
   - Step 3 : Result :
 
-    ![GtRadioButtonFormField](https://user-images.githubusercontent.com/64594463/124449969-99847500-dda1-11eb-822a-eb30acc1bba0.png)
+    ![GtRadioButtonFormField](https://user-images.githubusercontent.com/64594463/148724815-f35b39c4-6554-4a94-9c5b-0367dbc0e7da.png)
 
 # GtSwitchButtonFormField Widget
 
@@ -3424,19 +3292,19 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtSwitchButtonFormField(
-                       label: "Demo",
-                       isRequired: false,
-                       switchValue: true,
-                       switchactiveColor: Colors.blue,
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       onChangedHandler: (chk) { }
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtSwitchButtonFormField WIDGET"),
+                ),
+                body: Center(
+                  child: GtSwitchButtonFormField(
+                      label: "Demo",
+                      isRequired: false,
+                      switchValue: true,
+                      switchactiveColor: Colors.blue,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      onChangedHandler: (chk) {}),
+                ),
+              );
            }
         }
 
@@ -3444,7 +3312,7 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
 
   - Step 3 : Result :
 
-    ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/124451092-ace41000-dda2-11eb-9c3a-06500b708187.png)
+    ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/148725323-a0e2abb4-b4cf-455d-8294-96cb997a8e4d.png)
 
 # GtSurveyKit Widget
 
@@ -4615,477 +4483,500 @@ The GtListFilter widget is used represent the Filter field for the Listview.
   - Step 2 : ListviewFilterController With Quick Filter and Advance Filter.
 
   ```dart
-     import 'package:flutter/material.dart';
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-     class ListviewFilterController  extends GetxController with StateMixin {
 
+      import 'package:flutter/material.dart';
+      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+
+      class ListviewFilterController extends GetxController with StateMixin {
         ListviewFilterController();
 
         Rx<List> customerList = Rx<List>([]);
-        RxBool isBackDrop =  new RxBool(false);
-        List<GtAdvanceFilterOperator> operatorString = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorNumeric = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
+        RxBool isBackDrop = new RxBool(false);
+        GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+        List<GtAdvanceFilterOperator> operatorString =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorNumeric =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorCommon =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterField> advanceFilterFields =
+            new List<GtAdvanceFilterField>.empty(growable: true);
         RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
         RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+        Map<String, dynamic> sortFieldFilter = new Map<String, dynamic>();
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
-            operatorString = [
-              GtAdvanceFilterOperator(
-                 label: "LIKE",
-                 value: "_like",
-                 type: GtAdvanceFilterOperatorType.STRING
-              ),
-              GtAdvanceFilterOperator(
-                 label: "ILIKE",
-                 value: "_ilike",
-                 type: GtAdvanceFilterOperatorType.STRING
-              )
-              ];
-              operatorNumeric = [
-              GtAdvanceFilterOperator(
-                 label: "GTE",
-                 value: "_gte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterOperator(
-                 label: "LTE",
-                 value: "_lte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              )
-              ];
-              operatorCommon = [
-              GtAdvanceFilterOperator(
-                 label: "EQUAL",
-                 value: "_eq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              ),
-              GtAdvanceFilterOperator(
-                 label: "NEQ",
-                 value: "_neq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              )
-              ];
-              advanceFilterFields = [
-              GtAdvanceFilterField(
-                 label: "FName",
-                 value: "FName",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "code",
-                 value: "Code",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "Id",
-                 value: "Id",
-                 type: GtAdvanceFilterFieldOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterField(
-                 label: "IsActive",
-                 value: "isActive",
-                 type: GtAdvanceFilterFieldOperatorType.SELECT,
-                 options: [{"TRUE":"true"}, { "FALSE" : "false"}]
-              ),
-              ];
-              toMapfilterjson.value = {
-                 "Code": GtTileField(
-                    valuePath: "Code",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Code',
-                    filterLabel: 'Customer Code',
-                    textEditingController: new TextEditingController()),
-                 "FName": GtTileField(
-                    valuePath: "FName",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Name',
-                    filterLabel: 'Customer Name',
-                    textEditingController: new TextEditingController()),
-                 "IsActive" : GtTileField(
-                    valuePath: "isActive",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                    filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
-                    filterValue: 'isActive',
-                    filterLabel: 'isActive',
-                 ),
-                 "SortFilter" : GtTileField(
-                    filterLabel: "Sort By Field",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.SORT_FILTER,
-                    filterItems: {
-                       'Code': 'Code',
-                       'FName': 'FName',
-                    },
-                    filterValue: 'order_by'
-                 ),
-              };
-           filtersData.value = {"Code": {"_ilike": "%1%"}};
+          operatorString = [
+            GtAdvanceFilterOperator(
+                label: "LIKE",
+                value: "_like",
+                type: GtAdvanceFilterOperatorType.STRING),
+            GtAdvanceFilterOperator(
+                label: "ILIKE",
+                value: "_ilike",
+                type: GtAdvanceFilterOperatorType.STRING)
+          ];
+          operatorNumeric = [
+            GtAdvanceFilterOperator(
+                label: "GTE",
+                value: "_gte",
+                type: GtAdvanceFilterOperatorType.NUMERIC),
+            GtAdvanceFilterOperator(
+                label: "LTE",
+                value: "_lte",
+                type: GtAdvanceFilterOperatorType.NUMERIC)
+          ];
+          operatorCommon = [
+            GtAdvanceFilterOperator(
+                label: "EQUAL",
+                value: "_eq",
+                type: GtAdvanceFilterOperatorType.COMMON),
+            GtAdvanceFilterOperator(
+                label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
+          ];
+          advanceFilterFields = [
+            GtAdvanceFilterField(
+                label: "FName",
+                value: "FName",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "code",
+                value: "Code",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "Id",
+                value: "Id",
+                type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+            GtAdvanceFilterField(
+                label: "IsActive",
+                value: "isActive",
+                type: GtAdvanceFilterFieldOperatorType.SELECT,
+                options: [
+                  {"TRUE": "true"},
+                  {"FALSE": "false"}
+                ]),
+          ];
+          toMapfilterjson.value = {
+            "Code": GtTileField(
+                valuePath: "Code",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Code',
+                filterLabel: 'Customer Code',
+                textEditingController: new TextEditingController()),
+            "FName": GtTileField(
+                valuePath: "FName",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Name',
+                filterLabel: 'Customer Name',
+                textEditingController: new TextEditingController()),
+            "IsActive": GtTileField(
+              valuePath: "isActive",
+              type: GtFieldType.FILTER,
+              filterType: GtFilterType.RADIO_BUTTON_FILTER,
+              filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
+              filterValue: 'isActive',
+              filterLabel: 'isActive',
+            ),
+            "SortFilter": GtTileField(
+                filterLabel: "Sort By Field",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.SORT_FILTER,
+                filterItems: {
+                  'Code': 'Code',
+                  'FName': 'FName',
+                },
+                filterValue: 'order_by'),
+          };
+          filtersData.value = {
+            "Code": {"_ilike": "%1%"}
+          };
 
-           super.onInit();
+          super.onInit();
         }
-        void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API
-           Map<String, dynamic>? variables = {
-        "where": {"_and": []}
-      };
-           var filterselected = [];
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
-            /// Check here For Nasted Filter
-           selectedFilterAdvance.forEach((data) {
-           if (data["isNastedFilter"] == true) {
-           filterselected.add(data["filterNasted"]);
-           } else {
-           filterselected.add({
-              "${data["fieldName"]}": {
-                 data["operator"]: data["fieldValue"],
-              }
-           });
-           }
-           /// Quick Filter applied map and sort filter
-           if (filterDataApply != {} && fromOnInit == false) {
-            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
-            toMapfilterjson.forEach((key, gttilefield) {
-              switch (gttilefield.filterType) {
-                case GtFilterType.SORT_FILTER:
-                  var sortfield = filterDataApply![gttilefield.filterValue];
-                  var sortOrder = filterDataApply['sort'];
-                  sortFieldFilter = {
-                    sortfield: sortOrder.toString().toLowerCase()
-                  };
-                  break;
-              }
-            });
-            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
-              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
-                return {};
-              } else {
-                return {"${mapEntry.key}": mapEntry.value};
-              }
-            }).toList();
-            print(quickFilter);
-            filterselected.addAll(quickFilter);
+
+        void filterHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          /// This variables pass to API
+          Map<String, dynamic>? variables = {
+            "where": {"_and": []}
+          };
+          var filterselected = [];
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
           }
-          variables["where"]["_and"] = filterselected;
-        });
+          print(filterDataApply);
+          print(selectedFilterAdvance);
+
+          /// Check here For Nasted Filter
+          selectedFilterAdvance.forEach((data) {
+            if (data["isNastedFilter"] == true) {
+              filterselected.add(data["filterNasted"]);
+            } else {
+              filterselected.add({
+                "${data["fieldName"]}": {
+                  data["operator"]: data["fieldValue"],
+                }
+              });
+            }
+
+            /// Quick Filter applied map and sort filter
+            if (filterDataApply != {}) {
+              List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+              toMapfilterjson.forEach((key, gttilefield) {
+                switch (gttilefield.filterType) {
+                  case GtFilterType.SORT_FILTER:
+                    var sortfield = filterDataApply![gttilefield.filterValue];
+                    var sortOrder = filterDataApply['sort'];
+                    sortFieldFilter = {sortfield: sortOrder.toString().toLowerCase()};
+                    break;
+                }
+              });
+              quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
+                if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                  return {};
+                } else {
+                  return {"${mapEntry.key}": mapEntry.value};
+                }
+              }).toList();
+              print(quickFilter);
+              filterselected.addAll(quickFilter);
+            }
+            variables["where"]["_and"] = filterselected;
+          });
         }
-        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
+
+        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
+          }
+          print(filterDataApply);
+          print(selectedFilterAdvance);
         }
-        void changeBackDrop(bool isback){
-           isBackDrop.value = isback;
+
+        void changeBackDrop(bool isback) {
+          isBackDrop.value = isback;
         }
-     }
+      }
+
   ```
 
   - Step 2 : ListviewFilterController With Quick Filter and Nasted Advance Filter.
 
   ```dart
-     import 'package:flutter/material.dart';
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-     import 'package:core/core.dart';
-     class ListviewFilterController  extends GetxController with StateMixin {
+      import 'package:flutter/material.dart';
+      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 
+      class ListviewFilterController extends GetxController with StateMixin {
         ListviewFilterController();
 
         Rx<List> customerList = Rx<List>([]);
-        RxBool isBackDrop =  new RxBool(false);
-        List<GtAdvanceFilterOperator> operatorString = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorNumeric = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
+        RxBool isBackDrop = new RxBool(false);
+        GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+        List<GtAdvanceFilterOperator> operatorString =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorNumeric =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorCommon =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterField> advanceFilterFields =
+            new List<GtAdvanceFilterField>.empty(growable: true);
         RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
         RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+        Map<String, dynamic> sortFieldFilter = new Map<String, dynamic>();
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
-            operatorString = [
-              GtAdvanceFilterOperator(
-                 label: "LIKE",
-                 value: "_like",
-                 type: GtAdvanceFilterOperatorType.STRING
-              ),
-              GtAdvanceFilterOperator(
-                 label: "ILIKE",
-                 value: "_ilike",
-                 type: GtAdvanceFilterOperatorType.STRING
-              )
-              ];
-              operatorNumeric = [
-              GtAdvanceFilterOperator(
-                 label: "GTE",
-                 value: "_gte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterOperator(
-                 label: "LTE",
-                 value: "_lte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              )
-              ];
-              operatorCommon = [
-              GtAdvanceFilterOperator(
-                 label: "EQUAL",
-                 value: "_eq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              ),
-              GtAdvanceFilterOperator(
-                 label: "NEQ",
-                 value: "_neq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              )
-              ];
-              advanceFilterFields = [
-              GtAdvanceFilterField(
-                 label: "FName",
-                 value: "FName",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              /// This is nasted filter field
-              GtAdvanceFilterField(
-                 label: "City",
-                 isNastedFilter: true,
-                 value: "address.City",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "Id",
-                 value: "Id",
-                 type: GtAdvanceFilterFieldOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterField(
-                 label: "IsActive",
-                 value: "isActive",
-                 type: GtAdvanceFilterFieldOperatorType.SELECT,
-                 options: [{"TRUE":"true"}, { "FALSE" : "false"}]
-              ),
-              ];
-              toMapfilterjson.value = {
-                 "Code": GtTileField(
-                    valuePath: "Code",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Code',
-                    filterLabel: 'Customer Code',
-                    textEditingController: new TextEditingController()),
-                 "FName": GtTileField(
-                    valuePath: "FName",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Name',
-                    filterLabel: 'Customer Name',
-                    textEditingController: new TextEditingController()),
-                  /// This is nasted filter field
-                  "City": GtTileField(
-                    valuePath: "City",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'address.City',
-                    filterLabel: 'City',
-                    isNastedFilter: true,
-                    textEditingController: new TextEditingController()),
-                 "IsActive" : GtTileField(
-                    valuePath: "isActive",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                    filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
-                    filterValue: 'isActive',
-                    filterLabel: 'isActive',
-                 ),
-                 "SortFilter" : GtTileField(
-                    filterLabel: "Sort By Field",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.SORT_FILTER,
-                    filterItems: {
-                       'Code': 'Code',
-                       'FName': 'FName',
-                    },
-                    filterValue: 'order_by'
-                 ),
-              };
-           filtersData.value = {"Code": {"_ilike": "%1%"}};
+          operatorString = [
+            GtAdvanceFilterOperator(
+                label: "LIKE",
+                value: "_like",
+                type: GtAdvanceFilterOperatorType.STRING),
+            GtAdvanceFilterOperator(
+                label: "ILIKE",
+                value: "_ilike",
+                type: GtAdvanceFilterOperatorType.STRING)
+          ];
+          operatorNumeric = [
+            GtAdvanceFilterOperator(
+                label: "GTE",
+                value: "_gte",
+                type: GtAdvanceFilterOperatorType.NUMERIC),
+            GtAdvanceFilterOperator(
+                label: "LTE",
+                value: "_lte",
+                type: GtAdvanceFilterOperatorType.NUMERIC)
+          ];
+          operatorCommon = [
+            GtAdvanceFilterOperator(
+                label: "EQUAL",
+                value: "_eq",
+                type: GtAdvanceFilterOperatorType.COMMON),
+            GtAdvanceFilterOperator(
+                label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
+          ];
+          advanceFilterFields = [
+            GtAdvanceFilterField(
+                label: "FName",
+                value: "FName",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
 
-           super.onInit();
+            /// This is nasted filter field
+            GtAdvanceFilterField(
+                label: "City",
+                isNastedFilter: true,
+                value: "address.City",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "Id",
+                value: "Id",
+                type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+            GtAdvanceFilterField(
+                label: "IsActive",
+                value: "isActive",
+                type: GtAdvanceFilterFieldOperatorType.SELECT,
+                options: [
+                  {"TRUE": "true"},
+                  {"FALSE": "false"}
+                ]),
+          ];
+          toMapfilterjson.value = {
+            "Code": GtTileField(
+                valuePath: "Code",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Code',
+                filterLabel: 'Customer Code',
+                textEditingController: new TextEditingController()),
+            "FName": GtTileField(
+                valuePath: "FName",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Name',
+                filterLabel: 'Customer Name',
+                textEditingController: new TextEditingController()),
+
+            /// This is nasted filter field
+            "City": GtTileField(
+                valuePath: "City",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'address.City',
+                filterLabel: 'City',
+                isNastedFilter: true,
+                textEditingController: new TextEditingController()),
+            "IsActive": GtTileField(
+              valuePath: "isActive",
+              type: GtFieldType.FILTER,
+              filterType: GtFilterType.RADIO_BUTTON_FILTER,
+              filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
+              filterValue: 'isActive',
+              filterLabel: 'isActive',
+            ),
+            "SortFilter": GtTileField(
+                filterLabel: "Sort By Field",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.SORT_FILTER,
+                filterItems: {
+                  'Code': 'Code',
+                  'FName': 'FName',
+                },
+                filterValue: 'order_by'),
+          };
+          filtersData.value = {
+            "Code": {"_ilike": "%1%"}
+          };
+
+          super.onInit();
         }
-        void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API
-           Map<String, dynamic>? variables = {
-        "where": {"_and": []}
-      };
-           var filterselected = [];
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
-            /// Check here For Advance Nasted Filter
-           selectedFilterAdvance.forEach((data) {
-           if (data["isNastedFilter"] == true) {
-           filterselected.add(data["filterNasted"]);
-           } else {
-           filterselected.add({
-              "${data["fieldName"]}": {
-                 data["operator"]: data["fieldValue"],
-              }
-           });
-           }
-           /// Quick Filter applied map and sort filter
-           if (filterDataApply != {} && fromOnInit == false) {
-            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
-            toMapfilterjson.forEach((key, gttilefield) {
-              switch (gttilefield.filterType) {
-                case GtFilterType.SORT_FILTER:
-                  var sortfield = filterDataApply![gttilefield.filterValue];
-                  var sortOrder = filterDataApply['sort'];
-                  sortFieldFilter = {
-                    sortfield: sortOrder.toString().toLowerCase()
-                  };
-                  break;
-              }
-            });
-            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
-              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
-                return {};
-              } else {
-                return {"${mapEntry.key}": mapEntry.value};
-              }
-            }).toList();
-            print(quickFilter);
-            filterselected.addAll(quickFilter);
+
+        void filterHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          /// This variables pass to API
+          Map<String, dynamic>? variables = {
+            "where": {"_and": []}
+          };
+          var filterselected = [];
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
           }
-          variables["where"]["_and"] = filterselected;
-        });
+          print(filterDataApply);
+          print(selectedFilterAdvance);
+
+          /// Check here For Advance Nasted Filter
+          selectedFilterAdvance.forEach((data) {
+            if (data["isNastedFilter"] == true) {
+              filterselected.add(data["filterNasted"]);
+            } else {
+              filterselected.add({
+                "${data["fieldName"]}": {
+                  data["operator"]: data["fieldValue"],
+                }
+              });
+            }
+
+            /// Quick Filter applied map and sort filter
+            if (filterDataApply != {}) {
+              List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+              toMapfilterjson.forEach((key, gttilefield) {
+                switch (gttilefield.filterType) {
+                  case GtFilterType.SORT_FILTER:
+                    var sortfield = filterDataApply[gttilefield.filterValue];
+                    var sortOrder = filterDataApply['sort'];
+                    sortFieldFilter = {sortfield: sortOrder.toString().toLowerCase()};
+                    break;
+                }
+              });
+              quickFilter = filterDataApply.entries.map((MapEntry mapEntry) {
+                if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                  return {};
+                } else {
+                  return {"${mapEntry.key}": mapEntry.value};
+                }
+              }).toList();
+              print(quickFilter);
+              filterselected.addAll(quickFilter);
+            }
+            variables["where"]["_and"] = filterselected;
+          });
         }
-        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
+
+        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
+          }
+          print(filterDataApply);
+          print(selectedFilterAdvance);
         }
-        void changeBackDrop(bool isback){
-           isBackDrop.value = isback;
+
+        void changeBackDrop(bool isback) {
+          isBackDrop.value = isback;
         }
-     }
+      }
+
   ```
 
   - Step 3 : Used GtListFilter widget.
 
   ```dart
-        class ListFilterExample extends StatelessWidget {
-           @override
-           Widget build(BuildContext context) {
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: '')),
-                 body: Column(
-                    children:[
-                      Expanded(child: 
-                        GtBackDropListView(
-                          frontLayer: GtListPage(
-                             rowsCount: 2,
-                             leadingIcon: GtIcon(
-                             icondata: Icons.account_circle_rounded,
-                             ),
-                             isLeadingShow: false,
-                             listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER","address" : {"City": "Mumbai"}},
-                             {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER","address" : {"City": "Pune"}}],
-                             viewtype: ViewType.list,
-                             toMapjson: {
-                             'Name': GtTileField(
-                                valuePath: 'FName',
-                                row: 1,
-                                flex: 4,
-                                mobileRow: 1,
-                                mobileFlex: 3,
-                                cardRow: 1,
-                                type: GtFieldType.STRING,
-                                keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                                valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
-                                keyTextAlign: TextAlign.start,
-                                valueTextAlign: TextAlign.end,
-                                displayKey: true,
-                                keyValueBetween: " : ",
-                             ),
-                             'Code': GtTileField(
-                                valuePath: 'Code',
-                                row: 1,
-                                flex: 4,
-                                mobileRow: 2,
-                                mobileFlex: 3,
-                                cardRow: 1,
-                                type: GtFieldType.STRING,
-                                keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                                valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
-                                keyTextAlign: TextAlign.start,
-                                valueTextAlign: TextAlign.end,
-                                displayKey: true,
-                                keyValueBetween: " : ",
-                             ),
-                             },
-                             tag: "Task",
-                             isSpaceInRecords: true,
-                             isleadingIconPosition: false,
-                             size: Get.size,
-                             cardColor: Colors.blueGrey[200],
-                             backButtonColor: Colors.white,
+        import 'package:flutter/material.dart';
+        import '../controller/list_filter_controller.dart';
+        import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+
+        class GtListFilterPage extends GetView<ListviewFilterController> {
+          GtListFilterPage({Key? key}) : super(key: key);
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+                body: Center(
+                    child: GtBackDropListView(
+                        frontLayer: GtListPage(
+                          rowsCount: 2,
+                          leadingIcon: GtIcon(
+                            icondata: Icons.account_circle_rounded,
                           ),
-                          backLayer: Obx(() => GtListFilter(
-                             isBackDrop: true,
-                             isFilterProcessing: false,
-                             filterHandler: controller.filterHandlerFunction,
-                             onFilterClearHandler: controller.filterClearHandlerFunction,
-                             toMapjson: controller.toMapfilterjson,
-                             changeBackDrop: controller.changeBackDrop,
-                             isBackDropController : controller.isBackDrop.value,
-                             advanceFilterFields: controller.advanceFilterFields,
-                             isAdvanceFilterEnable: true,
-                             operatorCommon: controller.operatorCommon,
-                             operatorNumeric: controller.operatorNumeric,
-                             operatorString: controller.operatorString,
-                             keyLabel: "CustomerFilter",
-                             filterData: controller.filtersData.value,
-                          )),
-                          backdropAppBar: BackdropAppBar(
-                             title: GtText(text: "LISTVIEW"),
-                          ),
-                          isFilterApplied: controller.isFilterApplied.value
-                       ))
-                    ]
-                 ));
-           }
+                          isLeadingShow: false,
+                          listItems: [
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT0521",
+                              "FName": "DEMO USER",
+                              "address": {"City": "Mumbai"}
+                            },
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT011",
+                              "FName": "DEMO MANAGER",
+                              "address": {"City": "Pune"}
+                            }
+                          ],
+                          viewtype: ViewType.list,
+                          toMapjson: {
+                            'Name': GtTileField(
+                              valuePath: 'FName',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 1,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                            'Code': GtTileField(
+                              valuePath: 'Code',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 2,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                          },
+                          tag: "Task",
+                          isSpaceInRecords: true,
+                          isleadingIconPosition: false,
+                          size: Get.size,
+                          cardColor: Colors.blueGrey[200],
+                          backButtonColor: Colors.white,
+                        ),
+                        backLayer: Obx(() => GtListFilter(
+                              isBackDrop: true,
+                              isFilterProcessing: false,
+                              filterHandler: controller.filterHandlerFunction,
+                              onFilterClearHandler:
+                                  controller.filterClearHandlerFunction,
+                              toMapjson: controller.toMapfilterjson,
+                              changeBackDrop: controller.changeBackDrop,
+                              isBackDropController: controller.isBackDrop.value,
+                              advanceFilterFields: controller.advanceFilterFields,
+                              isAdvanceFilterEnable: true,
+                              operatorCommon: controller.operatorCommon,
+                              operatorNumeric: controller.operatorNumeric,
+                              operatorString: controller.operatorString,
+                              keyLabel: "CustomerFilter",
+                              filterData: controller.filtersData.value,
+                            )),
+                        backdropAppBar: BackdropAppBar(
+                          title: GtText(text: "LISTVIEW"),
+                        ),
+                        isFilterApplied: controller.isFilterApplied.value)));
+          }
         }
+
 
   ```
 
   - Step 3 : Result :
 
-    ![GtListFilter](https://user-images.githubusercontent.com/64594463/145522898-d7f79fa6-ded8-45db-9f91-1e966aea40de.png)
+    ![GtListFilter](https://user-images.githubusercontent.com/64594463/148731711-1cbd2a96-287c-4880-95a4-6531561d1134.png)
 
-    ![GtListFilter](https://user-images.githubusercontent.com/64594463/145522926-27a0bf05-8375-45c8-9f2d-e5cf759d11ab.png)
+    ![GtListFilter](https://user-images.githubusercontent.com/64594463/148731750-371edfb0-2a49-4e6e-be0c-3647266d85ed.png)
