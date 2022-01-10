@@ -17,7 +17,7 @@ class GtCard extends StatelessWidget {
     this.textStyle,
     this.imagePosition = GtImagePosition.TOP,
     this.imageBackgroundColor,
-    this.isNetworkImage,
+    this.isNetworkImage = true,
     this.cardRadius,
     this.textPadding = 2.0,
   });

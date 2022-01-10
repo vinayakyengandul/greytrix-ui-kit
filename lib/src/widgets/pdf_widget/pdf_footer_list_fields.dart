@@ -9,7 +9,7 @@ class FooterListFields {
     List<pw.Widget> widgets;
     widgets = [];
     dynamic rowsData = {};
-    if (pdfData.pdfFooter != null && pdfData.pdfFooter.maxRow > 0) {
+    if (pdfData.pdfFooter != null && pdfData.pdfFooter.maxRow > 0 && pdfData.pdfBody.pdfBodyFields != null) {
       for (var i = 0; i < pdfData.pdfFooter.maxRow; i++) {
         rowsData[i + 1] = List<pw.Widget>.empty(growable: true);
       }
@@ -27,7 +27,9 @@ class FooterListFields {
             widgets.add(pw.Row(mainAxisSize: pw.MainAxisSize.min, children: v))
           });
     }
-
+    else {
+      return [pw.Container()];
+    }
     return widgets;
   }
 
@@ -131,6 +133,7 @@ class FooterListFields {
         ));
         break;
       default:
+        return pw.Container();
     }
   }
 }

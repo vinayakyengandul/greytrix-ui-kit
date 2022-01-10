@@ -7,7 +7,6 @@ export 'no_list_found.dart';
 export 'gt_charts_barchart.dart';
 export 'coming_soon.dart';
 export 'gt_bottom_bar.dart';
-export 'gt_user_menu_bar.dart';
 export 'page_not_found.dart';
 export 'gt_cart_item.dart';
 export 'gt_cart.dart';

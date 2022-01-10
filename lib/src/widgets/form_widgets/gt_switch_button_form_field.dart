@@ -16,6 +16,10 @@ class GtSwitchButtonFormField extends FormField<bool> {
   final CrossAxisAlignment crossAxisAlignment;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
+  final bool isRow;
+  final int expandedFlexText;
+  final int expandedFlexButton;
+  final Alignment switchAlignment;
 
   GtSwitchButtonFormField({
     @required this.label,
@@ -27,7 +31,11 @@ class GtSwitchButtonFormField extends FormField<bool> {
     this.textStyle,
     this.validationMessage = true,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.validationHandler
+    this.validationHandler,
+    this.isRow = false,
+    this.expandedFlexText = 1,
+    this.expandedFlexButton = 1,
+    this.switchAlignment = Alignment.centerLeft,
   }) : super(
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(savedVal);
@@ -72,7 +80,32 @@ class GtSwitchButtonFormField extends FormField<bool> {
                       }
                     },
                   );
-            return Column(
+            return isRow ? Row(
+              crossAxisAlignment: crossAxisAlignment,
+              children: [
+                Expanded(
+                  flex: expandedFlexText,
+                  child: GtText(
+                    text: label,
+                    textStyle: textStyle,
+                    //texttype: TextformatType.bodyText2,
+                  ),
+                ),
+                isRequired && !validationMessage ? GtText(
+                  text: " *",
+                  textStyle: TextStyle(color: Colors.red),
+                  //texttype: TextformatType.bodyText2,
+                ): Container(),
+                Expanded(
+                  flex: expandedFlexButton,
+                  child: Align(
+                    alignment: switchAlignment,
+                    child: _switchWidget)),
+                 state.errorText == null || !validationMessage
+                    ? Container()
+                    : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
+              ],
+            ) : Column(
               crossAxisAlignment: crossAxisAlignment,
               children: [
                 Wrap(children: [

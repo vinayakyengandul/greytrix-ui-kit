@@ -7,13 +7,10 @@
 - [GtIconCheckbox Widget](#gticoncheckbox-widget)
 - [GtTextFormField Widget](#gttextformfield-widget)
 - [GTChip Widget](#gtchip-widget)
-- [GtHeader Widget](#gtheader-widget)
 - [CustomPopup Widget](#custompopup-widget)
 - [GtNavigationRails Widget](#gtnavigationrails-widget)
 - [SearchDialog Widget](#searchdialog-widget)
 - [GtAppBar Widget](#gtappbar-widget)
-- [CoreListView Widget](#corelistview-widget)
-- [GtUserMenuBar Widget](#gtusermenubar-widget)
 - [GtTab Widget](#gttab-widget)
 - [GtBottomBar Widget](#gtbottombar-widget)
 - [GtComingSoon Widget](#gtcomingsoon-widget)
@@ -25,7 +22,6 @@
 - [GtCalendar Widget](#gtcalendar-widget)
 - [GtCurrency Widget](#gtcurrency-widget)
 - [GtButton Widget](#gtbutton-widget)
-- [GtAppSideBar Widget](#gtappsidebar-widget)
 - [GtDynamicView Widget](#gtdynamicview-widget)
 - [GtSignature Widget](#gtsignature-widget)
 - [GtFileUpload Widget](#gtfileupload-widget)
@@ -63,7 +59,9 @@ The gttext widget is used represent the text on the Screen with alng icons as op
                   this.iconColor,
                   this.position = GtPosition.PREFIX,
                   this.textAlign = TextAlign.start,
-                  this.maxLines,});
+                  this.maxLines,
+                  this.iconTextMainAxisAlignment = MainAxisAlignment.center,
+                  this.iconTextCrossAxisAlignment = CrossAxisAlignment.center,});
 ```
 
 - Input Parameters of GtText Widget
@@ -78,6 +76,8 @@ The gttext widget is used represent the text on the Screen with alng icons as op
   - **position** - GtPosition - Provide aposition for the icon to be displayed before or after the text.
   - **textAlign** - TextAlign - This is used for Align the text, Default value is TextAlign.start.
   - **maxLines** - int - Text Field define maxline if null its showing default.
+  - **iconTextMainAxisAlignment** - MainAxisAlignment - This is for main axis alignment between icon and Text, default is MainAxisAlignment.center.
+  - **iconTextCrossAxisAlignment** - CrossAxisAlignment - This is for Cross axis alignment between icon and Text, default is CrossAxisAlignment.center.
 
 - Example
 
@@ -93,26 +93,21 @@ The gttext widget is used represent the text on the Screen with alng icons as op
         class TextDemo extends StatelessWidget {
            @override
            Widget build(BuildContext context) {
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child: GtText(
-                     text: 'HR',
-                     textStyle: TextStyle(fontSize: 20, color: Colors.grey),
-                     iconData: Icons.people_alt_outlined,
-                     position: GtPosition.PREFIX,
-                   ),
-                 ));
-           }
-        }
+              return Scaffold(
+                appBar: GtAppBar(
+                  backgroundColor: const Color(0xff5a5278), title: GtText(text: 'GTTEXT',textStyle: const  TextStyle(fontSize: 20, color: Colors.white),
+                  iconData: Icons.people_alt_outlined,
+                  position: GtPosition.PREFIX,),),
+                body: GtComingSoon(),
+              );
+            }
+          }
 
   ```
 
   - Step 3 : Result :
 
-    ![Gtext](https://user-images.githubusercontent.com/47977097/115866662-9d1d8680-a457-11eb-8053-a57d97459961.png)
+    ![Gtext](https://user-images.githubusercontent.com/64594463/148159229-0aa0f7b7-b8d1-4c19-b22f-395f1c272aaa.png)
 
 # GtIcon Widget
 
@@ -136,7 +131,7 @@ The gticon widget is used represent the Icon on the Screen with responsive sizin
   - **color** - Color - The color to use when drawing the icon. Defaults to the current IconTheme color, if any.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -145,23 +140,26 @@ The gticon widget is used represent the Icon on the Screen with responsive sizin
   - Step 2 : GtIcon widget can be used as shown in the below example where color and size are the optional Paramters if not specified the widget will handles it with its own creative way.
 
   ```dart
-     class WelcomePage extends StatelessWidget {
+     class GtIconPage extends StatelessWidget {
        @override
        Widget build(BuildContext context) {
-         return Container(
-                  child: GtIcon(
-                  icondata: Icons.mail_outline,
-                  color: Color(0xFF5785f3),
-                  size: 20.0,
+         return Scaffold(
+                  appBar: GtAppBar(
+                    backgroundColor: const Color(0xff5a5278), 
+                    title: GtIcon(
+                      icondata: Icons.mail_outline,
+                      size: 20.0,),
                     ),
-                 );
-               }
-         }
+                  body: GtComingSoon(),
+                );
+              }
+        }
   ```
+
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103771677-31511280-504e-11eb-94e4-4462565e69ca.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148160743-fd5b29f9-29ad-41b8-a969-c8e92fbf03a6.png)
 
 # GtIconCheckbox Widget
 
@@ -200,7 +198,7 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
 
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -211,27 +209,56 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
   ```dart
      class CustomerList extends StatelessWidget {
            bool isSelected = false;
+           bool isSelected1 = false;
          @override
                Widget build(BuildContext context) {
-                  return Container(
-                       child: ListTile(
-                       title: GtText(
-                         text: 'Paul Walker',
-                         texttype: TextformatType.listitemkey,
-                         textOverflow: TextOverflow.ellipsis,
-                       ),
-                       subtitle:
-                           GtText(text: "USA", texttype: TextformatType.listitem),
-                       leading: GtIconCheckbox(
-                         icon: Icons.account_circle,
-                         selected: isSelected,
-                         onchanged: (value) => checkitem(value),
-                         backgroundColor: Colors.white,
-                       ),
-                       trailing: GtIcon(
-                         icondata: Icons.arrow_forward_ios_rounded,
-                       ),
-                     ));
+                  return Scaffold(
+                          appBar: GtAppBar(
+                            title: GtText(text: "GtIconCheckBox WIDGET"),
+                          ),
+                          body: Column(
+                            children: [
+                              ListTile(
+                                title: GtText(
+                                  text: 'Paul Walker',
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle:
+                                    GtText(text: "USA",),
+                                leading: GtIconCheckbox(
+                                  icon: Icons.account_circle,
+                                  selected: isSelected1,
+                                  onchanged: (value) => checkitem(value),
+                                  backgroundColor: Colors.white,
+                                  iconcolor: Theme.of(context).colorScheme.primary,
+                                  checkboxactiveColor: Theme.of(context).colorScheme.primary,
+                                ),
+                                trailing: GtIcon(
+                                  icondata: Icons.arrow_forward_ios_rounded,
+                                ),
+                              ),
+                              ListTile(
+                                title: GtText(
+                                  text: 'Rock Walker',
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle:
+                                    GtText(text: "USA",),
+                                leading: GtIconCheckbox(
+                                  icon: Icons.account_circle,
+                                  selected: isSelected,
+                                  onchanged: (value) => checkitem(value),
+                                  backgroundColor: Colors.white,
+                                  iconcolor: Theme.of(context).colorScheme.primary,
+                                  checkboxactiveColor: Theme.of(context).colorScheme.primary,
+                                ),
+                                trailing: GtIcon(
+                                  icondata: Icons.arrow_forward_ios_rounded,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                    }
               void checkitem(value) {
                   isSelected = value;
@@ -241,11 +268,11 @@ The GtIconCheckbox widget is combination of Icon and chexbox widget on the Scree
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103772299-4e3a1580-504f-11eb-940d-2e116862f956.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148747887-00dcbd28-c269-4244-9725-41467346853c.png)
 
 # GtTextFormField Widget
 
-The gttextformfield widget is used represent the text form field on the Screen with responsive sizing handle by the core package.
+The gttextformfield widget is used represent the text form field on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GtTextFormField Widget
   - Handles the font size of the text field in dynamic way based on the screen resolution.
@@ -301,7 +328,7 @@ The gttextformfield widget is used represent the text form field on the Screen w
   - **focusNode** - FocusNode - To receive key events that focuses on this node, pass a listener to `onKeyEvent`. The `onKey` is a legacy API based on [RawKeyEvent] and will be deprecatedin the future..
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -311,17 +338,29 @@ The gttextformfield widget is used represent the text form field on the Screen w
 
   ```dart
          class WelcomePage extends StatelessWidget {
-         final TextEditingController usernameTextController = TextEditingController();
             @override
            Widget build(BuildContext context) {
-           return Container(
-              child: GtTextFormField(
-                  fieldLabel: 'Username'.tr,
-                  textEditingController: usernameTextController,
-                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                  isRequired: true,
-                  isReadOnly: true,
-               )
+           return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Column(
+                children: [
+                  GtTextFormField(
+                    fieldLabel: 'Username',
+                    textEditingController: TextEditingController(),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    isRequired: true,
+                  ),
+                  GtTextFormField(
+                    fieldLabel: 'Password',
+                    obscureText: true,
+                    textEditingController: TextEditingController(),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    isRequired: true,
+                  )
+                ],
+              ),
             );
         }
      }
@@ -329,11 +368,11 @@ The gttextformfield widget is used represent the text form field on the Screen w
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103736306-fb903780-5015-11eb-94ac-1b7ef800f33f.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148164537-d7adba17-e834-445c-91ff-fabc2487ea12.png)
 
 # GTChip Widget
 
-The gtchip widget is used represent the text in chip on the Screen with responsive sizing handle by the core package.
+The gtchip widget is used represent the text in chip on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GTChip Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -357,7 +396,9 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
     - [GTChip](components.md#gtchip-widget)({
        this.label,
        this.backgroundColor,
-       this.textFormatType = TextformatType.subtitle2});
+       this.textStyle,
+       this.avatar,
+       this.shapeBorder,});
 ```
 
 - Input Parameters of GTChip Widget
@@ -368,7 +409,7 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
   - **shapeBorder** - ShapeBorder - Chip Widget shape Border Define.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -380,73 +421,38 @@ The gtchip widget is used represent the text in chip on the Screen with responsi
          class WelcomePage extends StatelessWidget {
             @override
            Widget build(BuildContext context) {
-           return Container(
-           child: GTChip(
-                label: 'Chip Demo',
-                textFormatType: TextformatType.bodytext),
-           );
+           return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Center(
+                child: Wrap(
+                  children: [
+                    GTChip(
+                      label: 'Chip One',
+                      textStyle: TextStyle(color: Colors.blueGrey,),
+                      avatar: GtIcon(icondata: Icons.person),
+                    ),
+                    GTChip(
+                      label: 'Chip Two',
+                      textStyle: TextStyle(color: Colors.blueGrey),
+                      avatar: GtIcon(icondata: Icons.person),
+                    ),
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/103748865-bd514300-502a-11eb-9509-eb7827439137.png)
-
-# GtHeader Widget
-
-The gtheader widget is used represent the ListTile on the Screen with responsive sizing handle in the core package.
-
-- Benefits of GtHeader Widget
-
-  - Handles the font size of the text in dynamic way based on the screen resolution.
-
-- Constructors:
-
-```
-   - [GtHeaderWidget](components.md#gtheader-widget)({
-      this.listItemsheader,
-      this.enableCheckbox = false});
-```
-
-- Input Parameters of GtHeaderWidget Widget
-
-  - **listItemsheader** - List<Widget> - Is will contains List of widgets in GtHeaderWidget. Used in ListTile title.
-  - **enableCheckbox** - bool - If is true than it shows checkbox widget in ListTile Leading property. default value is false.
-
-- Example
-
-  - Step 1 : Import core in files that it will be used:
-
-  ```dart
-      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtHeader widget input is List of Widgets and Bool.
-
-  ```dart
-         class WelcomePage extends StatelessWidget {
-            @override
-           Widget build(BuildContext context) {
-           return Container(
-           child: GtHeaderWidget(
-                     listItemsheader: [
-                       GtText(text: "Header 1",),
-                       GtText(text: "Header 2")
-                     ],
-                     enableCheckbox: true,
-               )
-           );
-        }
-     }
-  ```
-
-  - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103750941-83ce0700-502d-11eb-9d6d-87e33fc7ea2d.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148165715-890cfe92-790c-4395-9156-aa7271b0b9ba.png)
 
 # CustomPopup Widget
 
-The custompopup widget is used represent the dialog on the Screen in the core package.
+The custompopup widget is used represent the dialog on the Screen in the greytrix_ui_kit package.
 
 - Benefits of CustomPopup Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -464,17 +470,28 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
          this.top,
          this.bottom,
          this.left,
-         this.right});
+         this.right,
+         this.isCrossAxisAlignment = CrossAxisAlignment.center,});
 ```
 
 - Input Parameters of CustomPopup Widget
-  - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. - **onTapHandler** - Function - It Called when the user taps this List tile. - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. - **top** - double - Used for CustomPopup Widget Positioned in top. - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. - **left** - double - Used for CustomPopup Widget Positioned in left. - **right** - double - Used for CustomPopup Widget Positioned in right.
+  - **isItemSelected** - Function(dynamic obj) - This is a method with parameter which is used to value is selected or not. And it is a required parameter. 
+  - **items** - List<dynamic> - Used to List of dymanic to Custompopup value. And its required parameter. - **getOptionText** - Function(dynamic obj) - This is a method with parameter. its shows text in each card in CustomPopup. And its required parameter. 
+  - **getAvatarWidgetContent** - Function(dynamic obj) - This is a method with parameter. its shows leading text in each card in CustomPopup. And its required parameter. 
+  - **onTapHandler** - Function - It Called when the user taps this List tile. 
+  - **showMoreOption** - bool - Used for when showMoreOption is true it will show Show More option in CustomPopup Widget. 
+  - **showMoreHandler** - Function - This function is used for when user click on showMoreOption it will open all CustomPopup items open in new dialog. 
+  - **top** - double - Used for CustomPopup Widget Positioned in top. 
+  - **bottom** - double - Used for CustomPopup Widget Positioned in bottom. 
+  - **left** - double - Used for CustomPopup Widget Positioned in left. 
+  - **right** - double - Used for CustomPopup Widget Positioned in right.
+  - **isCrossAxisAlignment** - CrossAxisAlignment - Used for Cross Alignment column view.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
-     import 'package:core/core.dart';
+     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used CustomPopup widget.
@@ -483,34 +500,40 @@ The custompopup widget is used represent the dialog on the Screen in the core pa
          class WelcomePage extends StatelessWidget {
             @override
            Widget build(BuildContext context) {
-              var e = ["Popup 1" , "Popup 2", "Popup 3"];
-           return Container(
-           child: CustomPopup(
+              var e = ["Popup 1", "Popup 2", "Popup 3"];
+            return Scaffold(
+              appBar: GtAppBar(
+                backgroundColor: const Color(0xff5a5278),
+              ),
+              body: Center(
+                child: Column(
+                  children: [
+                    GtIcon(icondata: Icons.open_in_new),
+                    CustomPopup(
                       top: 5.0,
                       left: 5.0,
-                      isItemSelected: (e) =>
-                      "Popup 1" == e,
+                      isItemSelected: (e) => "Popup 1" == e,
                       items: e,
                       showMoreOption: e.length > 3,
-                      getOptionText: (e) => '${e}'.tr,
+                      getOptionText: (e) => '${e}',
                       getAvatarWidgetContent: (e) => Text(
-                        '${e.toString().substring(0,1)}',
+                        '${e.toString().substring(0, 1)}',
                         style: TextStyle(
-                            color: "Popup 1" == e
-                                ? context.theme.colorScheme.onPrimary
-                                : context.theme.colorScheme.primary),
+                            color: "Popup 1" == e ? Colors.blue : Colors.white),
                       ),
                       onTapHandler: (e) => {},
-                      showMoreHandler: () => {
-                      },
+                      showMoreHandler: () => {},
                     ),
-           );
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103757929-7fa6e700-5037-11eb-947d-539203681cc4.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148168818-02028ad4-4217-4372-a48f-a6a2deffddb7.png)
 
 # GtNavigationRails Widget
 
@@ -543,7 +566,7 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
 
 - Input Parameters of GtNavigationRails Widget
 
-  - **nrdlist** - List<Rails> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
+  - **nrdlist** - List<GtRail> - Defines the appearance of the button items that are arrayed within the navigation rail. The value must be a list of two or more.
   - **selectedindex** - int - The index into destinations for the current selected NavigationRailDestination.
   - **setindex** - Function - Called when one of the destinations is selected.
   - **showLabel** - bool - Defines the layout and behavior of the labels for the default, unextended NavigationRail. When a navigation rail is extended, the labels are always shown.
@@ -558,9 +581,38 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
   - **leadingWidget** - Widget - The leading Widget is placed Top of the rails first NavigationRailDestination.
   - **toolTipMessageField** - String Function(dynamic obj) - This function return String message for hover rail label.
 
+- GtRail Constructors:
+
+```
+   - [GtRail]({
+      this.label,
+      this.iconPath,
+      this.selectedIconPath,
+      this.iconType,
+      this.imageUrl,
+      this.isHovered,
+      this.icon,
+      this.selectedIcon,
+      this.path,
+      this.menus,});
+```
+
+- Input Parameters of GtRail model
+
+  - **label** - String - This is showing label name for each rail.
+  - **iconPath** - String - This String parameter indicate the icon path for showing Icon in rails.
+  - **selectedIconPath** - String - It will show Icon selected Path.
+  - **iconType** - GtIconType - This is enum type of input and its indicates which type of icon coming like (IMAGE, SVG, ICON )
+  - **imageUrl** - This is Image URL as String.
+  - **isHovered** - bool - This provide when rail menu hovered then it will come value as true.
+  - **icon** -  IconData - This will show icon in rails.
+  - **selectedIcon** - IconData - This is selected Icons will show on rails.
+  - **path** - String - It will redirection path for navigate the page.
+  - **menus** - List<GtRail> - It is child Rails for main navigation rails.
+
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -573,20 +625,23 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
             @override
            Widget build(BuildContext context) {
              var nrdrails = [
-                  Rail(
+                  GtRail(
                         icon: Icons.folder_open,
                         selectedIcon: Icons.folder,
                         label: 'Document',
                         iconType: GtIconType.ICON,
                         isHovered: false),
-                  Rail(
+                  GtRail(
                         icon: Icons.folder_open,
                         selectedIcon: Icons.folder,
                         label: 'Document',
                         iconType: GtIconType.ICON,
                         isHovered: false),];
-           return Container(
-           child:  GtNavigationRails(
+           return Scaffold(
+              body: Center(
+                child: Row(
+                  children: [
+                    GtNavigationRails(
                       showLabel: false,
                       leadingWidget: Container(
                           padding: EdgeInsets.fromLTRB(3.0, 0, 3.0, 0),
@@ -596,16 +651,15 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                               width: 50,
                               child: CircleAvatar(
                                 radius: 18.0,
-                                backgroundColor:
-                                    context.theme.colorScheme.primary,
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                backgroundImage: NetworkImage(
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU"),
                               ),
                             ),
                           )),
                       setindex: () => {},
                       selectedindex: 0,
-                      nrdlist: [
-
-                      ],
+                      nrdlist: nrdrails,
                       onHover: 0,
                       onHoverHandler: (idt, dar1) => {},
                       toolTipMessageField: (dat) {
@@ -615,9 +669,7 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                         Container(
                             padding: EdgeInsets.all(8.0),
                             child: IconButton(
-                                icon: true
-                                    ? Icon(Icons.menu_open)
-                                    : Icon(Icons.menu),
+                                icon: true ? Icon(Icons.menu_open) : Icon(Icons.menu),
                                 onPressed: () {
                                   null;
                                 })),
@@ -638,8 +690,9 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                             },
                             child: CircleAvatar(
                               radius: 18.0,
-                              backgroundColor:
-                                  context.theme.colorScheme.primary,
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              backgroundImage: NetworkImage(
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU"),
                             ),
                           ),
                         ),
@@ -654,18 +707,22 @@ The gtnavigationrails widget is used represent the NavigationRail on the Screen 
                         ),
                       ],
                     ),
-           );
+                    Expanded(child: GtComingSoon())
+                  ],
+                ),
+              ),
+            );
         }
      }
   ```
 
   - Step 3 : Result (Web/Mobile):
-    ![image](https://user-images.githubusercontent.com/64594463/147633086-ff740f7c-663a-4fdb-a485-5c36e5b470bb.png)
-    ![image](https://user-images.githubusercontent.com/64594463/147633707-77228135-df63-43e5-98cf-8502609c56bb.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148755812-9632f142-8623-4cea-831c-c1bb9d0d4422.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148755979-3c47a2b0-2a4b-4831-b6a2-cdc4b4e7f02f.png)
 
 # SearchDialog Widget
 
-The searchdialog widget is used represent the SearchDialog for App and Oragnization when count is more than 3 on the Screen with responsive sizing handle in the core package.
+The searchdialog widget is used represent the SearchDialog for App and Oragnization when count is more than 3 on the Screen with responsive sizing handle in the greytrix_ui_kit package.
 
 - Benefits of SearchDialog Widget
   - Handles the font size of the text in dynamic way based on the screen resolution.
@@ -699,10 +756,10 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
 
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
-     import 'package:core/core.dart';
+     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used SearchDialog widget.
@@ -713,41 +770,45 @@ The searchdialog widget is used represent the SearchDialog for App and Oragnizat
             @override
            Widget build(BuildContext context) {
            e = ["Popup 1" , "Popup 2", "Popup 3", "Popup 4", "Popup 4"];
-           return Container(
-           child: IconButton(
-                  icon: Icon(Icons.more),
-                  onPressed: (){
-                    Get.dialog(
-                      SearchDialog(
-                        searchBox: true,
-                        dialogTitle: 'Select Organization'.tr,
-                        isItemSelected: (e) =>
-                        "Popup 1" == e,
-                        items: e,
-                        getOptionText: (e) => '${e}'.capitalizeFirst,
-                        getAvatarWidgetContent: (e) => Icon(
-                          Icons.supervised_user_circle,
-                          color: "Popup 1" == e
-                              ? context.theme.colorScheme.onPrimary
-                              : context.theme.primaryColor,
+           return Scaffold(
+              appBar: GtAppBar(
+                title: GtText(text: "SEARCH DIALOG"),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.more),
+                    onPressed: () {
+                      Get.dialog(
+                        SearchDialog(
+                          searchBox: true,
+                          dialogTitle: 'Select Organization'.tr,
+                          isItemSelected: (e) => "Popup 1" == e,
+                          items: e,
+                          getOptionText: (e) => '${e}'.capitalizeFirst,
+                          getAvatarWidgetContent: (e) => Icon(
+                            Icons.supervised_user_circle,
+                            color: "Popup 1" == e
+                                ? context.theme.colorScheme.onPrimary
+                                : context.theme.primaryColor,
+                          ),
+                          onTapHandler: (e) => {},
                         ),
-                        onTapHandler: (e) => {
-                        },
-                      ),
-                    );
-                  },
-                ),
-           );
+                      );
+                    },
+                  ),
+                ],
+              ),
+              body: Center(child: GtComingSoon()),
+            );
         }
      }
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103763437-d9131400-503f-11eb-86e5-511d630b0f19.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148171269-5ccf7ea8-2cbe-4896-b615-eabd6e52744a.png)
 
 # GtAppBar Widget
 
-The gtappbar widget is used represent the App Bar on the Screen with responsive sizing handle by the core package.
+The gtappbar widget is used represent the App Bar on the Screen with responsive sizing handle by the greytrix_ui_kit package.
 
 - Benefits of GtAppBar Widget
   - Handles the font size of the text field in dynamic way based on the screen resolution.
@@ -778,7 +839,7 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
   - **flexibleSpace** - Widget - This is used for gradiant color.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
       import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -788,30 +849,27 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
 
   ```dart
          class WelcomePage extends StatelessWidget {
-         final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
          final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
             @override
            Widget build(BuildContext context) {
            return Scaffold(
-                  backgroundColor: context.theme.backgroundColor,
-                  appBar: GtAppBar(
-                    title: const Text('AppBar Demo'),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.add_alert),
-                        tooltip: 'Show Snackbar',
-                        onPressed: () {
-                          scaffoldKey.currentState.showSnackBar(snackBar);
-                        },
-                      ),
-                    ],
+              appBar: GtAppBar(
+                title: GtText(text: "APP BAR WIDGET"),
+                leading: GtIcon(
+                  icondata: Icons.menu,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.add_alert),
+                    tooltip: 'Show Snackbar',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
                   ),
-                  body: const Center(
-                     child: Text(
-                       'This is the WelcomePage',
-                       style: TextStyle(fontSize: 24),
-                     ),
-                   ),
+                ],
+              ),
+              body: Center(child: GtComingSoon()),
             );
         }
      }
@@ -819,334 +877,12 @@ The gtappbar widget is used represent the App Bar on the Screen with responsive 
 
   - Step 3 : Result :
 
-    ![image](https://user-images.githubusercontent.com/64594463/104146642-69ab7480-53f1-11eb-8e90-b365ae4e944c.png)
-
-# CoreListView Widget
-
-The corelistview widget is used represent the List View on the Screen with responsive sizing handle by the core package.
-
-- Benefits of CoreListView Widget
-  - Handles the font size of the text field in dynamic way based on the screen resolution.
-  - CoreListView theme handles the ThemeData we don`t have to provide theme in CoreListView.
-  - CoreListView Handle with Controller we also want to pass CoreBinding in CreatePage binding.
-- Constructors:
-
-```
-   - [CoreListView](components.md#/corelistview-widget)({
-      this.title,
-      this.toMapjson,
-      this.rowsCount = 2,
-      this.cardAspectRatio = 1,
-      this.viewType = ViewType.list,
-      this.leadingIcon,
-      this.trailingIcon,
-      this.tag,
-      this.enablefilter = false,
-      this.backNavigation = false,
-      this.pathNavigation = "",
-      this.isSpaceInRecords = false,
-      this.postfixtitleText,
-      this.prefixtitleText,
-      this.titletextValuePath,
-      this.selectAllcheckboxOption = true,});
-```
-
-- Input Parameters of CoreListView Widget
-
-  - **title** - String - The contains ListView Title name.
-  - **rowsCount** - int - Called to obtain the number of rows to tell the ListView or GridView. Default value is 2.
-  - **cardAspectRatio** - double - The ratio of the cross-axis to the main-axis extent of each child. Default value is 1.
-  - **viewType** - ViewType (Enum) - This is for how View is showing (both, list, card). If both is selected than we get both view. Default is ViewType.list.
-  - **leadingIcon** - IconData - There is only we have to pass IconData that showing in ListView.
-  - **trailingIcon** - IconData - There is only we have to pass IconData that showing in ListView.
-  - **tag** - String - This String value taken unique Key as defines which View is showing.
-  - **enablefilter** - bool - It is used for the filter option, If true we get Filter option in ListView. Default value is false.
-  - **backNavigation** - bool - This containes back navigation arrow button for listview, Default value is false.
-  - **pathNavigation** - String - It used for navigate form listview record to given navigation path. if children path is "navigation/:id" this have to pass only "navigation/" this.
-  - **isSpaceInRecords** - bool - Listview record between space indicate, Default is spacing value is false.
-  - **titletextValuePath** - String - When we have to take Listview title from Response, have to pass this value path.
-  - **selectAllcheckboxOption** - bool - This show Listview All Select checkBox, Default is true.
-  - **prefixtitleText** - String - It`s containe Listview title prefix text.
-  - **postfixtitleText** - String - It`s containe Listview title postfix text.
-  - **toMapjson** - Map<String, dynamic> - This contains which fields we have to show in ListView of each row. And we used GtTileField widget check below.
-
-    - Constructor of GtTileField
-
-    ```
-       - GtTileField({this.row,
-          this.mobileRow,
-          this.value,
-          this.iconData,
-          this.flex = 1,
-          this.mobileFlex = 1,
-          this.textOverFlow,
-          this.displayKey = false,
-          this.type = GtFieldType.STRING,
-          this.webTextFormatType = TextformatType.caption,
-          this.mobileTextFormatType = TextformatType.caption,
-          this.keyTextFormatType = TextformatType.caption,
-          this.isCardTitle = false,
-          this.isCardSubTitle = false,
-          this.isBannerField = false,
-          this.cardRow,
-          this.filterType,
-          this.filterItems,
-          this.valuePath,
-          this.filterValue,
-          this.filterLabel,
-          this.rangeStart,
-          this.rangeEnd,
-          this.bannerItems});
-    ```
-
-    - Input Parameters of GtTileField Widget
-
-      - **row** - int - This is contains which row have to display this field in web.
-      - **mobileRow** - int - This is contains which row have to display this field in mobile.
-      - **value** - dynamic - This contains value of the field.
-      - **iconData** - IconData - Showing Icon start of the field.
-      - **flex** - int - The flex factor to use for this child. This is for Web.
-      - **mobileFlex** - int - The mobileFlex factor to use for this child. This is for mobile.
-      - **textOverFlow** - TextOverflow - Defaults to retrieving the value from the nearest DefaultTextStyle ancestor.
-      - **displayKey** - bool - This is for Display field label name, If displaykey is true than field name is showing with value. Default is false.
-      - **type** - GtFieldType - Type of field is defines like Enum(STRING,EMAIL,PHONE,CHIP,BANNER,FILTER).
-      - **webTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for web.
-      - **mobileTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for mobile.
-      - **keyTextFormatType** - TextformatType - This defines the which text format is taken. Default is TextformatType.caption for label.
-      - **isCardTitle** - bool - This contains field is showing in title or not in Card. Default false.
-      - **isCardSubTitle** - bool - This contains field is showing in SubTitle or not in Card. Default false.
-      - **isBannerField** - bool - This used for A banner displays a prominent message and related field. Default value is false.
-      - **cardRow** - int - This is contains which row have to display this field in card.
-      - **filterType** - GtFilterType - This field is used for which type is filter like ( RADIO_BUTTON_FILTER, CHECKBOX_BUTTON_FILTER, RANGE_FILTER, SORT_FILTER,)
-      - **filterItems** - Map<String, dynamic> - This is Sort the List as per given sort fields. And also Display the fields in UI.
-      - **valuePath** - String - This defines the which is Field map with valuePath.
-      - **filterValue** - String - This value is send to the API for this field.
-      - **filterLabel** - String - It will show in UI in this filter field.
-      - **rangeStart**- String - This is Range Start field name.
-      - **rangeEnd** - String - This is Range End field name.
-      - **bannerItems** - Map<String, dynamic> - It will show banner Items.
-
-- Constructor of CoreBinding:
-
-```
-      - [CoreBinding](components.md#/corelistview-widget)({
-         this.entityGQL,
-         this.nodeName,
-         this.isList = false,
-         this.headers,
-         this.setHeaders,
-         this.enableDefaultHeader = false,
-         this.tag,this.filterRangePath,
-         this.lookupGQL,
-         this.addLookupDataGQL,
-         this.controllerType = ControllerType.LIST,
-         this.addFormGQL,
-         this.toMapfilterjson,
-         this.valuePath,
-         this.inputType = GtListInputType.GRAPHQL,
-         this.inputData});
-```
-
-- Input Parameters of CoreBinding Widget
-
-  - **entityGQL** - String - This used for query for Listview data fetch from server, this field is mandatory.
-  - **nodeName** - String - It indicates unique key for Listview entityname.
-  - **headers** - Map<String, dynamic> - When we have to pass headers to API this will be used.
-  - **setHeaders** - Function - This will be function to set headers to API.
-  - **enableDefaultHeader** - bool - This is indicated for Headers taken or not, If value is true than DefaultHeader will taken. Default value is false.
-  - **tag** - String - It is used for when you want multiple different instance of a same Listview must be unique.
-  - **filterRangePath** - Map<String, Map<String, String>> - This is Filter used for RangeValues Filter have to pass Response Key will get data.
-  - **lookupGQL** - Map<String, String> - It is used for lookUp data have to pass Query in this lookupGQL.
-  - **addLookupDataGQL** - Map<String, String> - It is used for add lookUp data have to pass Query in this addLookupDataGQL.
-  - **controllerType** - enum {LIST,FORM} - This is indicate to show Listview or Form, Default is LIST.
-  - **addFormGQL** - String - This have to add form view pass GQL Query in this.
-  - **toMapfilterjson** - Map<String, GtTileField> - It will show Filter Fields In Filter.
-  - **valuePath** - String - This used for particular response data have to taken than pass Path of that response.
-
-- Example
-
-  - Step 1 : Import core in files that it will be used:
-
-  ```dart
-     import 'package:core/core.dart';
-  ```
-
-  - Step 2 : Used CoreListView widget in the Create Page, In CreatePage we have to pass CoreBinding. copy only createPage function.
-
-  ```dart
-         createPage("/demo",
-             CoreListView(
-                  tag: "Demo",
-                  title: "Demo",
-                  rowsCount: 3,
-                  leadingIcon: Icons.account_circle_rounded,
-                  trailingIcon: Icons.arrow_forward_ios_rounded,
-                  toMapjson: {
-                    'DocNo': GtTileField(
-                      valuePath: 'DocumentNo',
-                      row: 1,
-                      mobileRow: 1,
-                      cardRow: 1,
-                      mobileFlex: 2,
-                      isCardTitle: true,
-                      type: GtFieldType.STRING,
-                      webTextFormatType: TextformatType.headline6,
-                    ),
-                    'Name': GtTileField(
-                      valuePath: 'Customer/Name', // If return single object Customer take value of the object like this Customer/Name
-                      row: 2,
-                      mobileRow: 2,
-                      mobileFlex: 2,
-                      cardRow: 1,
-                      isCardSubTitle: true,
-                      type: GtFieldType.STRING,
-                      webTextFormatType: TextformatType.bodyText1,
-                    ),
-                    "Status": GtTileField(
-                                valuePath: "DeliveryStatus",
-                                bannerItems: {'Delivered': 'Delivered', 'NotDelivered': 'NotDelivered', 'PartiallyDelivered' : 'PartiallyDelivered'},
-                                isBannerField: true,
-                              ),
-                    "StatusFilter": GtTileField(
-                                valuePath: "Status",
-                                type: GtFieldType.FILTER,
-                                filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                                filterItems: {'All': null, 'Delivered': "Delivered", 'NotDelivered': "NotDelivered","PartiallyDelivered":"PartiallyDelivered"},
-                                filterValue: 'deliveryStatus',
-                                filterLabel: 'Status',
-                              ),
-                    "SortFilter": GtTileField(
-                        filterLabel: "Sort By Field",
-                        type: GtFieldType.FILTER,
-                        filterType: GtFilterType.SORT_FILTER,
-                        filterItems: {
-                          'DocumentNo': 'DocumentNo',
-                        },
-                        filterValue: 'sortField'
-                    ),
-                  },
-                  viewType: ViewType.both,
-                  enablefilter: true,
-                ),
-             binding: [
-                     CoreBinding(
-                         entityGQL: CustomerOrdersGQL.ORDER_GQL_QUERY, // Pass your GQL
-                         isList: true,
-                         nodeName: "demo",
-                         tag: "demo",
-                         enableDefaultHeader: true,),
-                   ]
-             )
-
-         class CustomerOrdersGQL {
-           static const ORDER_GQL_QUERY = '''
-                 query(
-                   \$limit: Int
-                   \$offset: Int
-                   \$sort: sortEnumType
-                   \$sortField: String
-                   \$deliveryStatus: OrderDeliveryStatusEnumType
-                 ) {
-                   orders: orders(
-                     limit: \$limit
-                     offset: \$offset
-                     sort: \$sort
-                     sortField: \$sortField
-                     deliveryStatus: \$deliveryStatus
-                   ) {
-                     DocumentNo
-                     DeliveryStatus
-                     Customer {
-                       Name
-                     }
-                   }
-                 }
-               ''';
-  }
-  ```
-
-  - Step 3 : Result :
-    - List View
-      ![image](https://user-images.githubusercontent.com/64594463/104177057-33d8b100-542e-11eb-9fd7-e2859a752da3.png)
-    - List View With Filter
-      ![image](https://user-images.githubusercontent.com/64594463/104183583-2e806400-5438-11eb-9b1e-16c703747d05.png)
-    - Card View With Filter
-      ![image](https://user-images.githubusercontent.com/64594463/104187331-a1400e00-543d-11eb-8a3b-049495a43509.png)
-
-# GtUserMenuBar Widget
-
-The GtUserMenuBar widget is used represent the user menu on the Appbar along with other icons options for actions and also used for user profile landing UI.
-
-- Benefits of GtUserMenuBar Widget
-  - Handles the handles both Asset and Network image support User Image.
-  - Allows to provide more options along woth user profile Avatar for actions.
-- Constructors:
-
-```
-       - [GtUserMenuBar](components.md#gtusermenubar-widget)(
-   {this.userImage,
-   this.greetingText,
-   this.greetingTextStyle,
-   @required this.userName,
-   this.userNameTextStyle,
-   this.iconWidgets,
-   this.leadingOnTap,
-   this.leadingAvatar = true});
-```
-
-- Input Parameters of GtUserMenuBar Widget
-  - **userImage** - dynamic - It is type of dynamic to support Asset and Network Image for User profile image.
-  - **greetingText** - String - Provide a greeting text to be displayed.
-  - **greetingTextStyle** - TextStyle - Provide a TextStyle for the Greeting Text.
-  - **userName** - String - Provide a userName text to be displayed.
-  - **userNameTextStyle** - TextStyle - This is use for text font which we have to take.
-  - **iconWidgets** - List<Widget> - Provide a List of Icons Widgets to displayed along with user details along with its on click handling.
-  - **leadingOnTap** - Function - Provide a function to perform some action on the click event of the UserImage.
-  - **leadingAvatar** - bool - To show the leading Avatar before the Username.
-- Example
-
-  - Step 1 : Import UI kit in files that it will be used:
-
-  ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtUserMenuBar widget and specify the color for the text which is to be displayed.
-
-  ```dart
-         class Menu extends StatelessWidget {
-         @override
-        Widget build(BuildContext context) {
-           return Scaffold(
-              appBar: GtAppBar(
-                 backgroundColor: Color(0xff5a5278),
-                 title: GtUserMenuBar(
-                 userName: "Sara",
-                    userNameTextStyle: TextStyle(
-                 color: Color.fromRGBO(152, 156, 173, 1),
-              fontWeight: FontWeight.bold),
-              iconWidgets: [
-              IconButton(
-              icon: Icon(Icons.notifications_rounded), onPressed: () => {})
-              ],
-         ),
-      ),
-              body: Container()
-     );
-        }
-       }
-  ```
-
-  - Step 3 : Result :
-    ![GtuserMenu](https://user-images.githubusercontent.com/47977097/115863898-c20ffa80-a453-11eb-9c32-c6b4935b105b.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148192983-9c3f60df-b145-47fa-a3e9-02ff5d018a5f.png)
 
 # GtTab Widget
 
 The GtTab widget is used represent the UI with Customs Tabs .
 
-- Benefits of GtTab Widget
-  - Handles the tabs using Page Controller.
-  - Provide the transition for the tab change event.
 - Constructors:
 
 ```
@@ -1208,7 +944,7 @@ The GtTab widget is used represent the UI with Customs Tabs .
                   ],
                 ),
               ),
-              body: Container(
+              body: Center(
                 child: GtTab(
                   pageController: pageController,
                   selectedTab: selectedTab,
@@ -1220,31 +956,26 @@ The GtTab widget is used represent the UI with Customs Tabs .
                   },
                   tabPages: [
                     Container(
-                      child: GtText(
-                        text: 'Page 1',
-                      ),
+                      child: GtComingSoon(),
                     ),
                     Container(
-                      child: GtText(
-                        text: 'Page 2',
-                      ),
+                      child: GtComingSoon(),
                     ),
                     Container(
-                      child: GtText(
-                        text: 'Page 3',
-                      ),
-                    )
+                      child: GtComingSoon(),
+                    ),
                   ],
                   tablist: ['Holidays', 'Leave', 'HR'],
                 ),
-              ));
+              ),
+            );
            }
         }
 
   ```
 
   - Step 3 : Result :
-    ![tabmenu](https://user-images.githubusercontent.com/47977097/115863830-a7d61c80-a453-11eb-9716-0c132d38858a.png)
+    ![tabmenu](https://user-images.githubusercontent.com/64594463/148210607-5e11cab1-4a46-41b7-93a3-3e12538354fb.png)
 
 # GtBottomBar Widget
 
@@ -1298,33 +1029,35 @@ The GtBottomBar widget is used represent the UI with bottom navigation bar with 
      @override
      Widget build(BuildContext context) {
        return Scaffold(
-           bottomNavigationBar: GtBottomBar(
-             bottombarItems: [
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.home_filled), label: "Home"),
-               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
-               BottomNavigationBarItem(
-                 icon: Icon(Icons.calendar_today),
-                 label: "Calendar",
-               ),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.format_align_right_sharp), label: ""),
-               //
-             ],
-           ),
-           appBar: GtAppBar(
-               backgroundColor: Color(0xff5a5278),
-               title: GtText(text: 'Bottom Bar Demo')),
-           body: Container());
+        bottomNavigationBar: GtBottomBar(
+          selectedItemColor: Colors.blue,
+          bottombarItems: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: "Calendar",
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.format_align_right_sharp), label: ""),
+            //
+          ],
+        ),
+        appBar: GtAppBar(
+            backgroundColor: Color(0xff5a5278),
+            title: GtText(text: 'Bottom Bar Demo')),
+        body: GtComingSoon()
+      );
      }
   }
 
   ```
 
   - Step 3 : Result :
-    ![bottombar](https://user-images.githubusercontent.com/47977097/115863804-9ab92d80-a453-11eb-9a15-b6eb705e75f8.png)
+    ![bottombar](https://user-images.githubusercontent.com/64594463/148211496-59e4ec90-1dc6-46af-bb17-f49c10cf2665.png)
 
 # GtComingSoon Widget
 
@@ -1349,18 +1082,21 @@ The GtComingSoon widget is used represent the UI with Coming Soon widget for upc
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: ' Dashboard')),
-              body: Container(
-                child: GtComingSoon(),
-              ));
+              title: GtText(text: "COMING SOON WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtComingSoon()),
+          );
         }
      }
 
   ```
 
   - Step 3 : Result :
-    ![gtComingSoon](https://user-images.githubusercontent.com/47977097/115863738-82491300-a453-11eb-9082-97eece67c0cb.png)
+    ![gtComingSoon](https://user-images.githubusercontent.com/64594463/148716529-de7782df-1be2-425d-a935-5ce9aa258c17.png)
 
 # GtPageNotFound Widget
 
@@ -1387,19 +1123,21 @@ The GtPageNotFound widget is used represent the UI with Page not found widget fo
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: 'Dashboard')),
-              body: Container(
-                child: GtPageNotFound(),
-              ));
+              title: GtText(text: "PAGE NOT FOUND WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtPageNotFound()),
+          );
         }
      }
 
   ```
 
   - Step 3 : Result :
-
-           ![PageNotFound](https://user-images.githubusercontent.com/47977097/115863634-5f1e6380-a453-11eb-83d7-1579f23c8877.png)
+    ![PageNotFound](https://user-images.githubusercontent.com/64594463/148717188-61821cbd-7aa6-4151-bb2e-f5df29263e82.png)
 
 # GtNoListFound Widget
 
@@ -1426,18 +1164,21 @@ The GtNoListFound widget is used represent the UI with not data found widget for
         Widget build(BuildContext context) {
           return Scaffold(
               appBar: GtAppBar(
-                  backgroundColor: Color(0xff5a5278),
-                  title: GtText(text: 'Customers')),
-              body: Container(
-                child: GtNoListFound(),
-              ));
+              title: GtText(text: "NO LIST FOUND WIDGET"),
+              leading: GtIcon(
+                icondata: Icons.menu,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            body: Center(child: GtNoListFound()),
+          );
         }
      }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/47977097/115865008-5890eb80-a455-11eb-97a7-baa7b75d613d.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148717239-a89dad32-4c50-4d56-9509-084eae3f9bfc.png)
 
 # GtImageCard Widget
 
@@ -1483,33 +1224,24 @@ The GtImageCard widget is used represent the UI with card to display a image.
      @override
      Widget build(BuildContext context) {
        return Scaffold(
-           bottomNavigationBar: GtBottomBar(
-             bottombarItems: [
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.home_filled), label: "Home"),
-               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.directions_walk_outlined), label: "Leave"),
-               BottomNavigationBarItem(
-                 icon: Icon(Icons.calendar_today),
-                 label: "Calendar",
-               ),
-               BottomNavigationBarItem(
-                   icon: Icon(Icons.format_align_right_sharp), label: ""),
-               //
-             ],
-           ),
-           appBar: GtAppBar(
-               backgroundColor: Color(0xff5a5278),
-               title: GtText(text: 'Bottom Bar Demo')),
-           body: Container());
+          appBar: GtAppBar(
+            title: GtText(text: "IMAGE CART WIDGET"),
+          ),
+          body: Center(
+            child: GtImageCard(
+              height: 200,
+              width: 200,
+              imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU",
+            ),
+          ),
+        );
      }
   }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/103752016-276be700-502f-11eb-958b-e2515129cc34.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148718097-d33891c7-eac0-4871-b799-36574f31dc93.png)
 
 # GtCard Widget
 
@@ -1575,24 +1307,27 @@ The GtCard widget is used represent the UI with bottom navigation bar with mutip
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Card Demo')),
-                    body: Container(
-                        child: GtCard(
-                      cardheight: 150,
-                      cardwidth: 150,
-                      boxFit: BoxFit.fill,
-                      imageWidth: 90,
-                      imageheight: 100,
-                      label: 'Product',
-                    )));
+                      title: GtText(text: "CARD WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtCard(
+                        cardheight: 150,
+                        cardwidth: 150,
+                        boxFit: BoxFit.fill,
+                        imageWidth: 90,
+                        imageheight: 100,
+                        label: 'Logo',
+                        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU",
+                      )
+                    ),
+                  );
               }
            }
 
   ```
 
   - Step 3 : Result :
-    ![gtcard](https://user-images.githubusercontent.com/47977097/115863522-31d1b580-a453-11eb-966c-77b83ef900cc.png)
+    ![gtcard](https://user-images.githubusercontent.com/64594463/148718539-b510faaa-354c-47c2-b052-b3ad9201774d.png)
 
 # GtDate Widget
 
@@ -1680,16 +1415,19 @@ The GtDate widget is used represent the UI with date and time widget.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Date Demo')),
+                        title: GtText(text: "DATE WIDGET"),),
                     body: Container(
                       child: GtDate(
-                        initialDate: DateTime.now(),
-                        type: GtDateTimeType.DATE,
-                        datePickerEntryMode: DatePickerEntryMode.calendar,
-                        firstDate: DateTime(1990),
-                        lastDate: DateTime(2100),
-                      ),
+                          label: "DATE",
+                          initialDate: DateTime.now(),
+                          type: GtDateTimeType.TIME,
+                          datePickerEntryMode: DatePickerEntryMode.calendar,
+                          firstDate: DateTime(1990),
+                          dateTextEditingController: TextEditingController(),
+                          lastDate: DateTime(2100),
+                          prefixDateIcon: Icon(Icons.date_range),
+                          prefixTimeIcon: Icon(Icons.timelapse),
+                        ),
                     ));
                  }
            }
@@ -1697,8 +1435,8 @@ The GtDate widget is used represent the UI with date and time widget.
   ```
 
   - Step 3 : Result :
-    ![gtdate](https://user-images.githubusercontent.com/47977097/115863275-dd2e3a80-a452-11eb-9980-a3ee1d82b1ca.png)
-    ![time](https://user-images.githubusercontent.com/47977097/115863484-22526c80-a453-11eb-860e-2e0d0bc61b2e.png)
+    ![gtdate](https://user-images.githubusercontent.com/64594463/148719153-8b092c19-125d-408b-a95a-0487e2fe76ce.png)
+    ![time](https://user-images.githubusercontent.com/64594463/148719194-9ecd4c6e-1065-4e2c-b5f5-d1c5923c200b.png)
 
 # GtCalendar Widget
 
@@ -1761,21 +1499,25 @@ The GtCalendar widget is used represent the UI with calendar widget.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Calendar Demo')),
+                        title:  GtText(text: "CALENDAR WIDGET"),),
                     body: Container(
                         child: GtCalendar(
-                      firstDate: DateTime(1900),
-                      initialDate: DateTime.now(),
-                      lastDate: DateTime(2100),
-                    )));
+                          eventLoader: (date) {
+                            return [];
+                          },
+                          onDaySelected: (date, date1) {},
+                          focusedDay: DateTime.now(),
+                          selectedDay: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                        )));
               }
            }
 
   ```
 
   - Step 3 : Result :
-    ![calendar](https://user-images.githubusercontent.com/47977097/115863209-c7207a00-a452-11eb-80e2-9d0a4ec664f7.png)
+    ![calendar](https://user-images.githubusercontent.com/64594463/148719724-3a0d0e9f-389a-40bd-b4c1-bf4c6347d9c0.png)
 
 # GtCurrency Widget
 
@@ -1798,10 +1540,11 @@ The GtCurrency widget is used represent the values figure/amount related data.
 ```
 
 - Input Parameters of GtCurrency Widget
-  - **amount** - String - Sets the initial date before the widget to displayed when widget is opened.
-  - **currency** - String - Sets the min date range of the calendar.
-  - **labelTextStyle** - TextStyle - Sets the max date range of the calendar.
-  - **amountTextStyle** - TextStyle - Function to handle Onch-
+  - **amount** - String - This is amount as String to display.
+  - **label** - String -  This will display Field label.
+  - **currency** - String - This is currency text for before amount.
+  - **labelTextStyle** - TextStyle - This is text style for label text.
+  - **amountTextStyle** - TextStyle - This is text style for amount text.
   - **horizontalView** - bool - Decide the position of label.
 - Example
 
@@ -1819,24 +1562,25 @@ The GtCurrency widget is used represent the values figure/amount related data.
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Calendar Demo')),
-                    body: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: GtCurrency(
-                        label: 'Balance',
-                        amount: '102,445.798',
-                        currency: '\$',
-                        horizontalView: true,
-                      ),
-                    ));
+                      title: GtText(text: "CURRENCY WIDGET"),
+                      actions: [
+                        GtCurrency(
+                          label: 'Balance : ',
+                          amount: '102,445.798',
+                          currency: '\$',
+                          horizontalView: true,
+                        ),
+                      ],
+                    ),
+                    body: Center(child: GtComingSoon()),
+                  );
                  }
            }
 
   ```
 
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/47977097/115865502-09978600-a456-11eb-8be0-25218a464cab.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148720029-57a9a1f5-1ca8-46c3-9d4f-a50435a676eb.png)
 
 # GtButton Widget
 
@@ -1917,42 +1661,46 @@ The GtButton widget is used represent the button with multiple functionality of 
         Button
 
          class ButtonDemo extends StatelessWidget {
+            final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
               @override
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: GtButton(
-                          icondata: Icons.ac_unit,
-                          text: 'Click Me',
-                          iconPosition: GtPosition.PREFIX,
-                        )));
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtButton(
+                        icondata: Icons.ac_unit,
+                        text: 'Click Me',
+                        iconPosition: GtPosition.PREFIX,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
+                    ),
+                  );
               }
         }
 
         Radio  Button
 
-        enum SingingCharacter { lafayette, jefferson }
         class ButtonDemo extends StatelessWidget {
               @override
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: GtButton(
-                          buttonType: GtButtonType.RADIO,
-                          groupValue: SingingCharacter.lafayette,
-                          value: SingingCharacter.lafayette,
-                          title: GtText(text: 'lafayette'),
-                          selected: true,
-                          text: 'lafayette',
-                        )));
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
+                      child: GtButton(
+                        buttonType: GtButtonType.RADIO,
+                        value: true,
+                        groupValue: true,
+                        onChanged: (d) {},
+                        text: 'redioButton',
+                      ),
+                    ),
+                  );
               }
            }
 
@@ -1963,19 +1711,18 @@ The GtButton widget is used represent the button with multiple functionality of 
               Widget build(BuildContext context) {
                 return Scaffold(
                     appBar: GtAppBar(
-                        backgroundColor: Color(0xff5a5278),
-                        title: GtText(text: 'Button Demo')),
-                    body: Container(
-                        padding: EdgeInsets.all(10.0),
+                      title: GtText(text: "BUTTON WIDGET"),
+                    ),
+                    body: Center(
                         child: GtButton(
-                          buttonType: GtButtonType.IMAGE,
-                           imageheight: 70,
-                           imagewidth: 80,
-                          imageURL:
-                              'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
-                          imageboxFit: BoxFit.fill,
-                          imageonClick: () => {print('clicked')},
-                        )));
+                      buttonType: GtButtonType.IMAGE,
+                      imageheight: 70,
+                      imagewidth: 80,
+                      imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTiUcsj-qK63qtTWHVLjtPS_85rVsIOvI8Jg&usqp=CAU',
+                      imageboxFit: BoxFit.fill,
+                      imageonClick: () => {print('clicked')},
+                    )),
+                  );
                  }
            }
 
@@ -1984,164 +1731,12 @@ The GtButton widget is used represent the button with multiple functionality of 
 
   - Step 3 : Result :
 
-    ![bt1](https://user-images.githubusercontent.com/47977097/115862918-5b3e1180-a452-11eb-9c70-587b63074972.png)
+    ![bt1](https://user-images.githubusercontent.com/64594463/148721035-fc5bb1c1-6a20-468e-8b16-acd6afad186a.png)
 
-    ![rdbtn](https://user-images.githubusercontent.com/47977097/115862984-714bd200-a452-11eb-9038-7c5a744e58e8.png)
+    ![rdbtn](https://user-images.githubusercontent.com/64594463/148720960-014875e0-2325-4bbb-8e0c-f5043e1f792c.png)
 
-    ![imbtn](https://user-images.githubusercontent.com/47977097/115863019-7dd02a80-a452-11eb-92b1-4706b7b40855.png)
+    ![imbtn](https://user-images.githubusercontent.com/64594463/148720899-7e9462b6-6613-42b9-921d-65f594eef349.png)
 
-# GtAppSideBar Widget
-
-The GtAppSideBar widget are two primary options for navigation tabs and drawers when there is insufficient space to support tabs, drawers.
-
-- Benefits of GtAppSideBar Widget
-
-  - SideBar is design used in app secondary menu design.
-
-  - We can use vertical space of mobile screens optimally because most of the users in most cases use portraint mode of app orientation against landscape mode.
-
-  - SideBar can cover a number of navigation opetions campared to tiny main navigation bar situated either on the top or bottm of the app Even users cna scroll it further to access hidden buttons or content.
-
-  - SideBar can provide clear and clutter free desing.
-
-- Constructors:
-
-```
-       - [GtAppSideBar](components.md#gtbutton-widget)(
-         {  @required this.listApp,
-            @required this.isItemSelected,
-            @required this.toolTipMessageField,
-            @required this.getAvatarWidgeContent,
-            this.selectedindex,
-            this.onTapHandler,
-            this.trailingWidget,
-            this.navigationBackGround = Colors.white,
-            this.selectedRowColor = Colors.blueGrey,
-            this.selectedRowDarkColor = Colors.grey,
-            this.iconColor = Colors.black,
-            this.leadingWidget,
-            this.backGroundColor = Colors.white,
-            this.width = 60.0,
-            this.railTextWidget
-         });
-```
-
-- Input Parameters of GtAppSideBar Widget
-  - **listApps** - List<dynamic> - This is fine for short list but not for a long list.
-  - **trailingWidget** - List<Widget> - List are made up of multiple rows of items, which include text, buttons, toggles, icons, thumbnails, and many more.
-  - **selectedindex** - int - The index into destinations for the current selected
-  - **onTapHandler** - Function - Function to call ListApp onTapHandler.
-  - **navigationBackGroundColor** - Color - To set navigationBackGroundColor.
-  - **selectedRowColor** - Color - Provide Row color selected row.
-  - **selectedRowDarkColor** - Color - Set Row color dark selected row.
-  - **iconColor** - Color - To set the icon color.
-  - **isItemSelected** - Function(dynamic obj) - To call function which item selected.
-  - **getAvatarWidgetContent** - Function(dynamic obj) - To call getAvatarWidgetContent function.
-  - **toolTipMessageContent** - Function(dynamic obj) - To call toolTipMessageContent function.
-  - **leadingWidget** - Widget- A widget to display before the toolbar's title.
-  - **backGroundColor** - Color - To sets backgroundcolor.
-  - **width** - double - To set width in double data type.
-  - **railTextWidget** - Function(dynamic obj) - To call railTextWidget function.
-- Example
-
-  - Step 1 : Import UI kit in files that it will be used:
-
-  ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-  ```
-
-  - Step 2 : Used GtAppSideBar widget as shown below example.
-
-  ```dart
-
-
-
-         class Home extends StatelessWidget {
-              @override
-              Widget build(BuildContext context) {
-                 return Scaffold(
-                    appBar: GtAppBar(
-                       title: GtText(
-                         text: 'AppBar',
-                        )
-                  ),
-                  drawer: Drawer(
-                    child: GtAppSideBar(
-                      isItemSelected: (obj) {},
-                      getAvatarWidgetContent: (obj) {},
-                      toolTipMessageField: (obj) {},
-                      listApps: [],
-                      trailingWidget: [
-                        Container(
-                           child: Column(
-                             children: <Widget>[
-                                 Container(
-                                   width: double.infinity,
-                                   padding: EdgeInsets.all(20),
-                                   color: Theme.of(context).primaryColor,
-                                   child: Center(
-                                       child: Column(children: <Widget>[
-                                          Container(
-                                             width: 100,
-                                             height: 100,
-                                             decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                               image: DecorationImage(
-                                                 image: AssetImage('assets/images/profile.jpg'),
-                                                 fit: BoxFit.fill)),
-                                                ),
-                                                Text(
-                                                  'Greytrix',
-                                                  style: TextStyle(fontSize: 20),
-                                                  ),
-                                                  GtText(text: 'greytrixindia@gmail.com')
-                                              ]
-                                         ),
-                                     ),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.file_present),
-                                    title: Text('My File'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.people),
-                                    title: GtText(text: 'Shared with me'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.star),
-                                    title: GtText(text: 'Starred')
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.credit_card_rounded),
-                                    title: GtText(text: 'Recent'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.offline_share),
-                                    title: GtText(text: 'Offline'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.upload_rounded),
-                                    title: GtText(text: 'Upload'),
-                                   ),
-                                   ListTile(
-                                    leading: Icon(Icons.cloud_download_outlined),
-                                    title: GtText(text: 'Backup'),
-                                   ),
-                                ],
-                             ),
-                           ),
-                         ]
-                      ),
-                    )
-                 );
-             }
-        }
-
-  ```
-
-  - Step 3 : Result :
-
-    ![AppSideBar](https://user-images.githubusercontent.com/82582302/119087922-78e8a180-ba25-11eb-88a9-5edc66af81c8.png)
 
 # GtDynamicView Widget
 
@@ -2201,107 +1796,108 @@ The GtDynamicView widget is used to write corresponding parsing engines on the c
            Widget build(BuildContext context) {
               return Scaffold(
                   appBar: GtAppBar(
-                     title: GtText(
-                         text: 'Dynamic View',
-                        ),
-                     ),
-                     body: GtDynamicView(
-                     rowsCount: 11,
-                     title: 'PERSONAL DETAILS',
-                     toMapjson: {
+                    title: GtText(text: "DYNAMIC VIEW WIDGET"),
+                  ),
+                  body: Center(
+                    child: GtDynamicView(
+                      backgroundColor: Colors.grey,
+                      rowsCount: 11,
+                      title: 'PERSONAL DETAILS',
+                      toMapjson: {
                         'Personal Email Id': GtTileField(
-                             displayKey: true,
-                             row: 1,
-                             valuePath: 'email',
-                             flex: 1,
-                             mobileRow: 1,
-                         ),
+                          displayKey: true,
+                          row: 1,
+                          valuePath: 'email',
+                          flex: 1,
+                          mobileRow: 1,
+                        ),
                         'Blood Group': GtTileField(
-                            displayKey: true,
-                            row: 1,
-                            valuePath: 'bloodgroup',
-                            flex: 1,
-                            mobileRow: 2,
-                         ),
+                          displayKey: true,
+                          row: 1,
+                          valuePath: 'bloodgroup',
+                          flex: 1,
+                          mobileRow: 2,
+                        ),
                         'Address1': GtTileField(
-                            displayKey: true,
-                            row: 2,
-                            valuePath: 'address1',
-                            flex: 1,
-                            mobileRow: 3,
-                         ),
+                          displayKey: true,
+                          row: 2,
+                          valuePath: 'address1',
+                          flex: 1,
+                          mobileRow: 3,
+                        ),
                         'Address2': GtTileField(
-                            displayKey: true,
-                            row: 2,
-                            valuePath: 'address2',
-                            flex: 1,
-                            mobileRow: 4,
-                         ),
+                          displayKey: true,
+                          row: 2,
+                          valuePath: 'address2',
+                          flex: 1,
+                          mobileRow: 4,
+                        ),
                         'Place ': GtTileField(
-                            displayKey: true,
-                            row: 3,
-                            valuePath: 'place',
-                            flex: 1,
-                            mobileRow: 5,
-                         ),
+                          displayKey: true,
+                          row: 3,
+                          valuePath: 'place',
+                          flex: 1,
+                          mobileRow: 5,
+                        ),
                         'City': GtTileField(
-                            displayKey: true,
-                            row: 3,
-                            valuePath: 'city',
-                            flex: 1,
-                            mobileRow: 6,
-                         ),
+                          displayKey: true,
+                          row: 3,
+                          valuePath: 'city',
+                          flex: 1,
+                          mobileRow: 6,
+                        ),
                         'Pin Code': GtTileField(
-                            displayKey: true,
-                            row: 4,
-                            valuePath: 'pincode',
-                            flex: 1,
-                            mobileRow: 7,
-                         ),
+                          displayKey: true,
+                          row: 4,
+                          valuePath: 'pincode',
+                          flex: 1,
+                          mobileRow: 7,
+                        ),
                         'Email Id': GtTileField(
-                            displayKey: true,
-                            row: 4,
-                            valuePath: 'emailid',
-                            flex: 1,
-                            mobileRow: 8,
-                         ),
+                          displayKey: true,
+                          row: 4,
+                          valuePath: 'emailid',
+                          flex: 1,
+                          mobileRow: 8,
+                        ),
                         'Bank Branch Code': GtTileField(
-                            displayKey: true,
-                            row: 5,
-                            valuePath: 'bankbranchcode',
-                            flex: 1,
-                            mobileRow: 9,
-                         ),
+                          displayKey: true,
+                          row: 5,
+                          valuePath: 'bankbranchcode',
+                          flex: 1,
+                          mobileRow: 9,
+                        ),
                         'Bank Name': GtTileField(
-                            displayKey: true,
-                            row: 5,
-                            valuePath: 'bankname',
-                            flex: 1,
-                            mobileRow: 10,
-                         ),
+                          displayKey: true,
+                          row: 5,
+                          valuePath: 'bankname',
+                          flex: 1,
+                          mobileRow: 10,
+                        ),
                         'Personal Mobile No': GtTileField(
-                            displayKey: false,
-                            row: 6,
-                            valuePath: 'mobileno',
-                            flex: 1,
-                            mobileRow: 10,
-                         ),
-                    },
-                    listItems: {
-                         'email': 'manish98@gmail.com',
-                         'bloodgroup': 'O+',
-                         'address1': 'Khamothe',
-                         'address2': 'Belpada',
-                         'place': '121212434',
-                         'city': 'KHARGHAR',
-                         'pincode': '410210',
-                         'emailid': 'manish98@gmail.com',
-                         'bankbranchcode': '000291',
-                         'bankname': 'HDFC Bank',
-                         'mobileno': '9082948703'
-                    },
-                ),
-             );
+                          displayKey: false,
+                          row: 6,
+                          valuePath: 'mobileno',
+                          flex: 1,
+                          mobileRow: 10,
+                        ),
+                      },
+                      listItems: const {
+                        'email': 'manish98@gmail.com',
+                        'bloodgroup': 'O+',
+                        'address1': 'Khamothe',
+                        'address2': 'Belpada',
+                        'place': '121212434',
+                        'city': 'KHARGHAR',
+                        'pincode': '410210',
+                        'emailid': 'manish98@gmail.com',
+                        'bankbranchcode': '000291',
+                        'bankname': 'HDFC Bank',
+                        'mobileno': '9082948703'
+                      },
+                    ),
+                  ),
+                );
           }
      }
 
@@ -2311,7 +1907,7 @@ The GtDynamicView widget is used to write corresponding parsing engines on the c
 
   - Step 3 : Result :
 
-  ![DynamicView](https://user-images.githubusercontent.com/82582302/119608692-fe989280-be13-11eb-962f-91d64ba5f646.png)
+  ![DynamicView](https://user-images.githubusercontent.com/64594463/148721362-d22e1065-ee2f-4576-a946-6b52c73bd374.png)
 
 # GtSignature Widget
 
@@ -2405,19 +2001,23 @@ The GtSignature widget is used represent to allow users to sign with finger and 
            @override
            Widget build(BuildContext context) {
               return Scaffold(
-                 body: Center(
-                 child: Container(
-                    width: 200,height: 100,
-                    child: GtSignature(
-                    color: Colors.black,
-                    signaturePadBackgroundColor: Colors.grey[200],
-                 ))),
+                appBar: GtAppBar(
+                  title: GtText(text: "SINGATURE VIEW WIDGET"),
+                ),
+                body: Center(
+                    child: Container(
+                        width: 200,
+                        height: 100,
+                        child: GtSignature(
+                          color: Colors.black,
+                          signaturePadBackgroundColor: Colors.grey[200],
+                        ))),
               );
            }
         }
   ```
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/118918621-a7e11380-b950-11eb-90d3-3aa4091eb835.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148721801-72b8d936-efaf-408c-a568-bf32eaf9158f.png)
 
 # GtFileUpload Widget
 
@@ -2493,22 +2093,23 @@ The GtFileUpload widget is used represent to allow users to file upload with Bro
            @override
            Widget build(BuildContext context) {
               return Scaffold(
-                 body: Center(
-                 child: Obx(() => Container(
+                appBar: GtAppBar(
+                  title: GtText(text: "FILE UPLOAD WIDGET"),
+                ),
+                body: Center(
                     child: GtFileUpload(
-                       backgroundColor: Colors.blue[100],
-                       onPressed: controller.openFileExplorer,
-                       selectedFiles: controller.selectedFilesName.value,
-                       extensions: "pdf,doc,jpg",
-                       )
-                    ))),
+                      backgroundColor: Colors.blue[100],
+                      onPressed: (data) {},
+                      selectedFiles: "",
+                      extensions: "pdf,doc,jpg",
+                    )),
               );
            }
         }
   ```
   - Step 3 : Result :
-    ![image](https://user-images.githubusercontent.com/64594463/119605079-cd1cc880-be0d-11eb-9460-6fab0543abc7.png)
-    ![image](https://user-images.githubusercontent.com/64594463/119605260-13722780-be0e-11eb-857f-0a2d04af8848.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148722309-05bba357-af9e-4645-956c-d2d791089b4e.png)
+    ![image](https://user-images.githubusercontent.com/64594463/148722901-4a3bc900-53be-44a5-8a4b-90dfdfd49014.png)
 
 # GtTagTextField Widget
 
@@ -2579,34 +2180,36 @@ The gttagtextfield widget is used represent the Suggestions list when click on t
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278)),
-                 body: Container(
-                   child: GtTagTextField(
-                       textColor: Colors.blue,
-                       fieldLabel: "Product",
-                       isRequired: false,
-                       allowMultiselection: false,
-                       looupKeyVisibile: false,
-                       displayInFieldLabel: false,
-                       textEditingController:  new TextEditingController(text: ' '),
-                       lookupFields: {'company': 'company'},
-                       selectedTaglist: [],
-                       taglist: [],
-                       onDeleted: (val) => {},
-                       onSuggestionSelected: (_val, isMutli) {},
-                       suggestionsCallback: (pattern) async {
-                          return [{
-                             "company": "Apple",
-                             "description": "job description",
+                appBar: GtAppBar(
+                  title: GtText(text: "TAG TEXT FIELD WIDGET"),
+                ),
+                body: Center(
+                  child: GtTagTextField(
+                      textColor: Colors.blue,
+                      fieldLabel: "Product",
+                      isRequired: false,
+                      allowMultiselection: false,
+                      looupKeyVisibile: false,
+                      displayInFieldLabel: false,
+                      textEditingController: new TextEditingController(text: ' '),
+                      lookupFields: {'company': 'company'},
+                      selectedTaglist: [],
+                      onDeleted: (val) => {},
+                      onSuggestionSelected: (_val, isMutli) {},
+                      suggestionsCallback: (pattern) async {
+                        return [
+                          {
+                            "company": "Apple",
+                            "description": "job description",
                           },
                           {
-                             "company": "Google",
-                             "description": "job description",
-                          },];
-                       }
-                   ),
-                 ));
+                            "company": "Google",
+                            "description": "job description",
+                          },
+                        ];
+                      }),
+                ),
+              );
            }
         }
 
@@ -2614,7 +2217,9 @@ The gttagtextfield widget is used represent the Suggestions list when click on t
 
   - Step 3 : Result :
 
-    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/124076547-09be8e00-da64-11eb-9b70-6f11232784e1.png)
+    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/148723360-f68471e9-e5e0-4b6b-adbc-2c26b54e53a8.png)
+
+    ![GtTagTextField](https://user-images.githubusercontent.com/64594463/148758755-fa0399cc-f2a4-40b1-89ac-ae4532a326e0.png)
 
 # GtListPage Widget
 
@@ -2679,7 +2284,16 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
       this.listItemPadding = const EdgeInsets.only(left: 5.0, top: 8.0, bottom: 8.0, right: 5.0),
       this.itemDatawidget,this.isCustomItemWidget = false,
       this.swipeSnackBartextWidget,
-      this.mainCardMargin = const EdgeInsets.all(8),});
+      this.mainCardMargin = const EdgeInsets.all(8),
+      this.cardElevation = 1.0,
+      this.noListFoundText = "No Records Found",
+      this.customGridviewItemBuilder,
+      this.listCustomWidgetType = GtListCustomWidgetType.NONE,
+      this.currentListViewType = GtCurrentListViewType.LIST,
+      this.cardItemElevation = 3.0,
+      this.isActiveBorderColorLeading = false,
+      this.activeColor = Colors.green,
+      this.inActiveColor = Colors.red,});
 ```
 
 - Input Parameters of GtListPage Widget
@@ -2865,7 +2479,11 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
   - **noListFoundText** - String - This is text for record length is 0 than it message will display.
   - **customGridviewItemBuilder** - Function(int index,dynamic obj) - This is custom widget for Grid View each item.
   - **listCustomWidgetType** - GtListCustomWidgetType (enum) - It is custom widget type for show custom builder, options enum GtListCustomWidgetType { LIST, GRID, NONE }. Default is GtListCustomWidgetType.NONE
-  - **currentListViewTyp**e - GtCurrentListViewType - This shows current listview type, Selected list type for gtListPage. option enum { LIST, GRID }, Default is GtCurrentListViewType.LIST.
+  - **currentListViewType** - GtCurrentListViewType - This shows current listview type, Selected list type for gtListPage. option enum { LIST, GRID }, Default is GtCurrentListViewType.LIST.
+  - **cardItemElevation** - double - This is Elevation for card Item.
+  - **isActiveBorderColorLeading** - bool - This is for is avtive borader color showing in Leading or Trailing. default was leading.
+  - **activeColor** - Color - This is color for active records.
+  - **inActiveColor** - Color - This is color for Inactive records. 
 
 - Example
 
@@ -2875,7 +2493,7 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
-  - Step 2 : Used GtListPage widget and specify the is to be displayed.
+  - Step 2 : Used GtListPage widget and specify the is to be displayed Default View.
 
   ```dart
         class TextDemo extends StatelessWidget {
@@ -2886,23 +2504,57 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                      backgroundColor: Color(0xff5a5278)),
                  body: Container(
                    child: GtListPage(
-                       rowsCount: 2,
-                       title: GtText(
-                       textStyle: TextStyle(
-                          color: Colors.black,
-                       ),
-                          text: "Task"
-                       ),
-                       leadingIcon: GtIcon(
-                       icondata: Icons.account_circle_rounded,
-                       ),
-                       isLeadingShow: false,
-                       listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER",},
-                       {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER",}],
-                       viewtype: ViewType.list,
-                       spaceBetweenKeyValue: false,
-                       toMapjson: {
-                       'Name': GtTileField(
+                      rowsCount: 2,
+                      title: GtText(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          text: "USER"),
+                      leadingIcon: GtIcon(
+                        icondata: Icons.account_circle_rounded,
+                      ),
+                      listItems: [
+                        {
+                          "Id": 2093,
+                          "CompanyId": 0,
+                          "Code": "GT0521",
+                          "FName": "DEMO USER",
+                          "isActive": "true",
+                          "IsSelected": false
+                        },
+                        {
+                          "Id": 2093,
+                          "CompanyId": 0,
+                          "Code": "GT011",
+                          "FName": "DEMO MANAGER",
+                          "isActive": "true",
+                          "IsSelected": true
+                        },
+                        {
+                          "Id": 2094,
+                          "CompanyId": 0,
+                          "Code": "GT012",
+                          "FName": "DEMO CLIENT",
+                          "isActive": "true",
+                          "IsSelected": false
+                        },
+                        {
+                          "Id": 2095,
+                          "CompanyId": 0,
+                          "Code": "GT013",
+                          "FName": "DEMO",
+                          "isActive": "false",
+                          "IsSelected": false
+                        }
+                      ],
+                      viewtype: ViewType.list,
+                      spaceBetweenKeyValue: false,
+                      onDetailsNavigateHandler: (a,b, {getTileField = null}) {
+                        print(a);print(b);
+                        print(getTileField);
+                      },
+                      toMapjson: {
+                        'Name': GtTileField(
                           valuePath: 'FName',
                           row: 1,
                           flex: 4,
@@ -2910,15 +2562,14 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                           mobileFlex: 3,
                           cardRow: 1,
                           type: GtFieldType.STRING,
-                          keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                          valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                          keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                          valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
                           keyTextAlign: TextAlign.start,
                           valueTextAlign: TextAlign.end,
                           displayKey: true,
                           keyValueBetween: " : ",
-                          webTextFormatType: TextformatType.textwithopacity,
-                       ),
-                       'Code': GtTileField(
+                        ),
+                        'Code': GtTileField(
                           valuePath: 'Code',
                           row: 1,
                           flex: 4,
@@ -2926,39 +2577,218 @@ The GtListPage widget is used represent the Listview on the Screen with alng as 
                           mobileFlex: 3,
                           cardRow: 1,
                           type: GtFieldType.STRING,
-                          keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                          valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
+                          keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                          valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
                           keyTextAlign: TextAlign.start,
                           valueTextAlign: TextAlign.end,
                           displayKey: true,
                           keyValueBetween: " : ",
-                          webTextFormatType: TextformatType.textwithopacity,
-                       ),
-                       },
-                       tag: "Task",
-                       gtTileRowMainAxisAlignment: MainAxisAlignment.center,
-                       gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
-                       isSpaceInRecords: true,
-                       isleadingIconPosition: false,
-                       size: Get.size,
-                       listViewTableType: GTListViewTableType.Normal,
-                       cardColor: Colors.blueGrey[200],
-                       enablefilter: false,
-                       backgroundcolor: Colors.white10,
-                       cardMarginEdgeInsets: const EdgeInsets.all(5),
-                       listItemPadding: const EdgeInsets.only(left: 15,right: 30, top: 8,bottom: 8),
-                       backNavigation: true,
-                       horizinalScrollable: false,
-                   ),
+                        ),
+                        "Status": GtTileField(
+                          valuePath: 'isActive',
+                          activeInactiveItems: {'Active': "true", 'InActive': "false"},
+                          isActiveInactiveField: true,
+                        )
+                      },
+                      tag: "Task",
+                      gtTileRowMainAxisAlignment: MainAxisAlignment.center,
+                      gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
+                      isSpaceInRecords: true,
+                      isleadingIconPosition: false,
+                      size: Get.size,
+                      listViewTableType: GTListViewTableType.Normal,
+                      cardColor: Colors.blueGrey[50],
+                      enablefilter: false,
+                      cardMarginEdgeInsets: const EdgeInsets.all(5),
+                      listItemPadding:
+                          const EdgeInsets.only(left: 15, right: 30, top: 8, bottom: 8),
+                      horizinalScrollable: false,
+                    ),
                  ));
            }
         }
 
   ```
+  - Step 3 : Used GtListPage widget and specify the is to be displayed CUSTOM View.
 
-  - Step 3 : Result :
+```dart
+        class TextDemo extends StatelessWidget {
+           @override
+           Widget build(BuildContext context) {
+             return Scaffold(
+                 appBar: GtAppBar(
+                     backgroundColor: Color(0xff5a5278)),
+                 body: Container(
+                   child: GtListPage(
+                          rowsCount: 2,
+                          title: GtText(
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                              ),
+                              text: "USER"),
+                          leadingIcon: GtIcon(
+                            icondata: Icons.account_circle_rounded,
+                          ),
+                          isLeadingShow: false,
+                          listItems: [
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT0521",
+                              "FName": "DEMO USER",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT011",
+                              "FName": "DEMO MANAGER",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2094,
+                              "CompanyId": 0,
+                              "Code": "GT012",
+                              "FName": "DEMO CLIENT",
+                              "isActive": "true"
+                            },
+                            {
+                              "Id": 2095,
+                              "CompanyId": 0,
+                              "Code": "GT013",
+                              "FName": "DEMO",
+                              "isActive": "false"
+                            }
+                          ],
+                          viewtype: ViewType.list,
+                          spaceBetweenKeyValue: false,
+                          toMapjson: {
+                            'Name': GtTileField(
+                              valuePath: 'FName',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 1,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                            'Code': GtTileField(
+                              valuePath: 'Code',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 2,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle: TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                          },
+                          tag: "Task",
+                          gtTileRowMainAxisAlignment: MainAxisAlignment.center,
+                          gtTileRowCrossAxisAlignment: CrossAxisAlignment.center,
+                          isSpaceInRecords: true,
+                          isleadingIconPosition: false,
+                          size: Get.size,
+                          listViewTableType: GTListViewTableType.Normal,
+                          cardColor: Colors.blueGrey[50],
+                          enablefilter: false,
+                          cardMarginEdgeInsets: const EdgeInsets.all(5),
+                          listItemPadding:
+                              const EdgeInsets.only(left: 15, right: 30, top: 8, bottom: 8),
+                          horizinalScrollable: false,
+                          listCustomWidgetType: GtListCustomWidgetType.LIST,
+                          currentListViewType: GtCurrentListViewType.LIST,
+                          itemDatawidget: (i, e) => customRow(i, e),
+                        ),
+                 ));
+           }
 
-    ![GtListPage](https://user-images.githubusercontent.com/64594463/124108984-51eda880-da84-11eb-9ad8-4da2f5880f38.png)
+           Widget customRow(int index, dynamic data) {
+            Color sideColor;
+            BuildContext? context = Get.context;
+            if (data['isActive'] == 'true')
+              sideColor = Theme.of(context!).toggleableActiveColor;
+            else
+              sideColor = Theme.of(context!).errorColor;
+            return customDetailsRow(index, data, context, sideColor);
+          }
+
+          Widget customDetailsRow(
+              int index, dynamic data, BuildContext context, Color statusColor) {
+            return InkWell(
+              onTap: () {},
+              child: Container(
+                child: Card(
+                  shadowColor: Theme.of(context).shadowColor,
+                  elevation: 3,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                        left: BorderSide(color: statusColor, width: 2),
+                      )),
+                      child: SizedBox(
+                        height: 50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Row(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.only(left: 12, right: 12),
+                                      child: GtIcon(
+                                        icondata: Icons.person,
+                                        color: statusColor,
+                                      )),
+                                  Expanded(
+                                    flex: 3,
+                                    child: GtText(
+                                      text: '${data['FName']}',
+                                      textStyle: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: GtText(
+                                      text: '${data['Code']}',
+                                      textStyle: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+              ),
+            );
+          }
+        }
+
+```
+
+  - **Result Default View:**
+
+    ![GtListPage Default ListView](https://user-images.githubusercontent.com/64594463/148762294-a8b477cc-03c1-4d0d-8b69-326c2ca16981.png)
+
+  - **Result Custom View:**
+
+    ![GtListPage Custom ListView](https://user-images.githubusercontent.com/64594463/147746717-15fd924a-eb92-40b2-b8b8-4720c0cadf1b.png)
+
 
 # GtCheckboxFormField Widget
 
@@ -2992,7 +2822,7 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
   - **activeColor** - Color - Color of active check box.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3005,17 +2835,17 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtCheckboxFormField(
-                       displayMapFields: {"data" : "true","Data1": "false"},
-                       selectedCheckboxValues: ["true"],
-                       label: "Demo",
-                       onChangedHandler: (val,data) => {}
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtCheckboxFormField WIDGET"),
+                ),
+                body: Center(
+                  child: GtCheckboxFormField(
+                      displayMapFields: {"data": "true", "Data1": "false"},
+                      selectedCheckboxValues: ["true"],
+                      label: "Demo",
+                      onChangedHandler: (val, data) => {}),
+                ),
+              );
            }
         }
 
@@ -3023,7 +2853,7 @@ The gtcheckboxformfield widget is used represent the Form field checkbox on the 
 
   - Step 3 : Result :
 
-    ![GtCheckboxFormField](https://user-images.githubusercontent.com/64594463/124129481-72752d00-da9b-11eb-8959-cc51e11dfb65.png)
+    ![GtCheckboxFormField](https://user-images.githubusercontent.com/64594463/148724246-17f3585a-f272-4256-99de-c6089a4b8a71.png)
 
 # GtDropdownFormField Widget
 
@@ -3055,7 +2885,7 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
          this.looupKeyVisibile = false,});
 ```
 
-- Input Parameters of GtCheckboxFormField Widget
+- Input Parameters of GtDropdownFormField Widget
   - **iconData** - IconData - This is dropdown field icon.
   - **items** - Map<String, dynamic> - It is display field list in drop down.
   - **dropdownValue** - dynamic - It is display selected value of dropdown.
@@ -3076,7 +2906,7 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
   - **looupKeyVisibile** - bool - This is ItemType is List then listLookupField parameter map keys display when its true, default is false.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3109,9 +2939,9 @@ The GtDropdownFormField widget is used represent the Form field drop Down on the
 
   - Step 3 : Result :
 
-    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448490-23334300-dda0-11eb-9779-11de6773df7f.png)
+    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148763276-10157720-c0fc-4f48-a62c-b8504aeefe8c.png)
 
-    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/124448563-39410380-dda0-11eb-9b61-4e9091bdac4d.png)
+    ![GtDropdownFormField](https://user-images.githubusercontent.com/64594463/148724599-1a2e81b0-ae19-444e-8c3a-c9c52232814e.png)
 
 # GtRadioButtonFormField Widget
 
@@ -3146,7 +2976,7 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
   - **activeColor** - Color - Color of active redio button.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3159,18 +2989,17 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtRadioButtonFormField(
-                       label: "Demo",
-                       isRequired: false,
-                       selectedRadioButtonVal: "User1",
-                       displayMapFields: {"User1" : "User1", "User2": "User2"},
-                       onChangedHandler: (chk, data) {}
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtRedioButtonFormField WIDGET"),
+                ),
+                body: Center(
+                    child: GtRadioButtonFormField(
+                        label: "Demo",
+                        isRequired: false,
+                        selectedRadioButtonVal: "User1",
+                        displayMapFields: {"User1": "User1", "User2": "User2"},
+                        onChangedHandler: (chk, data) {})),
+              );
            }
         }
 
@@ -3178,11 +3007,11 @@ The GtRadioButtonFormField widget is used represent the Form field Redio options
 
   - Step 3 : Result :
 
-    ![GtRadioButtonFormField](https://user-images.githubusercontent.com/64594463/124449969-99847500-dda1-11eb-822a-eb30acc1bba0.png)
+    ![GtRadioButtonFormField](https://user-images.githubusercontent.com/64594463/148724815-f35b39c4-6554-4a94-9c5b-0367dbc0e7da.png)
 
 # GtSwitchButtonFormField Widget
 
-The GtSwitchButtonFormField widget is used represent the Form field Switch button on the Screen with alng optional parameter.
+The GtSwitchButtonFormField widget is used represent the Form field.
 
 - Benefits of GtSwitchButtonFormField Widget
   - Handles the font size of the switch button in dynamic way based on the screen resolution when specified.
@@ -3213,7 +3042,7 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
   - **crossAxisAlignment** - CrossAxisAlignment - This is alignment of cross axis alignment.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3226,19 +3055,19 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
            @override
            Widget build(BuildContext context) {
              return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Customers')),
-                 body: Container(
-                   child:  GtSwitchButtonFormField(
-                       label: "Demo",
-                       isRequired: false,
-                       switchValue: true,
-                       switchactiveColor: Colors.blue,
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       onChangedHandler: (chk) { }
-                    )
-                 ));
+                appBar: GtAppBar(
+                  title: GtText(text: "GtSwitchButtonFormField WIDGET"),
+                ),
+                body: Center(
+                  child: GtSwitchButtonFormField(
+                      label: "Demo",
+                      isRequired: false,
+                      switchValue: true,
+                      switchactiveColor: Colors.blue,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      onChangedHandler: (chk) {}),
+                ),
+              );
            }
         }
 
@@ -3246,7 +3075,7 @@ The GtSwitchButtonFormField widget is used represent the Form field Switch butto
 
   - Step 3 : Result :
 
-    ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/124451092-ace41000-dda2-11eb-9c3a-06500b708187.png)
+    ![GtSwitchButtonFormField](https://user-images.githubusercontent.com/64594463/148725323-a0e2abb4-b4cf-455d-8294-96cb997a8e4d.png)
 
 # GtSurveyKit Widget
 
@@ -3267,11 +3096,11 @@ The GtSurveyKit widget is used represent the Survey.
   ```
 
 - Required Permissions are:
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-  ```
+  ```dart
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
 
   ```
 
@@ -3297,7 +3126,7 @@ The GtSurveyKit widget is used represent the Survey.
   - **submitData** - Function(dynamic) - This Function It will return survey result.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3368,7 +3197,7 @@ The gtmarquee widget is used represent the array of list scrolling vertical on t
   - **controllerMar** - MarqueeModel - This is model class its return position index.
 - Example
 
-  - Step 1 : Import core in files that it will be used:
+  - Step 1 : Import greytrix_ui_kit in files that it will be used:
 
   ```dart
      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
@@ -3412,7 +3241,7 @@ The gtmarquee widget is used represent the array of list scrolling vertical on t
 
   - Step 3 : Result :
 
-    ![GtMarquee](https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4)
+    https://user-images.githubusercontent.com/64594463/131613045-4b296dca-9e44-4a31-94c4-0e324ac7e4d7.mp4
 
 # GtPdfWidget Widget
 
@@ -3465,314 +3294,16 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
 
 - Input Parameters of GtPdfWidget Widget
 
-  - maxPageWidth - maxPageWidth - This is Maximum width of the pdf document on screen.
-  - pdfData - PdfData - This is class For Preparing PDf Preview in data.
-
-    - PdfData Constructors:
-
-      - [PdfData]()({
-        @required this.baseColor,
-        @required this.accentColor,
-        this.pdfHeader,
-        this.pdfFooter,
-        @required this.data,
-        @required this.pdfBody,
-        this.pageMargin});
-
-        - **baseColor** - PdfColor - This is color of pdf base color and this is required parameter.
-        - **accentColor** - PdfColor - This is color of pdf accent color and This also required parameter.
-        - **pdfHeader** - pdfHeader - This is class of pdfHeader for represent the header section ToMapJson.
-          - PdfHeader Constructors:
-            - [PdfHeader]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfHeaderFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfHeaderFields** - PdfHeaderField - This is class of PdfHeaderField for represent header section toMapJson.
-                - [PdfHeaderField]()({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTHeaderFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.centerLeft,
-                  this.tableHeaderDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableHeaderHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.imageProvider,
-                  this.key = "",
-                  this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTHeaderFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **heigh**t - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **imageProvider** - ImageProvider - This is shows image to image Field type input.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **headerFieldKeyValueFormat** - GtHeaderFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **pdfFooter** - pdfFooter - This is class of pdfFooter for represent the footer section ToMapJson.
-          - pdfFooter Constructors:
-            - [pdfFooter]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfFooterFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfFooterFields** - PdfFooterField - This is class of PdfFooterField for represent header section toMapJson.
-                - [pdfFooterFields]()({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTFooterFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.centerLeft,
-                  this.tableHeaderDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableHeaderHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.key = "",
-                  this.footerFieldKeyValueFormat = GtFooterFieldKeyValueFormat.COLUMN,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTFooterFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **height** - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **footerFieldKeyValueFormat** - GtFooterFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **data** - dynamic - This is required parameter for showing tomapJson fields from data.
-        - **pdfBody** - pdfBody - This is class of pdfBody for represent the body section ToMapJson.
-          - pdfBody Constructors:
-            - [pdfBody]({
-              this.maxRow,
-              this.maxColumn,
-              this.pdfBodyFields,
-              });
-              - **maxRow** - int - This is shows max rows of PdfHEaderFields.
-              - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
-              - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
-                - PdfBodyField({
-                  this.row,
-                  this.column,
-                  this.valuePath,
-                  this.defaultValue,
-                  this.fieldType = GTBodyFieldType.TITLE,
-                  this.padding,
-                  this.height,
-                  this.alignment,
-                  this.pdfTable,
-                  this.valueTextStyle,
-                  this.keyTextStyle,
-                  this.displayKey = false,
-                  this.tableCellAlignment = pw.Alignment.center,
-                  this.tableBodyDecoration = const pw.BoxDecoration(
-                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-                  color: PdfColors.teal
-                  ),
-                  this.tableBodyHeight = 25,
-                  this.tableCellHeight = 20,
-                  this.tableCellAlignments = const {
-                  0: pw.Alignment.center,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                  4: pw.Alignment.center,
-                  },
-                  this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-                  this.tableRowDecoration = const pw.BoxDecoration(
-                  border: pw.Border(
-                  bottom: pw.BorderSide(
-                  color: PdfColors.blueGrey900,
-                  width: .5,
-                  ),
-                  ),
-                  ),
-                  this.lineDecoration = const pw.BoxDecoration(
-                  border: pw.Border(top: pw.BorderSide(
-                  )),
-                  ),
-                  this.cellDecoration,
-                  this.key,
-                  this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
-                  this.decoration,
-                  });
-                  - **row** - int - This is contains where row have to display this field.
-                  - **column** - int - This is contains where column have to display this field.
-                  - **valuePath** - String - This is define which is Field map with valuePath.
-                  - **defaultValue** - String - This disply default value.
-                  - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTBodyFieldType.TITLE.
-                  - **padding** - EdgeInsets - This is margin for field.
-                  - **height** - double - This is represented a field height.
-                  - **alignment** - Alignment - This represented to align the field as field spacing.
-                  - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
-                    - pdfTable Constructors:
-                      - [PdfTable]()({
-                        this.valuePath,
-                        this.padding,
-                        this.height,
-                        this.alignment,
-                        this.pdfTableColumnType = GtPdfTableColumnType.STRING,
-                        this.defualtCurrency = "",
-                        });
-                        - **valuePath** - String - This is define which is Field map with valuePath.
-                        - **padding** - EdgeInsets - This is margin for field.
-                        - **height** - double - This define table height.
-                        - **alignment** - Alignment - This is represent to table alignment.
-                        - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
-                        - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
-                  - **valueTextStyle** - TextStyle - This is style for field value.
-                  - **keyTextStyle** - TextStyle - This is style for field key.
-                  - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
-                  - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
-                  - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
-                  - **tableHeaderHeight** - double - This represent table header height.
-                  - **tableCellHeight** - double - This represent table cell height.
-                  - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
-                  - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
-                  - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
-                  - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
-                  - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
-                  - **key** - String - this display key when displayKey parameter is true then it will display as a key.
-                  - **decoration** - BoxDecoration - This is Field decoration to display.
-                  - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
-        - **pageMargin** - pw.EdgeInsets - This is for page padding and margin on screen.
-
+  - **maxPageWidth** - maxPageWidth - This is Maximum width of the pdf document on screen.
+  - **pdfData** - PdfData - This is class For Preparing PDf Preview in data.
   - **onShared** - Function(BuildContext, PdfData) - Called if the user shares the pdf document.
   - **actions** - List<PdfPreviewAction> - Additionnal actions to add to the widget.
-  - **useActions** - bool - This is Allow disable actions, and this is default true.
+  - **useActions** - bool - This is Allow disable actions, and this is default false.
   - **allowPrinting** - bool - Add a button to print the pdf document, and this is default true.
   - **allowSharing** - bool - Add a button to print the pdf document, and this is default true.
-  - **canChangeOrientation** - bool - Add a switch to change the page orientation, and this is default true.
-  - **canChangePageFormat** - bool - Add a drop-down menu to choose the page format, and this is default true.
-  - **canDebug** - bool - Add a switch to show debug view, and this is default true.
+  - **canChangeOrientation** - bool - Add a switch to change the page orientation, and this is default false.
+  - **canChangePageFormat** - bool - Add a drop-down menu to choose the page format, and this is default false.
+  - **canDebug** - bool - Add a switch to show debug view, and this is default false.
   - **loadingWidget** - Widget - Custom loading widget to use that is shown while PDF is being generated. If null, a [CircularProgressIndicator] is used instead.
   - **pdfPreviewPageDecoration** - Decoration - Decoration of PdfPreviewPage,
   - **pdfFileName** - String - Name of the PDF when sharing. It must include the extension.
@@ -3790,6 +3321,320 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
   - **shareActionExtraBody** - String - extra text to share with Pdf document.
   - **shareActionExtraSubject** - String - email subject when email application is selected from the share dialog.
   - **shareActionExtraEmails** - List<String> - list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
+
+  - **PdfData** Constructors:
+      ```
+    - [PdfData]()({
+      @required this.baseColor,
+      @required this.accentColor,
+      this.pdfHeader,
+      this.pdfFooter,
+      @required this.data,
+      @required this.pdfBody,
+      this.pageMargin});
+      ```
+  - **baseColor** - PdfColor - This is color of pdf base color and this is required parameter.
+  - **accentColor** - PdfColor - This is color of pdf accent color and This also required parameter.
+  - **pdfHeader** - pdfHeader - This is class of pdfHeader for represent the header section ToMapJson.
+  - **pdfFooter** - pdfFooter - This is class of pdfFooter for represent the footer section ToMapJson.
+  - **data** - dynamic - This is required parameter for showing tomapJson fields from data.
+  - **pdfBody** - pdfBody - This is class of pdfBody for represent the body section ToMapJson.
+  - **pageMargin** - pw.EdgeInsets - This is for page padding and margin on screen.
+
+- **PdfHeader** Constructors:
+    ```
+  - [PdfHeader]({
+    this.maxRow,
+    this.maxColumn,
+    this.pdfHeaderFields,
+    });
+    ```
+    - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+    - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+    - **pdfHeaderFields** - PdfHeaderField - This is class of PdfHeaderField for represent header section toMapJson.
+      ```
+      - [PdfHeaderField]()({
+          this.row,
+          this.column,
+          this.valuePath,
+          this.defaultValue,
+          this.fieldType = GTHeaderFieldType.TITLE,
+          this.padding,
+          this.height,
+          this.alignment,
+          this.pdfTable,
+          this.valueTextStyle,
+          this.keyTextStyle,
+          this.displayKey = false,
+          this.tableCellAlignment = pw.Alignment.centerLeft,
+          this.tableHeaderDecoration = const pw.BoxDecoration(
+          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+          color: PdfColors.teal
+          ),
+          this.tableHeaderHeight = 25,
+          this.tableCellHeight = 20,
+          this.tableCellAlignments = const {
+          0: pw.Alignment.center,
+          1: pw.Alignment.center,
+          2: pw.Alignment.center,
+          3: pw.Alignment.center,
+          4: pw.Alignment.center,
+          },
+          this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableRowDecoration = const pw.BoxDecoration(
+          border: pw.Border(
+          bottom: pw.BorderSide(
+          color: PdfColors.blueGrey900,
+          width: .5,),),),
+          this.lineDecoration = const pw.BoxDecoration(
+          border: pw.Border(top: pw.BorderSide(
+          )),),
+          this.imageProvider,
+          this.key = "",
+          this.headerFieldKeyValueFormat = GtHeaderFieldKeyValueFormat.COLUMN,
+        });
+        ```
+        - **row** - int - This is contains where row have to display this field.
+        - **column** - int - This is contains where column have to display this field.
+        - **valuePath** - String - This is define which is Field map with valuePath.
+        - **defaultValue** - String - This disply default value.
+        - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTHeaderFieldType.TITLE.
+        - **padding** - EdgeInsets - This is margin for field.
+        - **heigh**t - double - This is represented a field height.
+        - **alignment** - Alignment - This represented to align the field as field spacing.
+        - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+          - pdfTable Constructors:
+            ```
+            - [PdfTable]()({
+              this.valuePath,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+              this.defualtCurrency = "",
+              });
+              ```
+              - **valuePath** - String - This is define which is Field map with valuePath.
+              - **padding** - EdgeInsets - This is margin for field.
+              - **height** - double - This define table height.
+              - **alignment** - Alignment - This is represent to table alignment.
+              - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+              - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+        - **valueTextStyle** - TextStyle - This is style for field value.
+        - **keyTextStyle** - TextStyle - This is style for field key.
+        - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+        - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+        - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+        - **tableHeaderHeight** - double - This represent table header height.
+        - **tableCellHeight** - double - This represent table cell height.
+        - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+        - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+        - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+        - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+        - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+        - **imageProvider** - ImageProvider - This is shows image to image Field type input.
+        - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+        - **headerFieldKeyValueFormat** - GtHeaderFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+
+- **pdfFooter** Constructors:
+  ```
+  - [pdfFooter]({
+    this.maxRow,
+    this.maxColumn,
+    this.pdfFooterFields,
+    });
+    ```
+    - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+    - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+    - **pdfFooterFields** - PdfFooterField - This is class of PdfFooterField for represent header section toMapJson.
+      ```
+      - [pdfFooterFields]()({
+        this.row,
+        this.column,
+        this.valuePath,
+        this.defaultValue,
+        this.fieldType = GTFooterFieldType.TITLE,
+        this.padding,
+        this.height,
+        this.alignment,
+        this.pdfTable,
+        this.valueTextStyle,
+        this.keyTextStyle,
+        this.displayKey = false,
+        this.tableCellAlignment = pw.Alignment.centerLeft,
+        this.tableHeaderDecoration = const pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        color: PdfColors.teal
+        ),
+        this.tableHeaderHeight = 25,
+        this.tableCellHeight = 20,
+        this.tableCellAlignments = const {
+        0: pw.Alignment.center,
+        1: pw.Alignment.center,
+        2: pw.Alignment.center,
+        3: pw.Alignment.center,
+        4: pw.Alignment.center,
+        },
+        this.tableHeaderStyle = const pw.TextStyle(fontSize: 10,),
+        this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+        this.tableRowDecoration = const pw.BoxDecoration(
+        border: pw.Border(
+        bottom: pw.BorderSide(
+        color: PdfColors.blueGrey900,
+        width: .5,
+        ),
+        ),
+        ),
+        this.lineDecoration = const pw.BoxDecoration(
+        border: pw.Border(top: pw.BorderSide(
+        )),
+        ),
+        this.key = "",
+        this.footerFieldKeyValueFormat = GtFooterFieldKeyValueFormat.COLUMN,
+        });
+        ```
+        - **row** - int - This is contains where row have to display this field.
+        - **column** - int - This is contains where column have to display this field.
+        - **valuePath** - String - This is define which is Field map with valuePath.
+        - **defaultValue** - String - This disply default value.
+        - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTFooterFieldType.TITLE.
+        - **padding** - EdgeInsets - This is margin for field.
+        - **height** - double - This is represented a field height.
+        - **alignment** - Alignment - This represented to align the field as field spacing.
+        - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+          - pdfTable Constructors:
+            ```
+            - [PdfTable]()({
+              this.valuePath,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+              this.defualtCurrency = "",
+              });
+              ```
+              - **valuePath** - String - This is define which is Field map with valuePath.
+              - **padding** - EdgeInsets - This is margin for field.
+              - **height** - double - This define table height.
+              - **alignment** - Alignment - This is represent to table alignment.
+              - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+              - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+        - **valueTextStyle** - TextStyle - This is style for field value.
+        - **keyTextStyle** - TextStyle - This is style for field key.
+        - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+        - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+        - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+        - **tableHeaderHeight** - double - This represent table header height.
+        - **tableCellHeight** - double - This represent table cell height.
+        - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+        - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+        - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+        - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+        - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+        - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+        - **footerFieldKeyValueFormat** - GtFooterFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+
+  - **pdfBody** Constructors:
+    ```
+    - [pdfBody]({
+      this.maxRow,
+      this.maxColumn,
+      this.pdfBodyFields,
+      });
+      ```
+      - **maxRow** - int - This is shows max rows of PdfHEaderFields.
+      - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
+      - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
+        ```
+        - PdfBodyField({
+          this.row,
+          this.column,
+          this.valuePath,
+          this.defaultValue,
+          this.fieldType = GTBodyFieldType.TITLE,
+          this.padding,
+          this.height,
+          this.alignment,
+          this.pdfTable,
+          this.valueTextStyle,
+          this.keyTextStyle,
+          this.displayKey = false,
+          this.tableCellAlignment = pw.Alignment.center,
+          this.tableBodyDecoration = const pw.BoxDecoration(
+          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+          color: PdfColors.teal
+          ),
+          this.tableBodyHeight = 25,
+          this.tableCellHeight = 20,
+          this.tableCellAlignments = const {
+          0: pw.Alignment.center,
+          1: pw.Alignment.center,
+          2: pw.Alignment.center,
+          3: pw.Alignment.center,
+          4: pw.Alignment.center,
+          },
+          this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
+          this.tableRowDecoration = const pw.BoxDecoration(
+          border: pw.Border(
+          bottom: pw.BorderSide(
+          color: PdfColors.blueGrey900,
+          width: .5,
+          ),
+          ),
+          ),
+          this.lineDecoration = const pw.BoxDecoration(
+          border: pw.Border(top: pw.BorderSide(
+          )),
+          ),
+          this.cellDecoration,
+          this.key,
+          this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
+          this.decoration,
+          });
+          ```
+          - **row** - int - This is contains where row have to display this field.
+          - **column** - int - This is contains where column have to display this field.
+          - **valuePath** - String - This is define which is Field map with valuePath.
+          - **defaultValue** - String - This disply default value.
+          - **fieldType** - GTHeaderFieldType - This is show field type, Defualt was GTBodyFieldType.TITLE.
+          - **padding** - EdgeInsets - This is margin for field.
+          - **height** - double - This is represented a field height.
+          - **alignment** - Alignment - This represented to align the field as field spacing.
+          - **pdfTable** - Map<String, PdfTable> - This toMapJson for table field as display field.
+            - pdfTable Constructors:
+              ```
+              - [PdfTable]()({
+                this.valuePath,
+                this.padding,
+                this.height,
+                this.alignment,
+                this.pdfTableColumnType = GtPdfTableColumnType.STRING,
+                this.defualtCurrency = "",
+                });
+                ```
+                - **valuePath** - String - This is define which is Field map with valuePath.
+                - **padding** - EdgeInsets - This is margin for field.
+                - **height** - double - This define table height.
+                - **alignment** - Alignment - This is represent to table alignment.
+                - **pdfTableColumnType** - GtPdfTableColumnType - This is enum parameter and it will define table field type like String or Currency, and default type is String.
+                - **defualtCurrency** - String - This is when pdfTableColumnType parameter passed GtPdfTableColumnType.CURRENCY then it will add defaultCurrency parametr before value.
+          - **valueTextStyle** - TextStyle - This is style for field value.
+          - **keyTextStyle** - TextStyle - This is style for field key.
+          - **displayKey** - bool - This is displayed field key when passed displayKey is true and default value is false.
+          - **tableCellAlignment** - Alignment - This is table cell alignment to display in aligned and defult align is Alignment.centerLeft.
+          - **tableHeaderDecoration** - BoxDecoration - This is for table header decoration.
+          - **tableHeaderHeight** - double - This represent table header height.
+          - **tableCellHeight** - double - This represent table cell height.
+          - **tableCellAlignments** - Map<int, Alignment> - This is table cell alignments.
+          - **tableHeaderStyle** - TextStyle - This represnt to table header field text style.
+          - **tableCellStyle** - TextStyle - This represnt to table cell field text style.
+          - **tableRowDecoration** - BoxDecoration - This parameter shows table rows decoration.
+          - **lineDecoration** - BoxDecoration - This parameter shows line decoration.
+          - **key** - String - this display key when displayKey parameter is true then it will display as a key.
+          - **decoration** - BoxDecoration - This is Field decoration to display.
+          - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
 
 - Example
 
@@ -4401,477 +4246,509 @@ The GtListFilter widget is used represent the Filter field for the Listview.
   - Step 2 : ListviewFilterController With Quick Filter and Advance Filter.
 
   ```dart
-     import 'package:flutter/material.dart';
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-     import 'package:core/core.dart';
-     class ListviewFilterController  extends GetxController with StateMixin {
 
+      import 'package:flutter/material.dart';
+      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+
+      class ListviewFilterController extends GetxController with StateMixin {
         ListviewFilterController();
 
         Rx<List> customerList = Rx<List>([]);
-        RxBool isBackDrop =  new RxBool(false);
-        List<GtAdvanceFilterOperator> operatorString = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorNumeric = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
+        RxBool isBackDrop = new RxBool(false);
+        GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+        List<GtAdvanceFilterOperator> operatorString =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorNumeric =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorCommon =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterField> advanceFilterFields =
+            new List<GtAdvanceFilterField>.empty(growable: true);
         RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
         RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+        Map<String, dynamic> sortFieldFilter = new Map<String, dynamic>();
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
-            operatorString = [
-              GtAdvanceFilterOperator(
-                 label: "LIKE",
-                 value: "_like",
-                 type: GtAdvanceFilterOperatorType.STRING
-              ),
-              GtAdvanceFilterOperator(
-                 label: "ILIKE",
-                 value: "_ilike",
-                 type: GtAdvanceFilterOperatorType.STRING
-              )
-              ];
-              operatorNumeric = [
-              GtAdvanceFilterOperator(
-                 label: "GTE",
-                 value: "_gte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterOperator(
-                 label: "LTE",
-                 value: "_lte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              )
-              ];
-              operatorCommon = [
-              GtAdvanceFilterOperator(
-                 label: "EQUAL",
-                 value: "_eq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              ),
-              GtAdvanceFilterOperator(
-                 label: "NEQ",
-                 value: "_neq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              )
-              ];
-              advanceFilterFields = [
-              GtAdvanceFilterField(
-                 label: "FName",
-                 value: "FName",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "code",
-                 value: "Code",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "Id",
-                 value: "Id",
-                 type: GtAdvanceFilterFieldOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterField(
-                 label: "IsActive",
-                 value: "isActive",
-                 type: GtAdvanceFilterFieldOperatorType.SELECT,
-                 options: [{"TRUE":"true"}, { "FALSE" : "false"}]
-              ),
-              ];
-              toMapfilterjson.value = {
-                 "Code": GtTileField(
-                    valuePath: "Code",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Code',
-                    filterLabel: 'Customer Code',
-                    textEditingController: new TextEditingController()),
-                 "FName": GtTileField(
-                    valuePath: "FName",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Name',
-                    filterLabel: 'Customer Name',
-                    textEditingController: new TextEditingController()),
-                 "IsActive" : GtTileField(
-                    valuePath: "isActive",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                    filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
-                    filterValue: 'isActive',
-                    filterLabel: 'isActive',
-                 ),
-                 "SortFilter" : GtTileField(
-                    filterLabel: "Sort By Field",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.SORT_FILTER,
-                    filterItems: {
-                       'Code': 'Code',
-                       'FName': 'FName',
-                    },
-                    filterValue: 'order_by'
-                 ),
-              };
-           filtersData.value = {"Code": {"_ilike": "%1%"}};
+          /// Operators for Advance Filters 
+          operatorString = [
+            GtAdvanceFilterOperator(
+                label: "LIKE",
+                value: "_like",
+                type: GtAdvanceFilterOperatorType.STRING),
+            GtAdvanceFilterOperator(
+                label: "ILIKE",
+                value: "_ilike",
+                type: GtAdvanceFilterOperatorType.STRING)
+          ];
+          operatorNumeric = [
+            GtAdvanceFilterOperator(
+                label: "GTE",
+                value: "_gte",
+                type: GtAdvanceFilterOperatorType.NUMERIC),
+            GtAdvanceFilterOperator(
+                label: "LTE",
+                value: "_lte",
+                type: GtAdvanceFilterOperatorType.NUMERIC)
+          ];
+          operatorCommon = [
+            GtAdvanceFilterOperator(
+                label: "EQUAL",
+                value: "_eq",
+                type: GtAdvanceFilterOperatorType.COMMON),
+            GtAdvanceFilterOperator(
+                label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
+          ];
+          /// Advance filter fields
+          advanceFilterFields = [
+            GtAdvanceFilterField(
+                label: "FName",
+                value: "FName",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "code",
+                value: "Code",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "Id",
+                value: "Id",
+                type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+            GtAdvanceFilterField(
+                label: "IsActive",
+                value: "isActive",
+                type: GtAdvanceFilterFieldOperatorType.SELECT,
+                options: [
+                  {"TRUE": "true"},
+                  {"FALSE": "false"}
+                ]),
+          ];
 
-           super.onInit();
+          /// ListView ToMapjson for display Listview
+          toMapfilterjson.value = {
+            "Code": GtTileField(
+                valuePath: "Code",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Code',
+                filterLabel: 'Customer Code',
+                textEditingController: new TextEditingController()),
+            "FName": GtTileField(
+                valuePath: "FName",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Name',
+                filterLabel: 'Customer Name',
+                textEditingController: new TextEditingController()),
+            "IsActive": GtTileField(
+              valuePath: "isActive",
+              type: GtFieldType.FILTER,
+              filterType: GtFilterType.RADIO_BUTTON_FILTER,
+              filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
+              filterValue: 'isActive',
+              filterLabel: 'isActive',
+            ),
+            "SortFilter": GtTileField(
+                filterLabel: "Sort By Field",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.SORT_FILTER,
+                filterItems: {
+                  'Code': 'Code',
+                  'FName': 'FName',
+                },
+                filterValue: 'order_by'),
+          };
+          filtersData.value = {
+            "Code": {"_ilike": "%1%"}
+          };
+
+          super.onInit();
         }
-        void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API
-           Map<String, dynamic>? variables = {
-        "where": {"_and": []}
-      };
-           var filterselected = [];
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
-            /// Check here For Nasted Filter
-           selectedFilterAdvance.forEach((data) {
-           if (data["isNastedFilter"] == true) {
-           filterselected.add(data["filterNasted"]);
-           } else {
-           filterselected.add({
-              "${data["fieldName"]}": {
-                 data["operator"]: data["fieldValue"],
-              }
-           });
-           }
-           /// Quick Filter applied map and sort filter
-           if (filterDataApply != {} && fromOnInit == false) {
-            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
-            toMapfilterjson.forEach((key, gttilefield) {
-              switch (gttilefield.filterType) {
-                case GtFilterType.SORT_FILTER:
-                  var sortfield = filterDataApply![gttilefield.filterValue];
-                  var sortOrder = filterDataApply['sort'];
-                  sortFieldFilter = {
-                    sortfield: sortOrder.toString().toLowerCase()
-                  };
-                  break;
-              }
-            });
-            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
-              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
-                return {};
-              } else {
-                return {"${mapEntry.key}": mapEntry.value};
-              }
-            }).toList();
-            print(quickFilter);
-            filterselected.addAll(quickFilter);
+        
+        /// On Filter Applied click this function will used
+        void filterHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          /// This variables pass to API
+          Map<String, dynamic>? variables = {
+            "where": {"_and": []}
+          };
+          var filterselected = [];
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
           }
-          variables["where"]["_and"] = filterselected;
-        });
+          print(filterDataApply);
+          print(selectedFilterAdvance);
+
+          /// Check here For Nasted Filter
+          selectedFilterAdvance.forEach((data) {
+            if (data["isNastedFilter"] == true) {
+              filterselected.add(data["filterNasted"]);
+            } else {
+              filterselected.add({
+                "${data["fieldName"]}": {
+                  data["operator"]: data["fieldValue"],
+                }
+              });
+            }
+
+            /// Quick Filter applied map and sort filter
+            if (filterDataApply != {}) {
+              List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+              toMapfilterjson.forEach((key, gttilefield) {
+                switch (gttilefield.filterType) {
+                  case GtFilterType.SORT_FILTER:
+                    var sortfield = filterDataApply![gttilefield.filterValue];
+                    var sortOrder = filterDataApply['sort'];
+                    sortFieldFilter = {sortfield: sortOrder.toString().toLowerCase()};
+                    break;
+                }
+              });
+              quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
+                if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                  return {};
+                } else {
+                  return {"${mapEntry.key}": mapEntry.value};
+                }
+              }).toList();
+              print(quickFilter);
+              filterselected.addAll(quickFilter);
+            }
+            variables["where"]["_and"] = filterselected;
+          });
         }
-        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
+        /// On Filter Clear button this function used
+        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
+          }
+          print(filterDataApply);
+          print(selectedFilterAdvance);
         }
-        void changeBackDrop(bool isback){
-           isBackDrop.value = isback;
+
+        /// Backdrop value changed
+        void changeBackDrop(bool isback) {
+          isBackDrop.value = isback;
         }
-     }
+      }
+
   ```
 
   - Step 2 : ListviewFilterController With Quick Filter and Nasted Advance Filter.
 
   ```dart
-     import 'package:flutter/material.dart';
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
-     import 'package:core/core.dart';
-     class ListviewFilterController  extends GetxController with StateMixin {
+      import 'package:flutter/material.dart';
+      import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
 
+      class ListviewFilterController extends GetxController with StateMixin {
         ListviewFilterController();
 
         Rx<List> customerList = Rx<List>([]);
-        RxBool isBackDrop =  new RxBool(false);
-        List<GtAdvanceFilterOperator> operatorString = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorNumeric = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterOperator> operatorCommon = new List<GtAdvanceFilterOperator>.empty(growable: true);
-        List<GtAdvanceFilterField> advanceFilterFields = new List<GtAdvanceFilterField>.empty(growable: true);
+        RxBool isBackDrop = new RxBool(false);
+        GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+        List<GtAdvanceFilterOperator> operatorString =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorNumeric =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterOperator> operatorCommon =
+            new List<GtAdvanceFilterOperator>.empty(growable: true);
+        List<GtAdvanceFilterField> advanceFilterFields =
+            new List<GtAdvanceFilterField>.empty(growable: true);
         RxMap<String, GtTileField> toMapfilterjson = RxMap<String, GtTileField>();
         RxMap<String, dynamic> filtersData = RxMap<String, dynamic>();
+        Map<String, dynamic> sortFieldFilter = new Map<String, dynamic>();
         RxBool isFilterApplied = new RxBool(false);
         @override
         void onInit() {
-            operatorString = [
-              GtAdvanceFilterOperator(
-                 label: "LIKE",
-                 value: "_like",
-                 type: GtAdvanceFilterOperatorType.STRING
-              ),
-              GtAdvanceFilterOperator(
-                 label: "ILIKE",
-                 value: "_ilike",
-                 type: GtAdvanceFilterOperatorType.STRING
-              )
-              ];
-              operatorNumeric = [
-              GtAdvanceFilterOperator(
-                 label: "GTE",
-                 value: "_gte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterOperator(
-                 label: "LTE",
-                 value: "_lte",
-                 type: GtAdvanceFilterOperatorType.NUMERIC
-              )
-              ];
-              operatorCommon = [
-              GtAdvanceFilterOperator(
-                 label: "EQUAL",
-                 value: "_eq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              ),
-              GtAdvanceFilterOperator(
-                 label: "NEQ",
-                 value: "_neq",
-                 type: GtAdvanceFilterOperatorType.COMMON
-              )
-              ];
-              advanceFilterFields = [
-              GtAdvanceFilterField(
-                 label: "FName",
-                 value: "FName",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              /// This is nasted filter field
-              GtAdvanceFilterField(
-                 label: "City",
-                 isNastedFilter: true,
-                 value: "address.City",
-                 type: GtAdvanceFilterFieldOperatorType.STRING
-              ),
-              GtAdvanceFilterField(
-                 label: "Id",
-                 value: "Id",
-                 type: GtAdvanceFilterFieldOperatorType.NUMERIC
-              ),
-              GtAdvanceFilterField(
-                 label: "IsActive",
-                 value: "isActive",
-                 type: GtAdvanceFilterFieldOperatorType.SELECT,
-                 options: [{"TRUE":"true"}, { "FALSE" : "false"}]
-              ),
-              ];
-              toMapfilterjson.value = {
-                 "Code": GtTileField(
-                    valuePath: "Code",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Code',
-                    filterLabel: 'Customer Code',
-                    textEditingController: new TextEditingController()),
-                 "FName": GtTileField(
-                    valuePath: "FName",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'Name',
-                    filterLabel: 'Customer Name',
-                    textEditingController: new TextEditingController()),
-                  /// This is nasted filter field
-                  "City": GtTileField(
-                    valuePath: "City",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.TEXT_FILTER,
-                    filterValue: 'address.City',
-                    filterLabel: 'City',
-                    isNastedFilter: true,
-                    textEditingController: new TextEditingController()),
-                 "IsActive" : GtTileField(
-                    valuePath: "isActive",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.RADIO_BUTTON_FILTER,
-                    filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
-                    filterValue: 'isActive',
-                    filterLabel: 'isActive',
-                 ),
-                 "SortFilter" : GtTileField(
-                    filterLabel: "Sort By Field",
-                    type: GtFieldType.FILTER,
-                    filterType: GtFilterType.SORT_FILTER,
-                    filterItems: {
-                       'Code': 'Code',
-                       'FName': 'FName',
-                    },
-                    filterValue: 'order_by'
-                 ),
-              };
-           filtersData.value = {"Code": {"_ilike": "%1%"}};
+          /// Operators for Advance Filters 
+          operatorString = [
+            GtAdvanceFilterOperator(
+                label: "LIKE",
+                value: "_like",
+                type: GtAdvanceFilterOperatorType.STRING),
+            GtAdvanceFilterOperator(
+                label: "ILIKE",
+                value: "_ilike",
+                type: GtAdvanceFilterOperatorType.STRING)
+          ];
+          operatorNumeric = [
+            GtAdvanceFilterOperator(
+                label: "GTE",
+                value: "_gte",
+                type: GtAdvanceFilterOperatorType.NUMERIC),
+            GtAdvanceFilterOperator(
+                label: "LTE",
+                value: "_lte",
+                type: GtAdvanceFilterOperatorType.NUMERIC)
+          ];
+          operatorCommon = [
+            GtAdvanceFilterOperator(
+                label: "EQUAL",
+                value: "_eq",
+                type: GtAdvanceFilterOperatorType.COMMON),
+            GtAdvanceFilterOperator(
+                label: "NEQ", value: "_neq", type: GtAdvanceFilterOperatorType.COMMON)
+          ];
+          ///Advance Filter fields
+          advanceFilterFields = [
+            GtAdvanceFilterField(
+                label: "FName",
+                value: "FName",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
 
-           super.onInit();
+            /// This is nasted filter field
+            GtAdvanceFilterField(
+                label: "City",
+                isNastedFilter: true,
+                value: "address.City",
+                type: GtAdvanceFilterFieldOperatorType.STRING),
+            GtAdvanceFilterField(
+                label: "Id",
+                value: "Id",
+                type: GtAdvanceFilterFieldOperatorType.NUMERIC),
+            GtAdvanceFilterField(
+                label: "IsActive",
+                value: "isActive",
+                type: GtAdvanceFilterFieldOperatorType.SELECT,
+                options: [
+                  {"TRUE": "true"},
+                  {"FALSE": "false"}
+                ]),
+          ];
+          /// ToMapJson for Listview display
+          toMapfilterjson.value = {
+            "Code": GtTileField(
+                valuePath: "Code",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Code',
+                filterLabel: 'Customer Code',
+                textEditingController: new TextEditingController()),
+            "FName": GtTileField(
+                valuePath: "FName",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'Name',
+                filterLabel: 'Customer Name',
+                textEditingController: new TextEditingController()),
+
+            /// This is nasted filter field
+            "City": GtTileField(
+                valuePath: "City",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.TEXT_FILTER,
+                filterValue: 'address.City',
+                filterLabel: 'City',
+                isNastedFilter: true,
+                textEditingController: new TextEditingController()),
+            "IsActive": GtTileField(
+              valuePath: "isActive",
+              type: GtFieldType.FILTER,
+              filterType: GtFilterType.RADIO_BUTTON_FILTER,
+              filterItems: {'All': null, 'Active': "true", 'InActive': "false"},
+              filterValue: 'isActive',
+              filterLabel: 'isActive',
+            ),
+            "SortFilter": GtTileField(
+                filterLabel: "Sort By Field",
+                type: GtFieldType.FILTER,
+                filterType: GtFilterType.SORT_FILTER,
+                filterItems: {
+                  'Code': 'Code',
+                  'FName': 'FName',
+                },
+                filterValue: 'order_by'),
+          };
+          filtersData.value = {
+            "Code": {"_ilike": "%1%"}
+          };
+
+          super.onInit();
         }
-        void filterHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>>  selectedFilterAdvance){
-           /// This variables pass to API
-           Map<String, dynamic>? variables = {
-        "where": {"_and": []}
-      };
-           var filterselected = [];
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
-            /// Check here For Advance Nasted Filter
-           selectedFilterAdvance.forEach((data) {
-           if (data["isNastedFilter"] == true) {
-           filterselected.add(data["filterNasted"]);
-           } else {
-           filterselected.add({
-              "${data["fieldName"]}": {
-                 data["operator"]: data["fieldValue"],
-              }
-           });
-           }
-           /// Quick Filter applied map and sort filter
-           if (filterDataApply != {} && fromOnInit == false) {
-            List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
-            toMapfilterjson.forEach((key, gttilefield) {
-              switch (gttilefield.filterType) {
-                case GtFilterType.SORT_FILTER:
-                  var sortfield = filterDataApply![gttilefield.filterValue];
-                  var sortOrder = filterDataApply['sort'];
-                  sortFieldFilter = {
-                    sortfield: sortOrder.toString().toLowerCase()
-                  };
-                  break;
-              }
-            });
-            quickFilter = filterDataApply!.entries.map((MapEntry mapEntry) {
-              if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
-                return {};
-              } else {
-                return {"${mapEntry.key}": mapEntry.value};
-              }
-            }).toList();
-            print(quickFilter);
-            filterselected.addAll(quickFilter);
+        /// On Filter Applied this function will used
+        void filterHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          /// This variables pass to API
+          Map<String, dynamic>? variables = {
+            "where": {"_and": []}
+          };
+          var filterselected = [];
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
           }
-          variables["where"]["_and"] = filterselected;
-        });
+          print(filterDataApply);
+          print(selectedFilterAdvance);
+
+          /// Check here For Advance Nasted Filter
+          selectedFilterAdvance.forEach((data) {
+            if (data["isNastedFilter"] == true) {
+              filterselected.add(data["filterNasted"]);
+            } else {
+              filterselected.add({
+                "${data["fieldName"]}": {
+                  data["operator"]: data["fieldValue"],
+                }
+              });
+            }
+
+            /// Quick Filter applied map and sort filter
+            if (filterDataApply != {}) {
+              List<dynamic> quickFilter = new List<dynamic>.empty(growable: true);
+              toMapfilterjson.forEach((key, gttilefield) {
+                switch (gttilefield.filterType) {
+                  case GtFilterType.SORT_FILTER:
+                    var sortfield = filterDataApply[gttilefield.filterValue];
+                    var sortOrder = filterDataApply['sort'];
+                    sortFieldFilter = {sortfield: sortOrder.toString().toLowerCase()};
+                    break;
+                }
+              });
+              quickFilter = filterDataApply.entries.map((MapEntry mapEntry) {
+                if (mapEntry.key == "sort" || mapEntry.key == "order_by") {
+                  return {};
+                } else {
+                  return {"${mapEntry.key}": mapEntry.value};
+                }
+              }).toList();
+              print(quickFilter);
+              filterselected.addAll(quickFilter);
+            }
+            variables["where"]["_and"] = filterselected;
+          });
         }
-        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply, List<Map<String, dynamic>> selectedFilterAdvance ){
-           if(filterDataApply.isEmpty && selectedFilterAdvance.isEmpty){
-              isFilterApplied.value = false;
-           }
-           else{
-              isFilterApplied.value = true;
-           }
-           print(filterDataApply);
-           print(selectedFilterAdvance);
+         /// On Filter Clear button this function used
+        void filterClearHandlerFunction(Map<String, dynamic> filterDataApply,
+            List<Map<String, dynamic>> selectedFilterAdvance) {
+          if (filterDataApply.isEmpty && selectedFilterAdvance.isEmpty) {
+            isFilterApplied.value = false;
+          } else {
+            isFilterApplied.value = true;
+          }
+          print(filterDataApply);
+          print(selectedFilterAdvance);
         }
-        void changeBackDrop(bool isback){
-           isBackDrop.value = isback;
+        /// backdrop value change 
+        void changeBackDrop(bool isback) {
+          isBackDrop.value = isback;
         }
-     }
+      }
+
   ```
 
   - Step 3 : Used GtListFilter widget.
 
   ```dart
-        class ListFilterExample extends StatelessWidget {
-           @override
-           Widget build(BuildContext context) {
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: '')),
-                 body: Column(
-                    children:[
-                        GtBackDropListView(
-                          frontLayer: GtListPage(
-                             rowsCount: 2,
-                             leadingIcon: GtIcon(
-                             icondata: Icons.account_circle_rounded,
-                             ),
-                             isLeadingShow: false,
-                             listItems: [{"Id": 2093,"CompanyId": 0,"Code": "GT0521","FName": "DEMO USER","address" : {"City": "Mumbai"}},
-                             {"Id": 2093,"CompanyId": 0,"Code": "GT011","FName": "DEMO MANAGER","address" : {"City": "Pune"}}],
-                             viewtype: ViewType.list,
-                             toMapjson: {
-                             'Name': GtTileField(
-                                valuePath: 'FName',
-                                row: 1,
-                                flex: 4,
-                                mobileRow: 1,
-                                mobileFlex: 3,
-                                cardRow: 1,
-                                type: GtFieldType.STRING,
-                                keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                                valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
-                                keyTextAlign: TextAlign.start,
-                                valueTextAlign: TextAlign.end,
-                                displayKey: true,
-                                keyValueBetween: " : ",
-                             ),
-                             'Code': GtTileField(
-                                valuePath: 'Code',
-                                row: 1,
-                                flex: 4,
-                                mobileRow: 2,
-                                mobileFlex: 3,
-                                cardRow: 1,
-                                type: GtFieldType.STRING,
-                                keyTextStyle: TextStyle(color: Colors.black,fontSize: 15),
-                                valueTextStyle: TextStyle(color: Colors.black,fontSize: 16),
-                                keyTextAlign: TextAlign.start,
-                                valueTextAlign: TextAlign.end,
-                                displayKey: true,
-                                keyValueBetween: " : ",
-                             ),
-                             },
-                             tag: "Task",
-                             isSpaceInRecords: true,
-                             isleadingIconPosition: false,
-                             size: Get.size,
-                             cardColor: Colors.blueGrey[200],
-                             backButtonColor: Colors.white,
+        import 'package:flutter/material.dart';
+        import '../controller/list_filter_controller.dart';
+        import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+
+        class GtListFilterPage extends GetView<ListviewFilterController> {
+          GtListFilterPage({Key? key}) : super(key: key);
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+                body: Center(
+                    child: GtBackDropListView(
+                        frontLayer: GtListPage(
+                          rowsCount: 2,
+                          leadingIcon: GtIcon(
+                            icondata: Icons.account_circle_rounded,
                           ),
-                          backLayer: Obx(() => GtListFilter(
-                             isBackDrop: true,
-                             isFilterProcessing: false,
-                             filterHandler: controller.filterHandlerFunction,
-                             onFilterClearHandler: controller.filterClearHandlerFunction,
-                             toMapjson: controller.toMapfilterjson,
-                             changeBackDrop: controller.changeBackDrop,
-                             isBackDropController : controller.isBackDrop.value,
-                             advanceFilterFields: controller.advanceFilterFields,
-                             isAdvanceFilterEnable: true,
-                             operatorCommon: controller.operatorCommon,
-                             operatorNumeric: controller.operatorNumeric,
-                             operatorString: controller.operatorString,
-                             keyLabel: "CustomerFilter",
-                             filterData: controller.filtersData.value,
-                          )),
-                          backdropAppBar: BackdropAppBar(
-                             title: GtText(text: "LISTVIEW"),
-                          ),
-                          isFilterApplied: controller.isFilterApplied.value
-                       )
-                    ]
-                 ));
-           }
+                          isLeadingShow: false,
+                          listItems: [
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT0521",
+                              "FName": "DEMO USER",
+                              "address": {"City": "Mumbai"}
+                            },
+                            {
+                              "Id": 2093,
+                              "CompanyId": 0,
+                              "Code": "GT011",
+                              "FName": "DEMO MANAGER",
+                              "address": {"City": "Pune"}
+                            }
+                          ],
+                          viewtype: ViewType.list,
+                          toMapjson: {
+                            'Name': GtTileField(
+                              valuePath: 'FName',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 1,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                            'Code': GtTileField(
+                              valuePath: 'Code',
+                              row: 1,
+                              flex: 4,
+                              mobileRow: 2,
+                              mobileFlex: 3,
+                              cardRow: 1,
+                              type: GtFieldType.STRING,
+                              keyTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              valueTextStyle:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              keyTextAlign: TextAlign.start,
+                              valueTextAlign: TextAlign.end,
+                              displayKey: true,
+                              keyValueBetween: " : ",
+                            ),
+                          },
+                          tag: "Task",
+                          isSpaceInRecords: true,
+                          isleadingIconPosition: false,
+                          size: Get.size,
+                          cardColor: Colors.blueGrey[200],
+                          backButtonColor: Colors.white,
+                        ),
+                        backLayer: Obx(() => GtListFilter(
+                              isBackDrop: true,
+                              isFilterProcessing: false,
+                              filterHandler: controller.filterHandlerFunction,
+                              onFilterClearHandler:
+                                  controller.filterClearHandlerFunction,
+                              toMapjson: controller.toMapfilterjson,
+                              changeBackDrop: controller.changeBackDrop,
+                              isBackDropController: controller.isBackDrop.value,
+                              advanceFilterFields: controller.advanceFilterFields,
+                              isAdvanceFilterEnable: true,
+                              operatorCommon: controller.operatorCommon,
+                              operatorNumeric: controller.operatorNumeric,
+                              operatorString: controller.operatorString,
+                              keyLabel: "CustomerFilter",
+                              filterData: controller.filtersData.value,
+                            )),
+                        backdropAppBar: BackdropAppBar(
+                          title: GtText(text: "LISTVIEW"),
+                        ),
+                        isFilterApplied: controller.isFilterApplied.value)));
+          }
         }
+
 
   ```
 
   - Step 3 : Result :
 
-    ![GtListFilter](https://user-images.githubusercontent.com/64594463/145522898-d7f79fa6-ded8-45db-9f91-1e966aea40de.png)
+    ![GtListFilter](https://user-images.githubusercontent.com/64594463/148731711-1cbd2a96-287c-4880-95a4-6531561d1134.png)
 
-    ![GtListFilter](https://user-images.githubusercontent.com/64594463/145522926-27a0bf05-8375-45c8-9f2d-e5cf759d11ab.png)
+    ![GtListFilter](https://user-images.githubusercontent.com/64594463/148731750-371edfb0-2a49-4e6e-be0c-3647266d85ed.png)

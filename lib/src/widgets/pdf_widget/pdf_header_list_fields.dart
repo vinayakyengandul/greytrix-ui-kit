@@ -14,7 +14,7 @@ class HeaderListFields {
     List<pw.Widget> widgets;
     widgets = [];
     dynamic rowsData = {};
-    if (pdfData.pdfHeader != null && pdfData.pdfHeader.maxRow > 0) {
+    if (pdfData.pdfHeader != null && pdfData.pdfHeader.maxRow > 0 && pdfData.pdfHeader.pdfHeaderFields != null) {
       for (var i = 0; i < pdfData.pdfHeader.maxRow; i++) {
         rowsData[i + 1] = List<pw.Widget>.empty(growable: true);
       }
@@ -35,6 +35,9 @@ class HeaderListFields {
       rowsData.forEach((k, v) => {
             widgets.add(pw.Row(mainAxisSize: pw.MainAxisSize.min, children: v))
           });
+    }
+    else{
+      return [pw.Container()];
     }
     return widgets;
   }
@@ -162,6 +165,7 @@ class HeaderListFields {
         ));
         break;
       default:
+        return pw.Container();
     }
   }
 }

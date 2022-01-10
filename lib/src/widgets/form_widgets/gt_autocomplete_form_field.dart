@@ -7,7 +7,6 @@ class GtTagTextField extends StatelessWidget {
     @required this.onDeleted,
     @required this.suggestionsCallback,
     @required this.onSuggestionSelected,
-    @required this.taglist,
     @required this.textEditingController,
     @required this.lookupFields,
     this.addNewHandler,
@@ -32,7 +31,6 @@ class GtTagTextField extends StatelessWidget {
   });
 
   final String fieldLabel;
-  final List<dynamic> taglist;
   final List<dynamic> selectedTaglist;
   final int maxLength;
   final int maxLines;

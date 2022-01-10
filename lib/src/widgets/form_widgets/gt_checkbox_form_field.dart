@@ -13,7 +13,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
   final bool validationMessage;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
-  
+  final double checkBoxSpacing;
 
   GtCheckboxFormField(
       {@required this.displayMapFields,
@@ -25,7 +25,8 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
       this.textStyle,
       this.validationMessage = true,
       this.activeColor,
-      this.validationHandler})
+      this.validationHandler,
+      this.checkBoxSpacing = 0.0})
       : super(
           initialValue: selectedCheckboxValues,
           onSaved: (savedVal) {
@@ -69,11 +70,11 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
               children: [
                 Wrap(
                   children: [
-                GtText(
+                label != null ? GtText(
                   text: label,
                   textStyle: textStyle,
                   //texttype: TextformatType.bodyText2,
-                ),
+                ) : Container(),
                 isRequired  && !validationMessage ? GtText(
                   text: " *",
                   textStyle: TextStyle(color: Colors.red),
@@ -82,6 +83,7 @@ class GtCheckboxFormField extends FormField<List<dynamic>> {
                 ]),
                 Container(
                   child: Wrap(
+                    spacing: checkBoxSpacing,
                     children: [..._widgets],
                   ),
                 ),

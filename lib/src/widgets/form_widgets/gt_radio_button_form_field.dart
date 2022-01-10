@@ -13,6 +13,10 @@ class GtRadioButtonFormField extends FormField<dynamic> {
   final bool validationMessage;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
+  final bool isRow;
+  final int expandedFlexText;
+  final int expandedFlexButton;
+  // final Alignment switchAlignment;
 
   GtRadioButtonFormField(
       {@required this.displayMapFields,
@@ -24,7 +28,10 @@ class GtRadioButtonFormField extends FormField<dynamic> {
       this.textStyle,
       this.validationMessage = true,
       this.activeColor,
-      this.validationHandler})
+      this.validationHandler,
+      this.isRow = false,
+      this.expandedFlexText = 1,
+      this.expandedFlexButton = 1,})
       : super(
           onSaved: (savedVal) {
             if (onSaveHandler != null) onSaveHandler(selectedRadioButtonVal);
@@ -60,7 +67,40 @@ class GtRadioButtonFormField extends FormField<dynamic> {
                   ),
                 )
                 .toList();
-            return Column(
+            return isRow ? 
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: expandedFlexText,
+                  child: Wrap(children: [
+                    GtText(
+                      text: label,
+                      textStyle: textStyle,
+                      //texttype: TextformatType.bodyText2,
+                    ),
+                    isRequired && !validationMessage ? GtText(
+                      text: " *",
+                      textStyle: TextStyle(color: Colors.red),
+                      //texttype: TextformatType.bodyText2,
+                    ): Container(),
+                  ]),
+                ),
+                Expanded(
+                  flex: expandedFlexButton,
+                  child: Container(
+                    child: Row(
+                      children: [..._widgets],
+                    ),
+                  ),
+                ),
+                state.errorText == null || !validationMessage
+                    ? Container()
+                    : GtText(text:state.errorText, textStyle: TextStyle(color: Colors.red,fontSize: 11.5))
+              ],
+            )
+            : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
