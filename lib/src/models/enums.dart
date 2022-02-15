@@ -127,7 +127,7 @@ enum GtImagePosition { LEFT, RIGHT, TOP, BOTTOM }
 // FOR ICONS/IMAGE TYPE IN RAILS
 enum GtIconType { IMAGE, SVG, ICON }
 
-/// Custom Widget 
+/// Custom Widget
 enum GtListCustomWidgetType { LIST, GRID, NONE }
 
 /// Selected list type for gtListPage
@@ -141,3 +141,6 @@ enum GtDropDownFormFieldItemType { MAP, LIST }
 
 /// Is Custom or not DropDown Field Form.
 enum GtDropDownFormFieldIsCustom { DEFAULT, CUSTOM }
+
+///TO IDENTIFY WHICH CONTEXT IS NEEDE TO USED FOR THE VIEW OR THE WIDGET
+enum GtContextType { BuildContext, GetContext }

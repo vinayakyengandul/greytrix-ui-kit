@@ -301,7 +301,10 @@ The gttextformfield widget is used represent the text form field on the Screen w
          this.inputDecoration,
          this.boxDecoration,
          this.validationHandler,
-         this.focusNode});
+         this.focusNode,
+         this.onEditingComplete,
+         this.inputFormatters = const [],
+         });
 ```
 
 - Input Parameters of GtTextFormField Widget
@@ -326,6 +329,10 @@ The gttextformfield widget is used represent the text form field on the Screen w
   - **boxDecoration** - BoxDecoration - The box has a [border], a body, and may cast a [boxShadow]. The [shape] of the box can be a circle or a rectangle. If it is a rectangle, then the [borderRadius] property controls the roundness of the corners.
   - **validationHandler** - Function(dynamic) - When a [controller] is specified, [initialValue] must be null (the default). If [controller] is null, then a [TextEditingController] will be constructed automatically and its text will be initialized to [initialValue] or the empty string.
   - **focusNode** - FocusNode - To receive key events that focuses on this node, pass a listener to `onKeyEvent`. The `onKey` is a legacy API based on [RawKeyEvent] and will be deprecatedin the future..
+  - **onEditingComplete** - Function() - It fires the Form field on editing complete event.
+  - **inputFormatters** - `List<TextInputFormatter>` - Input formatters for the text form field, might be used to provide the custom regex expressions for the text form field like 
+  `[ FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,9}')) ]` 
+
 - Example
 
   - Step 1 : Import greytrix_ui_kit in files that it will be used:
@@ -3546,53 +3553,58 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
       - **maxRow** - int - This is shows max rows of PdfHEaderFields.
       - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
       - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
-        ```
+      ```
         - PdfBodyField({
-          this.row,
-          this.column,
-          this.valuePath,
-          this.defaultValue,
-          this.fieldType = GTBodyFieldType.TITLE,
-          this.padding,
-          this.height,
-          this.alignment,
-          this.pdfTable,
-          this.valueTextStyle,
-          this.keyTextStyle,
-          this.displayKey = false,
-          this.tableCellAlignment = pw.Alignment.center,
-          this.tableBodyDecoration = const pw.BoxDecoration(
-          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-          color: PdfColors.teal
-          ),
-          this.tableBodyHeight = 25,
-          this.tableCellHeight = 20,
-          this.tableCellAlignments = const {
-          0: pw.Alignment.center,
-          1: pw.Alignment.center,
-          2: pw.Alignment.center,
-          3: pw.Alignment.center,
-          4: pw.Alignment.center,
-          },
-          this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
-          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-          this.tableRowDecoration = const pw.BoxDecoration(
-          border: pw.Border(
-          bottom: pw.BorderSide(
-          color: PdfColors.blueGrey900,
-          width: .5,
-          ),
-          ),
-          ),
-          this.lineDecoration = const pw.BoxDecoration(
-          border: pw.Border(top: pw.BorderSide(
-          )),
-          ),
-          this.cellDecoration,
-          this.key,
-          this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
-          this.decoration,
-          });
+              this.row,
+              this.column,
+              this.valuePath,
+              this.defaultValue,
+              this.fieldType = GTBodyFieldType.TITLE,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTable,
+              this.valueTextStyle,
+              this.keyTextStyle,
+              this.displayKey = false,
+              this.tableCellAlignment = pw.Alignment.center,
+              this.tableBodyDecoration = const pw.BoxDecoration(
+                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+                  color: PdfColors.teal),
+              this.tableBodyHeight = 25,
+              this.tableCellHeight = 20,
+              this.tableCellAlignments = const {
+                0: pw.Alignment.center,
+                1: pw.Alignment.center,
+                2: pw.Alignment.center,
+                3: pw.Alignment.center,
+                4: pw.Alignment.center,
+              },
+              this.tableBodyStyle = const pw.TextStyle(
+                fontSize: 10,
+              ),
+              this.tableCellStyle = const pw.TextStyle(
+                fontSize: 10,
+              ),
+              this.tableRowDecoration = const pw.BoxDecoration(
+                border: pw.Border(
+                  bottom: pw.BorderSide(
+                    color: PdfColors.blueGrey900,
+                    width: .5,
+                  ),
+                ),
+              ),
+              this.lineDecoration = const pw.BoxDecoration(
+                border: pw.Border(top: pw.BorderSide()),
+              ),
+              this.cellDecoration,
+              this.key,
+              this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
+              this.decoration,
+              this.mainAxisAlignment = pw.MainAxisAlignment.start,
+              this.crossAxisAlignment = pw.CrossAxisAlignment.start,
+              this.isSpanningWidget = false,
+            });
           ```
           - **row** - int - This is contains where row have to display this field.
           - **column** - int - This is contains where column have to display this field.
@@ -3635,6 +3647,7 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
           - **key** - String - this display key when displayKey parameter is true then it will display as a key.
           - **decoration** - BoxDecoration - This is Field decoration to display.
           - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+          - **isSpanningWidget**  - Boolean - Used for spanning body fields widgets like Pdf Table ( Used to solve the pdf table issue which was causing problem if one cell content is too large to fit in one Pdf Page, It doesn't add any parent widgets to the pdf table widget and let it span)
 
 - Example
 
@@ -3962,25 +3975,36 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - [GtDropdownSearch](components.md#gtdropdownsearch-widget)({
 
 ```
-      @required this.textEditingController,
-      this.inputDecoration,
-      this.onChangeHandler,
-      this.suffixIcon,
-      this.suffixOnPressed,
-      this.itemDatawidget,
-      this.itemOnTapHandler,
-      this.dropDownResult,
-      this.fieldLabel = "",
-      this.textFieldOnTapHandler,
-      this.dropdownWidth = 100,
-      this.dropdownheight = 200,
-      @required this.keyLabel,
-      this.dropdownElevation = 1.0,
-      this.dropDownBackgroundColor,
-      this.dropDownShapeBorder,
-      this.looupKeyVisibile = false,
-      @required this.lookupFields,
-      this.type = GtDropDownSearchIsCustom.DEFAULT,});
+      GtDropdownSearch({
+    @required this.textEditingController,
+    this.inputDecoration,
+    this.onChangeHandler,
+    this.suffixIcon,
+    this.suffixOnPressed,
+    this.itemDatawidget,
+    this.itemOnTapHandler,
+    this.dropDownResult,
+    this.fieldLabel = "",
+    this.textFieldOnTapHandler,
+    this.dropdownWidth = 100,
+    this.dropdownheight = 200,
+    @required this.keyLabel,
+    this.dropdownElevation = 1.0,
+    this.dropDownBackgroundColor,
+    this.dropDownShapeBorder,
+    this.looupKeyVisibile = false,
+    @required this.lookupFields,
+    this.type = GtDropDownSearchIsCustom.DEFAULT,
+    this.contentPadding,
+    this.helperText,
+    this.helperStyle,
+    this.constraints,
+    this.labelText,
+    this.labelStyle,
+    this.fillColor,
+    this.border,
+    this.overlayContextType = GtContextType.BuildContext,
+  })
 ```
 
 - Input Parameters of GtDropdownSearch Widget
@@ -4003,6 +4027,8 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - **looupKeyVisibile** - bool - This is Lookup key define to display key for field.
   - **lookupFields** - Map<String, String> - This is for which field have to display in dropdown.
   - **type** - GtDropDownSearchIsCustom - This is type to show dropdown content is CUSTOM or Default.
+  - **overlayContextType** - GtContextType - To Identify which context type will be used for the overlay show for dropdown search result values are **{ BuildContext, GetContext }**, Default value for widget is BuildContext if overlay is not displayed then try changing this option to another type
+  
 - Example
 
   - Step 1 : Import UI KIT in files that it will be used:

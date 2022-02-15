@@ -8,39 +8,62 @@ class BodyListFields {
     List<pw.Widget> widgets;
     widgets = [];
     dynamic rowsData = {};
-    if (pdfData.pdfBody != null && pdfData.pdfBody.maxRow > 0 && pdfData.pdfBody.pdfBodyFields != null) {
+    if (pdfData.pdfBody != null &&
+        pdfData.pdfBody.maxRow > 0 &&
+        pdfData.pdfBody.pdfBodyFields != null) {
       for (var i = 0; i < pdfData.pdfBody.maxRow; i++) {
-        rowsData[i + 1] = List<pw.Widget>.empty(growable: true);
+        // rowsData[i + 1] = List<pw.Widget>.empty(growable: true);
+        rowsData[i + 1] = {
+          "isSpanningWidget": false,
+          "widgets": List<pw.Widget>.empty(growable: true)
+        };
       }
       pdfData.pdfBody.pdfBodyFields.forEach((element) {
         if (element.valuePath != null) {
           dynamic nodeValue = Common.getValue(pdfData.data, element.valuePath);
           int row = element.row;
           if (row != null) {
-            rowsData[row].add(
-                getBodyWidget(pdfData, nodeValue, element.fieldType, element));
+            ///HERE IF PDF BODY FIELD IS HAVING THE SPANNING WIDGET THEN SETTING
+            ///DEFAULT ROWS DATA WITH SPANNING_WIDGET AS TRUE TO USE IT FURTHER
+            if (element.isSpanningWidget == true) {
+              rowsData[row]["isSpanningWidget"] = true;
+              rowsData[row]["widgets"].add(
+                getBodyWidget(pdfData, nodeValue, element.fieldType, element),
+              );
+            } else {
+              ///HERE IS WIDGET IS NOT SPANNING WIDGET THEN CONTINUING NORMAL WIDGET BUILDING FLOW
+              rowsData[row]["widgets"].add(
+                getBodyWidget(pdfData, nodeValue, element.fieldType, element),
+              );
+            }
           }
         }
       });
       rowsData.forEach((k, v) => {
-            // if(pdfData.pdfBody.pdfBodyFields.length == 1 ){
-            // v.forEach((Shape) => {
-            //   widgets.add(Shape)
-            // }),
-            // }else{
-            widgets.add(pw.Row(
-                // crossAxisAlignment: pw.CrossAxisAlignment.start,
-                mainAxisSize: pw.MainAxisSize.min,
-                children: v))
-            // }
+            ///NEWLY ADDED TO HANDLE THE SPANNING WIDGETS CHECK (TABLE WIDGETS TO CONTINUE ON DIFFERENT PAGES )
+            ///IF THE BODY FIELD IS THE SPANNING WIDGET THEN ADDING WIDGET WITHOUT PARENT
+            /// ROW WIDGET
+            if (v["isSpanningWidget"] == true)
+              {
+                widgets.addAll(v["widgets"]),
+              }
+            else
+              {
+                /// NORMAL WIDGETS COMBINING ON BASIS OF ROWS
+                widgets.add(
+                  pw.Row(
+                      mainAxisSize: pw.MainAxisSize.min,
+                      children: v["widgets"]),
+                ),
+              }
           });
-    }
-    else{
+    } else {
       return [pw.Container()];
     }
     return widgets;
   }
 
+  ///IT RETURNS THE PDF BODY FIELD WIDGET BASED ON TYPE
   pw.Widget getBodyWidget(
     PdfData pdfData,
     dynamic value,
@@ -144,7 +167,14 @@ class BodyListFields {
             ),
           ),
         );
-        return pw.Expanded(child: tableData);
+
+        ///HERE IF THE FIELD IS SPANNING WIDGET THEN RETURNING THE WIDGET AS IT IS WITHOUT EXPANDED WIDGET AS PARENT
+        ///THIS CHANGE ADDED DUE TO PDF ISSUE IF ONE CELL CONTENT IS TOO LARGE AND NOT ABLE TO FIT ON ONE PDF PAGE
+        if (element.isSpanningWidget == true)
+          return tableData;
+        else {
+          return pw.Expanded(child: tableData);
+        }
         //   tableData
         // : pw.Expanded(child: tableData );
 
