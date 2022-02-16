@@ -1,9 +1,10 @@
 ## [0.0.14]
-#### February 15, 2022
+#### February 16, 2022
 #### COMMIT NO : 
 - GtPdf Widget changes for the pdf table issue 
 - GtDropdownSearchWidget changes to handle the dropdown result overlay view context (new input added to provide context type for widget)
 - GtTextFormField widget input options added for `onEditingComplete` function and `inputFormatters` to provide the custom regex checks for TextFormField
+- GtPdfWIdget - MaxPage input option exposed with default maxPages as 1000 
 
 ## [0.0.13]
 #### February 01, 2022

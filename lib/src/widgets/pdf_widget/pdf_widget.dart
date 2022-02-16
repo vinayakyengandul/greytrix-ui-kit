@@ -40,6 +40,7 @@ class GtPdfWidget extends StatelessWidget {
     this.shareActionExtraBody,
     this.shareActionExtraSubject,
     this.shareActionExtraEmails,
+    this.maxPages = 1000,
   }) : super(key: key);
 
   static const _defaultPageFormats = <String, PdfPageFormat>{
@@ -129,6 +130,10 @@ class GtPdfWidget extends StatelessWidget {
 
   ///list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
   final List<String> shareActionExtraEmails;
+
+  // THE MAXIMUM NUMBER OF PAGES ALLOWED BEFORE RAISING AN ERROR
+  final int maxPages;
+
   @override
   Widget build(BuildContext context) {
     return PdfPreview(
@@ -177,6 +182,7 @@ class GtPdfWidget extends StatelessWidget {
           // theme: pw.ThemeData.withFont(
           //   base: pw.Font.ttf(PdfGoogleFonts.robotoRegular())
           // ),
+          maxPages: maxPages,
           pageTheme: _buildTheme(
             pageFormat,
             await PdfGoogleFonts.openSansRegular(),

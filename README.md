@@ -3296,7 +3296,9 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
                   this.pageFormats = _defaultPageFormats,
                   this.shareActionExtraBody,
                   this.shareActionExtraSubject,
-                  this.shareActionExtraEmails,});
+                  this.shareActionExtraEmails,
+                  this.maxPages = 1000,
+                  });
 ```
 
 - Input Parameters of GtPdfWidget Widget
@@ -3328,6 +3330,8 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
   - **shareActionExtraBody** - String - extra text to share with Pdf document.
   - **shareActionExtraSubject** - String - email subject when email application is selected from the share dialog.
   - **shareActionExtraEmails** - List<String> - list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
+  - **maxPages** - Int - Number of pages allowed before raising an error
+  
 
   - **PdfData** Constructors:
       ```
