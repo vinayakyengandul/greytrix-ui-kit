@@ -45,10 +45,10 @@ class DropDownSearchController extends GetxController {
   }
 
   /// Open OverLayEntry and Get position from RenderBox
-  openOverLay(OverlayEntry data, BuildContext context) {
+  openOverLay(OverlayEntry data, BuildContext context, double spacing) {
     RenderBox box = key.currentContext.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero);
-    dropTop.value = position.dy + 55;
+    dropTop.value = position.dy + spacing;
     dropLeft.value = position.dx;
     overlayEntry.value = data;
     BuildContext buildContext;
@@ -64,6 +64,7 @@ class DropDownSearchController extends GetxController {
       }
     } catch (e) {
       BuildContext _buildContext;
+
       ///HERE ON ERRRO SETTING DIFFERENT BUILD CONTEXT BASED ON INPUT PROVIDED
       ///i.e. if GetContext provided but error occured then setting context as BuildContext
       try {
@@ -83,8 +84,29 @@ class DropDownSearchController extends GetxController {
     isOpen.value = !isOpen.value;
   }
 
+  ///CLOSES THE OVERLAY WIDGET
   closeOverLay() {
     overlayEntry.value.remove();
     isOpen.value = !isOpen.value;
+  }
+
+  ///RETURNS THE WIDTH FOR THE DROPDOWN SEARCH RESULT POSITIONED WIDGET
+  double getWidth() {
+    try {
+      RenderBox box = key.currentContext.findRenderObject() as RenderBox;
+      return box.size.width;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  ///RETURNS THE WIDTH FOR THE DROPDOWN SEARCH RESULT POSITIONED WIDGET
+  double getHeight() {
+    try {
+      RenderBox box = key.currentContext.findRenderObject() as RenderBox;
+      return box.size.height;
+    } catch (e) {
+      return null;
+    }
   }
 }

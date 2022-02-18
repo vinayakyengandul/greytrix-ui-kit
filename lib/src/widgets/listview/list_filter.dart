@@ -217,7 +217,8 @@ class GtListFilter extends StatelessWidget {
                                                       fromOnChanged: true,
                                                       filterType:
                                                           value.filterType,
-                                                          isNastedFilter: value.isNastedFilter);
+                                                      isNastedFilter:
+                                                          value.isNastedFilter);
                                                 },
                                               )),
                                           GtText(
@@ -258,7 +259,8 @@ class GtListFilter extends StatelessWidget {
                                               '${value.filterValue}', e.value,
                                               fromOnChanged: true,
                                               filterType: value.filterType,
-                                              isNastedFilter: value.isNastedFilter);
+                                              isNastedFilter:
+                                                  value.isNastedFilter);
                                         },
                                       ),
                                       GtText(
@@ -706,13 +708,11 @@ class GtListFilter extends StatelessWidget {
                           valuePath: value.valuePath,
                         );
 
-                        controller.setFilterField(
-                          '${value.filterValue}',
-                          _val[value.lookUpFilterNode],
-                          fromOnChanged: true,
-                          resetArguments: true,
-                          isNastedFilter: value.isNastedFilter
-                        );
+                        controller.setFilterField('${value.filterValue}',
+                            _val[value.lookUpFilterNode],
+                            fromOnChanged: true,
+                            resetArguments: true,
+                            isNastedFilter: value.isNastedFilter);
                       },
                       suggestionsCallback: (pattern) {
                         return getSuggestions(
@@ -734,13 +734,10 @@ class GtListFilter extends StatelessWidget {
                         ),
 
                         /// SETS THE API FILTER VARIABLES
-                        controller.setFilterField(
-                          '${value.filterValue}',
-                          null,
-                          fromOnChanged: true,
-                          resetArguments: true,
-                          isNastedFilter: value.isNastedFilter
-                        ),
+                        controller.setFilterField('${value.filterValue}', null,
+                            fromOnChanged: true,
+                            resetArguments: true,
+                            isNastedFilter: value.isNastedFilter),
                       },
                     ),
                   ),
@@ -751,44 +748,59 @@ class GtListFilter extends StatelessWidget {
             case GtFilterType.TEXT_FILTER:
               _textWidgets.add(
                 Container(
-                    width: MediaQuery.of(Get.context).size.width / 3,
-                    child: Card(
-                      child: GtTextFormField(
-                        inputDecoration: InputDecoration(
-                            filled: true,
-                            fillColor: value.isRequired
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(0.2)
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(0),
-                            constraints: BoxConstraints(
-                              maxHeight: 35,
-                            ),
-                            labelText: ' ${value.filterLabel}',
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .caption
-                                .copyWith(
-                                    backgroundColor:
-                                        Theme.of(context).cardColor),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).hintColor),
-                                borderRadius: BorderRadius.circular(5))),
-                        fieldLabel: '${value.filterLabel}',
-                        textEditingController: value.textEditingController,
-                        onChangeHandler: (_val) {
-                          controller.setFilterField(
-                              '${value.filterValue}', _val,
-                              fromOnChanged: true,
-                              isNastedFilter: value.isNastedFilter);
-                        },
+                  width: MediaQuery.of(Get.context).size.width / 3,
+                  child: Card(
+                    child: GtTextFormField(
+                      inputDecoration: InputDecoration(
+                        filled: true,
+                        fillColor: value.isRequired
+                            ? Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.2)
+                            : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0),
+                        constraints: BoxConstraints(
+                          maxHeight: 35,
+                        ),
+                        labelText: ' ${value.filterLabel}',
+                        labelStyle: Theme.of(context)
+                            .textTheme
+                            .caption
+                            .copyWith(
+                                backgroundColor: Theme.of(context).cardColor),
+                        border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).hintColor),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
-                    )),
+                      fieldLabel: '${value.filterLabel}',
+                      textEditingController: value.textEditingController,
+                      onChangeHandler: (_val) {
+                        controller.setFilterField('${value.filterValue}', _val,
+                            fromOnChanged: true,
+                            isNastedFilter: value.isNastedFilter);
+                      },
+                      onEditingComplete: () {
+                        if (changeBackDrop != null) {
+                          changeBackDrop(!isBackDropController);
+                        }
+                        if (filterHandler != null) {
+                          filterHandler(
+                            controller.filtersData,
+                            controller.selectedfilters.value,
+                          );
+                        }
+                        if (isBackDrop) {
+                          Backdrop.of(context).fling();
+                        }
+                      },
+                    ),
+                  ),
+                ),
               );
               break;
             default:

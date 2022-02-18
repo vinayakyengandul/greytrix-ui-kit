@@ -4008,6 +4008,13 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
     this.fillColor,
     this.border,
     this.overlayContextType = GtContextType.BuildContext,
+    this.spacing = 55,
+    this.suffixIconSplashRadius,
+    this.isRequired = false,
+    this.isReadOnly = false,
+    this.overlayResultHeightCalculator,
+    this.validationHandler,
+    this.textInputType = TextInputType.text,
   })
 ```
 
@@ -4032,39 +4039,166 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - **lookupFields** - Map<String, String> - This is for which field have to display in dropdown.
   - **type** - GtDropDownSearchIsCustom - This is type to show dropdown content is CUSTOM or Default.
   - **overlayContextType** - GtContextType - To Identify which context type will be used for the overlay show for dropdown search result values are **{ BuildContext, GetContext }**, Default value for widget is BuildContext if overlay is not displayed then try changing this option to another type
+  - **spacing** - double - Spacing between the dropdown text form field and the dropdown result
+  - **suffixIconSplashRadius** - double - Dropdown text field suffix Icon splash radius
+  - **isRequired** - Boolean - Dropdown search required option, If passed it will fire the validation
+  - **isReadOnly** - Boolean - To make dropdown search readonly along with its suffix icon
+  - **overlayResultHeightCalculator** - Function - If custom height needs to be passed to overlay result then provide this input function which should return new calculated Height
+  - **validationHandler** - Function - Search text form field validation handler 
+  - **textInputType** - TextInputType - Search text form field input type 
   
 - Example
 
   - Step 1 : Import UI KIT in files that it will be used:
 
   ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+        import 'package:core/core.dart';
+        import 'package:flutter/material.dart';
+        import 'package:flutter_sample_ui_core/view/index.dart';
+        import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used GtDropdownSearch widget.
 
   ```dart
-        class DropDownSearchable extends StatelessWidget {
-           @override
-           Widget build(BuildContext context) {
-              var controller1 = MarqueeModel();
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Scrolling Marquee widget')),
-                 body: Column(
-                    children:[
-                       GtDropdownSearch(
-                          textEditingController: TextEditingController(),
-                          dropDownResult: ["fsdshbdc", "sachadgbc", "advcsadf"],
-                          itemOnTapHandler: (i){},
-                          suffixOnPressed: (data){},
-                          textFieldOnTapHandler: (){},
-                       ),
-                    ]
-                 ));
-           }
+        class GtDropDownSearchPage extends StatelessWidget {
+          final controller = Get.put(DropdownSearchViewController());
+          GtDropDownSearchPage({Key? key}) : super(key: key);
+
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+              appBar: GtAppBar(
+                title: GtText(text: "DROPDOWN SEARCHABLE WIDGET"),
+              ),
+              // FORM WIDGET ADDED TO CHECK THE WIDGET VALIDATION
+              body: Form(
+                key: controller._formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: GtDropdownSearch(
+                            lookupFields: const {"Code": "code", "Description": "desc"},
+                            looupKeyVisibile: true,
+                            keyLabel: "search",
+                            textEditingController: controller.textEditingController,
+                            dropDownResult: controller.dropDownResult,
+                            itemOnTapHandler: (i) =>
+                                controller.handleDropdownOptionSelection(i),
+                            suffixOnPressed: (data) =>
+                                controller.handleSearch(query: data),
+                            // dropdownWidth: 300,
+                            // spacing: 100,
+                            // isReadOnly: true,
+                            // overlayContextType: GtContextType.GetContext,
+                            // overlayResultHeightCalculator: () {
+                            //   return controller.dropDownResult.length < 4
+                            //       ? controller.dropDownResult.length < 3
+                            //           ? controller.dropDownResult.length < 2
+                            //               ? 50
+                            //               : 100
+                            //           : 150
+                            //       : 200;
+                            // },
+                            validationHandler: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter the value for search field';
+                              }
+
+                              ///BY PROVIDING THIS INPUT YOU CAN WRITE CUSTOM VALIDATION LOGIC FOR THE DROPDOWN SEARCH WIDGET
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        // ADDED TO CHECK THE POSITION OF THE DROPDOWN RESULT
+                        // Expanded(child: GtTextFormField(fieldLabel: "Test2")),
+                      ],
+                    ),
+                    const SizedBox(height: 15.0),
+                    GtText(text: 'Selected Dropdown value '),
+                    const SizedBox(height: 10.0),
+                    Obx(() => GtText(text: controller.selectedDropdownValue.value)),
+                    //TO CHECK VALIDATION FOR THE GtDropdownSearch widget
+                    ElevatedButton(
+                      onPressed: controller.validateForm,
+                      child: GtText(text: 'Validate Form'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
         }
+
+        ///CONTROLLER FOR VIEW WHICH HANDLES SEARCH AND DUMMY DATA 
+        class DropdownSearchViewController extends GetxController with StateMixin {
+          DropdownSearchViewController();
+
+          ///TEXT_EDITING CONTROLLER FOR DROPDOWN SEARCH WIDGET
+          TextEditingController textEditingController = TextEditingController();
+
+          ///FORM GLOBAL KEY TO CHECK THE DROPDOWN SEARCH VALIDATION
+          final _formKey = GlobalKey<FormState>();
+
+          ///HOLDS THE SELECTED DROPDOWN VALUE
+          RxString selectedDropdownValue = "".obs;
+
+          ///DUMMY DATA FOR SEARCH DROPDPOWN
+          List<dynamic> dummyData = [
+            {"code": "SH01CIT", "desc": "SIMPLY SHEER"},
+            {"code": "SH02CIT", "desc": "LITTLE PEACH"},
+            {"code": "SH03CIT", "desc": "SHEER BURG"},
+            {"code": "SH04CIT", "desc": "CHAMPAGNE"},
+            {"code": "SH05CIT", "desc": "Oak"}
+          ];
+
+          ///IT CONTAINS THE DROPDOWN SEARCH
+          RxList<dynamic> dropDownResult = RxList<dynamic>.empty(growable: true);
+
+          @override
+          void onInit() {
+            super.onInit();
+
+            ///ADDING INITIAL DEFAULT DATA FOR THE SEARCH DROPDOWN
+            dropDownResult.add(dummyData[0]);
+            dropDownResult.add(dummyData[1]);
+          }
+
+          ///IT HANDLES THE DROPDOWN SEARCH WIDGET SEARH CLICK HANDLER
+          void handleSearch({String query = ""}) {
+            ///HERE PERFORM THE DATA FETCH (i.e FROM API etc.) AS PER THE QUERY TEXT AND BIND THE RESULT
+            Future.delayed(const Duration(seconds: 1)).then((value) {
+              // HERE CLEARING THE OLD REORDS LIST
+              dropDownResult.clear();
+
+              ///HERE FILTERING DUMMY DATA AND THEN INSERTING IT INTO DROPDOWN RESULT
+              dropDownResult.addAll(dummyData.where((e) {
+                return (e["code"]
+                        .toString()
+                        .toLowerCase()
+                        .contains(query.toLowerCase()) ||
+                    e["desc"].toString().toLowerCase().contains(query.toLowerCase()));
+              }));
+            });
+          }
+
+          ///THIS FUNCTION HANDLES THE DROPDOWN SEARCH SELETED RESULT
+          void handleDropdownOptionSelection(int index) {
+            selectedDropdownValue.value =
+                "${dropDownResult.value[index]["code"]} ${dropDownResult.value[index]["desc"]}";
+          }
+
+          void validateForm() {
+            if (_formKey.currentState!.validate()) {
+              print('Form valid');
+            }
+          }
+        }
+
 
   ```
 
