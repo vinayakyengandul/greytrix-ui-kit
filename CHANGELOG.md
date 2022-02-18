@@ -6,7 +6,7 @@
 - GtPdfWIdget - MaxPage input option exposed with default maxPages as 1000 
 - GtListFilter Widget changes for handling apply filter on quick filter textFormFields `onEditingComplete` function, to handle the enter key press and apply filter on quickFilter fields
 - GtDropdownSearchWidget changes to handle the dropdown result overlay view context (new input added to provide context type for widget)
-- GtDropdownSearchWidget new input options exposed for the readOnly, validationHandler, overlayResultHeightCalculator, textField and overlay result custom spacing 
+- GtDropdownSearchWidget new input options exposed for the readOnly, validationHandler, overlayResultHeightCalculator, textField and overlay result custom spacing and tooltip text for dropdown result
 
 ## [0.0.13]
 #### February 01, 2022

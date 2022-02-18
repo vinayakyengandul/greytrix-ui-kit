@@ -4046,6 +4046,8 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - **overlayResultHeightCalculator** - Function - If custom height needs to be passed to overlay result then provide this input function which should return new calculated Height
   - **validationHandler** - Function - Search text form field validation handler 
   - **textInputType** - TextInputType - Search text form field input type 
+  - **enableTooltip** - Boolean - To enable the tooltip text on dropdown result 
+  
   
 - Example
 
@@ -4090,6 +4092,7 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
                                 controller.handleDropdownOptionSelection(i),
                             suffixOnPressed: (data) =>
                                 controller.handleSearch(query: data),
+                            enableTooltip :true,
                             // dropdownWidth: 300,
                             // spacing: 100,
                             // isReadOnly: true,

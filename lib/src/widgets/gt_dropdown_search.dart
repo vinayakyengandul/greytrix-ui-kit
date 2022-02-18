@@ -42,6 +42,7 @@ class GtDropdownSearch extends StatelessWidget {
     this.overlayResultHeightCalculator,
     this.validationHandler,
     this.textInputType = TextInputType.text,
+    this.enableTooltip = false,
   }) : assert((type == GtDropDownSearchIsCustom.CUSTOM &&
                 itemDatawidget != null) ||
             (type == GtDropDownSearchIsCustom.DEFAULT && lookupFields != null));
@@ -117,6 +118,9 @@ class GtDropdownSearch extends StatelessWidget {
   ///SEARCH FIELD TEXT INPUT TYPE
   final TextInputType textInputType;
 
+  ///TO DISPLAY TOOLTIP TEXT ON THE DROPDOWN RESULT 
+  final bool enableTooltip;
+
   @override
   Widget build(BuildContext context) {
     ///GETTING THE DROPDOWN SEARCH CONTROLLER INSTANE
@@ -161,34 +165,44 @@ class GtDropdownSearch extends StatelessWidget {
                                 title: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: lookupFields.entries
-                                      .map((e) => Row(
-                                            children: [
-                                              if (looupKeyVisibile) ...[
-                                                GtText(
-                                                  text: '${e.key} :',
-                                                  textStyle: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.25,
-                                                    fontStyle: FontStyle.normal,
-                                                  ),
-                                                ),
-                                              ],
-                                              GtText(
-                                                text: Common.getValue(
-                                                    dropDownResult.value[index],
-                                                    e.value),
-                                                textStyle: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.25,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                            ],
-                                          ))
-                                      .toList(),
+                                  children: lookupFields.entries.map((e) {
+                                    Widget _row = Row(
+                                      children: [
+                                        if (looupKeyVisibile) ...[
+                                          GtText(
+                                            text: '${e.key} :',
+                                            textStyle: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.25,
+                                              fontStyle: FontStyle.normal,
+                                            ),
+                                          ),
+                                        ],
+                                        GtText(
+                                          text: Common.getValue(
+                                              dropDownResult.value[index],
+                                              e.value),
+                                          textStyle: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.25,
+                                            fontStyle: FontStyle.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+
+                                    ///IF TOOLTIP IS ENABLED THEN ONLY TOOTIP TEXT WILL BE DISPLAYED FOR DROPDOWN RESULT
+                                    if (enableTooltip == true) {
+                                      return Tooltip(
+                                          message:
+                                              '${e.key} :${Common.getValue(dropDownResult?.value[index], e.value)}',
+                                          child: _row);
+                                    } else {
+                                      return _row;
+                                    }
+                                  }).toList(),
                                 ),
                                 onTap: () {
                                   if (itemOnTapHandler != null)
