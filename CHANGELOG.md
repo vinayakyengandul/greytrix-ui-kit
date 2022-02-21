@@ -1,5 +1,5 @@
 ## [0.0.14]
-#### February 18, 2022
+#### February 21, 2022
 #### COMMIT NO : 
 - GtPdf Widget changes for the pdf table issue 
 - GtTextFormField widget input options added for `onEditingComplete` function and `inputFormatters` to provide the custom regex checks for TextFormField
