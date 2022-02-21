@@ -1,7 +1,23 @@
-## [0.0.11]
-#### Jan 10, 2022
+## [0.0.14]
+#### February 21, 2022
+#### COMMIT NO : 
+- GtPdf Widget changes for the pdf table issue 
+- GtTextFormField widget input options added for `onEditingComplete` function and `inputFormatters` to provide the custom regex checks for TextFormField
+- GtPdfWIdget - MaxPage input option exposed with default maxPages as 1000 
+- GtListFilter Widget changes for handling apply filter on quick filter textFormFields `onEditingComplete` function, to handle the enter key press and apply filter on quickFilter fields
+- GtDropdownSearchWidget changes to handle the dropdown result overlay view context (new input added to provide context type for widget)
+- GtDropdownSearchWidget new input options exposed for the readOnly, validationHandler, overlayResultHeightCalculator, textField and overlay result custom spacing and tooltip text for dropdown result
 
+## [0.0.13]
+#### February 01, 2022
+#### COMMIT NO : cc283c5
+- GtDropdownSearch widget issues resolved
+
+## [0.0.12]
+#### Jan 10, 2022
+#### COMMIT NO : 7b0e98b
 - Documentation Improvment 
+
 
 ## [0.0.11]
 #### Dec 30, 2021

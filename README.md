@@ -301,7 +301,10 @@ The gttextformfield widget is used represent the text form field on the Screen w
          this.inputDecoration,
          this.boxDecoration,
          this.validationHandler,
-         this.focusNode});
+         this.focusNode,
+         this.onEditingComplete,
+         this.inputFormatters = const [],
+         });
 ```
 
 - Input Parameters of GtTextFormField Widget
@@ -326,6 +329,10 @@ The gttextformfield widget is used represent the text form field on the Screen w
   - **boxDecoration** - BoxDecoration - The box has a [border], a body, and may cast a [boxShadow]. The [shape] of the box can be a circle or a rectangle. If it is a rectangle, then the [borderRadius] property controls the roundness of the corners.
   - **validationHandler** - Function(dynamic) - When a [controller] is specified, [initialValue] must be null (the default). If [controller] is null, then a [TextEditingController] will be constructed automatically and its text will be initialized to [initialValue] or the empty string.
   - **focusNode** - FocusNode - To receive key events that focuses on this node, pass a listener to `onKeyEvent`. The `onKey` is a legacy API based on [RawKeyEvent] and will be deprecatedin the future..
+  - **onEditingComplete** - Function() - It fires the Form field on editing complete event.
+  - **inputFormatters** - `List<TextInputFormatter>` - Input formatters for the text form field, might be used to provide the custom regex expressions for the text form field like 
+  `[ FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,9}')) ]` 
+
 - Example
 
   - Step 1 : Import greytrix_ui_kit in files that it will be used:
@@ -3289,7 +3296,9 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
                   this.pageFormats = _defaultPageFormats,
                   this.shareActionExtraBody,
                   this.shareActionExtraSubject,
-                  this.shareActionExtraEmails,});
+                  this.shareActionExtraEmails,
+                  this.maxPages = 1000,
+                  });
 ```
 
 - Input Parameters of GtPdfWidget Widget
@@ -3321,6 +3330,8 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
   - **shareActionExtraBody** - String - extra text to share with Pdf document.
   - **shareActionExtraSubject** - String - email subject when email application is selected from the share dialog.
   - **shareActionExtraEmails** - List<String> - list of email addresses which will be filled automatically if the email application is selected from the share dialog. This will work only for Android platform.
+  - **maxPages** - Int - Number of pages allowed before raising an error
+  
 
   - **PdfData** Constructors:
       ```
@@ -3546,53 +3557,58 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
       - **maxRow** - int - This is shows max rows of PdfHEaderFields.
       - **maxColumn** - int - This is shows max Columns of PdfHEaderFields.
       - **pdfBodyFields** - pdfBodyFields - This is class of pdfBodyFields for represent header section toMapJson.
-        ```
+      ```
         - PdfBodyField({
-          this.row,
-          this.column,
-          this.valuePath,
-          this.defaultValue,
-          this.fieldType = GTBodyFieldType.TITLE,
-          this.padding,
-          this.height,
-          this.alignment,
-          this.pdfTable,
-          this.valueTextStyle,
-          this.keyTextStyle,
-          this.displayKey = false,
-          this.tableCellAlignment = pw.Alignment.center,
-          this.tableBodyDecoration = const pw.BoxDecoration(
-          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-          color: PdfColors.teal
-          ),
-          this.tableBodyHeight = 25,
-          this.tableCellHeight = 20,
-          this.tableCellAlignments = const {
-          0: pw.Alignment.center,
-          1: pw.Alignment.center,
-          2: pw.Alignment.center,
-          3: pw.Alignment.center,
-          4: pw.Alignment.center,
-          },
-          this.tableBodyStyle = const pw.TextStyle(fontSize: 10,),
-          this.tableCellStyle = const pw.TextStyle(fontSize: 10,),
-          this.tableRowDecoration = const pw.BoxDecoration(
-          border: pw.Border(
-          bottom: pw.BorderSide(
-          color: PdfColors.blueGrey900,
-          width: .5,
-          ),
-          ),
-          ),
-          this.lineDecoration = const pw.BoxDecoration(
-          border: pw.Border(top: pw.BorderSide(
-          )),
-          ),
-          this.cellDecoration,
-          this.key,
-          this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
-          this.decoration,
-          });
+              this.row,
+              this.column,
+              this.valuePath,
+              this.defaultValue,
+              this.fieldType = GTBodyFieldType.TITLE,
+              this.padding,
+              this.height,
+              this.alignment,
+              this.pdfTable,
+              this.valueTextStyle,
+              this.keyTextStyle,
+              this.displayKey = false,
+              this.tableCellAlignment = pw.Alignment.center,
+              this.tableBodyDecoration = const pw.BoxDecoration(
+                  borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+                  color: PdfColors.teal),
+              this.tableBodyHeight = 25,
+              this.tableCellHeight = 20,
+              this.tableCellAlignments = const {
+                0: pw.Alignment.center,
+                1: pw.Alignment.center,
+                2: pw.Alignment.center,
+                3: pw.Alignment.center,
+                4: pw.Alignment.center,
+              },
+              this.tableBodyStyle = const pw.TextStyle(
+                fontSize: 10,
+              ),
+              this.tableCellStyle = const pw.TextStyle(
+                fontSize: 10,
+              ),
+              this.tableRowDecoration = const pw.BoxDecoration(
+                border: pw.Border(
+                  bottom: pw.BorderSide(
+                    color: PdfColors.blueGrey900,
+                    width: .5,
+                  ),
+                ),
+              ),
+              this.lineDecoration = const pw.BoxDecoration(
+                border: pw.Border(top: pw.BorderSide()),
+              ),
+              this.cellDecoration,
+              this.key,
+              this.bodyFieldKeyValueFormat = GtBodyFieldKeyValueFormat.COLUMN,
+              this.decoration,
+              this.mainAxisAlignment = pw.MainAxisAlignment.start,
+              this.crossAxisAlignment = pw.CrossAxisAlignment.start,
+              this.isSpanningWidget = false,
+            });
           ```
           - **row** - int - This is contains where row have to display this field.
           - **column** - int - This is contains where column have to display this field.
@@ -3635,6 +3651,7 @@ The gtpdfwidget widget It can create a full multi-pages document with graphics, 
           - **key** - String - this display key when displayKey parameter is true then it will display as a key.
           - **decoration** - BoxDecoration - This is Field decoration to display.
           - **bodyFieldKeyValueFormat** - GtBodyFieldKeyValueFormat - This represented to how to display fields as Column or Row.
+          - **isSpanningWidget**  - Boolean - Used for spanning body fields widgets like Pdf Table ( Used to solve the pdf table issue which was causing problem if one cell content is too large to fit in one Pdf Page, It doesn't add any parent widgets to the pdf table widget and let it span)
 
 - Example
 
@@ -3962,25 +3979,43 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - [GtDropdownSearch](components.md#gtdropdownsearch-widget)({
 
 ```
-      @required this.textEditingController,
-      this.inputDecoration,
-      this.onChangeHandler,
-      this.suffixIcon,
-      this.suffixOnPressed,
-      this.itemDatawidget,
-      this.itemOnTapHandler,
-      this.dropDownResult,
-      this.fieldLabel = "",
-      this.textFieldOnTapHandler,
-      this.dropdownWidth = 100,
-      this.dropdownheight = 200,
-      @required this.keyLabel,
-      this.dropdownElevation = 1.0,
-      this.dropDownBackgroundColor,
-      this.dropDownShapeBorder,
-      this.looupKeyVisibile = false,
-      @required this.lookupFields,
-      this.type = GtDropDownSearchIsCustom.DEFAULT,});
+      GtDropdownSearch({
+    @required this.textEditingController,
+    this.inputDecoration,
+    this.onChangeHandler,
+    this.suffixIcon,
+    this.suffixOnPressed,
+    this.itemDatawidget,
+    this.itemOnTapHandler,
+    this.dropDownResult,
+    this.fieldLabel = "",
+    this.textFieldOnTapHandler,
+    this.dropdownWidth = 100,
+    this.dropdownheight = 200,
+    @required this.keyLabel,
+    this.dropdownElevation = 1.0,
+    this.dropDownBackgroundColor,
+    this.dropDownShapeBorder,
+    this.looupKeyVisibile = false,
+    @required this.lookupFields,
+    this.type = GtDropDownSearchIsCustom.DEFAULT,
+    this.contentPadding,
+    this.helperText,
+    this.helperStyle,
+    this.constraints,
+    this.labelText,
+    this.labelStyle,
+    this.fillColor,
+    this.border,
+    this.overlayContextType = GtContextType.BuildContext,
+    this.spacing = 55,
+    this.suffixIconSplashRadius,
+    this.isRequired = false,
+    this.isReadOnly = false,
+    this.overlayResultHeightCalculator,
+    this.validationHandler,
+    this.textInputType = TextInputType.text,
+  })
 ```
 
 - Input Parameters of GtDropdownSearch Widget
@@ -4003,38 +4038,170 @@ The gtdropdownsearch widget is used represent the searchable dropdown array of l
   - **looupKeyVisibile** - bool - This is Lookup key define to display key for field.
   - **lookupFields** - Map<String, String> - This is for which field have to display in dropdown.
   - **type** - GtDropDownSearchIsCustom - This is type to show dropdown content is CUSTOM or Default.
+  - **overlayContextType** - GtContextType - To Identify which context type will be used for the overlay show for dropdown search result values are **{ BuildContext, GetContext }**, Default value for widget is BuildContext if overlay is not displayed then try changing this option to another type
+  - **spacing** - double - Spacing between the dropdown text form field and the dropdown result
+  - **suffixIconSplashRadius** - double - Dropdown text field suffix Icon splash radius
+  - **isRequired** - Boolean - Dropdown search required option, If passed it will fire the validation
+  - **isReadOnly** - Boolean - To make dropdown search readonly along with its suffix icon
+  - **overlayResultHeightCalculator** - Function - If custom height needs to be passed to overlay result then provide this input function which should return new calculated Height
+  - **validationHandler** - Function - Search text form field validation handler 
+  - **textInputType** - TextInputType - Search text form field input type 
+  - **enableTooltip** - Boolean - To enable the tooltip text on dropdown result 
+  
+  
 - Example
 
   - Step 1 : Import UI KIT in files that it will be used:
 
   ```dart
-     import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
+        import 'package:core/core.dart';
+        import 'package:flutter/material.dart';
+        import 'package:flutter_sample_ui_core/view/index.dart';
+        import 'package:greytrix_ui_kit/greytrix_ui_kit.dart';
   ```
 
   - Step 2 : Used GtDropdownSearch widget.
 
   ```dart
-        class DropDownSearchable extends StatelessWidget {
-           @override
-           Widget build(BuildContext context) {
-              var controller1 = MarqueeModel();
-             return Scaffold(
-                 appBar: GtAppBar(
-                     backgroundColor: Color(0xff5a5278),
-                     title: GtText(text: 'Scrolling Marquee widget')),
-                 body: Column(
-                    children:[
-                       GtDropdownSearch(
-                          textEditingController: TextEditingController(),
-                          dropDownResult: ["fsdshbdc", "sachadgbc", "advcsadf"],
-                          itemOnTapHandler: (i){},
-                          suffixOnPressed: (data){},
-                          textFieldOnTapHandler: (){},
-                       ),
-                    ]
-                 ));
-           }
+        class GtDropDownSearchPage extends StatelessWidget {
+          final controller = Get.put(DropdownSearchViewController());
+          GtDropDownSearchPage({Key? key}) : super(key: key);
+
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+              appBar: GtAppBar(
+                title: GtText(text: "DROPDOWN SEARCHABLE WIDGET"),
+              ),
+              // FORM WIDGET ADDED TO CHECK THE WIDGET VALIDATION
+              body: Form(
+                key: controller._formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: GtDropdownSearch(
+                            lookupFields: const {"Code": "code", "Description": "desc"},
+                            looupKeyVisibile: true,
+                            keyLabel: "search",
+                            textEditingController: controller.textEditingController,
+                            dropDownResult: controller.dropDownResult,
+                            itemOnTapHandler: (i) =>
+                                controller.handleDropdownOptionSelection(i),
+                            suffixOnPressed: (data) =>
+                                controller.handleSearch(query: data),
+                            enableTooltip :true,
+                            // dropdownWidth: 300,
+                            // spacing: 100,
+                            // isReadOnly: true,
+                            // overlayContextType: GtContextType.GetContext,
+                            // overlayResultHeightCalculator: () {
+                            //   return controller.dropDownResult.length < 4
+                            //       ? controller.dropDownResult.length < 3
+                            //           ? controller.dropDownResult.length < 2
+                            //               ? 50
+                            //               : 100
+                            //           : 150
+                            //       : 200;
+                            // },
+                            validationHandler: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter the value for search field';
+                              }
+
+                              ///BY PROVIDING THIS INPUT YOU CAN WRITE CUSTOM VALIDATION LOGIC FOR THE DROPDOWN SEARCH WIDGET
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        // ADDED TO CHECK THE POSITION OF THE DROPDOWN RESULT
+                        // Expanded(child: GtTextFormField(fieldLabel: "Test2")),
+                      ],
+                    ),
+                    const SizedBox(height: 15.0),
+                    GtText(text: 'Selected Dropdown value '),
+                    const SizedBox(height: 10.0),
+                    Obx(() => GtText(text: controller.selectedDropdownValue.value)),
+                    //TO CHECK VALIDATION FOR THE GtDropdownSearch widget
+                    ElevatedButton(
+                      onPressed: controller.validateForm,
+                      child: GtText(text: 'Validate Form'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
         }
+
+        ///CONTROLLER FOR VIEW WHICH HANDLES SEARCH AND DUMMY DATA 
+        class DropdownSearchViewController extends GetxController with StateMixin {
+          DropdownSearchViewController();
+
+          ///TEXT_EDITING CONTROLLER FOR DROPDOWN SEARCH WIDGET
+          TextEditingController textEditingController = TextEditingController();
+
+          ///FORM GLOBAL KEY TO CHECK THE DROPDOWN SEARCH VALIDATION
+          final _formKey = GlobalKey<FormState>();
+
+          ///HOLDS THE SELECTED DROPDOWN VALUE
+          RxString selectedDropdownValue = "".obs;
+
+          ///DUMMY DATA FOR SEARCH DROPDPOWN
+          List<dynamic> dummyData = [
+            {"code": "SH01CIT", "desc": "SIMPLY SHEER"},
+            {"code": "SH02CIT", "desc": "LITTLE PEACH"},
+            {"code": "SH03CIT", "desc": "SHEER BURG"},
+            {"code": "SH04CIT", "desc": "CHAMPAGNE"},
+            {"code": "SH05CIT", "desc": "Oak"}
+          ];
+
+          ///IT CONTAINS THE DROPDOWN SEARCH
+          RxList<dynamic> dropDownResult = RxList<dynamic>.empty(growable: true);
+
+          @override
+          void onInit() {
+            super.onInit();
+
+            ///ADDING INITIAL DEFAULT DATA FOR THE SEARCH DROPDOWN
+            dropDownResult.add(dummyData[0]);
+            dropDownResult.add(dummyData[1]);
+          }
+
+          ///IT HANDLES THE DROPDOWN SEARCH WIDGET SEARH CLICK HANDLER
+          void handleSearch({String query = ""}) {
+            ///HERE PERFORM THE DATA FETCH (i.e FROM API etc.) AS PER THE QUERY TEXT AND BIND THE RESULT
+            Future.delayed(const Duration(seconds: 1)).then((value) {
+              // HERE CLEARING THE OLD REORDS LIST
+              dropDownResult.clear();
+
+              ///HERE FILTERING DUMMY DATA AND THEN INSERTING IT INTO DROPDOWN RESULT
+              dropDownResult.addAll(dummyData.where((e) {
+                return (e["code"]
+                        .toString()
+                        .toLowerCase()
+                        .contains(query.toLowerCase()) ||
+                    e["desc"].toString().toLowerCase().contains(query.toLowerCase()));
+              }));
+            });
+          }
+
+          ///THIS FUNCTION HANDLES THE DROPDOWN SEARCH SELETED RESULT
+          void handleDropdownOptionSelection(int index) {
+            selectedDropdownValue.value =
+                "${dropDownResult.value[index]["code"]} ${dropDownResult.value[index]["desc"]}";
+          }
+
+          void validateForm() {
+            if (_formKey.currentState!.validate()) {
+              print('Form valid');
+            }
+          }
+        }
+
 
   ```
 

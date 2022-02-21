@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../models/index.dart';
 
 class DropDownSearchController extends GetxController {
-  DropDownSearchController({@required this.keyLabel});
+  DropDownSearchController({
+    @required this.keyLabel,
+    this.overlayContextType = GtContextType.BuildContext,
+  });
 
   final String keyLabel;
+
+  ///TO IDENTIFY WHICH CONTEXT TYPE WILL BE USED FOR THE OVERLAY SHOW FOR DROPDOWN SEARCH RESULT
+  final GtContextType overlayContextType;
   Rx<OverlayEntry> overlayEntry =
       new Rx<OverlayEntry>(OverlayEntry(builder: (context) {
     return Text("");
@@ -38,23 +45,36 @@ class DropDownSearchController extends GetxController {
   }
 
   /// Open OverLayEntry and Get position from RenderBox
-  openOverLay(OverlayEntry data, BuildContext context) {
+  openOverLay(OverlayEntry data, BuildContext context, double spacing) {
     RenderBox box = key.currentContext.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero);
-    dropTop.value = position.dy + 55;
+    dropTop.value = position.dy + spacing;
     dropLeft.value = position.dx;
     overlayEntry.value = data;
+    BuildContext buildContext;
     try {
-      BuildContext buildContext = context ?? Get.context;
+      ///HERE IF SETTING BUILD CONTEXT BASED ON INPUT PROVIDED TO OPEN THE OVERLAY VIEW
+      if (this.overlayContextType == GtContextType.BuildContext) {
+        buildContext = context;
+      } else {
+        buildContext = Get.context;
+      }
       if (buildContext != null) {
         Overlay.of(buildContext).insert(overlayEntry.value);
       }
     } catch (e) {
-      //If ANY ERROR OCCURED WITH NORMAL WIDGET CONTEXT THEN TRYING WITH GET.CONTEXT
+      BuildContext _buildContext;
+
+      ///HERE ON ERRRO SETTING DIFFERENT BUILD CONTEXT BASED ON INPUT PROVIDED
+      ///i.e. if GetContext provided but error occured then setting context as BuildContext
       try {
-        BuildContext buildContext = Get.context ?? context;
-        if (buildContext != null) {
-          Overlay.of(buildContext).insert(overlayEntry.value);
+        if (this.overlayContextType == GtContextType.BuildContext) {
+          _buildContext = Get.context;
+        } else {
+          _buildContext = context;
+        }
+        if (_buildContext != null) {
+          Overlay.of(_buildContext).insert(overlayEntry.value);
         }
       } catch (ce) {
         print('Error Inside openOverLay fn for dropdown search controller.');
@@ -64,8 +84,29 @@ class DropDownSearchController extends GetxController {
     isOpen.value = !isOpen.value;
   }
 
+  ///CLOSES THE OVERLAY WIDGET
   closeOverLay() {
     overlayEntry.value.remove();
     isOpen.value = !isOpen.value;
+  }
+
+  ///RETURNS THE WIDTH FOR THE DROPDOWN SEARCH RESULT POSITIONED WIDGET
+  double getWidth() {
+    try {
+      RenderBox box = key.currentContext.findRenderObject() as RenderBox;
+      return box.size.width;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  ///RETURNS THE WIDTH FOR THE DROPDOWN SEARCH RESULT POSITIONED WIDGET
+  double getHeight() {
+    try {
+      RenderBox box = key.currentContext.findRenderObject() as RenderBox;
+      return box.size.height;
+    } catch (e) {
+      return null;
+    }
   }
 }
