@@ -1,6 +1,11 @@
+## [0.0.15]
+#### March 15, 2022
+#### COMMIT NO : 
+- GtTagTextField Widget changes for selected value remove issue. 
+
 ## [0.0.14]
 #### February 21, 2022
-#### COMMIT NO : 
+#### COMMIT NO : 1f5e1ba
 - GtPdf Widget changes for the pdf table issue 
 - GtTextFormField widget input options added for `onEditingComplete` function and `inputFormatters` to provide the custom regex checks for TextFormField
 - GtPdfWIdget - MaxPage input option exposed with default maxPages as 1000 
