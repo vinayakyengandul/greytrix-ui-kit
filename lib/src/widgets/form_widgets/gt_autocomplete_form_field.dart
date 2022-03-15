@@ -61,190 +61,194 @@ class GtTagTextField extends StatelessWidget {
   final TextStyle valueTextStyle;
   /// Validation function Handler
   final Function(dynamic) validationHandler;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        ///FORM FIELD LABEL
-        if (fieldLabel != null && displayInFieldLabel == false)
-          GtText(
-            text: fieldLabel,
-            // texttype: TextformatType.bodyText2,
-            textStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.25,
-                fontStyle: FontStyle.normal,
-                color: textColor),
-          ),
+    return Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ///FORM FIELD LABEL
+            if (fieldLabel != null && displayInFieldLabel == false)
+              GtText(
+                text: fieldLabel,
+                // texttype: TextformatType.bodyText2,
+                textStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.25,
+                    fontStyle: FontStyle.normal,
+                    color: textColor),
+              ),
 
-        ///SUGGESTION FIELD
-        TypeAheadFormField(
-          textFieldConfiguration: TextFieldConfiguration(
-            style: valueTextStyle,
-            focusNode: focusNode,
-            decoration: InputDecoration(
-              ///LABEL INSIDE INPUT
-              labelText: displayInFieldLabel && fieldLabel != null
-                  ? '$fieldLabel'
-                  : null,
-              labelStyle: displayInFieldLabel && fieldLabel != null
-                  ? TextStyle(
-                      color: textColor,
-                      fontSize: labelfontsize,
-                    )
-                  : null,
-              prefix: Container(
-                child: Wrap(
-                  children: [
-                    if (selectedTaglist.isNotEmpty)
-                      ...selectedTaglist
-                          .map(
-                            (data) => InputChip(
-                              key: new GlobalKey<FormState>(),
-                              label: GtText(
-                                text:
-                                    '${data[lookupFields.entries.first.value]}',
-                                // texttype: TextformatType.bodyText2,
-                                textStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: 0.25,
-                                    fontStyle: FontStyle.normal,
-                                    color: textColor),
-                              ),
-                              selected: false,
-                              onDeleted: () => onDeleted(data),
-                            ),
-                          )
-                          .toList()
-                  ],
-                ),
-              ),
-            ),
-            controller: textEditingController,
-          ),
-          loadingBuilder: (context) => SizedBox(
-            height: 3.0,
-            child: LinearProgressIndicator(),
-          ),
-          onSaved: (onSavedVal) {
-            if (onSavedHander != null) onSavedHander(onSavedVal);
-          },
-          validator:  validationHandler != null ? validationHandler :  (val) {
-            if (isRequired == true && (val == null || val.isEmpty)) {
-              return 'Please select the value from ${fieldLabel != null ? fieldLabel : ""} suggestions';
-            }
-            return null;
-          },
-          itemBuilder: (context, suggestion) {
-            ///HERE CHECKING IF THE TYPE IS JSON MAP THEN ONLY SHOWING THE DATS TO THE SUGGESTION OTHERWISE SHOWING THE ADDNEW OPTION
-            //return ('${suggestion.runtimeType}' == '_JsonMap' || "minified:Qi" == '${suggestion.runtimeType}')
-            return (suggestion is Map<String, dynamic>)
-                ? (selectedTaglist.contains(suggestion))
-                    ? Container()
-                    : customWidgetPanel == null ?ListTile(
-                        title: Column( 
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: lookupFields.entries
-                              .map((e) => Row(
-                                    children: [
-                                      if (looupKeyVisibile) ...[
-                                        GtText(
-                                          text: '${e.key} :',
-                                          //   texttype: TextformatType.bodyText2,
-                                          textStyle: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              letterSpacing: 0.25,
-                                              fontStyle: FontStyle.normal,
-                                              color: textColor),
-                                        ),
-                                      ],
-                                      GtText(
-                                        text: suggestion[e.value],
-                                        //   texttype: TextformatType.bodyText2,
-                                        textStyle: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: 0.25,
-                                            fontStyle: FontStyle.normal,
-                                            color: textColor),
-                                      ),
-                                    ],
-                                  ))
-                              .toList(),
-                        ),
-                      ) : customWidgetPanel(suggestion)
-                : addNewHandler == null
-                    ? Container()
-                    : ListTile(
-                        onTap: () => addNewHandler(suggestion),
-                        title: GtText(
-                          text: '$suggestion',
-                          //  texttype: TextformatType.bodyText2,
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.25,
-                              fontStyle: FontStyle.normal,
-                              color: textColor),
-                        ),
-                        trailing: GTChip(
-                          avatar: GtIcon(icondata: Icons.add_circle),
-                          label: 'Add New',
-                          backgroundColor: Colors.green,
-                          //textFormatType: TextformatType.bodyText2,
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.25,
-                              fontStyle: FontStyle.normal,
-                              color: textColor),
-                        ),
-                      );
-          },
-          onSuggestionSelected: (suggestion) {
-            onSuggestionSelected(suggestion, allowMultiselection);
-            textEditingController.text = " ";
-          },
-          suggestionsCallback: (pattern) async {
-            return suggestionsCallback(pattern.toString().trim());
-          },
-          suggestionsBoxDecoration: SuggestionsBoxDecoration(),
-          transitionBuilder: (context, suggestionsBox, controller) {
-            return suggestionsBox;
-          },
-          noItemsFoundBuilder: addButtonOption ? (context) {
-            return Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  GtIcon(icondata: Icons.add),
-                  GtText(
-                    text: 'Add',
-                    // texttype: TextformatType.bodyText2,
-                    textStyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0.25,
-                        fontStyle: FontStyle.normal,
-                        color: textColor),
+            ///SUGGESTION FIELD
+            TypeAheadFormField(
+              textFieldConfiguration: TextFieldConfiguration(
+                style: valueTextStyle,
+                focusNode: focusNode,
+                decoration: InputDecoration(
+                  ///LABEL INSIDE INPUT
+                  labelText: displayInFieldLabel && fieldLabel != null
+                      ? '$fieldLabel'
+                      : null,
+                  labelStyle: displayInFieldLabel && fieldLabel != null
+                      ? TextStyle(
+                          color: textColor,
+                          fontSize: labelfontsize,
+                        )
+                      : null,
+                  prefix: Container(
+                    child: Wrap(
+                      children: [
+                        if (selectedTaglist.isNotEmpty)
+                          ...selectedTaglist
+                              .map(
+                                (data) => InputChip(
+                                  key: new GlobalKey<FormState>(),
+                                  label: GtText(
+                                    text:
+                                        '${data[lookupFields.entries.first.value]}',
+                                    // texttype: TextformatType.bodyText2,
+                                    textStyle: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        letterSpacing: 0.25,
+                                        fontStyle: FontStyle.normal,
+                                        color: textColor),
+                                  ),
+                                  selected: false,
+                                  onDeleted: () => onDeleted(data),
+                                ),
+                              )
+                              .toList()
+                      ],
+                    ),
                   ),
-                ],
+                ),
+                controller: textEditingController,
               ),
-            );
-          } : null,
-        ),
-      ],
+              loadingBuilder: (context) => SizedBox(
+                height: 3.0,
+                child: LinearProgressIndicator(),
+              ),
+              onSaved: (onSavedVal) {
+                if (onSavedHander != null) onSavedHander(onSavedVal);
+              },
+              validator:  validationHandler != null ? validationHandler :  (val) {
+                if (isRequired == true && (val == null || val.isEmpty)) {
+                  return 'Please select the value from ${fieldLabel != null ? fieldLabel : ""} suggestions';
+                }
+                return null;
+              },
+              itemBuilder: (context, suggestion) {
+                ///HERE CHECKING IF THE TYPE IS JSON MAP THEN ONLY SHOWING THE DATS TO THE SUGGESTION OTHERWISE SHOWING THE ADDNEW OPTION
+                //return ('${suggestion.runtimeType}' == '_JsonMap' || "minified:Qi" == '${suggestion.runtimeType}')
+                return (suggestion is Map<String, dynamic>)
+                    ? (selectedTaglist.contains(suggestion))
+                        ? Container()
+                        : customWidgetPanel == null ?ListTile(
+                            title: Column( 
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: lookupFields.entries
+                                  .map((e) => Row(
+                                        children: [
+                                          if (looupKeyVisibile) ...[
+                                            GtText(
+                                              text: '${e.key} :',
+                                              //   texttype: TextformatType.bodyText2,
+                                              textStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 0.25,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: textColor),
+                                            ),
+                                          ],
+                                          GtText(
+                                            text: suggestion[e.value],
+                                            //   texttype: TextformatType.bodyText2,
+                                            textStyle: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                letterSpacing: 0.25,
+                                                fontStyle: FontStyle.normal,
+                                                color: textColor),
+                                          ),
+                                        ],
+                                      ))
+                                  .toList(),
+                            ),
+                          ) : customWidgetPanel(suggestion)
+                    : addNewHandler == null
+                        ? Container()
+                        : ListTile(
+                            onTap: () => addNewHandler(suggestion),
+                            title: GtText(
+                              text: '$suggestion',
+                              //  texttype: TextformatType.bodyText2,
+                              textStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.25,
+                                  fontStyle: FontStyle.normal,
+                                  color: textColor),
+                            ),
+                            trailing: GTChip(
+                              avatar: GtIcon(icondata: Icons.add_circle),
+                              label: 'Add New',
+                              backgroundColor: Colors.green,
+                              //textFormatType: TextformatType.bodyText2,
+                              textStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.25,
+                                  fontStyle: FontStyle.normal,
+                                  color: textColor),
+                            ),
+                          );
+              },
+              onSuggestionSelected: (suggestion) {
+                onSuggestionSelected(suggestion, allowMultiselection);
+                textEditingController.text = " ";
+              },
+              suggestionsCallback: (pattern) async {
+                return suggestionsCallback(pattern.toString().trim());
+              },
+              suggestionsBoxDecoration: SuggestionsBoxDecoration(),
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
+              noItemsFoundBuilder: addButtonOption ? (context) {
+                return Container(
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      GtIcon(icondata: Icons.add),
+                      GtText(
+                        text: 'Add',
+                        // texttype: TextformatType.bodyText2,
+                        textStyle: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.25,
+                            fontStyle: FontStyle.normal,
+                            color: textColor),
+                      ),
+                    ],
+                  ),
+                );
+              } : null,
+            ),
+          ],
+        )
     );
   }
 }
